@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G31" minimumToolsVersion="Xcode 4.3">
+    <entity name="StoredOfflineHit" representedClassName=".StoredOfflineHit" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="hit" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="retry" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="StoredOfflineHit" positionX="-63" positionY="-18" width="128" height="90"/>
+    </elements>
+</model>
