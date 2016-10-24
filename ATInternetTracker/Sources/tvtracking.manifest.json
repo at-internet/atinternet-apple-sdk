@@ -1,0 +1,31 @@
+{
+    "name":"Geode_Tag_Plg_TVT",
+    "description": "Plugin permettant de récupérer les informations liées au TV Tracking",
+    "type": "sdkplugins",
+    "config": {
+        "tvtURL": {
+        "title": "Geode_Tag_SDK_Plg_TVT_tvtUrl_Title",
+        "description": "Geode_Tag_SDK_Plg_TVT_tvtUrl_Description",
+        "defaultValue": "",
+        "type": "string",
+        "public": true,
+        "global": true
+      },
+      "tvtVisitDuration": {
+        "title": "Geode_Tag_SDK_Plg_TVT_tvtVisitDuration_Title",
+        "description": "Geode_Tag_SDK_Plg_TVT_tvtVisitDuration_Description",
+        "defaultValue": "10",
+        "type": "int",
+        "public": true,
+        "global": true
+      },
+        "tvtSpotValidityTime": {
+            "title": "Geode_Tag_SDK_Plg_TVT_tvtSpotValidityTime_Title",
+            "description": "Geode_Tag_SDK_Plg_TVT_tvtSpotValidityTime_Description",
+            "defaultValue": "5",
+            "type": "int",
+            "public": true,
+            "global": true
+        }
+    }
+}
