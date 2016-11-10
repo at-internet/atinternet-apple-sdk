@@ -168,10 +168,19 @@ class SEScreenshot: SocketEvent {
 class SEInterfaceAskedForLive: SocketEvent {
     override func process() {
         let currentVersion = TechnicalContext.applicationVersion.isEmpty ? "" : TechnicalContext.applicationVersion
-        if self.messageData != nil && self.messageData!["version"].string != nil && self.messageData!["version"].string != currentVersion {
-            liveManager.sender?.sendMessageForce(DeviceVersion().description)
-            return
+        let currentIdentifier = "ios." + TechnicalContext.applicationIdentifier
+        
+        if self.messageData != nil {
+            if self.messageData!["appID"].string != nil && self.messageData!["appID"].string != currentIdentifier {
+                liveManager.sender?.sendMessageForce(DeviceTokenAlreadyUsed().description)
+                return
+            }
+            if self.messageData!["version"].string != nil && self.messageData!["version"].string != currentVersion {
+                liveManager.sender?.sendMessageForce(DeviceVersion().description)
+                return
+            }
         }
+        
         self.liveManager.interfaceAskedForLive()
     }
 }

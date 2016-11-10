@@ -119,7 +119,7 @@ class ScreenshotUpdated {
     }
 }
 
-/// Device send its version
+/// Device sends its version
 class DeviceVersion {
     var description: String {
         let deviceVersion: [String: Any] = [
@@ -127,5 +127,16 @@ class DeviceVersion {
             "data": App().toJSONObject["data"]!
         ]
         return deviceVersion.toJSON()
+    }
+}
+
+/// Device sends its data
+class DeviceTokenAlreadyUsed {
+    var description: String {
+        let deviceTokenAlreadyUsed: [String: Any] = [
+            "event": "DeviceTokenAlreadyUsed",
+            "data": App().toJSONObject["data"]!
+        ]
+        return deviceTokenAlreadyUsed.toJSON()
     }
 }

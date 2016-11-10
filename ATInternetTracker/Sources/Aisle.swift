@@ -52,6 +52,85 @@ public class Aisle: ScreenInfo {
     /// Aisle level6 label
     public var level6: String?
     
+    override init(tracker: Tracker) {
+        super.init(tracker: tracker)
+    }
+    
+    /**
+     Add tagging data for an aisle
+     - parameter level1: level1 label
+     - returns: Aisle instance
+     */
+    public init(level1: String) {
+        super.init()
+        self.level1 = level1
+    }
+    
+    /**
+     Add tagging data for an aisle
+     - parameter level1: level1 label
+     - parameter level2: level2 label
+     - returns: Aisle instance
+     */
+    public convenience init(level1: String, level2: String) {
+        self.init(level1: level1)
+        self.level2 = level2
+    }
+    
+    /**
+     Add tagging data for an aisle
+     - parameter level1: level1 label
+     - parameter level2: level2 label
+     - parameter level3: level3 label
+     - returns: Aisle instance
+     */
+    public convenience init(level1: String, level2: String, level3: String) {
+        self.init(level1: level1, level2: level2)
+        self.level3 = level3
+    }
+    
+    /**
+     Add tagging data for an aisle
+     - parameter level1: level1 label
+     - parameter level2: level2 label
+     - parameter level3: level3 label
+     - parameter level4: level4 label
+     - returns: Aisle instance
+     */
+    public convenience init(level1: String, level2: String, level3: String, level4: String) {
+        self.init(level1: level1, level2: level2, level3: level3)
+        self.level4 = level4
+    }
+    
+    /**
+     Add tagging data for an aisle
+     - parameter level1: level1 label
+     - parameter level2: level2 label
+     - parameter level3: level3 label
+     - parameter level4: level4 label
+     - parameter level5: level5 label
+     - returns: Aisle instance
+     */
+    public convenience init(level1: String, level2: String, level3: String, level4: String, level5: String) {
+        self.init(level1: level1, level2: level2, level3: level3, level4: level4)
+        self.level5 = level5
+    }
+    
+    /**
+     Add tagging data for an aisle
+     - parameter level1: level1 label
+     - parameter level2: level2 label
+     - parameter level3: level3 label
+     - parameter level4: level4 label
+     - parameter level5: level5 label
+     - parameter level6: level6 label
+     - returns: Aisle instance
+     */
+    public convenience init(level1: String, level2: String, level3: String, level4: String, level5: String, level6: String) {
+        self.init(level1: level1, level2: level2, level3: level3, level4: level4, level5: level5)
+        self.level6 = level6
+    }
+    
     /// Set parameters in buffer
     override func setEvent() {
         var value: String?
