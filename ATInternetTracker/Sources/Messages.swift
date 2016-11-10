@@ -115,7 +115,7 @@ class ScreenshotUpdated {
     }
 }
 
-/// Device send its version
+/// Device sends its version
 class DeviceVersion {
     var description: String {
         let deviceVersion: NSMutableDictionary = [
@@ -125,3 +125,15 @@ class DeviceVersion {
         return deviceVersion.toJSON()
     }
 }
+
+/// Device sends its data
+class DeviceTokenAlreadyUsed {
+    var description: String {
+        let deviceTokenAlreadyUsed: NSMutableDictionary = [
+            "event": "DeviceTokenAlreadyUsed",
+            "data": App().toJSONObject["data"]!
+        ]
+        return deviceTokenAlreadyUsed.toJSON()
+    }
+}
+
