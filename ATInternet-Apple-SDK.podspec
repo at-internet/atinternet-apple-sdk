@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name = "ATInternet-Apple-SDK"
-	s.version = '1.0.1'
+	s.version = '1.0.2'
 	s.summary = "AT Internet mobile analytics solution for Apple devices"
 	s.homepage = "https://github.com/at-internet/atinternet-apple-sdk"
 	s.documentation_url	= 'http://developers.atinternet-solutions.com/apple-en/getting-started-apple-en/operating-principle-apple-en/'
@@ -93,7 +93,7 @@ Pod::Spec.new do |s|
 		tvos.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
 		tvos.exclude_files = $not_smartsdk
 		tvos.resources = "ATInternetTracker/Sources/*.{plist,xcdatamodeld,png,json,mp3,ttf}", "ATInternetTracker/Sources/Images.xcassets"
-		tvos.frameworks = "CoreData", "CoreFoundation", "UIKit", "CoreTelephony", "SystemConfiguration"
+		tvos.frameworks = "CoreData", "CoreFoundation", "UIKit", "SystemConfiguration"
 		tvos.platform = :tvos
 	end
 
@@ -101,7 +101,7 @@ Pod::Spec.new do |s|
 		appExt.pod_target_xcconfig	  = { 'OTHER_SWIFT_FLAGS' => '-DAT_EXTENSION' }
 		appExt.source_files           = "ATInternetTracker/Sources/*.{h,m,swift}"
 		appExt.exclude_files          = ["ATInternetTracker/Sources/BackgroundTask.swift","ATInternetTracker/Sources/Debugger.swift"] + $not_smartsdk
-		appExt.frameworks             = "CoreData", "CoreFoundation", "WatchKit", "UIKit", "CoreTelephony", "SystemConfiguration"
+		appExt.frameworks             = "CoreData", "CoreFoundation", "WatchKit", "UIKit", "SystemConfiguration", "CoreTelephony"
 		appExt.platform				  = :ios
 		appExt.resources = "ATInternetTracker/Sources/*.{plist,xcdatamodeld,png,json}", "ATInternetTracker/Sources/Images.xcassets"
 	end
@@ -110,7 +110,7 @@ Pod::Spec.new do |s|
 	s.subspec 'watchOSTracker' do |wos|
 		wos.source_files           = "ATInternetTracker/Sources/*.{h,m,swift}"
 		wos.exclude_files          = ["ATInternetTracker/Sources/BackgroundTask.swift","ATInternetTracker/Sources/Reachability.swift","ATInternetTracker/Sources/Debugger.swift"] + $not_smartsdk
-		wos.frameworks             = "CoreData", "CoreFoundation", "WatchKit", "UIKit", "CoreTelephony", "SystemConfiguration"
+		wos.frameworks             = "CoreData", "CoreFoundation", "WatchKit"
 		wos.platform				  = :watchos
 		wos.resources = "ATInternetTracker/Sources/DefaultConfiguration.plist","ATInternetTracker/Sources/core.manifest.json", "ATInternetTracker/Sources/*.xcdatamodeld"
 	end
