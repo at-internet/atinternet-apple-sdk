@@ -915,6 +915,7 @@
 		8E9398B41D9583810065D58D /* SmartTrackerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartTrackerConfiguration.swift; sourceTree = "<group>"; };
 		8EC97ED21D5A2CC1007360F3 /* APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APITests.swift; path = Tests/APITests.swift; sourceTree = "<group>"; };
 		8EDC3CF51D3E225100A14458 /* ApiS3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiS3.swift; sourceTree = "<group>"; };
+		8EEBADC51DF5779200FD1CFD /* ATInternet-Apple-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = "ATInternet-Apple-SDK.podspec"; path = "../../ATInternet-Apple-SDK.podspec"; sourceTree = "<group>"; };
 		8EFF4AF71D50D79C005DF2A7 /* DeviceRotationEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceRotationEvent.swift; sourceTree = "<group>"; };
 		8EFF4AFA1D50D7B0005DF2A7 /* DeviceRotationOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceRotationOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1157,6 +1158,7 @@
 		4F47A5591D36209900702747 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				8EEBADC51DF5779200FD1CFD /* ATInternet-Apple-SDK.podspec */,
 				4F47A43A1D3532FE00702747 /* Info-iOS-Extension.plist */,
 				4F47A5541D35465200702747 /* Info-iOS-SmartTracker.plist */,
 				4F47A4161D35200D00702747 /* Info-watchOS.plist */,

@@ -78,6 +78,8 @@ class TechnicalContext: NSObject {
         }
     }
     
+    
+    
     /// Unique user id
     class func userId(_ identifier: String?) -> String {
         
@@ -96,12 +98,45 @@ class TechnicalContext: NSObject {
                 }
             }
             
+            let idfa: () -> String = {
+                var idfa: String = ""
+                
+                if let ASIdentifierManagerClass = NSClassFromString("ASIdentifierManager") {
+                    let sharedManagerSelector = NSSelectorFromString("sharedManager")
+                    if let sharedManagerIMP = ASIdentifierManagerClass.method(for: sharedManagerSelector) {
+                        typealias sharedManagerCType = @convention(c) (AnyObject, Selector) -> AnyObject!
+                        let getSharedManager = unsafeBitCast(sharedManagerIMP, to: sharedManagerCType.self)
+                        if let sharedManager = getSharedManager(ASIdentifierManagerClass.self, sharedManagerSelector) {
+                            let advertisingTrackingEnabledSelector = NSSelectorFromString("isAdvertisingTrackingEnabled")
+                            if let isTrackingEnabledIMP = sharedManager.method(for: advertisingTrackingEnabledSelector) {
+                                typealias isTrackingEnabledCType = @convention(c) (AnyObject, Selector) -> Bool
+                                let getIsTrackingEnabled = unsafeBitCast(isTrackingEnabledIMP, to: isTrackingEnabledCType.self)
+                                let isTrackingEnabled = getIsTrackingEnabled(self, advertisingTrackingEnabledSelector)
+                                if isTrackingEnabled {
+                                    let advertisingIdentifierSelector = NSSelectorFromString("advertisingIdentifier")
+                                    if let advertisingIdentifierIMP = sharedManager.method(for: advertisingIdentifierSelector) {
+                                        typealias adIdentifierCType = @convention(c) (AnyObject, Selector) -> NSUUID
+                                        let getIdfa = unsafeBitCast(advertisingIdentifierIMP, to: adIdentifierCType.self)
+                                        idfa = getIdfa(self, advertisingIdentifierSelector).uuidString
+                                    }
+                                } else {
+                                    return "opt-out"
+                                }
+                            }
+                        }
+                    }
+                }
+                return idfa
+            }
+            
             if let optIdentifier = identifier {
                 #if !os(watchOS)
                 switch(optIdentifier.lowercased())
                 {
                 case "idfv":
                     return UIDevice.current.identifierForVendor!.uuidString
+                case "idfa":
+                    return idfa()
                 default:
                     return uuid()
                 }
