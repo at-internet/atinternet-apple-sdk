@@ -18,7 +18,7 @@ Supported devices :
   - Check out the [documentation page] for an overview of the functionalities and code examples
 
 # SmartTracker (beta)
-SmartTracker makes it quick and easy to track your mobile app performance. Using a single line of code, tag your app just by navigating through its content in our simple tagging interface available at livetagging.atinternet-solutions.com. Update and correct your tags in just minutes, and your changes will be pushed to users’ phones in real time: You’ll no longer need to resubmit to app stores and hope users update each time you edit your tagging.
+SmartTracker makes it quick and easy to track your mobile app performance. Using a single line of code, tag your app just by navigating through its content in our simple tagging interface available at apps.atinternet-solutions.com . Update and correct your tags in just minutes, and your changes will be pushed to users’ phones in real time: You’ll no longer need to resubmit to app stores and hope users update each time you edit your tagging.
 
 ### Manual integration
 Find the integration information by following [this link]
