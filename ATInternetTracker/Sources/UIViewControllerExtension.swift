@@ -120,6 +120,8 @@ extension UIViewController {
                 EventManager.sharedInstance.addEvent(ScreenRotationOperation(rotationEvent: ScreenRotationEvent(orientation: UIViewControllerContext.sharedInstance.currentOrientation)))
             }
         }
+        
+        self.at_viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
 
     func at_viewDidLoad() {
@@ -143,6 +145,7 @@ extension UIViewController {
                 }
             }
         }
+        self.at_viewDidLoad()
     }
     
     public class func at_unswizzle_instances () {
