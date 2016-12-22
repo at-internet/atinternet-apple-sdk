@@ -80,6 +80,7 @@ class DeviceRotationOperation: NSOperation {
         let shouldSendHit = mapConfiguration(rotationGesture)
         if shouldSendHit {
             handleDelegate(rotationGesture)
+            tracker.buffer.addAutoTrackingContextVariable()
             tracker.dispatcher.dispatch([rotationGesture])
         }
     }

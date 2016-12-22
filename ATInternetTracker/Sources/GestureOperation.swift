@@ -101,6 +101,7 @@ class GestureOperation: NSOperation {
         let shouldSendHit = mapConfiguration(gesture)
         if shouldSendHit {
             handleDelegate(gesture)
+            tracker.buffer.addAutoTrackingContextVariable()
             tracker.dispatcher.dispatch([gesture])
         }
         return shouldSendHit

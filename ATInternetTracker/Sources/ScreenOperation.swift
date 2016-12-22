@@ -95,6 +95,7 @@ class ScreenOperation: NSOperation {
         let shouldSend = mapConfiguration(screen)
         if shouldSend {
             handleDelegate(screen)
+            tracker.buffer.addAutoTrackingContextVariable()
             screen.sendView()
         }
         return shouldSend

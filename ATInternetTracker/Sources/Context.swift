@@ -42,17 +42,17 @@ public class Context: NSObject {
     
     // MARK: - Level 2
     
-    internal var _level2: Int? = nil
+    internal var _level2: Int = 0
     
     /// Tracker level 2
-    public var level2: Int? {
+    public var level2: Int {
         get {
             return _level2
         }
         set {
             _level2 = newValue
             
-            if let _level2 = _level2 {
+            if _level2 > 0 {
                 let option = ParamOption()
                 option.persistent = true;
                 
@@ -65,10 +65,10 @@ public class Context: NSObject {
     
     // MARK: - Background Mode
     
-    internal var _backgroundMode: BackgroundMode? = nil
+    internal var _backgroundMode: BackgroundMode = BackgroundMode.Normal
     
     /// Tracker background mode
-    public var backgroundMode: BackgroundMode? {
+    public var backgroundMode: BackgroundMode {
         get {
             return _backgroundMode
         }
@@ -78,16 +78,15 @@ public class Context: NSObject {
             let option = ParamOption()
             option.persistent = true
             
-            if let _backgroundMode = _backgroundMode {
-                switch _backgroundMode {
+            switch _backgroundMode {
                 case .Fetch:
                     tracker.setParam(HitParam.BackgroundMode.rawValue, value: "fetch", options: option)
                 case .Task:
                     tracker.setParam(HitParam.BackgroundMode.rawValue, value: "task", options: option)
                 default:
                     tracker.unsetParam(HitParam.BackgroundMode.rawValue)
-                }
             }
+        
         }
     }
 }

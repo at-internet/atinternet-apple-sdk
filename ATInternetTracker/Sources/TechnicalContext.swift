@@ -33,6 +33,10 @@ SOFTWARE.
 import CoreTelephony
 #endif
 
+#if os(tvOS) || os(iOS)
+    import AdSupport
+#endif
+
 #if os(watchOS)
 import WatchKit
 #else
@@ -96,12 +100,42 @@ class TechnicalContext: NSObject {
                 }
             }
             
+            let idfa: () -> String = {
+                var idfa: String = ""
+                
+                if let ASIdentifierManagerClass = NSClassFromString("ASIdentifierManager") {
+                    let sharedManagerSelector = NSSelectorFromString("sharedManager")
+                    let sharedManagerIMP = ASIdentifierManagerClass.methodForSelector(sharedManagerSelector)
+                    typealias sharedManagerCType = @convention(c) (AnyObject, Selector) -> AnyObject!
+                    let getSharedManager = unsafeBitCast(sharedManagerIMP, sharedManagerCType.self)
+                    if let sharedManager = getSharedManager(ASIdentifierManagerClass.self, sharedManagerSelector) {
+                        let advertisingTrackingEnabledSelector = NSSelectorFromString("isAdvertisingTrackingEnabled")
+                        let isTrackingEnabledIMP = sharedManager.methodForSelector(advertisingTrackingEnabledSelector)
+                        typealias isTrackingEnabledCType = @convention(c) (AnyObject, Selector) -> Bool
+                        let getIsTrackingEnabled = unsafeBitCast(isTrackingEnabledIMP, isTrackingEnabledCType.self)
+                        let isTrackingEnabled = getIsTrackingEnabled(self, advertisingTrackingEnabledSelector)
+                        if isTrackingEnabled {
+                            let advertisingIdentifierSelector = NSSelectorFromString("advertisingIdentifier")
+                            let advertisingIdentifierIMP = sharedManager.methodForSelector(advertisingIdentifierSelector)
+                            typealias adIdentifierCType = @convention(c) (AnyObject, Selector) -> NSUUID
+                            let getIdfa = unsafeBitCast(advertisingIdentifierIMP, adIdentifierCType.self)
+                            idfa = getIdfa(self, advertisingIdentifierSelector).UUIDString
+                        } else {
+                            return "opt-out"
+                        }
+                    }
+                }
+                return idfa
+            }
+            
             if let optIdentifier = identifier {
                 #if !os(watchOS)
                 switch(optIdentifier.lowercaseString)
                 {
                 case "idfv":
                     return UIDevice.currentDevice().identifierForVendor!.UUIDString
+                case "idfa":
+                    return idfa()
                 default:
                     return uuid()
                 }

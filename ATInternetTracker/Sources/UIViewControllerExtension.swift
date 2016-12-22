@@ -79,6 +79,7 @@ extension UIViewController {
             try self.jr_swizzleMethod(#selector(UIViewController.viewDidDisappear(_:)), withMethod: #selector(UIViewController.at_viewDidDisappear(_:)))
             try self.jr_swizzleMethod(#selector(UIViewController.viewWillDisappear(_:)), withMethod: #selector(UIViewController.at_viewWillDisappear(_:)))
             try self.jr_swizzleMethod(#selector(UIViewController.viewDidLoad), withMethod: #selector(UIViewController.at_viewDidLoad))
+            
         } catch {
             NSException(name: "SwizzleException", reason: "Impossible to find method to swizzle", userInfo: nil).raise()
         }
@@ -119,6 +120,7 @@ extension UIViewController {
                 EventManager.sharedInstance.addEvent(ScreenRotationOperation(rotationEvent: ScreenRotationEvent(orientation: UIViewControllerContext.sharedInstance.currentOrientation)))
             }
         }
+        self.at_viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
 
     func at_viewDidLoad() {
@@ -142,6 +144,7 @@ extension UIViewController {
                 }
             }
         }
+        self.at_viewDidLoad()
     }
     
     public class func at_unswizzle_instances () {

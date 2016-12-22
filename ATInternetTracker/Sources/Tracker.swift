@@ -1100,12 +1100,12 @@ public class Tracker: NSObject {
         }
         
         switch param {
-        case HitParam.Level2.rawValue:
-            context._level2 = nil
-        case HitParam.BackgroundMode.rawValue:
-            context._backgroundMode = nil
-        default:
-            break
+            case HitParam.Level2.rawValue:
+                context._level2 = 0
+            case HitParam.BackgroundMode.rawValue:
+                context._backgroundMode = .Normal
+            default:
+                break
         }
     }
 
