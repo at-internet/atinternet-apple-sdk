@@ -77,10 +77,11 @@ class DeviceRotationOperation: Operation {
         rotationGesture.screen = rotationEvent.currentScreen
         rotationGesture.type = rotationEvent.eventType
         _ = rotationGesture.customObjects.add(["deviceOrientation":tracker.orientation!.rawValue, "interfaceOrientation": UIApplication.shared.statusBarOrientation.rawValue])
-
+        
         let shouldSendHit = mapConfiguration(rotationGesture)
         if shouldSendHit {
             handleDelegate(rotationGesture)
+            tracker.buffer.addAutoTrackingContextVariable()
             tracker.dispatcher.dispatch([rotationGesture])
         }
     }

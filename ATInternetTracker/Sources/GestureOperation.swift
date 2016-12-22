@@ -103,6 +103,7 @@ class GestureOperation: Operation {
         let shouldSendHit = mapConfiguration(gesture)
         if shouldSendHit {
             handleDelegate(gesture)
+            tracker.buffer.addAutoTrackingContextVariable()
             tracker.dispatcher.dispatch([gesture])
         }
         
@@ -185,12 +186,12 @@ class GestureOperation: Operation {
 
             let rules = [
                 Rule(rule: "ignoreTap", value: Gesture.GestureEventType.tap.rawValue),
-            Rule(rule: "ignoreSwipe", value: Gesture.GestureEventType.swipe.rawValue),
-            Rule(rule: "ignoreScroll", value: Gesture.GestureEventType.scroll.rawValue),
-            Rule(rule: "ignorePinch", value: Gesture.GestureEventType.pinch.rawValue),
-            Rule(rule: "ignorePan", value: Gesture.GestureEventType.pan.rawValue),
-            Rule(rule: "ignoreRefresh", value: Gesture.GestureEventType.refresh.rawValue),
-        ]
+                Rule(rule: "ignoreSwipe", value: Gesture.GestureEventType.swipe.rawValue),
+                Rule(rule: "ignoreScroll", value: Gesture.GestureEventType.scroll.rawValue),
+                Rule(rule: "ignorePinch", value: Gesture.GestureEventType.pinch.rawValue),
+                Rule(rule: "ignorePan", value: Gesture.GestureEventType.pan.rawValue),
+                Rule(rule: "ignoreRefresh", value: Gesture.GestureEventType.refresh.rawValue),
+            ]
 
             for oKey in rules {
                 if let shouldIgnore = mapping["configuration"]["rules"][oKey.rule].bool {

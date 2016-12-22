@@ -114,4 +114,15 @@ public class Buffer: NSObject {
         // Add unique user id
         self.persistentParameters.append(Param(key: "idclient", value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"])}, type: .string, options: persistentOption))
     }
+
+    #if os(iOS) && AT_SMART_TRACKER
+    // Add AutoTracker
+    func addAutoTrackingContextVariable() {
+        if self.tracker is AutoTracker && (self.tracker as! AutoTracker).enableAutoTracking {
+            let persistentOption = ParamOption()
+            persistentOption.persistent = true
+            self.volatileParameters.append(Param(key: "auto", value: {"1"}, type: .string, options: persistentOption))
+        }
+    }
+    #endif
 }
