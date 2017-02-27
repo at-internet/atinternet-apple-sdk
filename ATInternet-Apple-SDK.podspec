@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
 	s.name = "ATInternet-Apple-SDK"
-	s.version = '0.1.2'
+	s.version = '0.1.3'
 	s.summary = "AT Internet mobile analytics solution for Apple devices"
 	s.homepage = "https://github.com/at-internet/atinternet-apple-sdk"
 	s.documentation_url	= 'http://developers.atinternet-solutions.com/apple-en/getting-started-apple-en/operating-principle-apple-en/'
 	s.license = "MIT"
 	s.author = "AT Internet"
 	s.requires_arc = true
-	s.source = { :git => "https://github.com/at-internet/atinternet-apple-sdk.git", :tag => "1.0.2-swift2.3"}
+	s.source = { :git => "https://github.com/at-internet/atinternet-apple-sdk.git", :tag => "1.0.3-swift2.3"}
 	s.module_name = 'Tracker'
 	s.ios.deployment_target	= '8.0'
 	s.tvos.deployment_target = '9.0'

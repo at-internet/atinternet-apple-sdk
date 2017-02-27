@@ -75,7 +75,7 @@ class Configuration: NSObject {
     /// Dictionary of configuration parameters
     var parameters = [String: String]()
     
-    static var smartSDKMapping: JSON?
+    static var smartSDKMapping: ATJSON?
 
     /// Read only configuration
     class ReadOnlyConfiguration {

@@ -11,7 +11,7 @@ class MockStore: SimpleStorageProtocol {
 
 class MockNetwork: SimpleNetworkService {
     func getURL(request: MappingRequest, retryCount: Int) {
-        request.onLoaded(JSON(["timestamp":123456]))
+        request.onLoaded(ATJSON(["timestamp":123456]))
     }
 }
 
@@ -44,7 +44,7 @@ class APITests: XCTestCase {
         let exp = expectationWithDescription("async")
         
         let api = ApiS3Client(token: "X", version: "1.0", store: MockStore(), networkService: MockNetwork())
-        api.fetchMapping({(apiMapping: JSON?) in
+        api.fetchMapping({(apiMapping: ATJSON?) in
             XCTAssertNotNil(apiMapping)
             exp.fulfill()
         })
@@ -60,9 +60,9 @@ class APITests: XCTestCase {
         let exp = expectationWithDescription("async")
         let ts = "123"
         let api = ApiS3Client(token: "X", version: "1.0", store: MockStore(), networkService: MockNetwork())
-        let fakeAPI: JSON = JSON(["timestamp":ts])
+        let fakeAPI: ATJSON = ATJSON(["timestamp":ts])
         api.saveSmartSDKMapping(fakeAPI)
-        api.fetchMapping({ (mapping:JSON?) in
+        api.fetchMapping({ (mapping:ATJSON?) in
             XCTAssertNotEqual(mapping!["timestamp"].string, ts)
             exp.fulfill()
         })
@@ -76,9 +76,9 @@ class APITests: XCTestCase {
     func testDontFetchMappingIfCheckSumOk() {
         let exp = expectationWithDescription("async")
         let api = ApiS3Client(token: "X", version: "1.0", store: MockStore(), networkService: MockNetwork())
-        api.fetchMapping({ (mapping:JSON?) in
+        api.fetchMapping({ (mapping:ATJSON?) in
             api.saveSmartSDKMapping(mapping!)
-            api.fetchMapping({ (mapping:JSON?) in
+            api.fetchMapping({ (mapping:ATJSON?) in
                 exp.fulfill()
             })
         })

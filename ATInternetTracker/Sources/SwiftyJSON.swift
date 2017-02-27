@@ -54,7 +54,7 @@ public enum Type :Int{
 
 // MARK: - JSON Base
 
-public struct JSON {
+public struct ATJSON {
     
     /**
      Creates a JSON using the data.
@@ -83,9 +83,9 @@ public struct JSON {
      
      - returns: The created JSON
      */
-    public static func parse(string:String) -> JSON {
+    public static func parse(string:String) -> ATJSON {
         return string.dataUsingEncoding(NSUTF8StringEncoding)
-            .flatMap({JSON(data: $0)}) ?? JSON(NSNull())
+            .flatMap({ATJSON(data: $0)}) ?? ATJSON(NSNull())
     }
     
     /**
@@ -106,7 +106,7 @@ public struct JSON {
      
      - returns: The created JSON
      */
-    public init(_ jsonArray:[JSON]) {
+    public init(_ jsonArray:[ATJSON]) {
         self.init(jsonArray.map { $0.object })
     }
     
@@ -117,7 +117,7 @@ public struct JSON {
      
      - returns: The created JSON
      */
-    public init(_ jsonDictionary:[String: JSON]) {
+    public init(_ jsonDictionary:[String: ATJSON]) {
         var dictionary = [String: AnyObject](minimumCapacity: jsonDictionary.count)
         for (key, json) in jsonDictionary {
             dictionary[key] = json.object
@@ -190,18 +190,18 @@ public struct JSON {
     
     /// The static null json
     @available(*, unavailable, renamed="null")
-    public static var nullJSON: JSON { get { return null } }
-    public static var null: JSON { get { return JSON(NSNull()) } }
+    public static var nullJSON: ATJSON { get { return null } }
+    public static var null: ATJSON { get { return ATJSON(NSNull()) } }
 }
 
 // MARK: - CollectionType, SequenceType, Indexable
-extension JSON : Swift.CollectionType, Swift.SequenceType, Swift.Indexable {
+extension ATJSON : Swift.CollectionType, Swift.SequenceType, Swift.Indexable {
     
     public typealias Generator = JSONGenerator
     
     public typealias Index = JSONIndex
     
-    public var startIndex: JSON.Index {
+    public var startIndex: ATJSON.Index {
         switch self.type {
         case .Array:
             return JSONIndex(arrayIndex: self.rawArray.startIndex)
@@ -212,7 +212,7 @@ extension JSON : Swift.CollectionType, Swift.SequenceType, Swift.Indexable {
         }
     }
     
-    public var endIndex: JSON.Index {
+    public var endIndex: ATJSON.Index {
         switch self.type {
         case .Array:
             return JSONIndex(arrayIndex: self.rawArray.endIndex)
@@ -223,15 +223,15 @@ extension JSON : Swift.CollectionType, Swift.SequenceType, Swift.Indexable {
         }
     }
     
-    public subscript (position: JSON.Index) -> JSON.Generator.Element {
+    public subscript (position: ATJSON.Index) -> ATJSON.Generator.Element {
         switch self.type {
         case .Array:
-            return (String(position.arrayIndex), JSON(self.rawArray[position.arrayIndex!]))
+            return (String(position.arrayIndex), ATJSON(self.rawArray[position.arrayIndex!]))
         case .Dictionary:
             let (key, value) = self.rawDictionary[position.dictionaryIndex!]
-            return (key, JSON(value))
+            return (key, ATJSON(value))
         default:
-            return ("", JSON.null)
+            return ("", ATJSON.null)
         }
     }
     
@@ -277,8 +277,8 @@ extension JSON : Swift.CollectionType, Swift.SequenceType, Swift.Indexable {
      
      - returns: Return a *generator* over the elements of JSON.
      */
-    public func generate() -> JSON.Generator {
-        return JSON.Generator(self)
+    public func generate() -> ATJSON.Generator {
+        return ATJSON.Generator(self)
     }
 }
 
@@ -376,14 +376,14 @@ public func >(lhs: JSONIndex, rhs: JSONIndex) -> Bool {
 
 public struct JSONGenerator : GeneratorType {
     
-    public typealias Element = (String, JSON)
+    public typealias Element = (String, ATJSON)
     
     private let type: Type
     private var dictionayGenerate: DictionaryGenerator<String, AnyObject>?
     private var arrayGenerate: IndexingGenerator<[AnyObject]>?
     private var arrayIndex: Int = 0
     
-    init(_ json: JSON) {
+    init(_ json: ATJSON) {
         self.type = json.type
         if type == .Array {
             self.arrayGenerate = json.rawArray.generate()
@@ -398,13 +398,13 @@ public struct JSONGenerator : GeneratorType {
             if let o = self.arrayGenerate?.next() {
                 let i = self.arrayIndex
                 self.arrayIndex += 1
-                return (String(i), JSON(o))
+                return (String(i), ATJSON(o))
             } else {
                 return nil
             }
         case .Dictionary:
             if let (k, v): (String, AnyObject) = self.dictionayGenerate?.next() {
-                return (k, JSON(v))
+                return (k, ATJSON(v))
             } else {
                 return nil
             }
@@ -440,19 +440,19 @@ extension String: JSONSubscriptType {
     }
 }
 
-extension JSON {
+extension ATJSON {
     
     /// If `type` is `.Array`, return json whose object is `array[index]`, otherwise return null json with error.
-    private subscript(index index: Int) -> JSON {
+    private subscript(index index: Int) -> ATJSON {
         get {
             if self.type != .Array {
-                var r = JSON.null
+                var r = ATJSON.null
                 r._error = self._error ?? NSError(domain: ErrorDomain, code: ErrorWrongType, userInfo: [NSLocalizedDescriptionKey: "Array[\(index)] failure, It is not an array"])
                 return r
             } else if index >= 0 && index < self.rawArray.count {
-                return JSON(self.rawArray[index])
+                return ATJSON(self.rawArray[index])
             } else {
-                var r = JSON.null
+                var r = ATJSON.null
                 r._error = NSError(domain: ErrorDomain, code:ErrorIndexOutOfBounds , userInfo: [NSLocalizedDescriptionKey: "Array[\(index)] is out of bounds"])
                 return r
             }
@@ -467,12 +467,12 @@ extension JSON {
     }
     
     /// If `type` is `.Dictionary`, return json whose object is `dictionary[key]` , otherwise return null json with error.
-    private subscript(key key: String) -> JSON {
+    private subscript(key key: String) -> ATJSON {
         get {
-            var r = JSON.null
+            var r = ATJSON.null
             if self.type == .Dictionary {
                 if let o = self.rawDictionary[key] {
-                    r = JSON(o)
+                    r = ATJSON(o)
                 } else {
                     r._error = NSError(domain: ErrorDomain, code: ErrorNotExist, userInfo: [NSLocalizedDescriptionKey: "Dictionary[\"\(key)\"] does not exist"])
                 }
@@ -489,7 +489,7 @@ extension JSON {
     }
     
     /// If `sub` is `Int`, return `subscript(index:)`; If `sub` is `String`,  return `subscript(key:)`.
-    private subscript(sub sub: JSONSubscriptType) -> JSON {
+    private subscript(sub sub: JSONSubscriptType) -> ATJSON {
         get {
             switch sub.jsonKey {
             case .Index(let index): return self[index: index]
@@ -517,7 +517,7 @@ extension JSON {
      
      - returns: Return a json found by the path or a null json with error
      */
-    public subscript(path: [JSONSubscriptType]) -> JSON {
+    public subscript(path: [JSONSubscriptType]) -> ATJSON {
         get {
             return path.reduce(self) { $0[sub: $1] }
         }
@@ -547,7 +547,7 @@ extension JSON {
      
      - returns: Return a json found by the path or a null json with error
      */
-    public subscript(path: JSONSubscriptType...) -> JSON {
+    public subscript(path: JSONSubscriptType...) -> ATJSON {
         get {
             return self[path]
         }
@@ -559,7 +559,7 @@ extension JSON {
 
 // MARK: - LiteralConvertible
 
-extension JSON: Swift.StringLiteralConvertible {
+extension ATJSON: Swift.StringLiteralConvertible {
     
     public init(stringLiteral value: StringLiteralType) {
         self.init(value)
@@ -574,28 +574,28 @@ extension JSON: Swift.StringLiteralConvertible {
     }
 }
 
-extension JSON: Swift.IntegerLiteralConvertible {
+extension ATJSON: Swift.IntegerLiteralConvertible {
     
     public init(integerLiteral value: IntegerLiteralType) {
         self.init(value)
     }
 }
 
-extension JSON: Swift.BooleanLiteralConvertible {
+extension ATJSON: Swift.BooleanLiteralConvertible {
     
     public init(booleanLiteral value: BooleanLiteralType) {
         self.init(value)
     }
 }
 
-extension JSON: Swift.FloatLiteralConvertible {
+extension ATJSON: Swift.FloatLiteralConvertible {
     
     public init(floatLiteral value: FloatLiteralType) {
         self.init(value)
     }
 }
 
-extension JSON: Swift.DictionaryLiteralConvertible {
+extension ATJSON: Swift.DictionaryLiteralConvertible {
     
     public init(dictionaryLiteral elements: (String, AnyObject)...) {
         self.init(elements.reduce([String : AnyObject](minimumCapacity: elements.count)){(dictionary: [String : AnyObject], element:(String, AnyObject)) -> [String : AnyObject] in
@@ -606,14 +606,14 @@ extension JSON: Swift.DictionaryLiteralConvertible {
     }
 }
 
-extension JSON: Swift.ArrayLiteralConvertible {
+extension ATJSON: Swift.ArrayLiteralConvertible {
     
     public init(arrayLiteral elements: AnyObject...) {
         self.init(elements)
     }
 }
 
-extension JSON: Swift.NilLiteralConvertible {
+extension ATJSON: Swift.NilLiteralConvertible {
     
     public init(nilLiteral: ()) {
         self.init(NSNull())
@@ -622,10 +622,10 @@ extension JSON: Swift.NilLiteralConvertible {
 
 // MARK: - Raw
 
-extension JSON: Swift.RawRepresentable {
+extension ATJSON: Swift.RawRepresentable {
     
     public init?(rawValue: AnyObject) {
-        if JSON(rawValue).type == .Unknown {
+        if ATJSON(rawValue).type == .Unknown {
             return nil
         } else {
             self.init(rawValue)
@@ -669,7 +669,7 @@ extension JSON: Swift.RawRepresentable {
 
 // MARK: - Printable, DebugPrintable
 
-extension JSON: Swift.Printable, Swift.DebugPrintable {
+extension ATJSON: Swift.Printable, Swift.DebugPrintable {
     
     public var description: String {
         if let string = self.rawString(options:.PrettyPrinted) {
@@ -686,21 +686,21 @@ extension JSON: Swift.Printable, Swift.DebugPrintable {
 
 // MARK: - Array
 
-extension JSON {
+extension ATJSON {
     
-    //Optional [JSON]
-    public var array: [JSON]? {
+    //Optional [ATJSON]
+    public var array: [ATJSON]? {
         get {
             if self.type == .Array {
-                return self.rawArray.map{ JSON($0) }
+                return self.rawArray.map{ ATJSON($0) }
             } else {
                 return nil
             }
         }
     }
     
-    //Non-optional [JSON]
-    public var arrayValue: [JSON] {
+    //Non-optional [ATJSON]
+    public var arrayValue: [ATJSON] {
         get {
             return self.array ?? []
         }
@@ -728,14 +728,14 @@ extension JSON {
 
 // MARK: - Dictionary
 
-extension JSON {
+extension ATJSON {
     
-    //Optional [String : JSON]
-    public var dictionary: [String : JSON]? {
+    //Optional [String : ATJSON]
+    public var dictionary: [String : ATJSON]? {
         if self.type == .Dictionary {
-            return self.rawDictionary.reduce([String : JSON](minimumCapacity: count)) { (dictionary: [String : JSON], element: (String, AnyObject)) -> [String : JSON] in
+            return self.rawDictionary.reduce([String : ATJSON](minimumCapacity: count)) { (dictionary: [String : ATJSON], element: (String, AnyObject)) -> [String : ATJSON] in
                 var d = dictionary
-                d[element.0] = JSON(element.1)
+                d[element.0] = ATJSON(element.1)
                 return d
             }
         } else {
@@ -743,8 +743,8 @@ extension JSON {
         }
     }
     
-    //Non-optional [String : JSON]
-    public var dictionaryValue: [String : JSON] {
+    //Non-optional [String : ATJSON]
+    public var dictionaryValue: [String : ATJSON] {
         return self.dictionary ?? [:]
     }
     
@@ -770,7 +770,7 @@ extension JSON {
 
 // MARK: - Bool
 
-extension JSON: Swift.BooleanType {
+extension ATJSON: Swift.BooleanType {
     
     //Optional bool
     public var bool: Bool? {
@@ -809,7 +809,7 @@ extension JSON: Swift.BooleanType {
 
 // MARK: - String
 
-extension JSON {
+extension ATJSON {
     
     //Optional string
     public var string: String? {
@@ -851,7 +851,7 @@ extension JSON {
 }
 
 // MARK: - Number
-extension JSON {
+extension ATJSON {
     
     //Optional number
     public var number: NSNumber? {
@@ -891,7 +891,7 @@ extension JSON {
 }
 
 //MARK: - Null
-extension JSON {
+extension ATJSON {
     
     public var null: NSNull? {
         get {
@@ -915,7 +915,7 @@ extension JSON {
 }
 
 //MARK: - URL
-extension JSON {
+extension ATJSON {
     
     //Optional URL
     public var URL: NSURL? {
@@ -939,7 +939,7 @@ extension JSON {
 
 // MARK: - Int, Double, Float, Int8, Int16, Int32, Int64
 
-extension JSON {
+extension ATJSON {
     
     public var double: Double? {
         get {
@@ -1207,9 +1207,9 @@ extension JSON {
 }
 
 //MARK: - Comparable
-extension JSON : Swift.Comparable {}
+extension ATJSON : Swift.Comparable {}
 
-public func ==(lhs: JSON, rhs: JSON) -> Bool {
+public func ==(lhs: ATJSON, rhs: ATJSON) -> Bool {
     
     switch (lhs.type, rhs.type) {
     case (.Number, .Number):
@@ -1229,7 +1229,7 @@ public func ==(lhs: JSON, rhs: JSON) -> Bool {
     }
 }
 
-public func <=(lhs: JSON, rhs: JSON) -> Bool {
+public func <=(lhs: ATJSON, rhs: ATJSON) -> Bool {
     
     switch (lhs.type, rhs.type) {
     case (.Number, .Number):
@@ -1249,7 +1249,7 @@ public func <=(lhs: JSON, rhs: JSON) -> Bool {
     }
 }
 
-public func >=(lhs: JSON, rhs: JSON) -> Bool {
+public func >=(lhs: ATJSON, rhs: ATJSON) -> Bool {
     
     switch (lhs.type, rhs.type) {
     case (.Number, .Number):
@@ -1269,7 +1269,7 @@ public func >=(lhs: JSON, rhs: JSON) -> Bool {
     }
 }
 
-public func >(lhs: JSON, rhs: JSON) -> Bool {
+public func >(lhs: ATJSON, rhs: ATJSON) -> Bool {
     
     switch (lhs.type, rhs.type) {
     case (.Number, .Number):
@@ -1281,7 +1281,7 @@ public func >(lhs: JSON, rhs: JSON) -> Bool {
     }
 }
 
-public func <(lhs: JSON, rhs: JSON) -> Bool {
+public func <(lhs: ATJSON, rhs: ATJSON) -> Bool {
     
     switch (lhs.type, rhs.type) {
     case (.Number, .Number):

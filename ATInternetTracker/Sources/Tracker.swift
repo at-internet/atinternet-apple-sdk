@@ -170,11 +170,15 @@ public class AutoTracker: Tracker {
         get {
             return _token
         } set {
-            _token = newValue
-            self.liveManager = LiveNetworkManager()
-            self.liveManager!.initState()
-            self.socketSender = SocketSender(liveManager: liveManager!, token: _token!)
-            liveManager!.sender = socketSender
+            if token == nil && newValue != "" {
+                _token = newValue
+                self.liveManager = LiveNetworkManager()
+                self.liveManager!.initState()
+                self.socketSender = SocketSender(liveManager: liveManager!, token: _token!)
+                liveManager!.sender = socketSender
+            } else {
+                self.delegate?.warningDidOccur?("Setting the token twice is not allowed")
+            }
         }
     }
     
@@ -223,7 +227,7 @@ public class AutoTracker: Tracker {
     private func fetchMappingConfig() {
         let version = TechnicalContext.applicationVersion
         let s3Client = ApiS3Client(token: token!, version: version, store: UserDefaultSimpleStorage(), networkService: S3NetworkService())
-        s3Client.fetchMapping { (mapping: JSON?) in
+        s3Client.fetchMapping { (mapping: ATJSON?) in
             Configuration.smartSDKMapping = mapping
             if let _ = mapping {
                 s3Client.saveSmartSDKMapping(mapping!)
