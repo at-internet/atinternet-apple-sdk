@@ -135,7 +135,7 @@ public class SocketSender {
      - parameter json: the message as a String (JSON formatted)
      */
     func sendMessage(_ json: String) {
-        let eventName = JSON.parse(json)["event"].string
+        let eventName = ATJSON.parse(json)["event"].string
         // keep a ref to the last screen
         if eventName == "viewDidAppear" {
             buffer.currentScreen = json

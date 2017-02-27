@@ -27,7 +27,7 @@ import UIKit
 
 /// Factory making a different class in charge of handling different events
 class SocketEventFactory {
-    class func create(_ eventName: String, liveManager: LiveNetworkManager, messageData: JSON?) -> SocketEvent {
+    class func create(_ eventName: String, liveManager: LiveNetworkManager, messageData: ATJSON?) -> SocketEvent {
         switch eventName {
         // triggered after viewDidAppear
         case SmartSocketEvent.Screenshot.rawValue:
@@ -58,9 +58,9 @@ class SocketEventFactory {
 /// Handle all the incoming messages from the websocket
 class SocketEvent {
     let liveManager: LiveNetworkManager
-    let messageData: JSON?
+    let messageData: ATJSON?
     
-    init(liveManager: LiveNetworkManager, messageData: JSON? = nil) {
+    init(liveManager: LiveNetworkManager, messageData: ATJSON? = nil) {
         self.liveManager = liveManager
         self.messageData = messageData
     }

@@ -65,7 +65,7 @@ class SocketDelegate: NSObject, SRWebSocketDelegate {
      - parameter message:   the message
      */
     func webSocket(_ webSocket: SRWebSocket!, didReceiveMessage message: Any!) {
-        let jsonData = JSON.parse( (message as? String) ?? "{}")
+        let jsonData = ATJSON.parse( (message as? String) ?? "{}")
         guard let event = jsonData["event"].string else {
             return
         }
@@ -74,7 +74,7 @@ class SocketDelegate: NSObject, SRWebSocketDelegate {
             return
         }
 
-        let socketEvent = SocketEventFactory.create(event, liveManager: self.liveManager, messageData: JSON(data))
+        let socketEvent = SocketEventFactory.create(event, liveManager: self.liveManager, messageData: ATJSON(data))
         socketEvent.process()
     }
     

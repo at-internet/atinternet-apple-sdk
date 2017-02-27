@@ -79,6 +79,8 @@ public class Gesture: BusinessObject {
     internal(set) public weak var screen: Screen?
     /// Custom objects to add to gesture hit
     public lazy var customObjects: CustomObjects = CustomObjects(gesture: self)
+    /// Internal Search
+    public var internalSearch: InternalSearch?
     
     #if os(iOS) && AT_SMART_TRACKER
     // View information which was touched by the user
@@ -160,6 +162,11 @@ public class Gesture: BusinessObject {
         
         if level2 > 0 {
             _ = self.tracker.setParam("s2", value: level2)
+        }
+        
+        if let search = self.internalSearch {
+            search.tracker = self.tracker
+            search.setEvent()
         }
         
         for (_, value) in _customObjects {

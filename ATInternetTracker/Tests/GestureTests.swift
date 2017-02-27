@@ -137,6 +137,39 @@ class GestureTests: XCTestCase {
         XCTAssert(gesture.tracker.buffer.volatileParameters[3].value() == "Touch", "La valeur du 4ème paramètre doit être Touch")
     }
     
+    func testSetInternalSearch() {
+        gesture.name = "Search"
+        gesture.action = Gesture.GestureAction.search
+        gesture.internalSearch = InternalSearch(keyword: "test", resultScreenNumber: 1)
+        gesture.internalSearch?.resultPosition = 4
+        gesture.setEvent()
+        
+        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 8, "Le nombre de paramètres volatiles doit être égal à 8")
+        print(gesture.tracker.buffer.volatileParameters)
+        
+        XCTAssert(gesture.tracker.buffer.volatileParameters[0].key == "mc", "Le premier paramètre doit être mc (mot clef)")
+        XCTAssert(gesture.tracker.buffer.volatileParameters[0].value() == "test", "La valeur du premier paramètre doit être test")
+        
+        XCTAssert(gesture.tracker.buffer.volatileParameters[1].key == "np", "Le premier paramètre doit être np (num page)")
+        XCTAssert(gesture.tracker.buffer.volatileParameters[1].value() == "1", "La valeur du premier paramètre doit être 1")
+        
+        XCTAssert(gesture.tracker.buffer.volatileParameters[2].key == "mcrg", "Le premier paramètre doit être mcrg (mot clef rang)")
+        XCTAssert(gesture.tracker.buffer.volatileParameters[2].value() == "4", "La valeur du premier paramètre doit être 4")
+        
+        XCTAssert(gesture.tracker.buffer.volatileParameters[3].key == "click", "Le premier paramètre doit être click")
+        XCTAssert(gesture.tracker.buffer.volatileParameters[3].value() == "IS", "La valeur du premier paramètre doit être IS")
+        
+        XCTAssert(gesture.tracker.buffer.volatileParameters[4].key == "type", "Le second paramètre doit être type")
+        XCTAssert(gesture.tracker.buffer.volatileParameters[4].value() == "click", "La valeur du second paramètre doit être click")
+        
+        XCTAssert(gesture.tracker.buffer.volatileParameters[5].key == "action", "Le troisième paramètre doit être action")
+        XCTAssert(gesture.tracker.buffer.volatileParameters[5].value() == "IS", "La valeur du troisième paramètre doit être IS")
+        
+        XCTAssert(gesture.tracker.buffer.volatileParameters[6].key == "p", "Le 4ème paramètre doit être p")
+        XCTAssert(gesture.tracker.buffer.volatileParameters[6].value() == "Search", "La valeur du 4ème paramètre doit être Search")
+    }
+    
+    
     func testSetExit() {
         gesture.name = "Exit"
         gesture.action = Gesture.GestureAction.exit

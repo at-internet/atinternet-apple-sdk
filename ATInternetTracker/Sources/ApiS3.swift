@@ -25,7 +25,7 @@
 import Foundation
 
 
-typealias MappingRequest = (url: URL, onLoaded: (JSON?) -> (), onError: () -> ())
+typealias MappingRequest = (url: URL, onLoaded: (ATJSON?) -> (), onError: () -> ())
 /**
  *  Simple storage protocol
  */
@@ -116,7 +116,7 @@ class S3NetworkService: SimpleNetworkService {
                 self.retry(self.getURL, request: (url: request.url, onLoaded: request.onLoaded, onError: request.onError), retryCount: retryCount-1)
             }
             if let jsonData = data {
-                let res = JSON(data: jsonData)
+                let res = ATJSON(data: jsonData)
                 if res["type"] >= 500 {
                     self.retry(self.getURL, request: (url: request.url, onLoaded: request.onLoaded, onError: request.onError), retryCount: retryCount-1)
                 }
@@ -172,7 +172,7 @@ class ApiS3Client {
         )!
     }
 
-    func fetchSmartSDKMapping(_ onLoaded: @escaping (JSON?) -> (), onError: @escaping () -> ()) {
+    func fetchSmartSDKMapping(_ onLoaded: @escaping (ATJSON?) -> (), onError: @escaping () -> ()) {
         network.getURL((getMappingURL(), onLoaded: onLoaded, onError: onError), retryCount: 5)
     }
 
@@ -181,7 +181,7 @@ class ApiS3Client {
      
      - parameter mapping: the config
      */
-    func saveSmartSDKMapping(_ mapping: JSON) {
+    func saveSmartSDKMapping(_ mapping: ATJSON) {
         _ = store.saveByName(mapping.object, name: "at_smartsdk_config")
     }
     
@@ -190,10 +190,10 @@ class ApiS3Client {
      
      - returns: the config
      */
-    fileprivate func getSmartSDKMapping() -> JSON? {
+    fileprivate func getSmartSDKMapping() -> ATJSON? {
         let jsonObj = store.getByName("at_smartsdk_config")
         if let obj = jsonObj {
-            return JSON(obj)
+            return ATJSON(obj)
         }
         return nil
     }
@@ -203,7 +203,7 @@ class ApiS3Client {
      
      - parameter callback: the checksum
      */
-    fileprivate func fetchCheckSum(_ callback: @escaping (JSON?) -> ()) {
+    fileprivate func fetchCheckSum(_ callback: @escaping (ATJSON?) -> ()) {
         
         func err() -> () {
             callback(nil)
@@ -217,9 +217,9 @@ class ApiS3Client {
      
      - parameter callback: the configuration
      */
-    func fetchMapping(_ callback: @escaping (JSON?) -> ()) {
-        func getRemoteMapping(_ callback: @escaping (JSON?) -> ()) {
-            self.fetchSmartSDKMapping({ (mapping: JSON?) in
+    func fetchMapping(_ callback: @escaping (ATJSON?) -> ()) {
+        func getRemoteMapping(_ callback: @escaping (ATJSON?) -> ()) {
+            self.fetchSmartSDKMapping({ (mapping: ATJSON?) in
                 callback(mapping)
                 }, onError: {
                     callback(nil)
@@ -228,7 +228,7 @@ class ApiS3Client {
         
         if let localMapping = getSmartSDKMapping() {
             let localTimestamp = localMapping["timestamp"].intValue
-            fetchCheckSum({ (remote: JSON?) in
+            fetchCheckSum({ (remote: ATJSON?) in
                 if remote == nil || remote!["timestamp"].intValue != localTimestamp {
                     getRemoteMapping(callback)
                 } else {
