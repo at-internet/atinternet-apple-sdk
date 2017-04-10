@@ -45,7 +45,7 @@ public enum IdentifierTypeKey: String {
     case idfv = "idfv"
 }
 
-public class TrackerConfigurationKeys {
+public class TrackerConfigurationKeys: NSObject {
     public static let SessionBackgroundDuration = "sessionBackgroundDuration"
     public static let CampaignLifetime = "campaignLifetime"
     public static let CampaignLastPersistence = "campaignLastPersistence"
