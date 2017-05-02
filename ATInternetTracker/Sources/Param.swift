@@ -89,29 +89,22 @@ class SliceReadyParam: NSObject {
 
 /// Hit parameter
 class Param: NSObject {
-    /// Parameter types
-    enum ParamType: Int {
-        case integer
-        case double
-        case float
-        case string
-        case bool
-        case array
-        case json
-        case closure
-        case unknown
-    }
     /// Parameter key (Querystring variable)
     var key: String
     /// Parameter value
-    var value: (() -> String)!
+    var values: [(() -> String)]!
     /// Parameter options
     lazy var options: ParamOption? = ParamOption()
-    /// Parameter type
-    var type: ParamType = .unknown
     /// Description (&p=v)
     var text: String {
-        return String(format:"&%@=%@", key, self.value())
+        var str = "&\(key)="
+        for val in self.values {
+            str += "\(val()) "
+        }
+        return str
+    }
+    var isPersistent: Bool {
+        return self.options?.persistent ?? false;
     }
     
     /**
@@ -120,7 +113,7 @@ class Param: NSObject {
     - returns: a parameter with no key and no value
     */
     convenience override init() {
-        self.init(key: "", value: {""}, type: .unknown);
+        self.init(key: "", value: {""});
     }
     
     /**
@@ -131,8 +124,8 @@ class Param: NSObject {
     
     - returns: a parameter
     */
-    convenience init(key: String, value:@escaping () -> String, type: ParamType) {
-        self.init(key: key, value: value, type: type, options: nil);
+    convenience init(key: String, value:@escaping () -> String) {
+        self.init(key: key, value: value, options: nil);
     }
     
     /**
@@ -144,10 +137,9 @@ class Param: NSObject {
     
     - returns: a parameter
     */
-    init(key: String, value:@escaping () -> String, type: ParamType, options: ParamOption?) {
+    init(key: String, value:@escaping () -> String, options: ParamOption?) {
         self.key = key
-        self.value = value
-        self.type = type
+        self.values = [value]
         super.init()
         self.options = options
     }
@@ -155,9 +147,24 @@ class Param: NSObject {
 
 /// Parameter option
 public class ParamOption: NSObject {
-    /// Relative position enumeration
+    /// Enum to customize parameter options
+    ///
+    /// - none: Undefined
+    /// - first: First parameter
+    /// - last: Last parameter (/!\ Cannot override the referrer parameter position, it must be the last if it's defined)
+    /// - before: Before an other parameter (use {@link #setRelativeParameterKey(String)} with that)
+    /// - after: After an other parameter (use {@link #setRelativeParameterKey(String)} with that)
     public enum RelativePosition {
-        case none, first, last, before, after
+        /// Undefined
+        case none
+        /// First parameter
+        case first
+        /// Last parameter (/!\ Cannot override the referrer parameter position, it must be the last if it's defined)
+        case last
+        /// Before an other parameter (use {@link #setRelativeParameterKey(String)} with that)
+        case before
+        /// After an other parameter (use {@link #setRelativeParameterKey(String)} with that)
+        case after
     }
     
     /// Parameter relative position in hit

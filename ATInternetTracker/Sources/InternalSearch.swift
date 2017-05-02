@@ -32,6 +32,8 @@ SOFTWARE.
 
 import Foundation
 
+
+/// Wrapper class for internal search tracking
 public class InternalSearch: BusinessObject {
     /// Searched keywords
     public var keyword: String = ""
@@ -44,6 +46,11 @@ public class InternalSearch: BusinessObject {
         super.init(tracker: tracker)
     }
     
+    /// Create a new InternalSearch
+    ///
+    /// - Parameters:
+    ///   - keyword: internal search keyword
+    ///   - resultScreenNumber: number of screens returned
     public init(keyword: String, resultScreenNumber: Int) {
         super.init()
         
@@ -62,6 +69,7 @@ public class InternalSearch: BusinessObject {
     }
 }
 
+/// Wrapper class to managed
 public class InternalSearches: NSObject {
     /// Tracker instance
     var tracker: Tracker
@@ -74,13 +82,13 @@ public class InternalSearches: NSObject {
     init(tracker: Tracker) {
         self.tracker = tracker
     }
-    
-    /**
-    Set a internal search
-    - parameter keywordLabel: keyword search
-    - parameter resultPageNumber: page number result
-    - returns: InternalSearch instance
-    */
+
+    /// Add an internal search
+    ///
+    /// - Parameters:
+    ///   - keyword: keyword search
+    ///   - resultScreenNumber: page number result
+    /// - Returns: a new internal search instance
     public func add(_ keyword: String, resultScreenNumber: Int) -> InternalSearch {
         let search = InternalSearch(tracker: tracker)
         search.keyword = keyword
@@ -90,13 +98,13 @@ public class InternalSearches: NSObject {
         return search
     }
     
-    /**
-    Set a internal search
-    - parameter keywordLabel: keyword search
-    - parameter resultPageNumber: page number result
-    - parameter resultPosition: result position
-    - returns: InternalSearch instance
-    */
+    /// Add an internal search
+    ///
+    /// - Parameters:
+    ///   - keyword: keyword search
+    ///   - resultScreenNumber: page number result
+    ///   - resultPosition: the result position in the list
+    /// - Returns: a new internal search instance
     public func add(_ keyword: String, resultScreenNumber: Int, resultPosition: Int) -> InternalSearch {
         let search = add(keyword, resultScreenNumber: resultScreenNumber)
         search.resultPosition = resultPosition

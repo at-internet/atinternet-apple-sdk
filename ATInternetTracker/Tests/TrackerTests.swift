@@ -152,7 +152,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
     func testsetParamInt() {
         _ = tracker.setParam("test", value: 2)
         XCTAssertEqual(tracker.buffer.volatileParameters.count, 1, "La collection des paramètres volatiles doit contenir un objet")
-        XCTAssertEqual(tracker.buffer.volatileParameters[0].value() as String, "2", "Le paramètre doit avoir la valeur 2")
+        XCTAssertEqual(tracker.buffer.volatileParameters["test"]!.values[0]() as String, "2", "Le paramètre doit avoir la valeur 2")
     }
     
     func testsetParamIntWithOptions() {
@@ -169,7 +169,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
         let val: Float = 3.14
         _ = tracker.setParam("test", value: val)
         XCTAssertEqual(tracker.buffer.volatileParameters.count, 1, "La collection des paramètres volatiles doit contenir un objet")
-        let result = ((tracker.buffer.volatileParameters[0].value() as String) == val.description)
+        let result = ((tracker.buffer.volatileParameters["test"]!.values[0]() as String) == val.description)
         XCTAssert(result, "Le paramètre doit avoir la valeur 3.14 (float)")
     }
     
@@ -190,7 +190,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
         let val: Double = 3.14
         _ = tracker.setParam("test", value: val)
         XCTAssertEqual(tracker.buffer.volatileParameters.count, 1, "La collection des paramètres volatiles doit contenir un objet")
-        let result = ((tracker.buffer.volatileParameters[0].value() as String) == val.description)
+        let result = ((tracker.buffer.volatileParameters["test"]!.values[0]() as String) == val.description)
         XCTAssert(result, "Le paramètre doit avoir la valeur 3.14 (double)")
     }
     
@@ -208,7 +208,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
     func testsetParamBool() {
         _ = tracker.setParam("test", value: true)
         XCTAssertEqual(tracker.buffer.volatileParameters.count, 1, "La collection des paramètres volatiles doit contenir un objet")
-        XCTAssertEqual(tracker.buffer.volatileParameters[0].value() as String, "true", "Le paramètre doit avoir la valeur true")
+        XCTAssertEqual(tracker.buffer.volatileParameters["test"]!.values[0]() as String, "true", "Le paramètre doit avoir la valeur true")
     }
     
     func testsetParamBoolWithOptions() {
@@ -224,7 +224,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
     func testsetParamString() {
         _ = tracker.setParam("test", value: "home")
         XCTAssertEqual(tracker.buffer.volatileParameters.count, 1, "La collection des paramètres volatiles doit contenir un objet")
-        XCTAssertEqual(tracker.buffer.volatileParameters[0].value() as String, "home", "Le paramètre doit avoir la valeur \"home\"")
+        XCTAssertEqual(tracker.buffer.volatileParameters["test"]!.values[0]() as String, "home", "Le paramètre doit avoir la valeur \"home\"")
     }
     
     func testsetParamStringWithOptions() {
@@ -240,7 +240,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
     func testsetParamArray() {
         _ = tracker.setParam("test", value: ["toto", true])
         XCTAssertEqual(tracker.buffer.volatileParameters.count, 1, "La collection des paramètres volatiles doit contenir un objet")
-        let array = tracker.buffer.volatileParameters[0].value()
+        let array = tracker.buffer.volatileParameters["test"]!.values[0]()
         XCTAssert(array == "toto,true", "Le paramètre doit avoir la valeur [\"toto\", true]")
     }
     
@@ -279,7 +279,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
         }
         _ = tracker.setParam("test", value: closure)
         XCTAssertEqual(tracker.buffer.volatileParameters.count, 1, "La collection des paramètres volatiles doit contenir un objet")
-        XCTAssertEqual(tracker.buffer.volatileParameters[0].value(), "hello", "Le paramètre doit avoir la valeur \"hello\"")
+        XCTAssertEqual(tracker.buffer.volatileParameters["test"]!.values[0](), "hello", "Le paramètre doit avoir la valeur \"hello\"")
     }
     
     func testsetParamClosureWithOptions() {
@@ -555,10 +555,10 @@ class TrackerTests: XCTestCase, TrackerDelegate {
     func testSetVolatileParameterNotReadOnly() {
         _ = tracker.setParam("cle", value: {"valeurOriginale"})
         let refCount = tracker.buffer.volatileParameters.count
-        let refValue = tracker.buffer.volatileParameters[0].value()
+        let refValue = tracker.buffer.volatileParameters["cle"]!.values[0]()
         _ = tracker.setParam("cle", value: {"valeurModifiee"})
         let newCount = tracker.buffer.volatileParameters.count
-        let newValue = tracker.buffer.volatileParameters[0].value()
+        let newValue = tracker.buffer.volatileParameters["cle"]!.values[0]()
         XCTAssertEqual(refCount, newCount, "Le nombre de paramètres dans la collection volatile doit être identique")
         XCTAssertTrue(refValue != newValue, "La valeur du paramètre dans la collection volatile pour la même clé doit changer")
     }
@@ -566,33 +566,39 @@ class TrackerTests: XCTestCase, TrackerDelegate {
     func testSetPersistentParameterNotReadOnly() {
         let opt = ParamOption()
         opt.persistent = true
-        _ = tracker.setParam("cle", value: {"valeurOriginale"}, options: opt)
+        tracker.setParam("cle", value: {"valeurOriginale"}, options: opt)
         let refCount = tracker.buffer.persistentParameters.count
-        let refValue = tracker.buffer.persistentParameters[refCount - 1].value()
-        _ = tracker.setParam("cle", value: {"valeurModifiee"})
+        let refValue = tracker.buffer.persistentParameters["cle"]!.values[0]()
+        tracker.setParam("cle", value: {"valeurModifiee"})
         let newCount = tracker.buffer.persistentParameters.count
-        let newValue = tracker.buffer.persistentParameters[refCount - 1].value()
+        let newValue = tracker.buffer.persistentParameters["cle"]!.values[0]()
+        
+        let volatile_cle = tracker.buffer.volatileParameters["cle"]!.values[0]()
+        
         XCTAssertEqual(refCount, newCount, "Le nombre de paramètres dans la collection persistante doit être identique")
-        XCTAssertTrue(refValue != newValue, "La valeur du paramètre dans la collection persistante pour la même clé doit changer")
+        XCTAssertTrue(refValue == newValue, "La valeur du paramètre dans la collection persistante pour la même clé doit changer")
+        XCTAssertTrue(volatile_cle == "valeurModifiee", "La valeur du paramètre dans la collection persistante pour la même clé doit changer")
     }
     
     func testsetParamReadOnly() {
+        
+        let refKey = tracker.buffer.persistentParameters.keys.first!
+        
         let opt = ParamOption()
         opt.persistent = true
         let refCount = tracker.buffer.persistentParameters.count
-        let refValue = tracker.buffer.persistentParameters[0].value()
-        let refKey = tracker.buffer.persistentParameters[0].key
-        _ = tracker.setParam(refKey, value: "123", options: opt)
-        let newKey = tracker.buffer.persistentParameters[0].key
+        let refValue = tracker.buffer.persistentParameters[refKey]!.values[0]()
+        tracker.setParam(refKey, value: "123", options: opt)
+        let newKey = tracker.buffer.persistentParameters[refKey]!.key
         let newCount = tracker.buffer.persistentParameters.count
-        let newValue = tracker.buffer.persistentParameters[0].value()
+        let newValue = tracker.buffer.persistentParameters[refKey]!.values[0]()
         XCTAssertEqual(refCount, newCount, "Le nombre de paramètres dans la collection persistante doit être identique")
-        XCTAssertTrue(refValue == newValue, "La valeur du paramètre dans la collection persistante pour la même clé ne doit pas changer")
+        XCTAssertTrue(refValue != newValue, "La valeur du paramètre dans la collection persistante pour la même clé doit etre ecrasee")
         XCTAssertTrue(refKey == newKey, "la clé pour l'index donnée de la collection persistante ne doit pas changer")
     }
     
     func testDefaultDoNotTrack() {
-        let builder = Builder(tracker: self.tracker, volatileParameters: tracker.buffer.volatileParameters, persistentParameters: tracker.buffer.persistentParameters)
+        let builder = Builder(tracker: self.tracker)
         
         let hits = builder.build()
         let url = URL(string: hits[0])
@@ -613,7 +619,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
         
          let configurationOperation = BlockOperation(block: {
         
-            let builder = Builder(tracker: self.tracker, volatileParameters: self.tracker.buffer.volatileParameters, persistentParameters: self.tracker.buffer.persistentParameters)
+            let builder = Builder(tracker: self.tracker)
             
             let hits = builder.build()
             let url = URL(string: hits[0])
@@ -642,7 +648,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
         
         let configurationOperation = BlockOperation(block: {
         
-            let builder = Builder(tracker: self.tracker, volatileParameters: self.tracker.buffer.volatileParameters, persistentParameters: self.tracker.buffer.persistentParameters)
+            let builder = Builder(tracker: self.tracker)
             
             let hits = builder.build()
             let url = URL(string: hits[0])            
@@ -673,7 +679,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
         self.tracker.setConfig("hashUserId", value: "false", completionHandler:{(isSet) in
             _ = self.tracker.setParam(HitParam.userID.rawValue, value: "coucou")
             
-            let builder = Builder(tracker: self.tracker, volatileParameters: self.tracker.buffer.volatileParameters, persistentParameters: self.tracker.buffer.persistentParameters)
+            let builder = Builder(tracker: self.tracker)
             
             let hits = builder.build()
             let url = NSURL(string: hits[0])

@@ -37,9 +37,8 @@ class Swizzler {
     }
 }
 
-// MARK: - extension of UIViewController: used for detecting screen apparitions
+/// extension of UIViewController: used for detecting screen apparitions
 extension UIViewController {
-    
     static var swizzlers = [Swizzler]()
     
     /// Return a title for the screen based on the navBar title, uivc title...
@@ -64,10 +63,7 @@ extension UIViewController {
         return title ?? "";
     }
     
-    /**
-     Initialize: called once at the runtime
-     in swift you have to init the swizzling from this method
-     */
+    /// do not use this method unless you know what you are doing. Enable the swizzling for autotracking
     public class func at_swizzle() {
         if self !== UIViewController.self {
             return
@@ -148,6 +144,7 @@ extension UIViewController {
         self.at_viewDidLoad()
     }
     
+    /// do not use this method unless you know what you are doing. Disable the swizzling for autotracking
     public class func at_unswizzle_instances () {
         for s in swizzlers {
             let orig = class_getInstanceMethod(s._class, s._sel1)
@@ -163,6 +160,10 @@ extension UIViewController {
      - parameter animated: not related
      */
     func at_viewDidAppear(_ animated: Bool) {
+        // reset the screen context
+        TechnicalContext.screenName = ""
+        TechnicalContext.level2 = 0
+        
         if shouldIgnoreViewController() {
             at_viewDidAppear(animated)
             return

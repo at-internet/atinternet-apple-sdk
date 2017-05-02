@@ -40,44 +40,44 @@ class EventTests: XCTestCase {
     func testSetEvent() {
         _ = tracker.event.set("cat", action: "act", label: "lab")
         
-        let p0 = tracker.buffer.volatileParameters[0]
-        let p1 = tracker.buffer.volatileParameters[1]
-        let p2 = tracker.buffer.volatileParameters[2]
-        let p3 = tracker.buffer.volatileParameters[3]
+        let p0 = tracker.buffer.volatileParameters["type"]!
+        let p1 = tracker.buffer.volatileParameters["action"]!
+        let p2 = tracker.buffer.volatileParameters["p"]!
+        let p3 = tracker.buffer.volatileParameters["stc"]!
         
         XCTAssertTrue(p0.key == HitParam.hitType.rawValue, "Le paramètre doit être type")
-        XCTAssertTrue(p0.value() == "cat", "Le paramètre doit avoir la valeur cat")
+        XCTAssertTrue(p0.values[0]() == "cat", "Le paramètre doit avoir la valeur cat")
         
         XCTAssertTrue(p1.key == HitParam.action.rawValue, "Le paramètre doit être action")
-        XCTAssertTrue(p1.value() == "act", "Le paramètre doit avoir la valeur act")
+        XCTAssertTrue(p1.values[0]() == "act", "Le paramètre doit avoir la valeur act")
         
         XCTAssertTrue(p2.key == HitParam.screen.rawValue, "Le paramètre doit être page")
-        XCTAssertTrue(p2.value() == "lab", "Le paramètre doit avoir la valeur lab")
+        XCTAssertTrue(p2.values[0]() == "lab", "Le paramètre doit avoir la valeur lab")
         
         XCTAssertTrue(p3.key == HitParam.json.rawValue, "Le paramètre doit être stc")
-        XCTAssertTrue(p3.value() == "{}", "Le paramètre ne doit pas avoir de valeur")
+        XCTAssertTrue(p3.values[0]() == "{}", "Le paramètre ne doit pas avoir de valeur")
     }
     
     func testSetEventJSON() {
         let json = "{ \"key0\": \"value0\", \"key1\": \"value1\" }"
         _ = tracker.event.set("cat", action: "act", label: "lab", value:json)
         
-        let p0 = tracker.buffer.volatileParameters[0]
-        let p1 = tracker.buffer.volatileParameters[1]
-        let p2 = tracker.buffer.volatileParameters[2]
-        let p3 = tracker.buffer.volatileParameters[3]
+        let p0 = tracker.buffer.volatileParameters["type"]!
+        let p1 = tracker.buffer.volatileParameters["action"]!
+        let p2 = tracker.buffer.volatileParameters["p"]!
+        let p3 = tracker.buffer.volatileParameters["stc"]!
         
         XCTAssertTrue(p0.key == HitParam.hitType.rawValue, "Le paramètre doit être type")
-        XCTAssertTrue(p0.value() == "cat", "Le paramètre doit avoir la valeur cat")
+        XCTAssertTrue(p0.values[0]() == "cat", "Le paramètre doit avoir la valeur cat")
         
         XCTAssertTrue(p1.key == HitParam.action.rawValue, "Le paramètre doit être action")
-        XCTAssertTrue(p1.value() == "act", "Le paramètre doit avoir la valeur act")
+        XCTAssertTrue(p1.values[0]() == "act", "Le paramètre doit avoir la valeur act")
         
         XCTAssertTrue(p2.key == HitParam.screen.rawValue, "Le paramètre doit être page")
-        XCTAssertTrue(p2.value() == "lab", "Le paramètre doit avoir la valeur lab")
+        XCTAssertTrue(p2.values[0]() == "lab", "Le paramètre doit avoir la valeur lab")
         
         XCTAssertTrue(p3.key == HitParam.json.rawValue, "Le paramètre doit être stc")
-        XCTAssertTrue(p3.value() == json, "Le paramètre doit avoir la valeur de json")
+        XCTAssertTrue(p3.values[0]() == json, "Le paramètre doit avoir la valeur de json")
     }
 
 }

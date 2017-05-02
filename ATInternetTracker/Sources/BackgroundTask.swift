@@ -33,6 +33,7 @@ SOFTWARE.
 import Foundation
 import UIKit
 
+/// Background task
 public class BackgroundTask: NSObject {
     struct Static {
         static var instance: BackgroundTask?
@@ -72,12 +73,11 @@ public class BackgroundTask: NSObject {
     func begin() -> Int {
         return begin(nil)
     }
-    
-    /**
-    Starts a background and call the callback function when done
-    
-    :params: completion block to call right before task ends
-    */
+
+    /// Starts a background and call the callback function when done
+    ///
+    /// - Parameter completion: completion block to call right before task ends
+    /// - Returns: the taskKey
     func begin(_ completion: (() -> Void)!) -> Int {
         var taskKey = 0
         
@@ -103,11 +103,9 @@ public class BackgroundTask: NSObject {
         return taskKey
     }
     
-    /**
-    Force task to end
-    
-    :params: ID of the task to end
-    */
+    /// Force task to end
+    ///
+    /// - Parameter key: ID of the task to end
     func end(_ key: Int) {
         objc_sync_enter(self.tasks)
         

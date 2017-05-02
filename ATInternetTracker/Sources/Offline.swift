@@ -32,6 +32,7 @@ SOFTWARE.
 
 import Foundation
 
+/// Class to manage offline hits stored
 public class Offline: NSObject {
     /// Tracker instance
     var tracker: Tracker
@@ -45,47 +46,36 @@ public class Offline: NSObject {
         self.tracker = tracker;
     }
     
-    /**
-    Send offline hits
-    */
+    /// Send all hits stored
     public func dispatch() {
         Sender.sendOfflineHits(self.tracker, forceSendOfflineHits: true, async: true)
     }
     
-    /**
-    Get all offline hits stored in database
-    
-    - returns: array of offline hits
-    */
+    /// Get all offline hits stored in database
+    ///
+    /// - Returns: collection of offline hits
     public func get() -> [Hit] {
         return Storage.sharedInstance.get()
     }
     
-    /**
-    Get the number of offline hits stored in database
-    
-    - returns: number of offline hits
-    */
+    /// Get the number of offline hits stored in database
+    ///
+    /// - Returns: number of offline hits
     public func count() -> Int {
         return Storage.sharedInstance.count()
     }
-    
-    /**
-    Delete all offline hits stored in database
-    
-    - returns: number of deleted hits (-1 if an error occured)
-    */
+
+    /// Delete all offline hits stored in database
+    ///
+    /// - Returns: number of deleted hits (-1 if an error occured)
     public func delete() -> Int {
         return Storage.sharedInstance.delete()
     }
-    
-    /**
-    Delete offline hits older than the number of days passed in parameter
-    
-    :params: Number of days of offline hits to keep in database
-    
-    - returns: number of deleted hits (-1 if an error occured)
-    */
+
+    /// Delete offline hits older than the number of days passed in parameter
+    ///
+    /// - Parameter olderThan: Number of days of offline hits to keep in database
+    /// - Returns: number of deleted hits (-1 if an error occured)
     @objc(deleteOlderThanInt:)
     public func delete(_ olderThan: Int) -> Int {
         let storage = Storage.sharedInstance
@@ -99,32 +89,25 @@ public class Offline: NSObject {
         return storage.delete(past!)
     }
     
-    /**
-    Delete offline hits older than the date passed in parameter
-    
-    :params: Date from which the hits will be deleteddelet
-    
-    - returns: number of deleted hits (-1 if an error occured)
-    */
+    /// Delete offline hits older than the date passed in parameter
+    ///
+    /// - Parameter olderThan: Date from which the hits will be deleted
+    /// - Returns: number of deleted hits (-1 if an error occured)
     @objc(deleteOlderThanDate:)
     public func delete(_ olderThan: Date) -> Int {
         return Storage.sharedInstance.delete(olderThan)
     }
     
-    /**
-    Get the first hit stored in database
-    
-    - returns: the oldest hit
-    */
+    /// Get the first hit stored in database
+    ///
+    /// - Returns: the oldest hit
     public func oldest() -> Hit? {
         return Storage.sharedInstance.first()
     }
     
-    /**
-    Get the latest hit stored in database
-    
-    - returns: the latest hit
-    */
+    /// Get the latest hit stored in database
+    ///
+    /// - Returns: the latest hit
     public func latest() -> Hit? {
         return Storage.sharedInstance.last()
     }

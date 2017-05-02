@@ -37,7 +37,7 @@ import WatchKit
 import UIKit
 #endif
 
-/// Makes it easy to manage trackers instances
+/// Use this class to manage tracker instances
 public class ATInternet: NSObject {
     
     struct Static {
@@ -49,7 +49,7 @@ public class ATInternet: NSObject {
         }()
     
     #if os(iOS) && AT_SMART_TRACKER
-    /// First tracker that was initialized
+    /// Get an AutoTracker with "defaultTracker" name
     public var defaultTracker: AutoTracker {
         get {
             if(self.trackers == nil) {
@@ -67,7 +67,7 @@ public class ATInternet: NSObject {
         }
     }
     #else
-    /// First tracker that was initialized
+    /// Get a Tracker with "defaultTracker" name
     public var defaultTracker: Tracker {
         get {
             return self.tracker("defaultTracker")
@@ -92,10 +92,11 @@ public class ATInternet: NSObject {
         return Static.instance!
     }
     
-    /**
-    Method to access or create an instance of a tracker
-    - parameter name: name of the tracker
-    */
+    
+    /// Get a tracker with default configuration
+    ///
+    /// - Parameter name: the tracker identifier
+    /// - Returns: a new tracker or an existing instance
     public func tracker(_ name: String) -> Tracker {
         if(self.trackers == nil) {
             self.trackers = [String: Tracker]()
@@ -111,11 +112,12 @@ public class ATInternet: NSObject {
         }
     }
     
-    /**
-    Method to access or create an instance of a tracker
-    - parameter name: name of the tracker
-    - parameter configuration: configuration to use for the tracker
-    */
+    /// Get a tracker with custom configuration
+    ///
+    /// - Parameters:
+    ///   - name: the tracker identifier
+    ///   - configuration: a custom configuration. See TrackerConfigurationKeys
+    /// - Returns: a new tracker or an existing instance
     public func tracker(_ name: String, configuration: [String: String]) -> Tracker {
         if(self.trackers == nil) {
             self.trackers = [String: Tracker]()

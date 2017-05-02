@@ -32,6 +32,8 @@ SOFTWARE.
 
 import Foundation
 
+
+/// Wrapper class for Live Video tracking
 public class LiveVideo: RichMedia {
    
     /// Media type
@@ -48,6 +50,7 @@ public class LiveVideo: RichMedia {
     
 }
 
+/// Wrapper class to manage Live Audio instances
 public class LiveVideos: NSObject {
     
     var list: [String: LiveVideo] = [String: LiveVideo]()
@@ -64,12 +67,10 @@ public class LiveVideos: NSObject {
         self.player = player
     }
     
-    /**
-    Create a new live video
-    - parameter video: name
-    - parameter first: chapter
-    - returns: live video instance
-    */
+    /// Add a new live video
+    ///
+    /// - Parameter name: live name
+    /// - Returns: the new live video instance
     public func add(_ name:String) -> LiveVideo {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
@@ -84,12 +85,12 @@ public class LiveVideos: NSObject {
         }
     }
     
-    /**
-    Create a new live video
-    - parameter video: name
-    - parameter first: chapter
-    - returns: live video instance
-    */
+    /// Add a new live video
+    ///
+    /// - Parameters:
+    ///   - name: name
+    ///   - chapter1: chapter1 label
+    /// - Returns: a new live video instance
     public func add(_ name: String, chapter1: String) -> LiveVideo {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
@@ -105,13 +106,13 @@ public class LiveVideos: NSObject {
         }
     }
     
-    /**
-    Create a new live video
-    - parameter video: name
-    - parameter first: chapter
-    - parameter second: chapter
-    - returns: live video instance
-    */
+    /// Add a new live video
+    ///
+    /// - Parameters:
+    ///   - name: name
+    ///   - chapter1: chapter1 label
+    ///   - chapter2: chapter2 label
+    /// - Returns: the new live video instance
     public func add(_ name: String, chapter1: String, chapter2: String) -> LiveVideo {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
@@ -127,15 +128,15 @@ public class LiveVideos: NSObject {
             return video
         }
     }
-    
-    /**
-    Create a new live video
-    - parameter video: name
-    - parameter first: chapter
-    - parameter second: chapter
-    - parameter third: chapter
-    - returns: live video instance
-    */
+
+    /// Add a new live video
+    ///
+    /// - Parameters:
+    ///   - name: name
+    ///   - chapter1: chapter1 label
+    ///   - chapter2: chapter2 label
+    ///   - chapter3: chapter3 label
+    /// - Returns: a new live video instance
     public func add(_ name: String, chapter1: String, chapter2: String, chapter3: String) -> LiveVideo {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
@@ -155,7 +156,7 @@ public class LiveVideos: NSObject {
     
     /**
     Remove a live video
-    - parameter video: name
+    - parameter video: video name
     */
     public func remove(_ name: String) {
         if let timer = list[name]?.timer {

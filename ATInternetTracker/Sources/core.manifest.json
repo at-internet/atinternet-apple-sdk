@@ -147,6 +147,22 @@
             "type": "string",
             "public": true,
             "global": true
+        },
+        "AT-env": {
+            "title" : "Geode_Tag_SDK_Config_Title_AT-env",
+            "description": "Geode_Tag_SDK_Config_Description_AT-env",
+            "defaultValue": "prod",
+            "type": "string",
+            "public": false,
+            "global": true
+        },
+        "downloadSource": {
+            "title" : "Geode_Tag_SDK_Config_Title_downloadSource",
+            "description": "Geode_Tag_SDK_Config_Description_downloadSource",
+            "defaultValue": "int",
+            "type": "string",
+            "public": false,
+            "global": true
         }
     }
 }

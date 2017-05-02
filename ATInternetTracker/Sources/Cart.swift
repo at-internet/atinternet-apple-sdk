@@ -30,6 +30,8 @@ SOFTWARE.
 //  Tracker
 //
 
+
+/// Wrapper class to manage your cart
 public class Cart: BusinessObject {
     
     /// Cart identifier
@@ -41,11 +43,10 @@ public class Cart: BusinessObject {
     /// Product list
     lazy var productList: [String: Product] = [String: Product]()
     
-    /**
-    Set a cart
-    - parameter cartId: the cart identifier
-    - returns: the cart
-    */
+    /// Set a cart
+    ///
+    /// - Parameter cartId: the cart identifier
+    /// - Returns: the cart
     public func set(_ cartId: String) -> Cart {
         if(cartId != self.cartId) {
             products.removeAll()

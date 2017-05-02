@@ -32,6 +32,8 @@ SOFTWARE.
 
 import Foundation
 
+
+/// Global context tracking
 public class Context: NSObject {
     /// Tracker instance
     var tracker: Tracker
@@ -44,7 +46,7 @@ public class Context: NSObject {
     
     internal var _level2: Int = 0
     
-    /// Tracker level 2
+    /// Global level 2
     public var level2: Int {
         get {
             return _level2
@@ -67,7 +69,7 @@ public class Context: NSObject {
     
     internal var _backgroundMode: BackgroundMode = BackgroundMode.normal
     
-    /// Tracker background mode
+    /// Tracker background mode. See BackgroundMode
     public var backgroundMode: BackgroundMode {
         get {
             return _backgroundMode

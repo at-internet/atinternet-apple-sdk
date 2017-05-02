@@ -32,17 +32,19 @@ SOFTWARE.
 
 import Foundation
 
+
+/// manage self promotion tracking
 public class SelfPromotion : OnAppAd {
     lazy var _customObjects: [String: CustomObject] = [String: CustomObject]()
     
-    /// Ad identifier
+    /// Advertising identifier
     public var adId: Int = 0
-    /// Ad format
+    /// Advertising format
     public var format: String?
     /// Product identifier
     public var productId: String?
     
-    // Custom objects to add to self promotion hit
+    /// Get a wrapper for Custom objects management
     public lazy var customObjects: CustomObjects = CustomObjects(selfPromotion: self)
     
     /**
@@ -81,16 +83,11 @@ public class SelfPromotion : OnAppAd {
             spot += productId
         }
         
-        let positions = Tool.findParameterPosition(HitParam.hitType.rawValue, arrays: tracker.buffer.persistentParameters, tracker.buffer.volatileParameters)
-        
-        if(positions.count > 0) {
-            for(_, position) in positions.enumerated() {
-                if(position.arrayIndex == 0) {
-                    currentType = (tracker.buffer.persistentParameters[position.index] as Param).value()
-                } else {
-                    currentType = (tracker.buffer.volatileParameters[position.index] as Param).value()
-                }
-            }
+        if let parameter = tracker.buffer.volatileParameters[HitParam.hitType.rawValue] {
+            currentType = parameter.values[0]()
+        }
+        if let parameter = tracker.buffer.persistentParameters[HitParam.hitType.rawValue] {
+            currentType = parameter.values[0]()
         }
         
         if (currentType != "screen" && currentType != defaultType) {
@@ -121,14 +118,19 @@ public class SelfPromotion : OnAppAd {
     }
 }
 
+
+/// self promotion impression tracking
 public class SelfPromotionImpression: ScreenInfo {
-    /// Ad identifier
+    /// Advertising identifier
     public var adId: Int = 0
-    /// Ad format
+    /// Advertising format
     public var format: String?
     /// Product identifier
     public var productId: String?
     
+    /// Constructor
+    ///
+    /// - Parameter adId: Advertising identifier
     public init(adId: Int) {
         super.init()
         
@@ -163,6 +165,8 @@ public class SelfPromotionImpression: ScreenInfo {
     }
 }
 
+
+/// Wrapper class to manage Self Promotion Impressions
 public class SelfPromotionImpressions: NSObject {
     /// Tracker instance
     var tracker: Tracker!
@@ -170,16 +174,18 @@ public class SelfPromotionImpressions: NSObject {
     /// Screen instance
     var screen: AbstractScreen
     
+    /// Constructor.
+    ///
+    /// - Parameter screen: a screen
     init(screen: AbstractScreen) {
         self.screen = screen
         self.tracker = screen.tracker
     }
     
-    /**
-     Set a self promotion
-     @param adId identifier
-     @return the Self Promotion instance
-     */
+    /// Add a SelfPromotionImpression
+    ///
+    /// - Parameter adId: Advertiser indentifier
+    /// - Returns: the new SelfPromotionImpression
     public func add(_ adId: Int) -> SelfPromotionImpression {
         let selfPromo = SelfPromotionImpression(tracker: self.tracker)
         selfPromo.adId = adId
@@ -190,6 +196,7 @@ public class SelfPromotionImpressions: NSObject {
     }
 }
 
+/// Wrapper class to manage Self Promotion instances
 public class SelfPromotions: NSObject {
     /// Tracker instance
     var tracker: Tracker
@@ -203,11 +210,12 @@ public class SelfPromotions: NSObject {
         self.tracker = tracker
     }
     
-    /**
-    Set a self promotion
-    - parameter adId: ad identifier
-    :returnd: the SelfPromotion instance
-    */
+    
+    /// Add a SelfPromotion advertising
+    ///
+    /// - Parameter adId: advertiser identifier
+    /// - Returns: the new SelfPromotion instance
+    @discardableResult
     public func add(_ adId: Int) -> SelfPromotion {
         let selfPromotion = SelfPromotion(tracker: self.tracker)
         selfPromotion.adId = adId
@@ -217,9 +225,8 @@ public class SelfPromotions: NSObject {
         return selfPromotion
     }
     
-    /**
-    Send self promotion view hits
-    */
+    
+    /// Send all impressions
     public func sendImpressions() {
         var impressions = [BusinessObject]()
         

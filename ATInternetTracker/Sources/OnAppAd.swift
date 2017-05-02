@@ -32,10 +32,16 @@ SOFTWARE.
 
 import Foundation
 
+
+/// Abstract class to manage Advertising tracking
 public class OnAppAd: BusinessObject {
     
     /// Action types
-    @objc public enum OnAppAdAction: Int {
+    ///
+    /// - view: Ad tracking impression
+    /// - touch: Ad tracking touch
+    @objc
+    public enum OnAppAdAction: Int {
         case view = 0
         case touch = 1
     }

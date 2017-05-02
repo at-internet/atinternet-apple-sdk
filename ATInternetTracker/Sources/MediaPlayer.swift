@@ -32,6 +32,8 @@ SOFTWARE.
 
 import Foundation
 
+
+/// Wrapper class to manage rich media tracking
 public class MediaPlayer: NSObject {
     /// Tracker instance
     var tracker: Tracker
@@ -61,6 +63,8 @@ public class MediaPlayer: NSObject {
     }    
 }
 
+
+/// Wrapper class to manage media players
 public class MediaPlayers: NSObject {
     /// Tracker instance
     var tracker: Tracker
@@ -77,10 +81,9 @@ public class MediaPlayers: NSObject {
         self.tracker = tracker
     }
     
-    /**
-    Add a new ATMediaPlayer
-    - returns: ATMediaPlayer instance
-    */
+    /// Add a new Media Player
+    ///
+    /// - Returns: the new MediaPlayer instance
     public func add() -> MediaPlayer {
         let player = MediaPlayer(tracker: tracker)
         
@@ -94,12 +97,11 @@ public class MediaPlayers: NSObject {
         
         return player
     }
-    
-    /**
-    Add a new ATMediaPlayer
-    - parameter playerId: the player identifier
-    - returns: ATMediaPlayer instance
-    */
+
+    /// Add a new Media Player
+    ///
+    /// - Parameter playerId: the player identifier
+    /// - Returns: the new MediaPlayer instance
     public func add(_ playerId: Int) -> MediaPlayer {
         
         if (playerIds.index(forKey: playerId) != nil) {
@@ -115,10 +117,9 @@ public class MediaPlayers: NSObject {
 
     }
     
-    /**
-    Remove an ATMediaPlayer
-    - parameter playerId: the player identifier
-    */
+    /// Remove a MediaPlayer by ID
+    ///
+    /// - Parameter playerId: the player identifier
     public func remove(_ playerId: Int) {
         let player = playerIds[playerId]
         
@@ -129,9 +130,7 @@ public class MediaPlayers: NSObject {
         playerIds.removeValue(forKey: playerId)
     }
     
-    /**
-    Remove all ATMediaPlayer
-    */
+    /// Remove all MediaPlayer and stop every players
     public func removeAll() {
         for (player) in self.playerIds.values {
             self.sendStops(player)
@@ -140,6 +139,10 @@ public class MediaPlayers: NSObject {
         playerIds.removeAll(keepingCapacity: false)
     }
     
+    
+    /// Send Stop
+    ///
+    /// - Parameter player: send a stop action for all media attached to the player
     func sendStops(_ player: MediaPlayer) {
         for (video) in (player.videos.list.values) {
             if let timer = video.timer {

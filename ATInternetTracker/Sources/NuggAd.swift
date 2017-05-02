@@ -32,8 +32,11 @@ SOFTWARE.
 
 import Foundation
 
+/// Wrapper class to enable NuggAd partner usage
 public class NuggAd: BusinessObject {
     let key = "nuggad"
+    
+    /// NuggAd response data
     lazy open var data: [String: Any] = [String: Any]()
     
     /// Set parameters in buffer
@@ -54,6 +57,7 @@ public class NuggAd: BusinessObject {
     }
 }
 
+/// Wrapper class to manage NuggAd instances
 public class NuggAds: NSObject {
     /// Tracker instance
     var tracker: Tracker
@@ -67,11 +71,10 @@ public class NuggAds: NSObject {
         self.tracker = tracker
     }
     
-    /**
-    Set NuggAd data
-    - parameter data: NuggAd response data
-    - returns: NuggAd instance
-    */
+    /// Add NuggAd data
+    ///
+    /// - Parameter data: NuggAd response data
+    /// - Returns: NuggAd instance
     public func add(_ data: [String: Any]) -> NuggAd {
         let ad = NuggAd(tracker: tracker)
         ad.data = data

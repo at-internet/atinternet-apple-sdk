@@ -32,6 +32,7 @@ SOFTWARE.
 
 import Foundation
 
+/// Wrapper class for tracking product
 public class Product : BusinessObject {
     lazy var _customObjects: [String: CustomObject] = [String: CustomObject]()
     
@@ -124,15 +125,14 @@ public class Product : BusinessObject {
         return productName
     }
     
-    /**
-    Send publisher view hit
-    */
+    /// Send products view hit
     public func sendView() {
         self.action = ProductAction.view
         self.tracker.dispatcher.dispatch([self])
     }
 }
 
+/// Wrapper class to manage Product instances
 public class Products: NSObject {
     
     /// Cart instance
@@ -162,7 +162,7 @@ public class Products: NSObject {
     /**
     Add a product
     - parameter product: a product instance
-    - returns: the product
+    - returns: the product added
     */
     public func add(_ product: Product) -> Product {
         if(cart != nil) {
@@ -177,7 +177,7 @@ public class Products: NSObject {
     /**
     Add a product
     - parameter productId: the product identifier
-    - returns: the product
+    - returns: the new product instance
     */
     @objc(addString:)
     public func add(_ productId: String) -> Product {
@@ -193,25 +193,25 @@ public class Products: NSObject {
         return product
     }
     
-    /**
-    Add a product
-    - parameter category1: category1 label
-    - parameter productId: the product identifier
-    - returns: the product
-    */
+    /// Add a product
+    ///
+    /// - Parameters:
+    ///   - productId: the product identifier
+    ///   - category1: category1 label
+    /// - Returns: the new product instance
     public func add(_ productId: String, category1: String) -> Product {
         let pdt = add(productId)
         pdt.category1 = category1
         return pdt
     }
     
-    /**
-    Add a product
-    - parameter category1: category1 label
-    - parameter category2: category2 label
-    - parameter productId: the product identifier
-    - returns: the product
-    */
+    /// Add a product
+    ///
+    /// - Parameters:
+    ///   - productId: the product identifier
+    ///   - category1: category1 label
+    ///   - category2: category2 label
+    /// - Returns: the new product instance
     public func add(_ productId: String, category1: String, category2: String) -> Product {
         let pdt = add(productId)
         pdt.category1 = category1
@@ -219,14 +219,14 @@ public class Products: NSObject {
         return pdt
     }
     
-    /**
-    Add a product
-    - parameter category1: category1 label
-    - parameter category2: category2 label
-    - parameter category3: category3 label
-    - parameter productId: the product identifier
-    - returns: the product
-    */
+    /// Add a product
+    ///
+    /// - Parameters:
+    ///   - productId: the product identifier
+    ///   - category1: category1 label
+    ///   - category2: category2 label
+    ///   - category3: category3 label
+    /// - Returns: the new product instance
     public func add(_ productId: String, category1: String, category2: String, category3: String) -> Product {
         let pdt = add(productId)
         pdt.category1 = category1
@@ -235,15 +235,15 @@ public class Products: NSObject {
         return pdt
     }
     
-    /**
-    Add a product
-    - parameter category1: category1 label
-    - parameter category2: category2 label
-    - parameter category3: category3 label
-    - parameter category4: category4 label
-    - parameter productId: the product identifier
-    - returns: the product
-    */
+    /// Add a product
+    ///
+    /// - Parameters:
+    ///   - productId: the product identifier
+    ///   - category1: category1 label
+    ///   - category2: category2 label
+    ///   - category3: category3 label
+    ///   - category4: category4 label
+    /// - Returns: the new product instance
     public func add(_ productId: String, category1: String, category2: String, category3: String, category4: String) -> Product {
         let pdt = add(productId)
         pdt.category1 = category1
@@ -253,16 +253,16 @@ public class Products: NSObject {
         return pdt
     }
     
-    /**
-    Add a product
-    - parameter category1: category1 label
-    - parameter category2: category2 label
-    - parameter category3: category3 label
-    - parameter category4: category4 label
-    - parameter category5: category5 label
-    - parameter productId: the product identifier
-    - returns: the product
-    */
+    /// Add a product
+    ///
+    /// - Parameters:
+    ///   - productId: the product identifier
+    ///   - category1: category1 label
+    ///   - category2: category2 label
+    ///   - category3: category3 label
+    ///   - category4: category4 label
+    ///   - category5: category5 label
+    /// - Returns: the new product instance
     public func add(_ productId: String, category1: String, category2: String, category3: String, category4: String, category5: String) -> Product {
         let pdt = add(productId)
         pdt.category1 = category1
@@ -273,17 +273,17 @@ public class Products: NSObject {
         return pdt
     }
     
-    /**
-    Add a product
-    - parameter category1: category1 label
-    - parameter category2: category2 label
-    - parameter category3: category3 label
-    - parameter category4: category4 label
-    - parameter category5: category5 label
-    - parameter category6: category6 label
-    - parameter productId: the product identifier
-    - returns: the product
-    */
+    /// Add a product
+    ///
+    /// - Parameters:
+    ///   - productId: the product identifier
+    ///   - category1: category1 label
+    ///   - category2: category2 label
+    ///   - category3: category3 label
+    ///   - category4: category4 label
+    ///   - category5: category5 label
+    ///   - category6: category6 label
+    /// - Returns: the new product instance
     public func add(_ productId: String, category1: String, category2: String, category3: String, category4: String, category5: String, category6: String) -> Product {
         let pdt = add(productId)
         pdt.category1 = category1
@@ -294,11 +294,10 @@ public class Products: NSObject {
         pdt.category6 = category6
         return pdt
     }
-    
-    /**
-    Remove a product
-    - parameter productId: the product identifier
-    */
+
+    /// Remove a product
+    ///
+    /// - Parameter productId: the product identifier
     public func remove(_ productId: String) {
         if(cart != nil) {
             cart.productList.removeValue(forKey: productId)
@@ -311,10 +310,8 @@ public class Products: NSObject {
             }
         }
     }
-    
-    /**
-    Remove all the products
-    */
+
+    /// Remove all the products
     public func removeAll() {
         if(cart != nil) {
             cart.productList.removeAll(keepingCapacity: false)
@@ -326,10 +323,8 @@ public class Products: NSObject {
             }
         }
     }
-    
-    /**
-    Send products views hits
-    */
+
+    /// Send viewed products
     public func sendViews() {
         var impressions = [BusinessObject]()
         

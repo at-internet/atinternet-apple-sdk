@@ -32,6 +32,7 @@ SOFTWARE.
 
 import Foundation
 
+/// Wrapper class for Publisher (ads) tracking
 public class Publisher : OnAppAd {
     lazy var _customObjects: [String: CustomObject] = [String: CustomObject]()
     
@@ -62,9 +63,7 @@ public class Publisher : OnAppAd {
     // Custom objects to add to publisher hit
     public lazy var customObjects: CustomObjects = CustomObjects(publisher: self)
     
-    /**
-    Send publisher touch hit
-    */
+    /// Send publisher touch hit
     public func sendTouch() {
         self.action = OnAppAdAction.touch
         self.tracker.dispatcher.dispatch([self])
@@ -127,20 +126,15 @@ public class Publisher : OnAppAd {
             spot += url
         }
         
-        let positions = Tool.findParameterPosition(HitParam.hitType.rawValue, arrays: self.tracker.buffer.persistentParameters, self.tracker.buffer.volatileParameters)
-        
-        if(positions.count > 0) {
-            for(_, position) in positions.enumerated() {
-                if(position.arrayIndex == 0) {
-                    currentType = (self.tracker.buffer.persistentParameters[position.index] as Param).value()
-                } else {
-                    currentType = (self.tracker.buffer.volatileParameters[position.index] as Param).value()
-                }
-            }
+        if let parameter = tracker.buffer.volatileParameters[HitParam.hitType.rawValue] {
+            currentType = parameter.values[0]()
+        }
+        if let parameter = tracker.buffer.persistentParameters[HitParam.hitType.rawValue] {
+            currentType = parameter.values[0]()
         }
         
         if (currentType != "screen" && currentType != defaultType) {
-            _ = self.tracker.setParam(HitParam.hitType.rawValue, value: defaultType)
+            self.tracker.setParam(HitParam.hitType.rawValue, value: defaultType)
         }
         
         let option = ParamOption()
@@ -167,6 +161,7 @@ public class Publisher : OnAppAd {
     }
 }
 
+/// Wrapper class for publisher impression tracking. They are attached to a Screen
 public class PublisherImpression: ScreenInfo {
     /// Campaign identifier
     public var campaignId: String = ""
@@ -192,6 +187,9 @@ public class PublisherImpression: ScreenInfo {
     /// URL
     public var url: String?
     
+    /// Create a PublisherImpression with a campaignId
+    ///
+    /// - Parameter campaignId: campaign identifier
     public init(campaignId: String) {
         super.init()
         
@@ -256,6 +254,7 @@ public class PublisherImpression: ScreenInfo {
     }
 }
 
+/// Wrapper class to manage PublisherImpressions instances
 public class PublisherImpressions: NSObject {
     /// Tracker instance
     var tracker: Tracker!
@@ -268,11 +267,11 @@ public class PublisherImpressions: NSObject {
         self.tracker = screen.tracker
     }
     
-    /**
-     Set a publisher
-     @param campaignID campaign identifier
-     @return the Publisher instance
-     */
+    /// Add a publisher
+    ///
+    /// - Parameter campaignId: campaign identifier
+    /// - Returns: the new publisher instance
+    @discardableResult
     public func add(_ campaignId: String) -> PublisherImpression {
         let publisherDetail = PublisherImpression(tracker: self.tracker)
         publisherDetail.campaignId = campaignId
@@ -283,6 +282,7 @@ public class PublisherImpressions: NSObject {
     }
 }
 
+/// Wrapper class to manage Publisher instances
 public class Publishers: NSObject {
     /// Tracker instance
     var tracker: Tracker
@@ -296,11 +296,11 @@ public class Publishers: NSObject {
         self.tracker = tracker
     }
     
-    /**
-    Set a publisher
-    @param campaignID campaign identifier
-    @return the Publisher instance
-    */
+    /// Add a publisher
+    ///
+    /// - Parameter campaignId: campaign identifier
+    /// - Returns: the new Publisher instance
+    @discardableResult
     public func add(_ campaignId: String) -> Publisher {
         let publisherDetail = Publisher(tracker: self.tracker)
         publisherDetail.campaignId = campaignId

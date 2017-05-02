@@ -62,56 +62,56 @@ class OrderTests: XCTestCase {
         
         XCTAssert(order.tracker.buffer.volatileParameters.count == 17, "Le nombre de paramètres volatiles doit être égal à 17")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[0].key == "cmd", "Le premier paramètre doit être cmd")
-        XCTAssert(order.tracker.buffer.volatileParameters[0].value() == "cmd1", "La valeur du premier paramètre doit être cmd1")
+        XCTAssert(order.tracker.buffer.volatileParameters["cmd"]!.key == "cmd", "Le premier paramètre doit être cmd")
+        XCTAssert(order.tracker.buffer.volatileParameters["cmd"]!.values[0]() == "cmd1", "La valeur du premier paramètre doit être cmd1")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[1].key == "roimt", "Le second paramètre doit être roimt")
-        XCTAssert(order.tracker.buffer.volatileParameters[1].value() == "10.123", "La valeur du second paramètre doit être 10")
+        XCTAssert(order.tracker.buffer.volatileParameters["roimt"]!.key == "roimt", "Le second paramètre doit être roimt")
+        XCTAssert(order.tracker.buffer.volatileParameters["roimt"]!.values[0]() == "10.123", "La valeur du second paramètre doit être 10")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[2].key == "st", "Le 3ème paramètre doit être st")
-        XCTAssert(order.tracker.buffer.volatileParameters[2].value() == "1", "La valeur du 3ème paramètre doit être 1")
+        XCTAssert(order.tracker.buffer.volatileParameters["st"]!.key == "st", "Le 3ème paramètre doit être st")
+        XCTAssert(order.tracker.buffer.volatileParameters["st"]!.values[0]() == "1", "La valeur du 3ème paramètre doit être 1")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[3].key == "newcus", "Le 4ème paramètre doit être newcus")
-        XCTAssert(order.tracker.buffer.volatileParameters[3].value() == "1", "La valeur du 4ème paramètre doit être 1")
+        XCTAssert(order.tracker.buffer.volatileParameters["newcus"]!.key == "newcus", "Le 4ème paramètre doit être newcus")
+        XCTAssert(order.tracker.buffer.volatileParameters["newcus"]!.values[0]() == "1", "La valeur du 4ème paramètre doit être 1")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[4].key == "dscht", "Le 5ème paramètre doit être dscht")
-        XCTAssert(order.tracker.buffer.volatileParameters[4].value() == "5", "La valeur du 5ème paramètre doit être 5")
+        XCTAssert(order.tracker.buffer.volatileParameters["dscht"]!.key == "dscht", "Le 5ème paramètre doit être dscht")
+        XCTAssert(order.tracker.buffer.volatileParameters["dscht"]!.values[0]() == "5", "La valeur du 5ème paramètre doit être 5")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[5].key == "dsc", "Le 6ème paramètre doit être dsc")
-        XCTAssert(order.tracker.buffer.volatileParameters[5].value() == "10", "La valeur du 6ème paramètre doit être 10")
+        XCTAssert(order.tracker.buffer.volatileParameters["dsc"]!.key == "dsc", "Le 6ème paramètre doit être dsc")
+        XCTAssert(order.tracker.buffer.volatileParameters["dsc"]!.values[0]() == "10", "La valeur du 6ème paramètre doit être 10")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[6].key == "pcd", "Le 7ème paramètre doit être pcd")
-        XCTAssert(order.tracker.buffer.volatileParameters[6].value() == "1234", "La valeur du 7ème paramètre doit être 1234")
+        XCTAssert(order.tracker.buffer.volatileParameters["pcd"]!.key == "pcd", "Le 7ème paramètre doit être pcd")
+        XCTAssert(order.tracker.buffer.volatileParameters["pcd"]!.values[0]() == "1234", "La valeur du 7ème paramètre doit être 1234")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[7].key == "mtht", "Le 8ème paramètre doit être mtht")
-        XCTAssert(order.tracker.buffer.volatileParameters[7].value() == "50", "La valeur du 8ème paramètre doit être 50")
+        XCTAssert(order.tracker.buffer.volatileParameters["mtht"]!.key == "mtht", "Le 8ème paramètre doit être mtht")
+        XCTAssert(order.tracker.buffer.volatileParameters["mtht"]!.values[0]() == "50", "La valeur du 8ème paramètre doit être 50")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[8].key == "mtttc", "Le 9ème paramètre doit être mtttc")
-        XCTAssert(order.tracker.buffer.volatileParameters[8].value() == "60", "La valeur du 9ème paramètre doit être 60")
+        XCTAssert(order.tracker.buffer.volatileParameters["mtttc"]!.key == "mtttc", "Le 9ème paramètre doit être mtttc")
+        XCTAssert(order.tracker.buffer.volatileParameters["mtttc"]!.values[0]() == "60", "La valeur du 9ème paramètre doit être 60")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[9].key == "tax", "Le 10ème paramètre doit être tax")
-        XCTAssert(order.tracker.buffer.volatileParameters[9].value() == "10", "La valeur du 10ème paramètre doit être 10")
+        XCTAssert(order.tracker.buffer.volatileParameters["tax"]!.key == "tax", "Le 10ème paramètre doit être tax")
+        XCTAssert(order.tracker.buffer.volatileParameters["tax"]!.values[0]() == "10", "La valeur du 10ème paramètre doit être 10")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[10].key == "fpht", "Le 11ème paramètre doit être fpht")
-        XCTAssert(order.tracker.buffer.volatileParameters[10].value() == "2", "La valeur du 11ème paramètre doit être 2")
+        XCTAssert(order.tracker.buffer.volatileParameters["fpht"]!.key == "fpht", "Le 11ème paramètre doit être fpht")
+        XCTAssert(order.tracker.buffer.volatileParameters["fpht"]!.values[0]() == "2", "La valeur du 11ème paramètre doit être 2")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[11].key == "fp", "Le 12ème paramètre doit être fp")
-        XCTAssert(order.tracker.buffer.volatileParameters[11].value() == "6", "La valeur du 12ème paramètre doit être 6")
+        XCTAssert(order.tracker.buffer.volatileParameters["fp"]!.key == "fp", "Le 12ème paramètre doit être fp")
+        XCTAssert(order.tracker.buffer.volatileParameters["fp"]!.values[0]() == "6", "La valeur du 12ème paramètre doit être 6")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[12].key == "dl", "Le 13ème paramètre doit être dl")
-        XCTAssert(order.tracker.buffer.volatileParameters[12].value() == "1[UPS]", "La valeur du 13ème paramètre doit être 1")
+        XCTAssert(order.tracker.buffer.volatileParameters["dl"]!.key == "dl", "Le 13ème paramètre doit être dl")
+        XCTAssert(order.tracker.buffer.volatileParameters["dl"]!.values[0]() == "1[UPS]", "La valeur du 13ème paramètre doit être 1")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[13].key == "O1", "Le 14ème paramètre doit être O1")
-        XCTAssert(order.tracker.buffer.volatileParameters[13].value() == "test", "La valeur du 14ème paramètre doit être test")
+        XCTAssert(order.tracker.buffer.volatileParameters["O1"]!.key == "O1", "Le 14ème paramètre doit être O1")
+        XCTAssert(order.tracker.buffer.volatileParameters["O1"]!.values[0]() == "test", "La valeur du 14ème paramètre doit être test")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[14].key == "O2", "Le 15ème paramètre doit être O2")
-        XCTAssert(order.tracker.buffer.volatileParameters[14].value() == "test2", "La valeur du 15ème paramètre doit être test2")
+        XCTAssert(order.tracker.buffer.volatileParameters["O2"]!.key == "O2", "Le 15ème paramètre doit être O2")
+        XCTAssert(order.tracker.buffer.volatileParameters["O2"]!.values[0]() == "test2", "La valeur du 15ème paramètre doit être test2")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[15].key == "mp", "Le 16ème paramètre doit être mp")
-        XCTAssert(order.tracker.buffer.volatileParameters[15].value() == "1", "La valeur du 16ème paramètre doit être 1")
+        XCTAssert(order.tracker.buffer.volatileParameters["mp"]!.key == "mp", "Le 16ème paramètre doit être mp")
+        XCTAssert(order.tracker.buffer.volatileParameters["mp"]!.values[0]() == "1", "La valeur du 16ème paramètre doit être 1")
         
-        XCTAssert(order.tracker.buffer.volatileParameters[16].key == "tp", "Le 17ème paramètre doit être tp")
-        XCTAssert(order.tracker.buffer.volatileParameters[16].value() == "pre1", "La valeur du 17ème paramètre doit être pre1")
+        XCTAssert(order.tracker.buffer.volatileParameters["tp"]!.key == "tp", "Le 17ème paramètre doit être tp")
+        XCTAssert(order.tracker.buffer.volatileParameters["tp"]!.values[0]() == "pre1", "La valeur du 17ème paramètre doit être pre1")
 
 
     }

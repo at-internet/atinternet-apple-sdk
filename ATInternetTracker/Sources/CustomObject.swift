@@ -32,9 +32,13 @@ SOFTWARE.
 
 import Foundation
 
+
+/// Wrapper class to inject custom data in you tracking
 public class CustomObject: BusinessObject {
-    /// JSON 
+    /// custom data as string - json formatted
     public var json: String = "{}"
+    /// allow the custom object to persist
+    public var persistent = false
     
     @objc(initWithString:)
     init(string: String) {
@@ -59,11 +63,13 @@ public class CustomObject: BusinessObject {
         let option = ParamOption()
         option.append = true
         option.encode = true
-        
-        _ = self.tracker.setParam(HitParam.json.rawValue, value: json, options: option)
+        option.persistent = self.persistent
+        self.tracker.setParam(HitParam.json.rawValue, value: json, options: option)
     }
 }
 
+
+/// Wrapper class to manage custom objects instances
 public class CustomObjects: NSObject {
     /// Tracker instance
     var tracker: Tracker!
@@ -117,11 +123,11 @@ public class CustomObjects: NSObject {
         self.tracker = product.tracker
     }
     
-    /**
-    Add tagging data for custom object
-    - parameter customObject: serialized custom object
-    @- returns: the CustomObjects instance
-    */
+    /// Add a custom object
+    ///
+    /// - Parameter customObject: customObject json string value
+    /// - Returns: the custom object instance
+    @discardableResult
     @objc(addString:)
     public func add(_ customObject: String) -> CustomObject {
         let customObj = CustomObject(string: customObject)
@@ -143,11 +149,11 @@ public class CustomObjects: NSObject {
         return customObj
     }
     
-    /**
-    Add tagging data for custom object
-    - parameter customObject: not serialized custom object
-    - returns: the CustomObjects instance
-    */
+    /// Add a custom object
+    ///
+    /// - Parameter customObject: customObject in key-value format
+    /// - Returns: the custom object instance
+    @discardableResult
     @objc(addDictionary:)
     public func add(_ customObject: [String: Any]) -> CustomObject {
         let customObj = CustomObject(dictionary: customObject)
@@ -169,11 +175,10 @@ public class CustomObjects: NSObject {
         
         return customObj
     }
-    
-    /**
-     Remove a custom object
-     - parameter customObjectId: the custom object identifier
-     */
+
+    /// Remove a custom object
+    ///
+    /// - Parameter customObjectId: the custom object identifier
     public func remove(_ customObjectId: String) {
         if(screen != nil) {
             screen!._customObjects.removeValue(forKey: customObjectId)
@@ -195,9 +200,7 @@ public class CustomObjects: NSObject {
         }
     }
     
-    /**
-     Remove all the products
-     */
+    /// Remove all custom objects
     public func removeAll() {
         if(screen != nil) {
             screen!._customObjects.removeAll(keepingCapacity: false)

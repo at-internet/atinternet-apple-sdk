@@ -60,9 +60,8 @@ class TVTrackingTests: XCTestCase {
         _ = tracker.tvTracking.set()
         
         let configurationOperation = BlockOperation(block: {
-            let p0 = tracker.buffer.persistentParameters.last as Param!
-            XCTAssertTrue(p0?.key == "tvt", "Le paramètre doit être la clé du plugin NuggAd")
-            XCTAssertTrue(p0?.value() == "true", "La valeur doit être true")
+            XCTAssertTrue(tracker.buffer.persistentParameters["tvt"] != nil, "Le paramètre doit être la clé du plugin tvt")
+            XCTAssertTrue(tracker.buffer.persistentParameters["tvt"]?.values[0]() == "true", "La valeur doit être true")
             expectation.fulfill()
         })
         

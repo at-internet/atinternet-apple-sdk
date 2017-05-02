@@ -61,26 +61,57 @@ class ProcessedHitType: NSObject {
     }
 }
 
+
+/// Class to provide Hit information. A hit is an HTTP request with a querystring containing all tracking information.
 public class Hit: NSObject {
-    /// Standard hit type
+    
+    /// HitType Enum
+    ///
+    /// - unknown: unknown
+    /// - screen: screen
+    /// - touch: touch
+    /// - audio: audio
+    /// - video: video
+    /// - animation: animation
+    /// - podCast: podCast
+    /// - rss: rss
+    /// - email: email
+    /// - advertising: advertising
+    /// - adTracking: adTracking
+    /// - productDisplay: productDisplay
+    /// - weborama: weborama
+    /// - mvTesting: mvTesting
     public enum HitType: Int {
         case unknown = 0
+        /// screen
         case screen = 1
+        /// touch
         case touch = 2
+        /// audio
         case audio = 3
+        /// video
         case video = 4
+        /// animation
         case animation = 5
+        /// podcast
         case podCast = 6
+        /// rss
         case rss = 7
+        /// email
         case email = 8
+        /// advertising
         case advertising = 9
+        /// adTracking
         case adTracking = 10
+        /// productDisplay
         case productDisplay = 11
+        /// weborama
         case weborama = 12
+        /// mvTesting
         case mvTesting = 13
     }
     
-    /// Hit
+    /// Hit url
     public var url: String
     /// Date of creation
     public var creationDate: Date
@@ -88,7 +119,7 @@ public class Hit: NSObject {
     public var retryCount: NSNumber
     /// Indicates wheter the hit comes from storage
     public var isOffline: Bool
-    /// Hit type
+    /// Hit type - See HitType
     public  var type: HitType {
         get {
             return getHitType()
@@ -162,25 +193,28 @@ public class Hit: NSObject {
     
     - returns: type of hit
     */
-    class func getHitType(_ parameters: [Param]...) -> HitType {
-        var params = [Param]()
+    
+    /**
+     Get the hit type depending on parameters set in buffer
+     
+     :params: arrays of parameters
+     
+     - returns: type of hit
+     */
+    class func getHitType(_ parameters: [String:Param]...) -> HitType {
+        var params = [String:Param]()
         var hitType = HitType.screen
         
         for p in parameters {
-            params += p
+            p.forEach { (k,v) in params[k] = v }
         }
         
-        for p in params {
-            if(p.key == "clic" || p.key == "click" || (p.key == "type" && ProcessedHitType.list.index(forKey: p.value()) != nil)) {
-                if(p.key == "type") {
-                    hitType = ProcessedHitType.list[p.value()]!
-                    break
-                }
-                
-                if(p.key == "clic" || p.key == "click") {
-                    hitType = HitType.touch
-                }
-            }
+        if(params["clic"] != nil || params["click"] != nil) {
+            hitType = HitType.touch
+        }
+        
+        if let type = params["type"] {
+            hitType = ProcessedHitType.list[type.values[0]()]!
         }
         
         return hitType

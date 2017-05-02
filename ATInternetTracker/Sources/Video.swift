@@ -32,6 +32,7 @@ SOFTWARE.
 
 import Foundation
 
+/// Wrapper class for Video tracking
 public class Video: RichMedia {
     
     /// Media type
@@ -54,6 +55,7 @@ public class Video: RichMedia {
     
 }
 
+/// Wrapper class to manage Video instances
 public class Videos: NSObject {
     
     var list: [String: Video] = [String: Video]()
@@ -69,13 +71,13 @@ public class Videos: NSObject {
     init(player: MediaPlayer) {
         self.player = player
     }
-    
-    /**
-    Create a new video
-    - parameter video: name
-    - parameter video: duration in seconds
-    - returns: video instance
-    */
+
+    /// Add a new video
+    ///
+    /// - Parameters:
+    ///   - name: video name
+    ///   - duration: video duration in seconds
+    /// - Returns: the new video instance
     public func add(_ name:String, duration: Int) -> Video {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
@@ -90,14 +92,14 @@ public class Videos: NSObject {
             return video
         }
     }
-    
-    /**
-    Create a new video
-    - parameter video: name
-    - parameter first: chapter
-    - parameter video: duration in seconds
-    - returns: video instance
-    */
+
+    /// Add a new video
+    ///
+    /// - Parameters:
+    ///   - name: video name
+    ///   - chapter1: chapter1 label
+    ///   - duration: video duration in seconds
+    /// - Returns: the new video instance
     public func add(_ name: String, chapter1: String, duration: Int) -> Video {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
@@ -114,14 +116,14 @@ public class Videos: NSObject {
         }
     }
     
-    /**
-    Create a new video
-    - parameter video: name
-    - parameter first: chapter
-    - parameter second: chapter
-    - parameter video: duration in seconds
-    - returns: video instance
-    */
+    /// Add a new video
+    ///
+    /// - Parameters:
+    ///   - name: video name
+    ///   - chapter1: chapter1 label
+    ///   - chapter2: chapter2 label
+    ///   - duration: video duration in seconds
+    /// - Returns: the new video instance
     public func add(_ name: String, chapter1: String, chapter2: String, duration: Int) -> Video {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
@@ -139,15 +141,15 @@ public class Videos: NSObject {
         }
     }
     
-    /**
-    Create a new video
-    - parameter video: name
-    - parameter first: chapter
-    - parameter second: chapter
-    - parameter third: chapter
-    - parameter video: duration in seconds
-    - returns: video instance
-    */
+    /// Add a new video
+    ///
+    /// - Parameters:
+    ///   - name: video name
+    ///   - chapter1: chapter1 label
+    ///   - chapter2: chapter2 label
+    ///   - chapter3: chapter3 label
+    ///   - duration: video duration in seconds
+    /// - Returns: the new video instance
     public func add(_ name: String, chapter1: String, chapter2: String, chapter3: String, duration: Int) -> Video {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
@@ -166,10 +168,9 @@ public class Videos: NSObject {
         }
     }
     
-    /**
-    Remove a video
-    - parameter video: name
-    */
+    /// Remove a video
+    ///
+    /// - Parameter name: video name
     public func remove(_ name: String) {
         if let timer = list[name]?.timer {
             if timer.isValid {

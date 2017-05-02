@@ -32,6 +32,8 @@ SOFTWARE.
 
 import Foundation
 
+
+/// Wrapper class for marketing campaign tracking
 public class Campaign: ScreenInfo {
     /// Campaign id (XTO)
     public var campaignId: String = ""
@@ -40,6 +42,10 @@ public class Campaign: ScreenInfo {
         super.init(tracker: tracker)
     }
     
+    
+    /// Create a new campaign with an identifier
+    ///
+    /// - Parameter campaignId: campaignId identifier
     public init(campaignId: String) {
         super.init()
         
@@ -79,6 +85,7 @@ public class Campaign: ScreenInfo {
     }
 }
 
+/// Wrapper class to manage Campaign instances
 public class Campaigns: NSObject {
     /// Tracker instance
     var tracker: Tracker
@@ -92,11 +99,10 @@ public class Campaigns: NSObject {
         self.tracker = tracker;
     }
     
-    /**
-    Add tagging data for a campaign
-    - parameter campaignId: campaign identifier
-    - returns: the Campaign instance
-    */
+    /// Add tagging data for a campaign
+    ///
+    /// - Parameter campaignId: campaign identifier
+    /// - Returns: the Campaign instance
     public func add(campaignId: String) -> Campaign {
         let campaign = Campaign(tracker: tracker)
         campaign.campaignId = campaignId

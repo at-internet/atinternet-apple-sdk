@@ -23,6 +23,10 @@ SOFTWARE.
 
 import Foundation
 
+
+/// Helper to provide a simple tracker delegate that log all messages pushed by the SDK (verbose, warning, error...) 
+/// Note: tracker.delegate is a weak var, so you have to reference the DefaultTrackerDelegate strongly somewhere.
+/// tracker.delegate = DefaultTrackerDelegate() // not working because the variable will be dealloc at the end of the function.
 public class DefaultTrackerDelegate: NSObject, TrackerDelegate {
     let separator = "\n\t"
     

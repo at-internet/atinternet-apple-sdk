@@ -88,11 +88,9 @@ Available soon.
 import Tracker
 
 let tracker: Tracker = ATInternet.sharedInstance.defaultTracker
-tracker.setSiteId(410501, completionHandler: { Bool in
-    tracker.setLog("logp", completionHandler: { Bool in
-        tracker.screens.add().sendView() // send a screen hit
-    })
-})
+tracker.setSiteId(410501, sync: true, completionHandler: nil)
+tracker.setLog("logp", sync: true, completionHandler: nil)
+tracker.screens.add().sendView() // send a screen hit
 ```
 ### SmartTracker / LiveTagging
 ```swift
@@ -102,10 +100,9 @@ import Tracker
 let tracker: AutoTracker = ATInternet.sharedInstance.defaultTracker
 tracker.token = "xxx-xxx-xxx"
 tracker.enableLiveTagging = true // Allow you to pair with the LiveTagging interface
-tracker.setSiteId(410501, completionHandler: { Bool in
-    tracker.setLog("logp", completionHandler: { Bool in
-    })
-})
+tracker.setSiteId(410501, sync: true, completionHandler: nil)
+tracker.setLog("logp", sync: true, completionHandler: nil)
+    
 ```
 ### SmartTracker / AutoTracker
 ```swift
@@ -115,10 +112,8 @@ import Tracker
 let tracker: AutoTracker = ATInternet.sharedInstance.defaultTracker
 tracker.token = "xxx-xxx-xxx"
 tracker.enableAutoTracking = true // start sending hit automatically
-tracker.setSiteId(410501, completionHandler: { Bool in
-    tracker.setLog("logp", completionHandler: { Bool in
-    })
-})
+tracker.setSiteId(410501, sync: true, completionHandler: nil)
+tracker.setLog("logp", sync: true, completionHandler: nil)
 ```
 
 ### License

@@ -37,9 +37,9 @@ class Builder: Operation {
     /// Tracker instance
     var tracker: Tracker
     /// Contains persistent parameters
-    var persistentParameters: [Param]
+    var persistentParameters: [String:Param]
     /// Contains non persistent parameters
-    var volatileParameters: [Param]
+    var volatileParameters: [String:Param]
     
     // Number of configuration part 
     let refConfigChunks = 4
@@ -68,10 +68,10 @@ class Builder: Operation {
     
     - returns: A builder instance with default configuration and an empty buffer
     */
-    init(tracker: Tracker, volatileParameters: [Param], persistentParameters: [Param]) {
+    init(tracker: Tracker) {
         self.tracker = tracker
-        self.volatileParameters = volatileParameters
-        self.persistentParameters = persistentParameters
+        self.volatileParameters = tracker.buffer.volatileParameters
+        self.persistentParameters = tracker.buffer.persistentParameters
     }
     
     /**
@@ -178,29 +178,24 @@ class Builder: Operation {
         let idclient = TechnicalContext.userId(tracker.configuration.parameters["identifier"])
         
         // For each prebuilt queryString, we check the length
-        for queryString in formattedParams {
+        for parameterKey in formattedParams.keys {
+            guard let value = formattedParams[parameterKey]?.0, let separator = formattedParams[parameterKey]?.1 else {
+                continue
+            }
             
             // If the queryString length is too long
-            if (queryString.str.characters.count > refMaxSize) {
+            if (value.characters.count > refMaxSize) {
                 
                 // Check if the concerned parameter value in the queryString is allowed to be sliced
-                if (SliceReadyParam.list.contains(queryString.param.key)) {
-                    
-                    let separator: String
-                    
-                    if let optSeparator = queryString.param.options?.separator {
-                        separator = optSeparator
-                    } else {
-                        separator = ","
-                    }
+                if (SliceReadyParam.list.contains(parameterKey)) {
                     
                     // We slice the parameter value on the parameter separator
-                    let components = queryString.str.components(separatedBy: "=")
+                    let components = value.components(separatedBy: "=")
                     let valChunks = components[1].components(separatedBy: separator)
                     
                     // Parameter key to re-add on each chunks where the value is spread
                     var keyAdded = false
-                    let keySplit = "&" + queryString.param.key + "="
+                    let keySplit = "&" + parameterKey + "="
                     
                     // For each sliced value we check if we can add it to current hit, else we create and add a new hit
                     for valChunk in valChunks {
@@ -250,14 +245,14 @@ class Builder: Operation {
                 }
             
             // Else if the current hit + queryString length is not too long, we add it to the current hit
-            } else if ((hit+queryString.str).characters.count <= refMaxSize) {
-                hit += queryString.str
+            } else if ((hit+value).characters.count <= refMaxSize) {
+                hit += value
             
             // Else, we add a new hit
             } else {
                 chunksCount += 1
                 hits.append(hit)
-                hit = queryString.str
+                hit = value
                 
                 // Too much chunks
                 if (chunksCount >= hitMaxChunks) {
@@ -337,103 +332,44 @@ class Builder: Operation {
     
     - returns: An array of sorted parameters
     */
-    func organizeParameters(_ parameters: [Param]) -> [Param] {
-        var parameters = parameters;
+    func organizeParameters(_ parameters: [String:Param]) -> [Param] {
+        var parameters = parameters
+        var params = Array<Param>()
+        var lastParameter: Param?
+        var firstParameter: Param?
+        let refParameter = parameters.removeValue(forKey: HitParam.referrer.rawValue)
         
-        let refParamPositions = Tool.findParameterPosition(referrerParameterKey, arrays: parameters)
-        var refParamIndex = -1
-        
-        if(refParamPositions.count > 0) {
-            refParamIndex = refParamPositions.last!.index
-        }
-        
-        var params = [Param]()
-        
-        // Parameter with relative position set to last
-        var lastParameter:Param?
-        
-        // Parameter with relative position set to first
-        var firstParameter:Param?
-        
-        // ref= Parameter
-        var refParameter:Param?
-        
-        // Handle ref= parameter which have to be in last position
-        if(refParamIndex > -1) {
-            refParameter = parameters[refParamIndex]
-            parameters.remove(at: refParamIndex)
-            
-            if let optRefParam = refParameter {
-                if let optOption = optRefParam.options {
-                    if(optOption.relativePosition != ParamOption.RelativePosition.none && optOption.relativePosition != ParamOption.RelativePosition.last) {
-                        // Raise a warning explaining ref will always be set in last position
-                        self.tracker.delegate?.warningDidOccur?("ref= parameter will be put in last position")
-                    }
-                }
+        for (_, p) in parameters {
+            guard let option = p.options else {
+                params.append(p)
+                continue
+            }
+            if option.relativePosition == .first {
+                firstParameter = p
+            }
+            else if option.relativePosition == .last {
+                lastParameter = p
+            }
+            else {
+                params.append(p)
             }
         }
         
-        for parameter in parameters {
-            if let optOption = parameter.options {
-                switch optOption.relativePosition {
-                // A parameter is set in first position
-                case ParamOption.RelativePosition.first:
-                    if firstParameter != nil {
-                        self.tracker.delegate?.warningDidOccur?("Found more than one parameter with relative position set to first")
-                        params.append(parameter)
-                    } else {
-                        params.insert(parameter, at: 0)
-                        firstParameter = parameter
-                    }
-                // A parameter is set in last position
-                case ParamOption.RelativePosition.last:
-                    if lastParameter != nil{
-                        // Raise a warning explaining there are multiple parameters with a last position indicator
-                        self.tracker.delegate?.warningDidOccur?("Found more than one parameter with relative position set to last")
-                        params.append(parameter)
-                    } else {
-                        lastParameter = parameter
-                    }
-                // A parameter is set before an other parameter
-                case ParamOption.RelativePosition.before:
-                    if let optRelativeParamKey = optOption.relativeParameterKey {
-                        let relativePosParam = Tool.findParameterPosition(optRelativeParamKey, arrays: parameters)
-                        if(relativePosParam.count > 0) {
-                            params.insert(parameter, at:relativePosParam.last!.index)
-                        } else {
-                            params.append(parameter)
-                            // Raise a warning explaining that relative parameter has not been found
-                            self.tracker.delegate?.warningDidOccur?("Relative parameter with key " + optRelativeParamKey + " could not be found. Parameter will be appended")
-                        }
-                    }
-                // A parameter is set after an other parameter
-                case ParamOption.RelativePosition.after:
-                    if let optRelativeParamKey = optOption.relativeParameterKey {
-                        let relativePosParam = Tool.findParameterPosition(optRelativeParamKey, arrays: parameters)
-                        if(relativePosParam.count > 0) {
-                            params.insert(parameter, at:relativePosParam.last!.index + 1)
-                        } else {
-                            params.append(parameter)
-                            // Raise a warning explaining that relative parameter has not been found
-                            self.tracker.delegate?.warningDidOccur?("Relative parameter with key " + optRelativeParamKey + " could not be found. Parameter will be appended")
-                        }
-                    }
-                default:
-                    params.append(parameter)
-                }
-            } else {
-                params.append(parameter)
-            }
+        
+        
+        // Add the parameter marked as "first" in the collection if there is one
+        if let first = firstParameter {
+            params.insert(first, at: 0)
         }
         
         // Add the parameter marked as "last" in the collection if there is one
-        if let optLastParam = lastParameter {
-            params.append(optLastParam)
+        if let last = lastParameter {
+            params.append(last)
         }
         
         // Always add the parameter ref, if it exists, in last position
-        if let optRefParam = refParameter {
-            params.append(optRefParam)
+        if let ref = refParameter {
+            params.append(ref)
         }
         
         return params;
@@ -444,126 +380,109 @@ class Builder: Operation {
     
     - returns: An array of prepared parameters
     */
-    func prepareQuery() -> [(param: Param, str: String)] {
-        var params: [(param: Param, str: String)] = []
+    func prepareQuery() -> Dictionary<String, (String, String)> {
+        var formattedParameters = Dictionary<String, (String, String)>()
         
-        var bufferParams = persistentParameters + volatileParameters
-        bufferParams = organizeParameters(bufferParams)
+        var buffer = [String:Param]()
+        persistentParameters.forEach { (k,v) in buffer[k] = v }
+        volatileParameters.forEach { (k,v) in buffer[k] = v }
         
-        for parameter in bufferParams {
-            var value = ""
-            
-            // Plugin management
-            if let optPlugin = PluginParam.list(tracker)[parameter.key] {
+        // Plugin management
+        if buffer["tvt"] != nil {
+            if let optPlugin = PluginParam.list(tracker)["tvt"] {
                 let plugin = optPlugin.init(tracker: tracker)
                 plugin.execute()
-                parameter.key = plugin.paramKey
-                parameter.type = plugin.responseType
-                value = plugin.response
-            } else {
-                value = parameter.value()
-            }
-            
-            if(parameter.type == .closure && value.toJSONObject() != nil) {
-                parameter.type = .json
-            }
-            
-            // User id hash management
-            if(parameter.key == HitParam.userID.rawValue) {
-                if(!TechnicalContext.doNotTrack) {
-                    if let hash = self.tracker.configuration.parameters["hashUserId"] {
-                        if (hash.lowercased() == "true") {
-                            value = value.sha256Value
-                        }
-                    }
-                } else {
-                    value = "opt-out"
-                }
-            }
-            
-            // Referrer processing
-            if(parameter.key == HitParam.referrer.rawValue){
-                value = value.replacingOccurrences(of: "&", with: "$")
-                            .replacingOccurrences(of: "<", with: "")
-                            .replacingOccurrences(of: ">", with: "")
-            }
-            
-            if let optOption = parameter.options {
-                if(optOption.encode) {
-                    value = value.percentEncodedString
-                    parameter.options!.separator = optOption.separator.percentEncodedString
-                }
-            }
-
-
-            // Handle parameter's value to append another
-            var duplicateParamIndex = -1
-            
-            for(index, param) in params.enumerated() {
-                if(param.param.key == parameter.key)
-                {
-                    duplicateParamIndex = index
-                    break
-                }
-            }
-                
-            if(duplicateParamIndex > -1) {
-                let duplicateParam = params[duplicateParamIndex]
-                
-                // If parameter's value is JSON
-                if(parameter.type == .json) {
-                    // parse string to JSON Object
-                    let json: Any? = duplicateParam.str.components(separatedBy: "=")[1].percentDecodedString.toJSONObject()
-                    let newJson: Any? = value.percentDecodedString.toJSONObject()
-                    
-                    switch(json) {
-                    case let dictionary as NSMutableDictionary:
-                        switch(newJson) {
-                            case let newDictionary as [NSObject: Any]:
-                                dictionary.addEntries(from: newDictionary)
-                            
-                                let jsonData = try? JSONSerialization.data(withJSONObject: dictionary, options: [])
-                                let strJsonData: String = NSString(data: jsonData!, encoding: String.Encoding.utf8.rawValue)! as String
-                                
-                                params[duplicateParamIndex] = (param: duplicateParam.param, str: self.makeSubQuery(parameter.key, value: strJsonData.percentEncodedString))
-                            default:
-                                self.tracker.delegate?.warningDidOccur?("Couldn't append value to a dictionnary")
-                        }
-                    case let array as NSMutableArray:
-                        switch(newJson) {
-                        case let newArray as [Any]:
-                            let jsonData = try? JSONSerialization.data(withJSONObject: array.addingObjects(from: newArray), options: [])
-                            let strJsonData: String = NSString(data: jsonData!, encoding: String.Encoding.utf8.rawValue)! as String
-                            
-                            params[duplicateParamIndex] = (param: duplicateParam.param, str: self.makeSubQuery(parameter.key, value: strJsonData.percentEncodedString))
-                        default:
-                            self.tracker.delegate?.warningDidOccur?("Couldn't append value to an array")
-                        }
-                    default:
-                        self.tracker.delegate?.warningDidOccur?("Couldn't append a JSON")
-                    }
-                } else {
-                    if(duplicateParam.param.type == .json) {
-                        self.tracker.delegate?.warningDidOccur?("Couldn't append value to a JSON Object")
-                    } else {
-                        let separator: String
-                        
-                        if(parameter.options == nil) {
-                            separator = ","
-                        } else {
-                            separator = parameter.options!.separator
-                        }
-                        
-                        params[duplicateParamIndex] = (param: duplicateParam.param, str: duplicateParam.str + separator + value)
-                    }
-                }
-            } else {
-                let prequeryInfo: (param: Param, str: String) = (param: parameter, str: self.makeSubQuery(parameter.key, value: value))
-                params.append(prequeryInfo)
+                buffer["stc"]?.values.append({plugin.response})
             }
         }
         
-        return params
+        let bufferParams = organizeParameters(buffer)
+        
+        for p in bufferParams {
+            var paramValues = Array(p.values)
+            var strValue = paramValues.remove(at: 0)()
+            
+            if let json = parseJSON(str: strValue) {
+                if json is Dictionary<String, Any> {
+                    var result = Dictionary<String, Any>()
+                    for (key, val) in json as! Dictionary<String, Any> {
+                        result[key] = val
+                    }
+                    
+                    for closureValue in paramValues {
+                        let appendValue = closureValue()
+                        let appendValueJSON = parseJSON(str: appendValue)
+                        if appendValueJSON != nil && appendValueJSON is Dictionary<String, Any> {
+                            for (key, val) in appendValueJSON as! Dictionary<String, Any> {
+                                result[key] = val
+                            }
+                        } else {
+                            tracker.delegate?.warningDidOccur?("Could not append value to json object")
+                        }
+                    }
+                    strValue = createJSON(object: result);
+                }
+                if json is Array<Any> {
+                    var result = Array<Any>()
+                    for p in json as! Array<Any> {
+                        result.append(p)
+                    }
+                    for closureValue in paramValues {
+                        let appendValue = closureValue()
+                        let appendValueJSON = parseJSON(str: appendValue)
+                        if appendValueJSON != nil && appendValueJSON is Array<Any> {
+                            for val in appendValueJSON as! Array<Any> {
+                                result.append(val)
+                            }
+                        }
+                    }
+                    strValue = result.description
+                }
+            }
+            else {
+                for closureValue in paramValues {
+                    strValue += p.options?.separator ?? ","
+                    strValue += closureValue()
+                }
+            }
+            
+            if p.key == HitParam.userID.rawValue {
+                if TechnicalContext.doNotTrack {
+                    strValue = "opt-out"
+                }
+                else if let hash = self.tracker.configuration.parameters["hashUserId"] {
+                    if (hash.lowercased() == "true") {
+                        strValue = strValue.sha256Value
+                    }
+                }
+            }
+            else if p.key == HitParam.referrer.rawValue {
+                strValue = strValue.replacingOccurrences(of: "&", with: "$")
+                    .replacingOccurrences(of: "<", with: "")
+                    .replacingOccurrences(of: ">", with: "")
+            }
+            
+            var separator = p.options?.separator ?? ","
+            if let opts = p.options, opts.encode == true {
+                strValue = strValue.percentEncodedString
+                separator = opts.separator.percentEncodedString
+            }
+            
+            formattedParameters[p.key] = (self.makeSubQuery(p.key, value: strValue), separator)
+        }
+        return formattedParameters
+    }
+    func parseJSON(str: String) -> Any? {
+        let data = str.data(using: String.Encoding.utf8, allowLossyConversion: false)
+        guard let jsonData = data else { return nil }
+        do { return try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) }
+        catch { return nil }
+    }
+    func createJSON(object: Any) -> String {
+        if let JSON = try? JSONSerialization.data(withJSONObject: object, options: []) {
+            return String(data: JSON, encoding: .utf8) ?? ""
+        }
+        return ""
     }
     
     /**
@@ -588,9 +507,9 @@ class Builder: Operation {
         let date = Date()
         let calendar = NSCalendar.current
         let components = (calendar as NSCalendar).components([.hour, .minute, .second], from: date)
-        let h = components.hour
-        let m = components.minute
-        let s = components.second
+        let h: Int = components.hour ?? 0
+        let m = components.minute ?? 0
+        let s = components.second ?? 0
         return ("\(h)\(m)\(s)\(randId)")
     }
 }

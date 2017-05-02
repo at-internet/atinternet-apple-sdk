@@ -1688,7 +1688,7 @@ internal class Debugger: NSObject {
 /**
 Event class
 */
-open class DebuggerEvent: NSObject {
+class DebuggerEvent: NSObject {
     /// Date of event
     var date: Date
     /// Event message

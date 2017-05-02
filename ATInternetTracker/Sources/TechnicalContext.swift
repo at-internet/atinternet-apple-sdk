@@ -318,12 +318,12 @@ class TechnicalContext: NSObject {
     /// Connexion type (3G, 4G, Edge, Wifi ...)
     class var connectionType: ConnexionType {
         get {
-            let reachability = Reachability.reachabilityForInternetConnection()
+            let reachability = ATReachability.reachabilityForInternetConnection()
             
             if let optReachability = reachability {
-                if(optReachability.currentReachabilityStatus == Reachability.NetworkStatus.reachableViaWiFi) {
+                if(optReachability.currentReachabilityStatus == ATReachability.NetworkStatus.reachableViaWiFi) {
                     return ConnexionType.wifi
-                } else if(optReachability.currentReachabilityStatus == Reachability.NetworkStatus.notReachable) {
+                } else if(optReachability.currentReachabilityStatus == ATReachability.NetworkStatus.notReachable) {
                     return ConnexionType.offline
                 } else {
                     #if os(iOS)

@@ -32,6 +32,8 @@ SOFTWARE.
 
 import Foundation
 
+
+/// Super class for object tracking. Not recommended for normal use. If you need special markers you can subclass BusinessObject.
 open class BusinessObject: NSObject {
     /// Tracker instance
     var tracker: Tracker!

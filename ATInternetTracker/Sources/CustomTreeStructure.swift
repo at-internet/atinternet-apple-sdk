@@ -32,6 +32,8 @@ SOFTWARE.
 
 import Foundation
 
+
+/// Wrapper class for custom tree structure tracking
 public class CustomTreeStructure: ScreenInfo {
     /// Custom tree structure first category label
     public var category1: Int = 0
@@ -44,18 +46,33 @@ public class CustomTreeStructure: ScreenInfo {
         super.init(tracker: tracker)
     }
     
+    
+    /// Create a new CustomTreeStructure
+    ///
+    /// - Parameter category1: first custom tree structure category
     public init(category1: Int) {
         super.init()
         
         self.category1 = category1
     }
     
+    /// Create a new CustomTreeStructure
+    ///
+    /// - Parameters:
+    ///   - category1: first custom tree structure category
+    ///   - category2: second custom tree structure category
     public convenience init(category1: Int, category2: Int) {
         self.init(category1: category1)
         
         self.category2 = category2
     }
     
+    /// Create a new CustomTreeStructure
+    ///
+    /// - Parameters:
+    ///   - category1: first custom tree structure category
+    ///   - category2: second custom tree structure category
+    ///   - category3: third custom tree structure category
     public convenience init(category1: Int, category2: Int, category3: Int) {
         self.init(category1: category1, category2: category2)
         
@@ -68,6 +85,8 @@ public class CustomTreeStructure: ScreenInfo {
     }
 }
 
+
+/// Wrapper class to manage custom tree structure instances
 public class CustomTreeStructures: NSObject {
     /// Tracker instance
     var tracker: Tracker
@@ -81,11 +100,11 @@ public class CustomTreeStructures: NSObject {
         self.tracker = tracker;
     }
     
-    /**
-    Add a custom tree structure info to screen hit
-    - parameter category1: category1 label
-    - returns: CustomTreeStructure instance
-    */
+    /// Add a custom tree structure info to screen hit
+    ///
+    /// - Parameters:
+    ///   - category1: category1 label
+    /// - Returns: CustomTreeStructure instance
     public func add(_ category1: Int) -> CustomTreeStructure {
         let cts = CustomTreeStructure(tracker: tracker)
         cts.category1 = category1
@@ -93,13 +112,13 @@ public class CustomTreeStructures: NSObject {
         
         return cts
     }
-    
-    /**
-    Add a custom tree structure info to screen hit
-    - parameter category1: category1 label
-    - parameter category2: category2 label
-    - returns: CustomTreeStructure instance
-    */
+
+    /// Add a custom tree structure info to screen hit
+    ///
+    /// - Parameters:
+    ///   - category1: category1 label
+    ///   - category2: category2 label
+    /// - Returns: CustomTreeStructure instance
     public func add(_ category1: Int, category2: Int) -> CustomTreeStructure {
         let cts = add(category1)
         cts.category2 = category2
@@ -107,13 +126,13 @@ public class CustomTreeStructures: NSObject {
         return cts
     }
     
-    /**
-    Add a custom tree structure info to screen hit
-    - parameter category1: category1 label
-    - parameter category2: category2 label
-    - parameter category3: category3 label
-    - returns: CustomTreeStructure instance
-    */
+    /// Add a custom tree structure info to screen hit
+    ///
+    /// - Parameters:
+    ///   - category1: category1 label
+    ///   - category2: category2 label
+    ///   - category3: category3 label
+    /// - Returns: CustomTreeStructure instance
     public func add(_ category1: Int, category2: Int, category3: Int) -> CustomTreeStructure {
         let cts = add(category1, category2: category2)
         cts.category3 = category3

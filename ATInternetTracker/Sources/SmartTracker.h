@@ -31,9 +31,20 @@ FOUNDATION_EXPORT double SmartTrackerVersionNumber;
 FOUNDATION_EXPORT const unsigned char SmartTrackerVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <Tracker/PublicHeader.h>
+
+
+#if !defined(FROM_COCOAPODS)
 #import "Crash.h"
 #import "Hash.h"
 #import "JRSwizzle.h"
 #import "ATGestureRecognizer.h"
 #import "SRWebSocket.h"
 #import "KLCPopup.h"
+#else
+#import "Crash.h"
+#import "Hash.h"
+#import "JRSwizzle/JRSwizzle.h"
+#import "ATGestureRecognizer.h"
+#import "SocketRocket/SRWebSocket.h"
+#import "KLCPopup/KLCPopup.h"
+#endif

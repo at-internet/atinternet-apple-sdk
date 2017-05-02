@@ -37,8 +37,6 @@ class Plugin: NSObject {
     
     /// Response returned by the execute function
     var response: String
-    /// Response type
-    var responseType: Param.ParamType
     /// Tracker instance
     var tracker: Tracker
     /// Parameter key where to set response
@@ -60,6 +58,5 @@ class Plugin: NSObject {
         self.response = "{}"
         self.tracker = tracker
         self.paramKey = "stc"
-        self.responseType = Param.ParamType.json
     }
 }

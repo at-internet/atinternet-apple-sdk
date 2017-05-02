@@ -61,46 +61,77 @@ class CustomObjectTests: XCTestCase {
         stc.setEvent()
         
         XCTAssertEqual(stc.tracker.buffer.volatileParameters.count, 1, "Le nombre de paramètres volatiles doit être égal à 1")
-        XCTAssert(stc.tracker.buffer.volatileParameters[0].key == "stc", "Le premier paramètre doit être stc")
-        XCTAssert(stc.tracker.buffer.volatileParameters[0].value() == "{\"legume\":\"carotte\"}", "La valeur du premier paramètre doit être {\"legume\":\"carotte\"}")
+        XCTAssert(stc.tracker.buffer.volatileParameters["stc"]?.key == "stc", "Le premier paramètre doit être stc")
+        XCTAssert(stc.tracker.buffer.volatileParameters["stc"]?.values[0]() == "{\"legume\":\"carotte\"}", "La valeur du premier paramètre doit être {\"legume\":\"carotte\"}")
     }
     
     func testAppendStringCustomObject() {
-        _ = stc.tracker.setParam("stc", value: "{\"legumes\":[\"tomate\",\"choux\",\"carotte\"]}")
+        stc.tracker.setParam("stc", value: "{\"legumes\":[\"tomate\",\"choux\",\"carotte\"]}")
         
         let option = ParamOption()
         option.append = true
+        option.encode = true
         
-        _ = stc.tracker.setParam("stc", value: "{\"fruits\":[\"pomme\",\"poire\",\"cerise\"]}", options: option)
+        stc.tracker.setParam("stc", value: "{\"fruits\":[\"pomme\",\"poire\",\"cerise\"]}", options: option)
         
-        let builder = Builder(tracker: stc.tracker, volatileParameters: stc.tracker.buffer.volatileParameters, persistentParameters: stc.tracker.buffer.persistentParameters)
-        let param: [(param: Param, str: String)] = builder.prepareQuery()
+        let builder = Builder(tracker: stc.tracker)
+        let param: Dictionary<String, (String, String)> = builder.prepareQuery()
         
-        let p0: (param: Param, str: String) = (param.filter() {
-            return ($0 as (param: Param, str: String)).param.key == "stc"
-            }).first!
+        XCTAssertTrue(param[HitParam.json.rawValue] != nil, "Le paramètre doit être stc")
         
-        XCTAssertTrue(p0.param.key == HitParam.json.rawValue, "Le paramètre doit être stc")
-        XCTAssertTrue(p0.str == "&stc=%7B%22legumes%22%3A%5B%22tomate%22%2C%22choux%22%2C%22carotte%22%5D%2C%22fruits%22%3A%5B%22pomme%22%2C%22poire%22%2C%22cerise%22%5D%7D", "Le paramètre doit être égal à &stc=%7B%22legumes%22%3A%5B%22tomate%22%2C%22choux%22%2C%22carotte%22%5D%2C%22fruits%22%3A%5B%22pomme%22%2C%22poire%22%2C%22cerise%22%5D%7D")
+        let stcQuery = param[HitParam.json.rawValue]!.0
+        let index = stcQuery.index(stcQuery.startIndex, offsetBy: 5)
+        let stcEncoded = stcQuery.substring(from: index)
+        let obj = stcEncoded.percentDecodedString.toJSONObject() as! Dictionary<String, Any>
+        XCTAssertTrue(obj["legumes"] != nil, "le stc doit contenir les clefs inserees")
+        XCTAssertTrue(obj["fruits"] != nil, "le stc doit contenir les clefs inserees")
+        
+        let arrayLegumes = obj["legumes"]! as! Array<String>
+        let arrayFruits = obj["fruits"]! as! Array<String>
+        
+        XCTAssertTrue(arrayLegumes[0] == "tomate")
+        XCTAssertTrue(arrayLegumes[1] == "choux")
+        XCTAssertTrue(arrayLegumes[2] == "carotte")
+        
+        XCTAssertTrue(arrayFruits[0] == "pomme")
+        XCTAssertTrue(arrayFruits[1] == "poire")
+        XCTAssertTrue(arrayFruits[2] == "cerise")
     }
     
-    func testAppendDisctionaryCustomObject() {
+    func testAppendDictionaryCustomObject() {
         _ = stc.tracker.setParam("stc", value: ["legumes" : ["tomate", "choux", "carotte"]])
         
         let option = ParamOption()
         option.append = true
+        option.encode = true
         
         _ = stc.tracker.setParam("stc", value: ["fruits" : ["pomme", "poire", "cerise"]], options: option)
 
             
-        let builder = Builder(tracker: stc.tracker, volatileParameters: stc.tracker.buffer.volatileParameters, persistentParameters: stc.tracker.buffer.persistentParameters)
-        let param: [(param: Param, str: String)] = builder.prepareQuery()
+        let builder = Builder(tracker: stc.tracker)
+        let param: Dictionary<String, (String, String)> = builder.prepareQuery()
         
-        let p0: (param: Param, str: String) = (param.filter() {
-            return ($0 as (param: Param, str: String)).param.key == "stc"
-            }).first!
+        let stcQuery = param[HitParam.json.rawValue]!.0
+        let index = stcQuery.index(stcQuery.startIndex, offsetBy: 5)
+        let stcEncoded = stcQuery.substring(from: index)
+        let obj = stcEncoded.percentDecodedString.toJSONObject() as! Dictionary<String, Any>
+        XCTAssertTrue(obj["legumes"] != nil, "le stc doit contenir les clefs inserees")
+        XCTAssertTrue(obj["fruits"] != nil, "le stc doit contenir les clefs inserees")
         
-        XCTAssertTrue(p0.param.key == HitParam.json.rawValue, "Le paramètre doit être stc")
-        XCTAssertTrue(p0.str == "&stc=%7B%22legumes%22%3A%5B%22tomate%22%2C%22choux%22%2C%22carotte%22%5D%2C%22fruits%22%3A%5B%22pomme%22%2C%22poire%22%2C%22cerise%22%5D%7D", "Le paramètre doit être égal à &stc=%7B%22legumes%22%3A%5B%22tomate%22%2C%22choux%22%2C%22carotte%22%5D%2C%22fruits%22%3A%5B%22pomme%22%2C%22poire%22%2C%22cerise%22%5D%7D")
+        let arrayLegumes = obj["legumes"]! as! Array<String>
+        let arrayFruits = obj["fruits"]! as! Array<String>
+        
+        XCTAssertTrue(arrayLegumes[0] == "tomate")
+        XCTAssertTrue(arrayLegumes[1] == "choux")
+        XCTAssertTrue(arrayLegumes[2] == "carotte")
+        
+        XCTAssertTrue(arrayFruits[0] == "pomme")
+        XCTAssertTrue(arrayFruits[1] == "poire")
+        XCTAssertTrue(arrayFruits[2] == "cerise")
+        
+        
+        
+        
+        XCTAssertTrue(param[HitParam.json.rawValue] != nil, "Le paramètre doit être stc")
     }
 }

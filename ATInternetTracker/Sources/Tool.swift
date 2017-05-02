@@ -159,6 +159,16 @@ class Tool: NSObject {
         return calendar.dateComponents([.second], from: fromDate, to: toDate).second ?? 0
     }
     
+    /*class func findParametersWithPosition(key: String, parameters: [String:Param]) -> [(Param, Int)]{
+        var params = [(Param, Int)]()
+        for (index, p) in parameters.enumerated() {
+            if key == p.key {
+                params.append( (p, index) )
+            }
+        }
+        return params
+    }*/
+    
     /**
     Append parameter values from buffer
     
@@ -168,7 +178,26 @@ class Tool: NSObject {
     
     - returns: parameter value
     */
-    class func appendParameterValues(_ parameterKey: String, volatileParameters: [Param], persistentParameters: [Param]) -> String {
+    class func appendParameterValues(_ parameterKey: String, volatileParameters: [String:Param], persistentParameters: [String:Param]) -> String {
+        let allParameters = [volatileParameters, persistentParameters]
+        var value = ""
+        for dictionaryOfParams in allParameters {
+            if let param = dictionaryOfParams[parameterKey] {
+                for (index, closureValue) in param.values.enumerated() {
+                    if index == 0 {
+                        value += closureValue()
+                    }
+                    else {
+                        value += param.options?.separator ?? ","
+                        value += closureValue()
+                    }
+                }
+            }
+        }
+        
+        return value
+    }
+    /*class func appendParameterValues(_ parameterKey: String, volatileParameters: [String:Param], persistentParameters: [String:Param]) -> String {
         let paramPositions = Tool.findParameterPosition(parameterKey, arrays: volatileParameters, persistentParameters)
         var value = ""
         
@@ -189,7 +218,9 @@ class Tool: NSObject {
         }
         
         return value;
-    }
+    }*/
+    
+    
     
     /**
     Copy an array of parameter into a new one
@@ -197,16 +228,16 @@ class Tool: NSObject {
     - parameter array: to copy
     :returned: copy of array
     */
-    class func copyParamArray(_ array: [Param]) -> [Param] {
+    /*class func copyParamArray(_ array: [Param]) -> [Param] {
         var newArray: [Param] = []
         
         for(_, param) in array.enumerated() {
-            let copyParam = Param(key: param.key, value: param.value, type: param.type, options: param.options)
+            let copyParam = Param(key: param.key, value: param.value, options: param.options)
             newArray.append(copyParam)
         }
         
         return newArray
-    }
+    }*/
 }
 
 

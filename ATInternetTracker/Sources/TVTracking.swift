@@ -32,6 +32,7 @@ SOFTWARE.
 
 import Foundation
 
+/// Wrapper class to enable TVTracking partner usage
 public class TVTracking: NSObject {
     /// Tracker instance
     var tracker: Tracker
@@ -82,6 +83,7 @@ public class TVTracking: NSObject {
     Enable TV Tracking
     - returns: tracker instance
     */
+    @discardableResult
     public func set() -> Tracker {
         if ((PluginParam.list(self.tracker)["tvt"]) != nil) {
             let option = ParamOption()
@@ -96,11 +98,11 @@ public class TVTracking: NSObject {
         return self.tracker
     }
     
-    /**
-    Enable TV Tracking
-    :params: campaign url
-    - returns: tracker instance
-    */
+    ///  Enable TV Tracking
+    ///
+    /// - Parameter campaignURL: campaign string url
+    /// - Returns: tracker instance
+    @discardableResult
     public func set(_ campaignURL: String) -> Tracker {
         let URL = Foundation.URL(string: campaignURL)
         
@@ -113,12 +115,12 @@ public class TVTracking: NSObject {
         return set()
     }
     
-    /**
-    Enable TV Tracking
-    :params: campaign url
-    :params: visit duration in minutes
-    - returns: tracker instance
-    */
+    /// Enable TV Tracking
+    ///
+    /// - Parameters:
+    ///   - campaignURL: campaign string url
+    ///   - visitDuration: visitDuration
+    /// - Returns: tracker instance
     public func set(_ campaignURL: String, visitDuration: Int) -> Tracker {
         self.visitDuration = visitDuration
         

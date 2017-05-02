@@ -27,7 +27,7 @@ import CoreGraphics
 
 /// Basic Maths operations
 class Maths {
-    static let PI = CGFloat(M_PI)
+    static let PI = CGFloat(Double.pi)
     
     /**
      Substract 2 CGPoints

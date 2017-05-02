@@ -46,14 +46,14 @@ class InternalSearchTests: XCTestCase {
         
         XCTAssertEqual(internalSearch.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
         
-        XCTAssert(internalSearch.tracker.buffer.volatileParameters[0].key == "mc", "Le premier paramètre doit être mc")
-        XCTAssert(internalSearch.tracker.buffer.volatileParameters[0].value() == "watch", "La valeur du premier paramètre doit être watch")
+        XCTAssert(internalSearch.tracker.buffer.volatileParameters["mc"]?.key == "mc", "Le premier paramètre doit être mc")
+        XCTAssert(internalSearch.tracker.buffer.volatileParameters["mc"]?.values[0]() == "watch", "La valeur du premier paramètre doit être watch")
         
-        XCTAssert(internalSearch.tracker.buffer.volatileParameters[1].key == "np", "Le premier paramètre doit être np")
-        XCTAssert(internalSearch.tracker.buffer.volatileParameters[1].value() == "3", "La valeur du deuxième paramètre doit être 3")
+        XCTAssert(internalSearch.tracker.buffer.volatileParameters["np"]?.key == "np", "Le premier paramètre doit être np")
+        XCTAssert(internalSearch.tracker.buffer.volatileParameters["np"]?.values[0]() == "3", "La valeur du deuxième paramètre doit être 3")
         
-        XCTAssert(internalSearch.tracker.buffer.volatileParameters[2].key == "mcrg", "Le premier paramètre doit être mcfg")
-        XCTAssert(internalSearch.tracker.buffer.volatileParameters[2].value() == "1", "La valeur du troisième paramètre doit être 1")
+        XCTAssert(internalSearch.tracker.buffer.volatileParameters["mcrg"]?.key == "mcrg", "Le premier paramètre doit être mcfg")
+        XCTAssert(internalSearch.tracker.buffer.volatileParameters["mcrg"]?.values[0]() == "1", "La valeur du troisième paramètre doit être 1")
     }
     
     func testAddInternalSearchNoPosition() {

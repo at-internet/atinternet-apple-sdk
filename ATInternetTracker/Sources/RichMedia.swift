@@ -32,23 +32,41 @@ SOFTWARE.
 
 import Foundation
 
+
+/// Abstract class to manage rich media tracking
 public class RichMedia : BusinessObject {
     
     fileprivate var _isBuffering: Bool?
     fileprivate var _isEmbedded: Bool?
     
     /// Rich media broadcast type
+    ///
+    /// - clip: clip
+    /// - live: live
     public enum BroadcastMode: String {
+        /// clip
         case clip = "clip"
+        /// live
         case live = "live"
     }
     
-    /// Rich media hit status
+    /// Actions types
+    ///
+    /// - play: play
+    /// - pause: pause
+    /// - stop: stop
+    /// - move: move
+    /// - refresh: refresh
     @objc public enum RichMediaAction: Int {
+        /// play
         case play = 0
+        /// pause
         case pause = 1
+        /// stop
         case stop = 2
+        /// move
         case move = 3
+        /// refresh
         case refresh = 4
     }
     
@@ -58,21 +76,21 @@ public class RichMedia : BusinessObject {
     /// Refresh timer
     var timer: Timer?
     
-    /// Media is buffering
+    /// true if media is buffering
     open var isBuffering: Bool = false {
         didSet {
             _isBuffering = isBuffering
         }
     }
     
-    /// Media is embedded in app
+    /// true if media is embedded in app
     open var isEmbedded: Bool = false {
         didSet {
             _isEmbedded = isEmbedded
         }
     }
     
-    /// Media is live or clip
+    /// Media type : live or clip
     var broadcastMode: BroadcastMode = BroadcastMode.clip
     
     /// Media name
@@ -93,7 +111,7 @@ public class RichMedia : BusinessObject {
     /// Refresh Duration
     var refreshDuration: Int = 5
     
-    /// Action
+    /// Action. see RichMediaAction
     public var action: RichMediaAction = RichMediaAction.play
     
     /// Web domain 
@@ -177,10 +195,7 @@ public class RichMedia : BusinessObject {
         return mediaName
     }
     
-    /**
-    Send hit when media is played
-    Refresh is enabled with default duration
-    */
+    /// Send a play action tracking. Refresh is enabled with default duration
     public func sendPlay() {
         self.action = RichMediaAction.play
         
@@ -189,11 +204,9 @@ public class RichMedia : BusinessObject {
         self.initRefresh()
     }
     
-    /**
-    Send hit when media is played
-    Refresh is enabled if resfreshDuration is not equal to 0
-    - parameter resfreshDuration: duration between refresh hits
-    */
+    /// Send a play action tracking. Refresh is enabled with custom duration
+    ///
+    /// - Parameter refreshDuration: duration in second, must be >= 5
     public func sendPlay(_ refreshDuration: Int) {
         
         self.action = RichMediaAction.play
@@ -209,9 +222,7 @@ public class RichMedia : BusinessObject {
         
     }
     
-    /**
-    Send hit when media is paused
-    */
+    /// Send a pause action tracking
     public func sendPause(){
         
         if let timer = self.timer {
@@ -226,9 +237,8 @@ public class RichMedia : BusinessObject {
         self.tracker.dispatcher.dispatch([self])
     }
     
-    /**
-    Send hit when media is stopped
-    */
+    
+    /// Send a stop action tracking
     public func sendStop() {
         
         if let timer = self.timer {
@@ -243,9 +253,8 @@ public class RichMedia : BusinessObject {
         self.tracker.dispatcher.dispatch([self])
     }
     
-    /**
-    Send hit when media cursor position is moved
-    */
+    
+    /// Send a move action tracking
     public func sendMove() {
         self.action  = RichMediaAction.move
         

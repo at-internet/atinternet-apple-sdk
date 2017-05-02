@@ -298,10 +298,10 @@
 		4F47A5BB1D36214200702747 /* tvtracking.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A91D36214200702747 /* tvtracking.manifest.json */; };
 		4F47A5BC1D36214200702747 /* tvtracking.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A91D36214200702747 /* tvtracking.manifest.json */; };
 		4F47A5BD1D36214200702747 /* tvtracking.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A91D36214200702747 /* tvtracking.manifest.json */; };
-		4F47A5BF1D36215D00702747 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* Reachability.swift */; };
-		4F47A5C01D36215D00702747 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* Reachability.swift */; };
-		4F47A5C11D36215D00702747 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* Reachability.swift */; };
-		4F47A5C31D36215D00702747 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* Reachability.swift */; };
+		4F47A5BF1D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
+		4F47A5C01D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
+		4F47A5C11D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
+		4F47A5C31D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
 		4F47A5CC1D36223D00702747 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5C61D36223D00702747 /* StringExtension.swift */; };
 		4F47A5CD1D36223D00702747 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5C61D36223D00702747 /* StringExtension.swift */; };
 		4F47A5CE1D36223D00702747 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5C61D36223D00702747 /* StringExtension.swift */; };
@@ -597,7 +597,7 @@
 		4F47A9C21D3E347100702747 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6301D3624AF00702747 /* UIViewControllerExtension.swift */; };
 		4F47A9C31D3E347400702747 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6311D3624AF00702747 /* UIViewExtension.swift */; };
 		4F8BD3361D3E57C100137C1B /* Maths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A63E1D36256500702747 /* Maths.swift */; };
-		4FF129841D7D73D6009FFECB /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* Reachability.swift */; };
+		4FF129841D7D73D6009FFECB /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
 		4FF28F901D95773500F4AFFB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4FF28F921D95773500F4AFFB /* Localizable.strings */; };
 		4FF5941A1D3F614C0004D336 /* AisleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6EB1D3D126500702747 /* AisleTests.swift */; };
 		4FF5941B1D3F61A60004D336 /* BufferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6EC1D3D126500702747 /* BufferTests.swift */; };
@@ -795,7 +795,7 @@
 		4F47A5A61D36214200702747 /* nuggad.manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nuggad.manifest.json; sourceTree = "<group>"; };
 		4F47A5A81D36214200702747 /* Tracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tracker.xcdatamodel; sourceTree = "<group>"; };
 		4F47A5A91D36214200702747 /* tvtracking.manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tvtracking.manifest.json; sourceTree = "<group>"; };
-		4F47A5BE1D36215D00702747 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		4F47A5BE1D36215D00702747 /* ATReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATReachability.swift; sourceTree = "<group>"; };
 		4F47A5C61D36223D00702747 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		4F47A5D41D3622B100702747 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
 		4F47A5D51D3622B100702747 /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
@@ -1128,7 +1128,7 @@
 				4F47A5D61D3622B100702747 /* KLCPopup.h */,
 				4F47A5D71D3622B100702747 /* KLCPopup.m */,
 				4F47A63E1D36256500702747 /* Maths.swift */,
-				4F47A5BE1D36215D00702747 /* Reachability.swift */,
+				4F47A5BE1D36215D00702747 /* ATReachability.swift */,
 				4F47A5F21D36236000702747 /* SRWebSocket.h */,
 				4F47A5F31D36236000702747 /* SRWebSocket.m */,
 				4F47A7121D3D126500702747 /* SwiftyJSON.swift */,
@@ -1568,7 +1568,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0830;
 				TargetAttributes = {
 					4F47A3DD1D351E8100702747 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1809,7 +1809,7 @@
 				4F47A4F11D35446700702747 /* Location.swift in Sources */,
 				4F47A5011D35446700702747 /* OnAppAd.swift in Sources */,
 				4F47A4861D3542A400702747 /* Storage.swift in Sources */,
-				4F47A5BF1D36215D00702747 /* Reachability.swift in Sources */,
+				4F47A5BF1D36215D00702747 /* ATReachability.swift in Sources */,
 				4F47A4D91D35446700702747 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1850,7 +1850,7 @@
 				4F47A4C71D35446700702747 /* Campaign.swift in Sources */,
 				4F47A48C1D3542A400702747 /* TechnicalContext.swift in Sources */,
 				4F47A53D1D35451A00702747 /* Hash.m in Sources */,
-				4F47A5C11D36215D00702747 /* Reachability.swift in Sources */,
+				4F47A5C11D36215D00702747 /* ATReachability.swift in Sources */,
 				4F47A4EB1D35446700702747 /* LiveAudio.swift in Sources */,
 				4F47A4F71D35446700702747 /* MediaPlayer.swift in Sources */,
 				4F47A4701D3542A400702747 /* Dispatcher.swift in Sources */,
@@ -1987,7 +1987,7 @@
 				4F47A4F21D35446700702747 /* Location.swift in Sources */,
 				4F47A5021D35446700702747 /* OnAppAd.swift in Sources */,
 				4F47A4871D3542A400702747 /* Storage.swift in Sources */,
-				4F47A5C01D36215D00702747 /* Reachability.swift in Sources */,
+				4F47A5C01D36215D00702747 /* ATReachability.swift in Sources */,
 				4F47A4DA1D35446700702747 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2096,7 +2096,7 @@
 				4F47A5F51D36236000702747 /* SRWebSocket.m in Sources */,
 				4F47A57A1D3620FA00702747 /* Hit.swift in Sources */,
 				4F47A6191D36244400702747 /* EventManager.swift in Sources */,
-				4F47A5C31D36215D00702747 /* Reachability.swift in Sources */,
+				4F47A5C31D36215D00702747 /* ATReachability.swift in Sources */,
 				4F47A5991D36210700702747 /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2210,7 +2210,7 @@
 				4FF594371D3F66250004D336 /* TechnicalContext.swift in Sources */,
 				4FF5941B1D3F61A60004D336 /* BufferTests.swift in Sources */,
 				4FF5942D1D3F63800004D336 /* ParameterTests.swift in Sources */,
-				4FF129841D7D73D6009FFECB /* Reachability.swift in Sources */,
+				4FF129841D7D73D6009FFECB /* ATReachability.swift in Sources */,
 				4FF594591D3F66A30004D336 /* MediaPlayer.swift in Sources */,
 				4FF5945A1D3F66A50004D336 /* NuggAd.swift in Sources */,
 				4FF594291D3F61E50004D336 /* InternalSearchTests.swift in Sources */,
@@ -2548,7 +2548,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2613,7 +2613,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2669,7 +2669,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2734,7 +2734,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2793,7 +2793,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2858,7 +2858,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2916,7 +2916,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -2986,7 +2986,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3049,7 +3049,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -3116,7 +3116,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

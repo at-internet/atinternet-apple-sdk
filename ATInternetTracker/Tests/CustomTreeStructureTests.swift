@@ -45,8 +45,7 @@ class CustomTreeStructureTests: XCTestCase {
         cts.setEvent()
         
         XCTAssertEqual(cts.tracker.buffer.volatileParameters.count, 1, "Le nombre de paramètres volatiles doit être égal à 1")
-        XCTAssert(cts.tracker.buffer.volatileParameters[0].key == "ptype", "Le premier paramètre doit être ptype")
-        XCTAssert(cts.tracker.buffer.volatileParameters[0].value() == "1-2-3", "La valeur du premier paramètre doit être 1-2-3")
+        XCTAssert(cts.tracker.buffer.volatileParameters["ptype"]!.values[0]() == "1-2-3", "La valeur du premier paramètre doit être 1-2-3")
     }
     
     func testAddCustomTree() {

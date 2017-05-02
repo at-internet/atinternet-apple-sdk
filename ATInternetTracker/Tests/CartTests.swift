@@ -49,8 +49,7 @@ class CartTests: XCTestCase {
 
         XCTAssert(cart.tracker.buffer.volatileParameters.count == 1, "Le nombre de paramètres volatiles doit être égal à 1")
         
-        XCTAssert(cart.tracker.buffer.volatileParameters[0].key == "idcart", "Le premier paramètre doit être idcart")
-        XCTAssert(cart.tracker.buffer.volatileParameters[0].value() == "1", "La valeur du premier paramètre doit être 1")
+        XCTAssert(cart.tracker.buffer.volatileParameters["idcart"]!.values[0]() == "1", "La valeur du premier paramètre doit être 1")
     }
     
     func testUnsetCart() {
@@ -82,28 +81,28 @@ class CartTests: XCTestCase {
         
         XCTAssert(cart.tracker.buffer.volatileParameters.count == 8, "Le nombre de paramètres volatiles doit être égal à 8")
         
-        XCTAssert(cart.tracker.buffer.volatileParameters[0].key == "idcart", "Le premier paramètre doit être idcart")
-        XCTAssert(cart.tracker.buffer.volatileParameters[0].value() == "1", "La valeur du premier paramètre doit être 1")
+        XCTAssert(cart.tracker.buffer.volatileParameters["idcart"]!.key == "idcart", "Le premier paramètre doit être idcart")
+        XCTAssert(cart.tracker.buffer.volatileParameters["idcart"]!.values[0]() == "1", "La valeur du premier paramètre doit être 1")
         
-        XCTAssert(cart.tracker.buffer.volatileParameters[1].key == "pdt1", "Le second paramètre doit être pdt1")
-        XCTAssert(cart.tracker.buffer.volatileParameters[1].value() == "Chaussures::Nike Air Jordan", "La valeur du second paramètre doit être Chaussures::Nike Air Jordan")
+        XCTAssert(cart.tracker.buffer.volatileParameters["pdt1"]!.key == "pdt1", "Le second paramètre doit être pdt1")
+        XCTAssert(cart.tracker.buffer.volatileParameters["pdt1"]!.values[0]() == "Chaussures::Nike Air Jordan", "La valeur du second paramètre doit être Chaussures::Nike Air Jordan")
         
-        XCTAssert(cart.tracker.buffer.volatileParameters[2].key == "qte1", "Le 3ème paramètre doit être qte1")
-        XCTAssert(cart.tracker.buffer.volatileParameters[2].value() == "1", "La valeur du 3ème paramètre doit être 1")
+        XCTAssert(cart.tracker.buffer.volatileParameters["qte1"]!.key == "qte1", "Le 3ème paramètre doit être qte1")
+        XCTAssert(cart.tracker.buffer.volatileParameters["qte1"]!.values[0]() == "1", "La valeur du 3ème paramètre doit être 1")
         
-        XCTAssert(cart.tracker.buffer.volatileParameters[3].key == "mtht1", "Le 4ème paramètre doit être mtht1")
-        XCTAssert(cart.tracker.buffer.volatileParameters[3].value() == "100", "La valeur du 4ème paramètre doit être 100")
+        XCTAssert(cart.tracker.buffer.volatileParameters["mtht1"]!.key == "mtht1", "Le 4ème paramètre doit être mtht1")
+        XCTAssert(cart.tracker.buffer.volatileParameters["mtht1"]!.values[0]() == "100", "La valeur du 4ème paramètre doit être 100")
         
-        XCTAssert(cart.tracker.buffer.volatileParameters[4].key == "mt1", "Le 5ème paramètre doit être mt1")
-        XCTAssert(cart.tracker.buffer.volatileParameters[4].value() == "120", "La valeur du 5ème paramètre doit être 120")
+        XCTAssert(cart.tracker.buffer.volatileParameters["mt1"]!.key == "mt1", "Le 5ème paramètre doit être mt1")
+        XCTAssert(cart.tracker.buffer.volatileParameters["mt1"]!.values[0]() == "120", "La valeur du 5ème paramètre doit être 120")
         
-        XCTAssert(cart.tracker.buffer.volatileParameters[5].key == "dscht1", "Le 6ème paramètre doit être dscht1")
-        XCTAssert(cart.tracker.buffer.volatileParameters[5].value() == "5", "La valeur du 6ème paramètre doit être 5")
+        XCTAssert(cart.tracker.buffer.volatileParameters["dscht1"]!.key == "dscht1", "Le 6ème paramètre doit être dscht1")
+        XCTAssert(cart.tracker.buffer.volatileParameters["dscht1"]!.values[0]() == "5", "La valeur du 6ème paramètre doit être 5")
         
-        XCTAssert(cart.tracker.buffer.volatileParameters[6].key == "dsc1", "Le 7ème paramètre doit être dsc1")
-        XCTAssert(cart.tracker.buffer.volatileParameters[6].value() == "10", "La valeur du 7ème paramètre doit être 10")
+        XCTAssert(cart.tracker.buffer.volatileParameters["dsc1"]!.key == "dsc1", "Le 7ème paramètre doit être dsc1")
+        XCTAssert(cart.tracker.buffer.volatileParameters["dsc1"]!.values[0]() == "10", "La valeur du 7ème paramètre doit être 10")
         
-        XCTAssert(cart.tracker.buffer.volatileParameters[7].key == "pcode1", "Le 8ème paramètre doit être pcode1")
-        XCTAssert(cart.tracker.buffer.volatileParameters[7].value() == "1234", "La valeur du 8ème paramètre doit être 1234")
+        XCTAssert(cart.tracker.buffer.volatileParameters["pcode1"]!.key == "pcode1", "Le 8ème paramètre doit être pcode1")
+        XCTAssert(cart.tracker.buffer.volatileParameters["pcode1"]!.values[0]() == "1234", "La valeur du 8ème paramètre doit être 1234")
     }
 }

@@ -39,7 +39,8 @@ enum IdentifiedVisitorHelperKey: String {
     case text = "ATIdentifiedVisitorText"
     case category = "ATIdentifiedVisitorCategory"
 }
- 
+
+/// Wrapper class for identified visitor tracking
 public class IdentifiedVisitor: NSObject {
     /// Tracker instance
     var tracker: Tracker
@@ -57,11 +58,11 @@ public class IdentifiedVisitor: NSObject {
         option.persistent = true;
     }
     
-    /**
-    Set Identified visitor ID (numeric) for all next hits
-    - parameter visitorID: numeric visitor identifier
-    - returns: tracker instance
-    */
+    /// Set Identified visitor ID (numeric) for the current session
+    ///
+    /// - Parameter visitorId: numeric identifier
+    /// - Returns: the tracker instance
+    @discardableResult
     @objc(setInt:)
     public func set(_ visitorId: Int) -> Tracker {
         _ = unset()
@@ -70,13 +71,14 @@ public class IdentifiedVisitor: NSObject {
         return self.tracker
     }
     
-    /**
-    Set Identified visitor ID (numeric) with category for all next hits
-    - parameter visitorID: numeric visitor identifier
-    - parameter visitorCategory: visitor category identifier
-    - returns: tracker instance
-    */
-    @objc(setInt::)
+    /// Set Identified visitor for the current session
+    ///
+    /// - Parameters:
+    ///   - visitorId: numeric identifier
+    ///   - visitorCategory: visitorCategory
+    /// - Returns: the tracker instance
+    @discardableResult
+    @objc(setInt:visitorCategory:)
     public func set(_ visitorId: Int, visitorCategory: Int) -> Tracker {
         _ = set(visitorId)
         save(HitParam.visitorCategory.rawValue, keyPersistent: IdentifiedVisitorHelperKey.category.rawValue, value: visitorCategory)
@@ -84,11 +86,11 @@ public class IdentifiedVisitor: NSObject {
         return self.tracker
     }
     
-    /**
-    Set Identified visitor ID (text) for all next hits
-    - parameter visitorID: text visitor identifier
-    - returns: tracker instance
-    */
+    /// Set Identified visitor for the current session
+    ///
+    /// - Parameter visitorId: visitorId textual identifier
+    /// - Returns: the tracker instance
+    @discardableResult
     @objc(setString:)
     public func set(_ visitorId: String) -> Tracker {
         _ = unset()
@@ -97,13 +99,14 @@ public class IdentifiedVisitor: NSObject {
         return self.tracker
     }
     
-    /**
-    Set Identified visitor ID (text) with category for all next hits
-    - parameter visitorID: text visitor identifier
-    - parameter visitorCategory: visitor category identifier
-    - returns: tracker instance
-    */
-    @objc(setString::)
+    /// Set Identified visitor for the current session
+    ///
+    /// - Parameters:
+    ///   - visitorId: visitorId textual identifier
+    ///   - visitorCategory: visitorCategory
+    /// - Returns: the tracker instance
+    @discardableResult
+    @objc(setString:visitorCategory:)
     public func set(_ visitorId: String, visitorCategory: Int) -> Tracker {
         _ = set(visitorId)
         save(HitParam.visitorCategory.rawValue, keyPersistent: IdentifiedVisitorHelperKey.category.rawValue, value: visitorCategory)
@@ -111,10 +114,10 @@ public class IdentifiedVisitor: NSObject {
         return self.tracker
     }
     
-    /**
-    Unset identified visitor ID. Identified visitor ID (numeric and text) and category parameters won't appear in next hits
-    - returns: tracker instance
-    */
+    /// Unset identified visitor data. Identified visitor parameters won’t appear in next hits
+    ///
+    /// - Returns: tracker instance
+    @discardableResult
     public func unset() -> Tracker {
         _ = tracker.unsetParam(HitParam.visitorIdentifierNumeric.rawValue)
         _ = tracker.unsetParam(HitParam.visitorIdentifierText.rawValue)

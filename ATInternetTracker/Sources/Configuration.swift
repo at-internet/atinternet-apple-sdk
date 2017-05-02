@@ -29,43 +29,84 @@ SOFTWARE.
 
 import Foundation
 
+
+/// OfflineModeKey
+///
+/// - always: Hits are always stored
+/// - never: Hits are never stored
+/// - required: Hits are stored if no connection available
 public enum OfflineModeKey: String {
+    /// Hits are always stored
     case always = "always"
+    /// Hits are never stored
     case never = "never"
+    /// Hits are stored if no connection available
     case required = "required"
 }
 
+/// Plugin keys
+///
+/// - tvTracking: TvTracking
+/// - nuggAd: NuggAd
 public enum PluginKey: String {
     case tvTracking = "tvtracking"
     case nuggAd = "nuggad"
 }
 
+/// Identifier Types
+///
+/// - uuid: The tracker will generate an uuid
+/// - idfv: The tracker will use the identifier for vendor
 public enum IdentifierTypeKey: String {
+    /// The tracker will generate an uuid
     case uuid = "uuid"
+    /// The tracker will use the identifier for vendor
     case idfv = "idfv"
 }
 
-public class TrackerConfigurationKeys {
+/// Tracker configuration keys helper - used to make easier Tracker creation by providing few static parameters
+public class TrackerConfigurationKeys: NSObject {
+    /// sessionBackgroundDuration
     public static let SessionBackgroundDuration = "sessionBackgroundDuration"
+    /// campaignLifetime
     public static let CampaignLifetime = "campaignLifetime"
+    /// campaignLastPersistence
     public static let CampaignLastPersistence = "campaignLastPersistence"
+    /// tvtURL
     public static let TvTrackingURL = "tvtURL"
+    /// tvtVisitDuration
     public static let TvTrackingVisitDuration = "tvtVisitDuration"
+    /// tvtSpotValidityTime
     public static let TvTrackingSpotValidityTime = "tvtSpotValidityTime"
+    /// persistIdentifiedVisitor
     public static let PersistIdentifiedVisitor = "persistIdentifiedVisitor"
+    /// hashUserId
     public static let HashUserId = "hashUserId"
+    /// enableBackgroundTask
     public static let EnableBackgroundTask = "enableBackgroundTask"
+    /// storage
     public static let OfflineMode = "storage"
+    /// log
     public static let Log = "log"
+    /// logSSL
     public static let LogSSL = "logSSL"
+    /// domain
     public static let Domain = "domain"
+    /// pixelPath
     public static let PixelPath = "pixelPath"
+    /// site
     public static let Site = "site"
+    /// secure
     public static let Secure = "secure"
+    /// identifier
     public static let Identifier = "identifier"
+    /// downloadSource
     public static let DownloadSource = "downloadSource"
+    /// plugins
     public static let Plugins = "plugins"
+    /// enableAutoTracking
     public static let AutoTracking = "enableAutoTracking"
+    /// autoTrackerToken
     public static let AutoTrackerToken = "autoTrackerToken"
 }
 

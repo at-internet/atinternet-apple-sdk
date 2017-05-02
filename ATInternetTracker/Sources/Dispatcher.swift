@@ -156,7 +156,7 @@ class Dispatcher: NSObject {
         }
         
         // Creation of hit builder task to execute in background thread
-        let builder = Builder(tracker: self.tracker, volatileParameters: Tool.copyParamArray(self.tracker.buffer.volatileParameters), persistentParameters: Tool.copyParamArray(self.tracker.buffer.persistentParameters))
+        let builder = Builder(tracker: self.tracker)
         // Remove all non persistent parameters from buffer
         self.tracker.buffer.volatileParameters.removeAll(keepingCapacity: false)
         // Add hit builder task to queue

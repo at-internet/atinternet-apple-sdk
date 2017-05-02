@@ -32,11 +32,18 @@ SOFTWARE.
 
 import Foundation
 
+
+/// Wrapper class to inject custom variables information
 public class CustomVar: ScreenInfo {
     
-    /// Custom var types
+    /// CustomVarType - different type will have a different processing
+    ///
+    /// - app: App custom variable type
+    /// - screen: Screen custom variable type
     @objc public enum CustomVarType: Int {
+        /// app
         case app = 0
+        /// screen
         case screen = 1
     }
     
@@ -89,6 +96,8 @@ public class CustomVar: ScreenInfo {
     
 }
 
+
+/// Wrapper class used to manage CustomVar instances
 public class CustomVars: NSObject {
     
     /// Tracker instance
@@ -111,13 +120,14 @@ public class CustomVars: NSObject {
         self.tracker = screen.tracker
     }
     
-    /**
-    Set a custom var
-    - parameter varId: identifier of the custom variable
-    - parameter value: of the custom variable
-    - parameter type: of custom variable (site, page)
-    - returns: tracker instance
-    */
+    /// Add a CustomVar
+    ///
+    /// - Parameters:
+    ///   - varId: custom variable identifier
+    ///   - value: value of the custom variable
+    ///   - type: type of the custom variable - See CustomVarType
+    /// - Returns: the new custom var instance
+    @discardableResult
     public func add(_ varId: Int, value: String, type: CustomVar.CustomVarType) -> CustomVar {
         let customVar = CustomVar(varId: varId, value: value, type: type)
         customVar.tracker = self.tracker

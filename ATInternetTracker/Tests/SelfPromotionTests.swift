@@ -49,11 +49,11 @@ class SelfPromotionTests: XCTestCase {
         selfPromo.setEvent()
         
         XCTAssertEqual(selfPromo.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[0].key == "type", "Le premier paramètre doit être type")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[0].value() == "AT", "La valeur du premier paramètre doit être AT")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.values[0]() == "AT", "La valeur du premier paramètre doit être AT")
         
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[1].key == "ati", "Le second paramètre doit être action")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[1].value() == "INT-1-||", "La valeur du second paramètre doit être INT-1-||")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["ati"]?.key == "ati", "Le second paramètre doit être action")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["ati"]?.values[0]() == "INT-1-||", "La valeur du second paramètre doit être INT-1-||")
     }
     
     func testSetFullSelfPromoView() {
@@ -63,11 +63,11 @@ class SelfPromotionTests: XCTestCase {
         selfPromo.setEvent()
         
         XCTAssertEqual(selfPromo.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[0].key == "type", "Le premier paramètre doit être type")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[0].value() == "AT", "La valeur du premier paramètre doit être AT")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.values[0]() == "AT", "La valeur du premier paramètre doit être AT")
         
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[1].key == "ati", "Le second paramètre doit être action")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[1].value() == "INT-2-format||productId", "La valeur du second paramètre doit être INT-2-format||productId")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["ati"]?.key == "ati", "Le second paramètre doit être action")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["ati"]?.values[0]() == "INT-2-format||productId", "La valeur du second paramètre doit être INT-2-format||productId")
     }
     
     func testMultiplePublisherViews() {
@@ -80,25 +80,21 @@ class SelfPromotionTests: XCTestCase {
         selfPromo2.format = "format"
         selfPromo2.setEvent()
         
-        XCTAssertEqual(selfPromo.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[0].key == "type", "Le premier paramètre doit être type")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[0].value() == "AT", "La valeur du premier paramètre doit être AT")
+        XCTAssertEqual(selfPromo.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.values[0]() == "AT", "La valeur du premier paramètre doit être AT")
         
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[1].key == "ati", "Le second paramètre doit être action")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[1].value() == "INT-1-||", "La valeur du second paramètre doit être INT-1-||")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["ati"]?.key == "ati", "Le second paramètre doit être action")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["ati"]?.values[0]() == "INT-1-||", "La valeur du second paramètre doit être INT-1-||")
         
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[2].key == "ati", "Le 3ème paramètre doit être action")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[2].value() == "INT-2-format||productId", "La valeur du 3ème paramètre doit être INT-2-format||productId")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["ati"]?.key == "ati", "Le 3ème paramètre doit être action")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["ati"]?.values[1]() == "INT-2-format||productId", "La valeur du 3ème paramètre doit être INT-2-format||productId")
         
-        let builder = Builder(tracker: selfPromo.tracker, volatileParameters: selfPromo.tracker.buffer.volatileParameters, persistentParameters: selfPromo.tracker.buffer.persistentParameters)
-        let param: [(param: Param, str: String)] = builder.prepareQuery()
+        let builder = Builder(tracker: selfPromo.tracker)
+        let param: Dictionary<String, (String, String)> = builder.prepareQuery()
         
-        let p0: (param: Param, str: String) = (param.filter() {
-            return ($0 as (param: Param, str: String)).param.key == "ati"
-            }).first!
-        
-        XCTAssertTrue(p0.param.key == "ati", "Le paramètre doit être ati")
-        XCTAssertTrue(p0.str == "&ati=" + "INT%2D1%2D%7C%7C%2CINT%2D2%2Dformat%7C%7CproductId")
+        XCTAssertTrue(param["ati"] != nil, "Le paramètre doit être ati")
+        XCTAssertTrue(param["ati"]?.0 == "&ati=" + "INT%2D1%2D%7C%7C%2CINT%2D2%2Dformat%7C%7CproductId")
     }
     
     func testSetScreenWithPublisherView() {
@@ -109,20 +105,20 @@ class SelfPromotionTests: XCTestCase {
         selfPromo.setEvent()
         
         XCTAssertEqual(selfPromo.tracker.buffer.volatileParameters.count, 5, "Le nombre de paramètres volatiles doit être égal à 5")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[0].key == "type", "Le premier paramètre doit être type")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[0].value() == "screen", "La valeur du premier paramètre doit être screen")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.values[0]() == "screen", "La valeur du premier paramètre doit être screen")
         
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[1].key == "action", "Le second paramètre doit être action")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[1].value() == "view", "La valeur du second paramètre doit être view")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["action"]?.key == "action", "Le second paramètre doit être action")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["action"]?.values[0]() == "view", "La valeur du second paramètre doit être view")
         
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[2].key == "p", "Le troisième paramètre doit être p")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[2].value() == "Home", "La valeur du troisième paramètre doit être Home")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["p"]?.key == "p", "Le troisième paramètre doit être p")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["p"]?.values[0]() == "Home", "La valeur du troisième paramètre doit être Home")
         
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[3].key == "stc", "Le 4ème paramètre doit être stc")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[3].value() == "{}", "La valeur du 4ème paramètre doit être {}")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["stc"]?.key == "stc", "Le 4ème paramètre doit être stc")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["stc"]?.values[0]() == "{}", "La valeur du 4ème paramètre doit être {}")
         
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[4].key == "ati", "Le 5ème paramètre doit être action")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[4].value() == "INT-1-||", "La valeur du 5ème paramètre doit être INT-1-||")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["ati"]?.key == "ati", "Le 5ème paramètre doit être action")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["ati"]?.values[0]() == "INT-1-||", "La valeur du 5ème paramètre doit être INT-1-||")
     }
     
     func testSetPublisherTouch() {
@@ -131,11 +127,11 @@ class SelfPromotionTests: XCTestCase {
         selfPromo.setEvent()
         
         XCTAssertEqual(selfPromo.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[0].key == "type", "Le premier paramètre doit être type")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[0].value() == "AT", "La valeur du premier paramètre doit être AT")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.values[0]() == "AT", "La valeur du premier paramètre doit être AT")
         
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[1].key == "atc", "Le second paramètre doit être action")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[1].value() == "INT-1-||", "La valeur du second paramètre doit être INT-1-||")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["atc"]?.key == "atc", "Le second paramètre doit être action")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["atc"]?.values[0]() == "INT-1-||", "La valeur du second paramètre doit être INT-1-||")
     }
     
     func testSetFullPublisherTouch() {
@@ -146,10 +142,10 @@ class SelfPromotionTests: XCTestCase {
         selfPromo.setEvent()
         
         XCTAssertEqual(selfPromo.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[0].key == "type", "Le premier paramètre doit être type")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[0].value() == "AT", "La valeur du premier paramètre doit être AT")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.values[0]() == "AT", "La valeur du premier paramètre doit être AT")
         
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[1].key == "atc", "Le second paramètre doit être action")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters[1].value() == "INT-2-format||productId", "La valeur du second paramètre doit être INT-2-format||productId")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["atc"]?.key == "atc", "Le second paramètre doit être action")
+        XCTAssert(selfPromo.tracker.buffer.volatileParameters["atc"]?.values[0]() == "INT-2-format||productId", "La valeur du second paramètre doit être INT-2-format||productId")
     }
 }

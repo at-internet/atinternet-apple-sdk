@@ -32,6 +32,8 @@
 
 import UIKit
 
+
+/// Wrapper class for Visited aisle tracking
 public class Aisle: ScreenInfo {
     
     /// Aisle level1 label
@@ -56,76 +58,70 @@ public class Aisle: ScreenInfo {
         super.init(tracker: tracker)
     }
     
-    /**
-     Add tagging data for an aisle
-     - parameter level1: level1 label
-     - returns: Aisle instance
-     */
+    /// Add tagging data for an aisle
+    ///
+    /// - Parameters:
+    ///   - level1: level1 label
     public init(level1: String) {
         super.init()
         self.level1 = level1
     }
     
-    /**
-     Add tagging data for an aisle
-     - parameter level1: level1 label
-     - parameter level2: level2 label
-     - returns: Aisle instance
-     */
+    /// Add tagging data for an aisle
+    ///
+    /// - Parameters:
+    ///   - level1: level1 label
+    ///   - level2: level2 label
     public convenience init(level1: String, level2: String) {
         self.init(level1: level1)
         self.level2 = level2
     }
     
-    /**
-     Add tagging data for an aisle
-     - parameter level1: level1 label
-     - parameter level2: level2 label
-     - parameter level3: level3 label
-     - returns: Aisle instance
-     */
+    /// Add tagging data for an aisle
+    ///
+    /// - Parameters:
+    ///   - level1: level1 label
+    ///   - level2: level2 label
+    ///   - level3: level3 label
     public convenience init(level1: String, level2: String, level3: String) {
         self.init(level1: level1, level2: level2)
         self.level3 = level3
     }
     
-    /**
-     Add tagging data for an aisle
-     - parameter level1: level1 label
-     - parameter level2: level2 label
-     - parameter level3: level3 label
-     - parameter level4: level4 label
-     - returns: Aisle instance
-     */
+    /// Add tagging data for an aisle
+    ///
+    /// - Parameters:
+    ///   - level1: level1 label
+    ///   - level2: level2 label
+    ///   - level3: level3 label
+    ///   - level4: level4 label
     public convenience init(level1: String, level2: String, level3: String, level4: String) {
         self.init(level1: level1, level2: level2, level3: level3)
         self.level4 = level4
     }
     
-    /**
-     Add tagging data for an aisle
-     - parameter level1: level1 label
-     - parameter level2: level2 label
-     - parameter level3: level3 label
-     - parameter level4: level4 label
-     - parameter level5: level5 label
-     - returns: Aisle instance
-     */
+    /// Add tagging data for an aisle
+    ///
+    /// - Parameters:
+    ///   - level1: level1 label
+    ///   - level2: level2 label
+    ///   - level3: level3 label
+    ///   - level4: level4 label
+    ///   - level5: level5 label
     public convenience init(level1: String, level2: String, level3: String, level4: String, level5: String) {
         self.init(level1: level1, level2: level2, level3: level3, level4: level4)
         self.level5 = level5
     }
     
-    /**
-     Add tagging data for an aisle
-     - parameter level1: level1 label
-     - parameter level2: level2 label
-     - parameter level3: level3 label
-     - parameter level4: level4 label
-     - parameter level5: level5 label
-     - parameter level6: level6 label
-     - returns: Aisle instance
-     */
+    /// Add tagging data for an aisle
+    ///
+    /// - Parameters:
+    ///   - level1: level1 label
+    ///   - level2: level2 label
+    ///   - level3: level3 label
+    ///   - level4: level4 label
+    ///   - level5: level5 label
+    ///   - level6: level6 label
     public convenience init(level1: String, level2: String, level3: String, level4: String, level5: String, level6: String) {
         self.init(level1: level1, level2: level2, level3: level3, level4: level4, level5: level5)
         self.level6 = level6
@@ -187,6 +183,7 @@ public class Aisle: ScreenInfo {
     }
 }
 
+/// Wrapper class to manage aisles instances
 public class Aisles {
     /// Tracker instance
     var tracker: Tracker
@@ -200,71 +197,70 @@ public class Aisles {
         self.tracker = tracker;
     }
     
-    /**
-     Add tagging data for an aisle
-     - parameter level1: level1 label
-     - returns: Aisle instance
-     */
+    /// Add tagging data for an aisle
+    ///
+    /// - Parameter level1: level1 label
+    /// - Returns: Aisle instance
     public func add(level1: String) -> Aisle {
         return _add(level1: level1, level2: nil, level3: nil, level4: nil, level5: nil, level6: nil)
     }
     
-    /**
-     Add tagging data for an aisle
-     - parameter level1: level1 label
-     - parameter level2: level2 label
-     - returns: Aisle instance
-     */
+    /// Add tagging data for an aisle
+    ///
+    /// - Parameters:
+    ///   - level1: level1 label
+    ///   - level2: level2 label
+    /// - Returns: Aisle instance
     public func add(level1: String, level2: String) -> Aisle {
         return _add(level1: level1, level2: level2, level3: nil, level4: nil, level5: nil, level6: nil)
     }
     
-    /**
-     Add tagging data for an aisle
-     - parameter level1: level1 label
-     - parameter level2: level2 label
-     - parameter level3: level3 label
-     - returns: Aisle instance
-     */
+    /// Add tagging data for an aisle
+    ///
+    /// - Parameters:
+    ///   - level1: level1 label
+    ///   - level2: level2 label
+    ///   - level3: level3 label
+    /// - Returns: Aisle instance
     public func add(level1: String, level2: String, level3: String) -> Aisle {
         return _add(level1: level1, level2: level2, level3: level3, level4: nil, level5: nil, level6: nil)
     }
     
-    /**
-     Add tagging data for an aisle
-     - parameter level1: level1 label
-     - parameter level2: level2 label
-     - parameter level3: level3 label
-     - parameter level4: level4 label
-     - returns: Aisle instance
-     */
+    /// Add tagging data for an aisle
+    ///
+    /// - Parameters:
+    ///   - level1: level1 label
+    ///   - level2: level2 label
+    ///   - level3: level3 label
+    ///   - level4: level4 label
+    /// - Returns: Aisle instance
     public func add(level1: String, level2: String, level3: String, level4: String) -> Aisle {
         return _add(level1: level1, level2: level2, level3: level3, level4: level4, level5: nil, level6: nil)
     }
     
-    /**
-     Add tagging data for an aisle
-     - parameter level1: level1 label
-     - parameter level2: level2 label
-     - parameter level3: level3 label
-     - parameter level4: level4 label
-     - parameter level5: level5 label
-     - returns: Aisle instance
-     */
+    /// Add tagging data for an aisle
+    ///
+    /// - Parameters:
+    ///   - level1: level1 label
+    ///   - level2: level2 label
+    ///   - level3: level3 label
+    ///   - level4: level4 label
+    ///   - level5: level5 label
+    /// - Returns: Aisle instance
     public func add(level1: String, level2: String, level3: String, level4: String, level5: String) -> Aisle {
         return _add(level1: level1, level2: level2, level3: level3, level4: level4, level5: level5, level6: nil)
     }
     
-    /**
-     Add tagging data for an aisle
-     - parameter level1: level1 label
-     - parameter level2: level2 label
-     - parameter level3: level3 label
-     - parameter level4: level4 label
-     - parameter level5: level5 label
-     - parameter level6: level6 label
-     - returns: Aisle instance
-     */
+    /// Add tagging data for an aisle
+    ///
+    /// - Parameters:
+    ///   - level1: level1 label
+    ///   - level2: level2 label
+    ///   - level3: level3 label
+    ///   - level4: level4 label
+    ///   - level5: level5 label
+    ///   - level6: level6 label
+    /// - Returns: Aisle instance
     public func add(level1: String, level2: String, level3: String, level4: String, level5: String, level6: String) -> Aisle {
         return _add(level1: level1, level2: level2, level3: level3, level4: level4, level5: level5, level6: level6)
     }

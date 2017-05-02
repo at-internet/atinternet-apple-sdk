@@ -44,13 +44,12 @@ class IdentifiedVisitorTests: XCTestCase {
             let refCount = self.tracker.buffer.persistentParameters.count
             _ = self.tracker.identifiedVisitor.set(123)
             XCTAssertTrue(self.tracker.buffer.persistentParameters.count == refCount + 1, "Il doit y avoir un paramètre supplémentaire")
-            var p = self.tracker.buffer.persistentParameters.last as Param!
-            XCTAssertTrue(p!.key == HitParam.visitorIdentifierNumeric.rawValue, "Le dernier paramètre doit être l'id numérique")
-            XCTAssertTrue(p?.value() == "123", "Le dernier paramètre doit avoir la valeur 123")
-            _ = self.tracker.identifiedVisitor.unset()
-            p = self.tracker.buffer.persistentParameters.last as Param!
+            var p = self.tracker.buffer.persistentParameters[HitParam.visitorIdentifierNumeric.rawValue]
+            XCTAssertTrue(p?.values[0]() == "123", "Le dernier paramètre doit avoir la valeur 123")
+            self.tracker.identifiedVisitor.unset()
+            p = self.tracker.buffer.persistentParameters[HitParam.visitorIdentifierNumeric.rawValue]
             XCTAssertTrue(self.tracker.buffer.persistentParameters.count == refCount, "Il ne doit pas y avoir un paramètre supplémentaire")
-            XCTAssertTrue(p!.key != HitParam.visitorIdentifierNumeric.rawValue, "Le dernier paramètre ne doit pas être l'id numérique")
+            XCTAssertTrue(p == nil, "Le dernier paramètre ne doit pas être l'id numérique")
             
             expectation.fulfill()
         })
@@ -88,13 +87,13 @@ class IdentifiedVisitorTests: XCTestCase {
             let refCount = self.tracker.buffer.persistentParameters.count
             _ = self.tracker.identifiedVisitor.set(123, visitorCategory: 456)
             XCTAssertTrue(self.tracker.buffer.persistentParameters.count == refCount + 2, "Il doit y avoir deux paramètres supplémentaires")
-            var p = self.tracker.buffer.persistentParameters.last as Param!
+            var p = self.tracker.buffer.persistentParameters[HitParam.visitorCategory.rawValue]
             XCTAssertTrue(p!.key == HitParam.visitorCategory.rawValue, "Le dernier paramètre doit être la catégorie")
-            XCTAssertTrue(p?.value() == "456", "Le dernier paramètre doit avoir la valeur 456")
-            _ = self.tracker.identifiedVisitor.unset()
-            p = self.tracker.buffer.persistentParameters.last as Param!
+            XCTAssertTrue(p?.values[0]() == "456", "Le dernier paramètre doit avoir la valeur 456")
+            self.tracker.identifiedVisitor.unset()
+            p = self.tracker.buffer.persistentParameters[HitParam.visitorCategory.rawValue]
             XCTAssertTrue(self.tracker.buffer.persistentParameters.count == refCount, "Il ne doit pas y avoir un paramètre supplémentaire")
-            XCTAssertTrue(p!.key != HitParam.visitorCategory.rawValue, "Le dernier paramètre ne doit pas être la catégorie")
+            XCTAssertTrue(p == nil, "Le dernier paramètre ne doit pas être la catégorie")
             expectation.fulfill()
         })
         
@@ -132,15 +131,15 @@ class IdentifiedVisitorTests: XCTestCase {
         tracker.setConfig(IdentifiedVisitorHelperKey.configuration.rawValue, value: "false", completionHandler:nil)
         let configurationOperation = BlockOperation(block: {
             let refCount = self.tracker.buffer.persistentParameters.count
-            _ = self.tracker.identifiedVisitor.set("aze")
+            self.tracker.identifiedVisitor.set("aze")
             XCTAssertTrue(self.tracker.buffer.persistentParameters.count == refCount + 1, "Il doit y avoir un paramètre supplémentaire")
-            var p = self.tracker.buffer.persistentParameters.last as Param!
+            var p = self.tracker.buffer.persistentParameters["at"]
             XCTAssertTrue(p!.key == HitParam.visitorIdentifierText.rawValue, "Le dernier paramètre doit être l'id textuel")
-            XCTAssertTrue(p?.value() == "aze", "Le dernier paramètre doit avoir la valeur aze")
-            _ = self.tracker.identifiedVisitor.unset()
-            p = self.tracker.buffer.persistentParameters.last as Param!
+            XCTAssertTrue(p?.values[0]() == "aze", "Le dernier paramètre doit avoir la valeur aze")
+            self.tracker.identifiedVisitor.unset()
+            p = self.tracker.buffer.persistentParameters["at"]
             XCTAssertTrue(self.tracker.buffer.persistentParameters.count == refCount, "Il ne doit pas y avoir un paramètre supplémentaire")
-            XCTAssertTrue(p!.key != HitParam.visitorIdentifierNumeric.rawValue, "Le dernier paramètre ne doit pas être l'id textuel")
+            XCTAssertTrue(p == nil, "Le dernier paramètre ne doit pas être dans le buffer")
             expectation.fulfill()
         })
         
@@ -171,15 +170,14 @@ class IdentifiedVisitorTests: XCTestCase {
         tracker.setConfig(IdentifiedVisitorHelperKey.configuration.rawValue, value: "false", completionHandler:nil)
             let configurationOperation = BlockOperation(block: {
             let refCount = self.tracker.buffer.persistentParameters.count
-            _ = self.tracker.identifiedVisitor.set("aze", visitorCategory: 456)
+            self.tracker.identifiedVisitor.set("aze", visitorCategory: 456)
             XCTAssertTrue(self.tracker.buffer.persistentParameters.count == refCount + 2, "Il doit y avoir deux paramètres supplémentaires")
-            var p = self.tracker.buffer.persistentParameters.last as Param!
-            XCTAssertTrue(p!.key == HitParam.visitorCategory.rawValue, "Le dernier paramètre doit être la catégorie")
-            XCTAssertTrue(p?.value() == "456", "Le dernier paramètre doit avoir la valeur 456")
-            _ = self.tracker.identifiedVisitor.unset()
-            p = self.tracker.buffer.persistentParameters.last as Param!
+
+            XCTAssertTrue(self.tracker.buffer.persistentParameters[HitParam.visitorCategory.rawValue]?.values[0]() == "456", "Le dernier paramètre doit avoir la valeur 456")
+            self.tracker.identifiedVisitor.unset()
+            
             XCTAssertTrue(self.tracker.buffer.persistentParameters.count == refCount, "Il ne doit pas y avoir un paramètre supplémentaire")
-            XCTAssertTrue(p!.key != HitParam.visitorCategory.rawValue, "Le dernier paramètre ne doit pas être la catégorie")
+            XCTAssertTrue(self.tracker.buffer.persistentParameters[HitParam.visitorCategory.rawValue] == nil, "Le dernier paramètre ne doit pas être la catégorie")
         })
         
         TrackerQueue.sharedInstance.queue.addOperation(configurationOperation)
