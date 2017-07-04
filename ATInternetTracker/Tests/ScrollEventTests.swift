@@ -26,7 +26,7 @@ class ScrollEventTests: XCTestCase {
         let direction = arc4random_uniform(2) > 0 ? ScrollEvent.ScrollDirection.Down : ScrollEvent.ScrollDirection.Up
         let aView = TestGenerator.randomViewGenerator()
         UIApplicationContext.sharedInstance.currentTouchedView = aView
-        let scroll = ScrollEvent(view: View(), direction: direction, currentScreen: Screen())
+        let scroll = ScrollEvent(view: View(), direction: direction, currentScreen: Screen(), methodName: "handleScroll:")
         let expected:NSDictionary = [
             "event": "scroll",
             "data":[
@@ -34,7 +34,7 @@ class ScrollEventTests: XCTestCase {
                 "methodName" : "handleScroll:",
                 "title": "handleScroll:",
                 "direction" : direction.rawValue,
-                "isDefaultMethod": true,
+                "isDefaultMethod": false,
                 "x" : -1,
                 "y" : -1,
                 "view": [

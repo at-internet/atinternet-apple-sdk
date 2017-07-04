@@ -25,19 +25,33 @@
 import UIKit
 import Foundation
 
+
+/// Rule wrapper
+class Rule {
+    var rule: String
+    var value: String
+    init(rule: String, value: Int) {
+        self.rule = rule
+        self.value = Gesture.getEventTypeRawValue(value)
+    }
+}
+
+/// Gesture rules
+let RULES = [
+    Rule(rule: "ignoreTap", value: Gesture.GestureEventType.tap.rawValue),
+    Rule(rule: "ignoreSwipe", value: Gesture.GestureEventType.swipe.rawValue),
+    Rule(rule: "ignoreScroll", value: Gesture.GestureEventType.scroll.rawValue),
+    Rule(rule: "ignorePinch", value: Gesture.GestureEventType.pinch.rawValue),
+    Rule(rule: "ignorePan", value: Gesture.GestureEventType.pan.rawValue),
+    Rule(rule: "ignoreRefresh", value: Gesture.GestureEventType.refresh.rawValue),
+    Rule(rule: "ignoreRotate", value: Gesture.GestureEventType.rotate.rawValue),
+    Rule(rule: "ignoreDeviceRotate", value: Gesture.GestureEventType.deviceRotate.rawValue)
+]
+
 /// Class for sending gesture event to the socket server
 class GestureOperation: Operation {
     
     var gestureEvent: GestureEvent
-    
-    /// refresh the timer tick
-    var timerDuration: TimeInterval = 0.2
-    
-    /// timer to handle the timeout
-    var timerTotalDuration: TimeInterval = 0
-    
-    /// after timeout, the hit is sent
-    let TIMEOUT_OPERATION: TimeInterval = 5
     
     /**
      GestureOperation init
@@ -88,6 +102,7 @@ class GestureOperation: Operation {
             gesture.action = .navigate
         }
         
+        // _ = rotationGesture.customObjects.add(["deviceOrientation":tracker.orientation!.rawValue, "interfaceOrientation": UIApplication.shared.statusBarOrientation.rawValue])
         
         gesture.screen = gestureEvent.currentScreen
         gesture.type = gestureEvent.eventType
@@ -116,14 +131,13 @@ class GestureOperation: Operation {
      - parameter gesture: the gesture
      */
     func handleDelegate(_ gesture: Gesture) {
+        var gesture = gesture
+        
         if hasDelegate() {
-            self.gestureEvent.viewController!.perform(#selector(IAutoTracker.gestureWasDetected(_:)), with: gesture)
-            
-            if gesture.isReady {
-                return
-            }
-            while(!gesture.isReady) {
-                handleTimer(gesture)
+            if let g = gestureEvent.viewController!.perform(#selector(IAutoTracker.gestureWasDetected(_:)), with: gesture).takeUnretainedValue() as? Gesture {
+                gesture = g
+            } else {
+                ATInternet.sharedInstance.defaultTracker.delegate?.warningDidOccur?("The delegate has not returned a gesture; \(gesture.name) will not be modified.")
             }
         }
     }
@@ -147,19 +161,6 @@ class GestureOperation: Operation {
     }
     
     /**
-     Wait until the gesture is ready to be sent or TIMEOUT
-     
-     - parameter gesture: the gesture to be sent
-     */
-    func handleTimer(_ gesture: Gesture) {
-        Thread.sleep(forTimeInterval: timerDuration)
-        timerTotalDuration = timerTotalDuration + timerDuration
-        if timerTotalDuration > TIMEOUT_OPERATION {
-            gesture.isReady = true
-        }
-    }
-    
-    /**
      Map the gesture attributes if a LiveTagging configuration is given
      
      - parameter gesture: the gesture to map
@@ -167,39 +168,23 @@ class GestureOperation: Operation {
     func mapConfiguration(_ gesture: Gesture) -> Bool {
         waitForConfigurationLoaded()
         
+        let eventType = Gesture.getEventTypeRawValue(gestureEvent.eventType.rawValue)
+        
         if let mapping = Configuration.smartSDKMapping {
-
-            let eventType = Gesture.getEventTypeRawValue(gestureEvent.eventType.rawValue)
-            let eventKeyBase = eventType+"."+gestureEvent.direction+"."+gestureEvent.methodName
-                let position = gesture.view != nil ? "."+String(gesture.view!.position) : ""
-            let view = gesture.view != nil ? "."+gesture.view!.className : ""
-            let screen = gesture.screen != nil ? "."+gesture.screen!.className : ""
-
-            class Rule {
-                var rule: String
-                var value: String
-                init(rule: String, value: Int) {
-                    self.rule = rule
-                    self.value = Gesture.getEventTypeRawValue(value)
-                }
-            }
-
-            let rules = [
-                Rule(rule: "ignoreTap", value: Gesture.GestureEventType.tap.rawValue),
-                Rule(rule: "ignoreSwipe", value: Gesture.GestureEventType.swipe.rawValue),
-                Rule(rule: "ignoreScroll", value: Gesture.GestureEventType.scroll.rawValue),
-                Rule(rule: "ignorePinch", value: Gesture.GestureEventType.pinch.rawValue),
-                Rule(rule: "ignorePan", value: Gesture.GestureEventType.pan.rawValue),
-                Rule(rule: "ignoreRefresh", value: Gesture.GestureEventType.refresh.rawValue),
-            ]
-
-            for oKey in rules {
+            // global config
+            for oKey in RULES {
                 if let shouldIgnore = mapping["configuration"]["rules"][oKey.rule].bool {
                     if eventType == oKey.value && shouldIgnore {
                         return false
                     }
                 }
             }
+            
+            // specific config
+            let eventKeyBase = eventType + "." + gestureEvent.direction + "." + gestureEvent.methodName
+            let position = gesture.view != nil ? "."+String(gesture.view!.position) : ""
+            let view = gesture.view != nil ? "."+gesture.view!.className : ""
+            let screen = gesture.screen != nil ? "."+gesture.screen!.className : ""
             
             /* 9 strings generated */
             let one = eventKeyBase + position + view + screen
@@ -218,11 +203,31 @@ class GestureOperation: Operation {
                         return false
                     }
                 }
+                
+                if let mappedType = mapping["configuration"]["events"][aKey]["action"].string {
+                    switch(mappedType) {
+                        case "action":
+                            gesture.action = .touch
+                        case "exit":
+                            gesture.action = .exit
+                        case "navigation":
+                            gesture.action = .navigate
+                        case "download":
+                            gesture.action = .download
+                        default:
+                            break
+                    }
+                }
+                
                 if let mappedName = mapping["configuration"]["events"][aKey]["title"].string {
                     gesture.name = mappedName
                     break
                 }
             }
+        }
+        else {
+            let tap = Rule(rule: "ignoreTap", value: Gesture.GestureEventType.tap.rawValue)
+            return eventType == tap.value
         }
         return true
     }

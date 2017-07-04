@@ -165,9 +165,8 @@ class UIApplicationContext {
         
         if let touchedView = view {
             if UIApplicationContext.sharedInstance.initialTouchPosition != CGPoint.zero {
-                let frame = touchedView.superview?.convert(touchedView.frame, to: nil)
                 
-                if frame!.contains(UIApplicationContext.sharedInstance.initialTouchPosition) {
+                if let frame = touchedView.superview?.convert(touchedView.frame, to: nil), frame.contains(UIApplicationContext.sharedInstance.initialTouchPosition) {
                     accurateView = touchedView
                     
                     if accurateView! is UIControl || accurateView?.type != UIApplicationContext.ViewType.unknown {

@@ -95,9 +95,9 @@ extension UIApplication {
         let gestureEvent = gestureFromEvent(event)
         
         if let gesture = gestureEvent {
-            if !ATInternet.sharedInstance.defaultTracker.debug {
+            /*if !ATInternet.sharedInstance.defaultTracker.debug {
                 fillWithScreenshot(gesture)
-            }
+            }*/
             
             gesture.viewController = UIViewControllerContext.sharedInstance.currentViewController
             EventManager.sharedInstance.addEvent(GestureOperation(gestureEvent: gesture))
@@ -267,25 +267,11 @@ extension UIApplication {
                     UIViewControllerContext.sharedInstance.isPeekAndPoped = false
                 }
                 
-                switch eventType {
-                case Gesture.GestureEventType.tap :
-                    gestureEvent = logTap(touch, method: methodName)
-                case Gesture.GestureEventType.swipe :
-                    gestureEvent = logSwipe(touch, method: methodName)
-                case Gesture.GestureEventType.pan:
-                    gestureEvent = logPan(touch, method: methodName)
-                case Gesture.GestureEventType.scroll:
-                    gestureEvent = logScroll(touch, method: nil)
-                case Gesture.GestureEventType.rotate:
-                    gestureEvent = logRotation(methodName)
-                case Gesture.GestureEventType.pinch:
-                    if(touches.count == 2) {
-                        appContext.pinchType = getPinchType(touches)
-                    }
-                    gestureEvent = logPinch(touch, method: methodName)
-                default :
-                    gestureEvent = nil
-                    break
+                let eventFactory = EventFactory()
+                gestureEvent = eventFactory.createEvent(eventType: eventType, touch: touch, method: methodName)
+                
+                if eventType == .pinch && touches.count == 2 {
+                    appContext.pinchType = getPinchType(touches)
                 }
                 
                 if let text = infoText {
@@ -468,135 +454,6 @@ extension UIApplication {
     }
     
     /**
-     Gets a Tap object
-     
-     - parameter touch: touch
-     
-     - returns: TapEvent
-     */
-    func logTap(_ touch: UITouch, method: String?) -> TapEvent {
-        let appContext = UIApplicationContext.sharedInstance
-        
-        let p = appContext.initialTouchPosition
-        let tap = TapEvent(x:Float(p.x), y:Float(p.y), view: View(), direction:touch.tapCount == 1 ? "single" : "double", currentScreen: Screen())
-        
-        if let methodName = method {
-            tap.methodName = methodName
-        }
-        return tap
-    }
-    
-    /**
-     Gets a Swipe object
-     
-     - parameter touch: touch
-     
-     - returns: SwipeEvent
-     */
-    func logSwipe(_ touch: UITouch, method: String?) -> SwipeEvent {
-        let appContext = UIApplicationContext.sharedInstance
-        let p = touch.location(in: nil)
-        let swipe = SwipeEvent(view: View(), direction:appContext.initialTouchPosition.x < p.x ? SwipeEvent.SwipeDirection.Right : SwipeEvent.SwipeDirection.Left, currentScreen: Screen())
-        
-        if let methodName = method {
-            swipe.methodName = methodName
-        }
-
-        return swipe
-    }
-    
-    /**
-     Gets a Rotation object
-     
-     - parameter touch: touch
-     
-     - returns: RotationEvent
-     */
-    func logRotation(_ method: String?) -> RotationEvent {
-        let appContext = UIApplicationContext.sharedInstance
-        let finalAngle = appContext.rotationObject?.getCurrentRotation()
-        let initialAngle = appContext.rotationObject?.initialRotation
-        let rotation = RotationEvent(view: View(), direction:finalAngle!-initialAngle! > 0 ? RotationEvent.RotationDirection.Clockwise : RotationEvent.RotationDirection.CounterClockwise, currentScreen: Screen())
-        if let methodName = method {
-            rotation.methodName = methodName
-        }
-        
-        return rotation
-    }
-    
-    /**
-     Gets a Pan object
-     
-     - parameter touch: touch
-     
-     - returns: PanEvent
-     */
-    func logPan(_ touch: UITouch, method: String?) -> PanEvent {
-        let appContext = UIApplicationContext.sharedInstance
-        let p = touch.location(in: nil)
-        var direction = PanEvent.PanDirection.Left
-        
-        if(appContext.eventType == Gesture.GestureEventType.swipe) {
-            direction = appContext.initialTouchPosition.x < p.x ? PanEvent.PanDirection.Right : PanEvent.PanDirection.Left
-        } else if(appContext.eventType == Gesture.GestureEventType.scroll) {
-            direction = appContext.initialTouchPosition.y < p.y ? PanEvent.PanDirection.Up : PanEvent.PanDirection.Down
-        }
-        
-        let pan = PanEvent(view: View(), direction: direction, currentScreen: Screen())
-        
-        if let methodName = method {
-            pan.methodName = methodName
-        }
-        
-        return pan
-    }
-    
-    /**
-     Gets a Scroll object
-     
-     - parameter touch: touch
-     
-     - returns: ScrollEvent
-     */
-    func logScroll(_ touch: UITouch, method: String?) -> ScrollEvent {
-        let appContext = UIApplicationContext.sharedInstance
-        let p = touch.location(in: nil)
-        let optTouchedView = appContext.currentTouchedView
-        
-        if let touchedView = optTouchedView {
-            if(touchedView.isInScrollView) {
-                appContext.currentTouchedView = touchedView.parentScrollView!
-            }
-        }
-        
-        let scroll = ScrollEvent(view: View(), direction:appContext.initialTouchPosition.y < p.y ? ScrollEvent.ScrollDirection.Up : ScrollEvent.ScrollDirection.Down, currentScreen: Screen())
-        
-        if let methodName = method {
-            scroll.methodName = methodName
-        }
-        
-        return scroll
-    }
-    
-    /**
-     Gets a Pinch object
-     
-     - parameter touch: touch
-     
-     - returns: PinchEvent
-     */
-    func logPinch(_ touch: UITouch, method: String?) -> PinchEvent {
-        let appContext = UIApplicationContext.sharedInstance
-        let pinch = PinchEvent(view: View(), direction:(appContext.pinchType == UIApplicationContext.PinchDirection.In) ? PinchEvent.PinchDirection.In : PinchEvent.PinchDirection.Out , currentScreen: Screen())
-        
-        if let methodName = method {
-            pinch.methodName = methodName
-        }
-
-        return pinch
-    }
-    
-    /**
      Get touched view from set
      
      - parameter touches: Set<UITouch>
@@ -618,70 +475,6 @@ extension UIApplication {
     }
     
     /**
-     get the position of a cell in a collectionViewCell
-     
-     - returns: the position
-     */
-    func getIndexPathForCollectionCell() -> NSInteger? {
-        let c: UICollectionViewCell? = UIApplicationContext.sharedInstance.currentTouchedView?.parentCollectionViewCell
-        if let cell = c {
-            let col = self.collectionViewForCell(cell)
-            if let collection = col {
-                return (collection.indexPath(for: cell) as IndexPath?)?.row
-            }
-        }
-        return nil
-    }
-    
-    /**
-     Return the collectionView that belong to the cell (or the opposition ? :p)
-     
-     - parameter cell: an UICollectionViewCell
-     
-     - returns: the collectionViewCell
-     */
-    func collectionViewForCell(_ cell: UICollectionViewCell) -> UICollectionView?{
-        var superView = cell.superview
-        while superView != nil && !superView!.isKind(of: UICollectionView.self) {
-            superView = superView?.superview
-        }
-        
-        return superView as? UICollectionView
-    }
-    
-    /**
-     Return the index of a cell in a tableView
-     
-     - returns: the indexpath.row
-     */
-    func getIndexPathForTableCell() -> NSInteger? {
-        let c: UITableViewCell? = UIApplicationContext.sharedInstance.currentTouchedView?.parentTableViewCell
-        if let cell = c {
-            let t = self.tableViewForCell(cell)
-            if let table = t {
-                return (table.indexPath(for: cell) as IndexPath?)?.row
-            }
-        }
-        return nil
-    }
-    
-    /**
-     Return the tableView that belong to a tableViewCell
-     
-     - parameter cell: the cell
-     
-     - returns: the tableViewCell
-     */
-    func tableViewForCell(_ cell: UITableViewCell) -> UITableView? {
-        var superView = cell.superview
-        while superView != nil && !superView!.isKind(of: UITableView.self) {
-            superView = superView?.superview
-        }
-        
-        return superView as? UITableView
-    }
-    
-    /**
      Tries to get the text, method and className of the touched view
      
      - parameter object: touched view
@@ -699,81 +492,8 @@ extension UIApplication {
         }
         
         if let view = object as? UIView {
-            if view.type == UIApplicationContext.ViewType.tableViewCell {
-                let cell = view.parentTableViewCell!
-                if let textLabel = cell.textLabel {
-                    if let cellText = textLabel.textValue {
-                        text = cellText
-                    }
-                }
-                className = "UITableViewCell"
-                if let index = getIndexPathForTableCell() {
-                    position = index
-                }
-            } else if view.type == UIApplicationContext.ViewType.collectionViewCell {
-                let cell = view.parentCollectionViewCell!
-                if let cellText = cell.contentView.textValue {
-                    text = cellText
-                }
-                className = "UICollectionViewCell"
-                if let index = getIndexPathForCollectionCell() {
-                    position = index
-                }
-                
-            } else if view.type == UIApplicationContext.ViewType.backButton {
-                text = "handleBack:"
-                method = "handleBack:"
-            } else if view.type == UIApplicationContext.ViewType.navigationBar {
-                text = view.textValue
-                className = "UINavigationBar"
-            } else if view.type == UIApplicationContext.ViewType.textField  {
-                let textField = view as! UITextField
-                
-                if let fieldText = textField.text {
-                    if !fieldText.isEmpty  {
-                        text = fieldText
-                    } else if let placeHolder = textField.placeholder {
-                        if !placeHolder.isEmpty  {
-                            text = placeHolder
-                        }
-                    }
-                } else if let placeHolder = textField.placeholder {
-                    if !placeHolder.isEmpty  {
-                        text = placeHolder
-                    }
-                }
-            } else if view.type == UIApplicationContext.ViewType.button  {
-                let button = view as! UIButton
-                
-                if let title = button.currentTitle {
-                    text = title
-                } else if let image = button.currentImage {
-                    if let title = image.accessibilityLabel {
-                        text = title
-                    }
-                    else if let title = image.accessibilityIdentifier {
-                        text = title
-                    }
-                }
-                
-                let classType:AnyClass? = NSClassFromString("UINavigationButton")
-                if view.isKind(of: classType!) {
-                    position = getPositionFromNavigationBar(view)
-                }
-                
-            } else if view.type == UIApplicationContext.ViewType.segmentedControl  {
-                let segment = view as! UISegmentedControl
-                text = segment.titleForSegment(at: segment.selectedSegmentIndex)
-                position = segment.selectedSegmentIndex
-                className = "UISegment"
-            } else if view.type == UIApplicationContext.ViewType.slider  {
-                let slider = view as! UISlider
-                
-                text = String(slider.value)
-            } else if view.type == UIApplicationContext.ViewType.stepper  {
-                let stepper = view as! UIStepper
-                
-                text = String(stepper.value)
+            if let infoFunction = TouchUIViewInfo().getInfo(UIViewType: view.type) {
+                (text, method, className, position) = infoFunction(view)
             }
         } else if let barButton = object as? UIBarButtonItem {
             let view = barButton.value(forKey: "view") as! UIView
@@ -930,5 +650,230 @@ extension UIApplication {
             }
         }
         return -1
+    }
+}
+
+class TouchUIViewInfo {
+    
+    typealias ViewInfo = (UIView) -> (text: String?, method: String?, className: String?, position: Int)
+    
+    public func getInfo(UIViewType: UIApplicationContext.ViewType) -> ViewInfo? {
+        switch(UIViewType) {
+            case .tableViewCell: return tableViewCell();
+            case .collectionViewCell: return collectionViewCell();
+            case .backButton: return backButton();
+            case .navigationBar: return navigationBar();
+            case .textField: return textField();
+            case .button: return button();
+            case .segmentedControl: return segmentedControl();
+            case .stepper: return stepper();
+            default: break;
+        }
+        return nil
+    }
+    
+    /**
+     Return the tableView that belong to a tableViewCell
+     
+     - parameter cell: the cell
+     
+     - returns: the tableViewCell
+     */
+    func tableViewForCell(_ cell: UITableViewCell) -> UITableView? {
+        var superView = cell.superview
+        while superView != nil && !superView!.isKind(of: UITableView.self) {
+            superView = superView?.superview
+        }
+        
+        return superView as? UITableView
+    }
+    
+    /**
+     Return the index of a cell in a tableView
+     
+     - returns: the indexpath.row
+     */
+    func getIndexPathForTableCell(view: UIView) -> NSInteger? {
+        let c: UITableViewCell? = view.parentTableViewCell
+        if let cell = c {
+            let t = self.tableViewForCell(cell)
+            if let table = t {
+                return (table.indexPath(for: cell) as IndexPath?)?.row
+            }
+        }
+        return nil
+    }
+    
+    func tableViewCell() -> ViewInfo {
+        return { view in
+            var text: String?
+            var className: String?
+            var position = -1
+            
+            let cell = view.parentTableViewCell!
+            if let textLabel = cell.textLabel {
+                if let cellText = textLabel.textValue {
+                    text = cellText
+                }
+            }
+            className = "UITableViewCell"
+            if let index = self.getIndexPathForTableCell(view: view) {
+                position = index
+            }
+            
+            return (text, nil, className, position)
+        }
+    }
+    
+    /**
+     Return the collectionView that belong to the cell (or the opposition ? :p)
+     
+     - parameter cell: an UICollectionViewCell
+     
+     - returns: the collectionViewCell
+     */
+    func collectionViewForCell(_ cell: UICollectionViewCell) -> UICollectionView?{
+        var superView = cell.superview
+        while superView != nil && !superView!.isKind(of: UICollectionView.self) {
+            superView = superView?.superview
+        }
+        
+        return superView as? UICollectionView
+    }
+    
+    
+    /**
+     get the position of a cell in a collectionViewCell
+     
+     - returns: the position
+     */
+    func getIndexPathForCollectionCell(view: UIView) -> NSInteger? {
+        let c: UICollectionViewCell? = view.parentCollectionViewCell
+        if let cell = c {
+            let col = self.collectionViewForCell(cell)
+            if let collection = col {
+                return (collection.indexPath(for: cell) as IndexPath?)?.row
+            }
+        }
+        return nil
+    }
+    
+    func collectionViewCell() -> ViewInfo {
+        return { view in
+            var text: String?
+            var className: String?
+            var position = -1
+            
+            let cell = view.parentCollectionViewCell!
+            if let cellText = cell.contentView.textValue {
+                text = cellText
+            }
+            className = "UICollectionViewCell"
+            if let index = self.getIndexPathForCollectionCell(view: view) {
+                position = index
+            }
+            return (text, nil, className, position)
+        }
+    }
+    
+    func backButton() -> ViewInfo {
+        return { view in
+            return ("handleBack:", "handleBack:", nil, -1)
+        }
+    }
+    
+    func navigationBar() -> ViewInfo {
+        return { view in
+            return (view.textValue, nil, "UINavigationBar", -1)
+        }
+    }
+    
+    func textField() -> ViewInfo {
+        return { view in
+            var text: String?
+            
+            let textField = view as! UITextField
+            
+            if let fieldText = textField.text {
+                if !fieldText.isEmpty  {
+                    text = fieldText
+                } else if let placeHolder = textField.placeholder {
+                    if !placeHolder.isEmpty  {
+                        text = placeHolder
+                    }
+                }
+            } else if let placeHolder = textField.placeholder {
+                if !placeHolder.isEmpty  {
+                    text = placeHolder
+                }
+            }
+            return (text, nil, nil, -1)
+        }
+    }
+    
+    func getPositionFromNavigationBar(_ view: UIView) -> Int {
+        let classType:AnyClass? = NSClassFromString("UINavigationButton")
+        if view.isKind(of: classType!) {
+            if let navBar = view.superview as? UINavigationBar {
+                var navButtons = navBar.subviews.filter({ $0.isKind(of: classType!) })
+                navButtons.sort(by: { (button1: UIView, button2: UIView) -> Bool in
+                    button1.frame.origin.x < button2.frame.origin.x
+                })
+                return navButtons.index(of: view) ?? -1
+            }
+        }
+        return -1
+    }
+    
+    func button() -> ViewInfo {
+        return { view in
+            var text: String?
+            var position = -1
+            let button = view as! UIButton
+            
+            if let title = button.currentTitle {
+                text = title
+            } else if let image = button.currentImage {
+                if let title = image.accessibilityLabel {
+                    text = title
+                }
+                else if let title = image.accessibilityIdentifier {
+                    text = title
+                }
+            }
+            
+            let classType:AnyClass? = NSClassFromString("UINavigationButton")
+            if view.isKind(of: classType!) {
+                position = self.getPositionFromNavigationBar(view)
+            }
+            
+            return (text, nil, nil, position)
+        }
+    }
+    
+    func segmentedControl() -> ViewInfo {
+        return { view in
+            let segment = view as! UISegmentedControl
+            let text = segment.titleForSegment(at: segment.selectedSegmentIndex)
+            let position = segment.selectedSegmentIndex
+            let className = "UISegment"
+            
+            return (text, nil, className, position)
+        }
+    }
+    
+    func slide() -> ViewInfo {
+        return { view in
+            let slider = view as! UISlider
+            
+            return (String(slider.value), nil, nil, -1)
+        }
+    }
+    
+    func stepper () -> ViewInfo {
+        return { view in
+            let stepper = view as! UIStepper
+            return (String(stepper.value), nil, nil, -1)
+        }
     }
 }

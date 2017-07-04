@@ -120,7 +120,6 @@ public class Buffer: NSObject {
     func addAutoTrackingContextVariable() {
         if self.tracker is AutoTracker && (self.tracker as! AutoTracker).enableAutoTracking {
             let persistentOption = ParamOption()
-            persistentOption.persistent = true
             self.volatileParameters["auto"] = Param(key: "auto", value: {"1"}, options: persistentOption)
         }
     }

@@ -67,8 +67,8 @@ class TapEvent : GestureEvent {
      
      - returns: TapEvent
      */
-    init(x: Float, y: Float, view: View, direction: String, currentScreen: Screen) {
-        super.init(type: Gesture.GestureEventType.tap, methodName: nil, view: view, direction: direction, currentScreen: currentScreen)
+    init(x: Float, y: Float, view: View, direction: String, currentScreen: Screen, methodName: String?) {
+        super.init(type: Gesture.GestureEventType.tap, methodName: methodName, view: view, direction: direction, currentScreen: currentScreen)
         self.x = x
         self.y = y
         self.defaultMethodName = "handleTap:"

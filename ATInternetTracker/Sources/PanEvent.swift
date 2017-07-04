@@ -74,8 +74,8 @@ class PanEvent : GestureEvent {
      
      - returns: a PanEvent
      */
-    init(view: View, direction: PanDirection, currentScreen: Screen) {
-        super.init(type: Gesture.GestureEventType.pan, methodName: nil, view: view, direction: direction.rawValue, currentScreen: currentScreen)
+    init(view: View, direction: PanDirection, currentScreen: Screen, methodName: String?) {
+        super.init(type: Gesture.GestureEventType.pan, methodName: methodName, view: view, direction: direction.rawValue, currentScreen: currentScreen)
         self.defaultMethodName = "handlePan:"
     }
 }

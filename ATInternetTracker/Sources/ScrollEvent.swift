@@ -72,8 +72,8 @@ class ScrollEvent : GestureEvent {
      
      - returns: TapEvent
      */
-    init(view: View, direction: ScrollDirection, currentScreen: Screen) {
-        super.init(type: Gesture.GestureEventType.scroll, methodName: nil, view: view, direction: direction.rawValue, currentScreen: currentScreen)
+    init(view: View, direction: ScrollDirection, currentScreen: Screen, methodName: String?) {
+        super.init(type: Gesture.GestureEventType.scroll, methodName: methodName, view: view, direction: direction.rawValue, currentScreen: currentScreen)
         self.defaultMethodName = "handleScroll:"
     }
 }

@@ -72,8 +72,8 @@ class PinchEvent : GestureEvent {
      
      - returns: TapEvent
      */
-    init(view: View, direction: PinchDirection, currentScreen: Screen) {
-        super.init(type: Gesture.GestureEventType.pinch, methodName: nil, view: view, direction: direction.rawValue, currentScreen: currentScreen)
+    init(view: View, direction: PinchDirection, currentScreen: Screen, methodName: String?) {
+        super.init(type: Gesture.GestureEventType.pinch, methodName: methodName, view: view, direction: direction.rawValue, currentScreen: currentScreen)
         self.defaultMethodName = "handlePinch:"
     }
 }

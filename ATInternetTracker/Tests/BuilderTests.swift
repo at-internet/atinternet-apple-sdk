@@ -99,7 +99,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         
         let hits = builder.build()
         let url = URL(string: hits[0])
-                let urlComponents = url?.query!.components(separatedBy: "&")
+        let urlComponents = url?.query!.components(separatedBy: "&")
         
         for component in urlComponents! as [String] {
             let pairComponents = component.components(separatedBy: "=")

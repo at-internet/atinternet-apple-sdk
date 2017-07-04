@@ -304,11 +304,8 @@ extension UIViewController {
                 }
             }
             
-            let tap = TapEvent(x:-1, y:-1, view: v, direction:"single", currentScreen: currentScreen)
-            
-            if let _ = methodName {
-                tap.methodName = methodName!
-            }
+            let tap = TapEvent(x:-1, y:-1, view: v, direction:"single", currentScreen: currentScreen, methodName: methodName)
+
             if let _ = className {
                 tap.view.className = className!
             }
@@ -324,8 +321,7 @@ extension UIViewController {
                 let nb = segmented.numberOfSegments
                 let segments = segmented.value(forKey: "segments") as! [UIView]
                 for i in 0..<nb {
-                    let aTap = TapEvent(x: -1, y: -1, view: View(view: segments[i]), direction: "single", currentScreen: currentScreen)
-                    aTap.methodName = tap.methodName
+                    let aTap = TapEvent(x: -1, y: -1, view: View(view: segments[i]), direction: "single", currentScreen: currentScreen, methodName: tap.methodName)
                     aTap.view.position = i
                     aTap.view.text = segmented.titleForSegment(at: i) ?? ""
                     events.append(aTap)

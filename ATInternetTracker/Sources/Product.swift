@@ -63,19 +63,19 @@ public class Product : BusinessObject {
     public var category6: String?
     
     /// Product quantity
-    public var quantity: Int?
+    public var quantity: Int = -1
     
     /// Product unit price with tax
-    public var unitPriceTaxIncluded: Double?
+    public var unitPriceTaxIncluded: Double = -1
     
     /// Product unit price without tax
-    public var unitPriceTaxFree: Double?
+    public var unitPriceTaxFree: Double = -1
     
     /// Discount value with tax
-    public var discountTaxIncluded: Double?
+    public var discountTaxIncluded: Double = -1
     
     /// Discount value without tax
-    public var discountTaxFree: Double?
+    public var discountTaxFree: Double = -1
     
     /// Promotional code
     public var promotionalCode: String?

@@ -55,13 +55,22 @@ class App {
     }
     
     func getSiteID() -> String {
-        let siteID = ATInternet.sharedInstance.defaultTracker.configuration.parameters["site"]!
+        guard let siteID = ATInternet.sharedInstance.defaultTracker.configuration.parameters["site"] else {
+            assert(false, "siteID must be not empty")
+            return ""
+        }
         assert(siteID != "", "siteID must be not empty")
+        
         return siteID
     }
     
-    func emptyIcon()->String {
-        return UIImage(named: "emptyIcon", in: Bundle(for: Tracker.self), compatibleWith: nil)!.toBase64()!.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "\r", with: "")
+    func emptyIcon() -> String {
+        guard
+            let img = UIImage(named: "emptyIcon", in: Bundle(for: Tracker.self), compatibleWith: nil),
+            let b64 = img.toBase64()
+        else { return "" }
+        
+        return b64.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "\r", with: "")
     }
     
     init() {}

@@ -186,14 +186,14 @@ public enum BackgroundMode {
 @objc public protocol IAutoTracker {
     
     /**
-    Called when a screen has been detected. To send your screen, set screen.isReady = true. It will send the hit anyway after 5s.
+    Called when a screen has been detected. When done with completing the screen object, just return it. A screen hit will be sent.
      */
-    @objc optional func screenWasDetected(_ screen: Screen) -> ()
+    @objc optional func screenWasDetected(_ screen: Screen) -> Screen
     
     /**
-     Called when a gesture has been detected. To send your gesture, set gesture.isReady = true. It will send the hit anyway after 5s.
+    Called when a gesture has been detected. When done with completing the gesture object, just return it. A gesture hit will be sent.
      */
-    @objc optional func gestureWasDetected(_ gesture: Gesture) -> ()
+    @objc optional func gestureWasDetected(_ gesture: Gesture) -> Gesture
 }
 
 #if os(iOS) && AT_SMART_TRACKER
@@ -222,15 +222,7 @@ public class AutoTracker: Tracker {
         get {
             return _token
         } set {
-            if token == nil && newValue != "" {
-                _token = newValue
-                self.liveManager = LiveNetworkManager()
-                self.liveManager!.initState()
-                self.socketSender = SocketSender(liveManager: liveManager!, token: _token!)
-                liveManager!.sender = socketSender
-            } else {
-                self.delegate?.warningDidOccur?("Setting the token twice is not allowed")
-            }
+            _token = newValue
         }
     }
     
@@ -252,7 +244,20 @@ public class AutoTracker: Tracker {
             
             _enableLiveTagging = newValue
             enableEventDetection(_enableLiveTagging)
-            _enableLiveTagging == true ? socketSender?.open() : socketSender?.close()
+            if _enableLiveTagging {
+                self.registerFont("OpenSans-Regular")
+                self.registerFont("Montserrat-Bold")
+                self.registerFont("Montserrat-Regular")
+                
+                self.liveManager = LiveNetworkManager()
+                self.liveManager!.initState()
+                self.socketSender = SocketSender(liveManager: liveManager!, token: _token!)
+                liveManager!.sender = socketSender
+                
+                self.socketSender?.open()
+            } else {
+                self.socketSender?.close()
+            }
         }
     }
     
@@ -270,7 +275,7 @@ public class AutoTracker: Tracker {
                     Configuration.smartSDKMapping = nil
                     AutoTracker.isConfigurationLoaded = true
                 } else {
-                    fetchMappingConfig()
+                    //fetchMappingConfig()
                 }
             }
             
@@ -281,12 +286,14 @@ public class AutoTracker: Tracker {
     /// get the configuration from amazon
     private func fetchMappingConfig() {
         let version = TechnicalContext.applicationVersion
-        let s3Client = ApiS3Client(token: token!, version: version, store: UserDefaultSimpleStorage(), networkService: S3NetworkService())
+        let s3Client = ApiS3Client(token: token!,
+                                   version: version,
+                                   store: UserDefaultSimpleStorage(),
+                                   networkService: S3NetworkService(),
+                                   endPoint: SmartTrackerConfiguration.sharedInstance.apiConfEndPoint)
         s3Client.fetchMapping { (mapping: ATJSON?) in
             Configuration.smartSDKMapping = mapping
-            if let _ = mapping {
-                s3Client.saveSmartSDKMapping(mapping!)
-            } else {
+            if nil == mapping {
                 self.delegate?.warningDidOccur?("No livetagging configuration loaded")
             }
             AutoTracker.isConfigurationLoaded = true
@@ -342,18 +349,15 @@ public class AutoTracker: Tracker {
     
     init() {
         super.init(configuration: Configuration().parameters)
-        self.registerFont("OpenSans-Regular")
-        self.registerFont("Montserrat-Bold")
-        self.registerFont("Montserrat-Regular")
+        
+        if let token = self.configuration.parameters[TrackerConfigurationKeys.AutoTrackerToken] {
+            self.token = token
+        }
         
         if let autoTrack = self.configuration.parameters[TrackerConfigurationKeys.AutoTracking] {
             if autoTrack == "true" {
                 self.enableAutoTracking = true
             }
-        }
-        
-        if let token = self.configuration.parameters[TrackerConfigurationKeys.AutoTrackerToken] {
-            self.token = token
         }
     }
     
@@ -409,7 +413,8 @@ public class AutoTracker: Tracker {
             if currentOrientation != orientation && currentOrientation != UIDeviceOrientation.faceUp && currentOrientation != UIDeviceOrientation.faceDown && UIViewControllerContext.sharedInstance.currentViewController != nil {
                 let deviceRotation = DeviceRotationEvent(orientation: currentOrientation)
                 deviceRotation.viewController = UIViewControllerContext.sharedInstance.currentViewController
-                EventManager.sharedInstance.addEvent(DeviceRotationOperation(rotationEvent: deviceRotation))
+                //EventManager.sharedInstance.addEvent(DeviceRotationOperation(rotationEvent: deviceRotation))
+                EventManager.sharedInstance.addEvent(GestureOperation(gestureEvent: deviceRotation))
             }
         }
         
@@ -450,10 +455,13 @@ public class AutoTracker: Tracker {
      Register font for SmartTracker toolbar
      */
     func registerFont(_ font: String) {
-        let fontPath = Bundle(for: Tracker.self).path(forResource: font, ofType: ".ttf")
-        let dataFont = NSData(contentsOfFile: fontPath!)
-        let provider = CGDataProvider(data: dataFont!)
-        let fontRef = CGFont(provider!)
+        _ = UIFont()
+        guard
+            let fontPath = Bundle(for: Tracker.self).path(forResource: font, ofType: ".ttf"),
+            let dataFont = NSData(contentsOfFile: fontPath),
+            let provider = CGDataProvider(data: dataFont)
+            else { return }
+        let fontRef = CGFont(provider)
         CTFontManagerRegisterGraphicsFont(fontRef, nil)
     }
 }
@@ -534,7 +542,7 @@ public class Tracker: NSObject {
     //MARK: GPS Tracking
     /// Return GPS tracking instance
     /// - Deprecated : location is now only available as a screen object property.
-    @available(*, deprecated: 2.5.0, message: "location is now only available as a screen object property.")
+    @available(*, deprecated, message: "location is now only available as a screen object property (> 2.5.0).")
     fileprivate(set) public lazy var locations: Locations = Locations(tracker: self)
     
     //MARK: Publisher Tracking
@@ -576,7 +584,7 @@ public class Tracker: NSObject {
     //MARK: CustomVar Tracking
     /// Return CustomVar instance
     /// - Deprecated : customVars is now only available as a screen object property.
-    @available(*, deprecated: 2.5.0, message: "customVars is now only available as a screen object property.")
+    @available(*, deprecated, message: "customVars is now only available as a screen object property (> 2.5.0).")
     fileprivate(set) public lazy var customVars: CustomVars = CustomVars(tracker: self)
     
     //MARK: Order Tracking
@@ -586,7 +594,7 @@ public class Tracker: NSObject {
     //MARK: Aisle Tracking
     /// Return Aisle instance
     /// - Deprecated : aisles is now only available as a screen object property.
-    @available(*, deprecated: 2.5.0, message: "aisles is now only available as a screen object property.")
+    @available(*, deprecated, message: "aisles is now only available as a screen object property (> 2.5.0).")
     fileprivate(set) public lazy var aisles: Aisles = Aisles(tracker: self)
     
     //MARK: Cart Tracking
@@ -603,13 +611,13 @@ public class Tracker: NSObject {
     //MARK: Internal Search Tracking
     /// Return InternalSearch instance
     /// - Deprecated : internalSearch is now only available as a screen object property.
-     @available(*, deprecated: 2.5.0, message: "internalSearch is now only available as a screen object property.")
+     @available(*, deprecated, message: "internalSearch is now only available as a screen object property (> 2.5.0).")
     fileprivate(set) public lazy var internalSearches: InternalSearches = InternalSearches(tracker: self)
     
     //MARK: Custom tree structure Tracking
     /// Return CustomTreeStructures instance
     /// - Deprecated : customTreeStructures is now only available as a screen object property.
-    @available(*, deprecated: 2.5.0, message: "customTreeStructures is now only available as a screen object property.")
+    @available(*, deprecated, message: "customTreeStructures is now only available as a screen object property (> 2.5.0).")
     fileprivate(set) public lazy var customTreeStructures: CustomTreeStructures = CustomTreeStructures(tracker: self)
     
     //MARK: Richmedia Tracking

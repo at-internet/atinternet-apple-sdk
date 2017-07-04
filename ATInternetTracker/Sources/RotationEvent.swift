@@ -72,8 +72,8 @@ class RotationEvent : GestureEvent {
      
      - returns: RotationEvent
      */
-    init(view: View, direction: RotationDirection, currentScreen: Screen) {
-        super.init(type: Gesture.GestureEventType.rotate, methodName: nil, view: view, direction: direction.rawValue, currentScreen: currentScreen)
+    init(view: View, direction: RotationDirection, currentScreen: Screen, methodName: String?) {
+        super.init(type: Gesture.GestureEventType.rotate, methodName: methodName, view: view, direction: direction.rawValue, currentScreen: currentScreen)
         self.defaultMethodName = "handleRotation:"
     }
 }

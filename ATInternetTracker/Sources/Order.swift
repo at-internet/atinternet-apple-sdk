@@ -120,36 +120,36 @@ public class Order: BusinessObject {
             _ = tracker.setParam("newcus", value: optIsNewCustomer ? 1 : 0)
         }        
 
-        if let optDiscountTaxFree = discount.discountTaxFree {
-            _ = tracker.setParam("dscht", value: optDiscountTaxFree)
+        if discount.discountTaxFree != -1 {
+            _ = tracker.setParam("dscht", value: discount.discountTaxFree)
         }
         
-        if let optDiscountTaxIncluded = discount.discountTaxIncluded {
-            _ = tracker.setParam("dsc", value: optDiscountTaxIncluded)
+        if discount.discountTaxIncluded != -1 {
+            _ = tracker.setParam("dsc", value: discount.discountTaxIncluded)
         }
         
         if let optPromotionalCode = discount.promotionalCode {
             _ = tracker.setParam("pcd", value: optPromotionalCode, options:encodingOption)
         }
         
-        if let optAmountTaxFree = amount.amountTaxFree {
-            _ = tracker.setParam("mtht", value: optAmountTaxFree)
+        if amount.amountTaxFree != -1 {
+            _ = tracker.setParam("mtht", value: amount.amountTaxFree)
         }
         
-        if let optAmountTaxIncluded = amount.amountTaxIncluded {
-            _ = tracker.setParam("mtttc", value: optAmountTaxIncluded)
+        if amount.amountTaxIncluded != -1 {
+            _ = tracker.setParam("mtttc", value: amount.amountTaxIncluded)
         }
         
-        if let optTaxAmount = amount.taxAmount {
-            _ = tracker.setParam("tax", value: optTaxAmount)
+        if amount.taxAmount != -1 {
+            _ = tracker.setParam("tax", value: amount.taxAmount)
         }
     
-        if let optShippingFeesTaxFree = delivery.shippingFeesTaxFree {
-            _ = tracker.setParam("fpht", value: optShippingFeesTaxFree)
+        if delivery.shippingFeesTaxFree != -1 {
+            _ = tracker.setParam("fpht", value: delivery.shippingFeesTaxFree)
         }
         
-        if let optShippingFeesTaxIncluded = delivery.shippingFeesTaxIncluded {
-            _ = tracker.setParam("fp", value: optShippingFeesTaxIncluded)
+        if delivery.shippingFeesTaxIncluded != -1 {
+            _ = tracker.setParam("fp", value: delivery.shippingFeesTaxIncluded)
         }
         
         if let optDeliveryMethod = delivery.deliveryMethod {
@@ -221,9 +221,9 @@ public class OrderDiscount: NSObject {
     var order: Order
     
     /// Discount with tax
-    public var discountTaxIncluded: Double?
+    public var discountTaxIncluded: Double = -1
     /// Discount without tax
-    public var discountTaxFree: Double?
+    public var discountTaxFree: Double = -1
     /// Promotional code
     public var promotionalCode: String?
     
@@ -259,13 +259,13 @@ public class OrderAmount: NSObject {
     var order: Order
     
     /// Amount without tax
-    public var amountTaxFree: Double?
+    public var amountTaxFree: Double = -1
     
     /// Amount with tax
-    public var amountTaxIncluded: Double?
+    public var amountTaxIncluded: Double = -1
     
     /// Tax amount
-    public var taxAmount: Double?
+    public var taxAmount: Double = -1
     
     /**
     OrderAmount initializer
@@ -299,9 +299,9 @@ public class OrderDelivery: NSObject {
     var order: Order
     
     /// Shipping fees with tax
-    public var shippingFeesTaxIncluded: Double?
+    public var shippingFeesTaxIncluded: Double = -1
     /// Shipping fees without tax
-    public var shippingFeesTaxFree: Double?
+    public var shippingFeesTaxFree: Double = -1
     /// Delivery method
     public var deliveryMethod: String?
     

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name = "ATInternet-Apple-SDK"
-	s.version = '2.5.7'
+	s.version = '2.6.0'
 	s.summary = "AT Internet mobile analytics solution for Apple devices"
 	s.homepage = "https://github.com/at-internet/atinternet-apple-sdk"
 	s.documentation_url	= 'http://developers.atinternet-solutions.com/apple-en/getting-started-apple-en/operating-principle-apple-en/'
@@ -18,8 +18,30 @@ Pod::Spec.new do |s|
 		"ATInternetTracker/Sources/JRSwizzle.m",
 		"ATInternetTracker/Sources/KLCPopup.h",
 		"ATInternetTracker/Sources/KLCPopup.m",
-		"ATInternetTracker/Sources/SRWebSocket.h",
-		"ATInternetTracker/Sources/SRWebSocket.m",
+    "ATInternetTracker/Sources/SocketAckEmitter.swift",
+    "ATInternetTracker/Sources/SocketAckManager.swift",
+    "ATInternetTracker/Sources/SocketAnyEvent.swift",
+    "ATInternetTracker/Sources/SocketClientManager.swift",
+    "ATInternetTracker/Sources/SocketEngine.swift",
+    "ATInternetTracker/Sources/SocketEngineClient.swift",
+    "ATInternetTracker/Sources/SocketEnginePacketType.swift",
+    "ATInternetTracker/Sources/SocketEnginePollable.swift",
+    "ATInternetTracker/Sources/SocketEngineSpec.swift",
+    "ATInternetTracker/Sources/SocketEngineWebsocket.swift",
+    "ATInternetTracker/Sources/SocketEventHandler.swift",
+    "ATInternetTracker/Sources/SocketExtensions.swift",
+    "ATInternetTracker/Sources/SocketIOClient.swift",
+    "ATInternetTracker/Sources/SocketIOClientConfiguration.swift",
+    "ATInternetTracker/Sources/SocketIOClientOption.swift",
+    "ATInternetTracker/Sources/SocketIOClientSpec.swift",
+    "ATInternetTracker/Sources/SocketIOClientStatus.swift",
+    "ATInternetTracker/Sources/SocketLogger.swift",
+    "ATInternetTracker/Sources/SocketPacket.swift",
+    "ATInternetTracker/Sources/SocketParsable.swift",
+    "ATInternetTracker/Sources/SocketStringReader.swift",
+    "ATInternetTracker/Sources/SocketTypes.swift",
+    "ATInternetTracker/Sources/SSLSecurity.swift",
+    "ATInternetTracker/Sources/WebSocket.swift",
 	]
 	$smart_sdk = [
 		"ATInternetTracker/Sources/UIApplicationContext.swift",
@@ -37,7 +59,6 @@ Pod::Spec.new do |s|
 		"ATInternetTracker/Sources/ScreenRotationEvent.swift",
 		"ATInternetTracker/Sources/ScreenRotationOperation.swift",
 		"ATInternetTracker/Sources/DeviceRotationEvent.swift",
-		"ATInternetTracker/Sources/DeviceRotationOperation.swift",
 		"ATInternetTracker/Sources/ScreenshotEvent.swift",
 		"ATInternetTracker/Sources/ScrollEvent.swift",
 		"ATInternetTracker/Sources/SwipeEvent.swift",
@@ -48,7 +69,6 @@ Pod::Spec.new do |s|
 		"ATInternetTracker/Sources/LiveManager.swift",
 		"ATInternetTracker/Sources/Messages.swift",
 		"ATInternetTracker/Sources/PendingState.swift",
-		"ATInternetTracker/Sources/SocketDelegate.swift",
 		"ATInternetTracker/Sources/SocketEvents.swift",
 		"ATInternetTracker/Sources/SocketSender.swift",
 		"ATInternetTracker/Sources/IgnoredViews.swift",
@@ -70,7 +90,9 @@ Pod::Spec.new do |s|
 		"ATInternetTracker/Sources/SmartTracker.h",
 		"ATInternetTracker/Sources/tvOSTracker.h",
 		"ATInternetTracker/Sources/watchOSTracker.h",
-		"ATInternetTracker/Sources/UILabelExtension.swift"
+		"ATInternetTracker/Sources/UILabelExtension.swift",
+        "ATInternetTracker/Sources/EventFactory.swift",
+        "ATInternetTracker/Sources/Sockets.swift"
 	]
 
 	s.subspec 'Tracker' do |tracker|
@@ -97,11 +119,11 @@ Pod::Spec.new do |s|
 		st.frameworks = "CoreData", "CoreFoundation", "UIKit", "CoreTelephony", "SystemConfiguration", "CFNetwork", "Security", "Foundation"
 		st.platform	= :ios
 		st.ios.deployment_target = '8.0'
-		st.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '-DAT_SMART_TRACKER -DFROM_COCOAPODS' }
+		st.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '-DAT_SMART_TRACKER' }
 		st.libraries = "icucore"
 		st.dependency 'JRSwizzle'
 		st.dependency 'KLCPopup'
-		st.dependency 'SocketRocket'
+		st.dependency 'Socket.IO-Client-Swift'
 	end
 
     s.subspec 'watchOSTracker' do |wos|
@@ -119,5 +141,4 @@ Pod::Spec.new do |s|
 		tvos.frameworks = "CoreData", "CoreFoundation", "UIKit", "SystemConfiguration"
 		tvos.platform = :tvos
 	end
-
 end

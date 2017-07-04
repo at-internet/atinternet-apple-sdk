@@ -102,9 +102,7 @@ public class View: NSObject {
             self.height = Float(newFrame.height)
             self.text = v.findText(UIApplicationContext.sharedInstance.initialTouchPosition) ?? ""
             self.visible = (v.isHidden || v.alpha == 0)
-            
             super.init()
-            
             self.path = v.path
         } else {
             self.className = ""
@@ -114,7 +112,6 @@ public class View: NSObject {
             self.height = 0
             self.text = ""
             self.visible = true
-            
             super.init()
         }
     }

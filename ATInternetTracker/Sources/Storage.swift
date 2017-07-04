@@ -119,7 +119,7 @@ class Storage {
                 print("[warning] failure clean db")
             }
         } else {
-            print("[warning] db does not exist bu produce an error")
+            print("[warning] db does not exist but produced an error")
         }
     }
     

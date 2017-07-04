@@ -23,52 +23,52 @@
 
 
 import Foundation
-import UIKit
 
-/// Object used for manage screen rotation events. Note that face up and face down are ignored at runtime
-class DeviceRotationEvent {
-    /// Method called by the touched UIView
-    lazy var methodName = "rotate"
+/// class used for manage tap events
+class DeviceRotationEvent : GestureEvent {
     
-    /// A description of the gesture
-    var orientation: UIDeviceOrientation
+    /// X coordinates
+    lazy var x: Float = -1
     
-    weak var viewController: UIViewController?
-    
-    /// current screen
-    lazy var currentScreen: Screen = Screen()
-    
-    lazy var eventType: Gesture.GestureEventType = Gesture.GestureEventType.rotate
+    /// Y coordinates
+    lazy var y: Float = -1
     
     /// JSON description
-    var description: String {
+    override var description: String {
         var jsonObj: [String: Any] = [
-            "event": "deviceRotation",
+            "event": Gesture.getEventTypeRawValue(self.eventType.rawValue),
             "data":[
-                "name": self.currentScreen.name,
-                "type" : Gesture.getEventTypeRawValue(self.eventType.rawValue),
-                "className": self.currentScreen.className,
+                "x":self.x,
+                "y":self.y,
+                "type": Gesture.getEventTypeRawValue(self.eventType.rawValue),
                 "methodName": self.methodName,
-                "direction": self.orientation.rawValue,
-                "triggeredBy": ""
+                "direction": self.direction,
+                "isDefaultMethod": self._methodName == nil,
+                "title": self.title ?? defaultMethodName
             ]
         ]
         
         var data = jsonObj["data"] as! [String: Any]
+        data.append(self.view.toJSONObject)
         data.append(self.currentScreen.toJSONObject)
         jsonObj.updateValue(data, forKey: "data")
-
+        
         return jsonObj.toJSON()
     }
     
     /**
-     RotationEvent init
+     Override init tap event
      
-     - parameter orientation: device orientation
+     - parameter type:          UIApplicationContext.EventType
+     - parameter methodName:    String
+     - parameter viewClassName: String?
+     - parameter direction:     String
+     - parameter currentScreen: Screen
      
-     - returns: RotationEvent
+     - returns: TapEvent
      */
     init(orientation: UIDeviceOrientation) {
-        self.orientation = orientation
+        super.init(type: Gesture.GestureEventType.deviceRotate, methodName: "handleDeviceRotation:", view: View(), direction: "deviceRotation", currentScreen: Screen())
+        self.defaultMethodName = "handleDeviceRotation:"
     }
 }

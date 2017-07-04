@@ -25,7 +25,7 @@ class PinchEventTests: XCTestCase {
         UIApplicationContext.sharedInstance.currentTouchedView = aView
         
         let direction = arc4random_uniform(2) > 0 ? PinchEvent.PinchDirection.In : PinchEvent.PinchDirection.Out
-        let pinch = PinchEvent(view: View(), direction: direction, currentScreen: Screen())
+        let pinch = PinchEvent(view: View(), direction: direction, currentScreen: Screen(), methodName: "handlePinch:")
         let expected:NSDictionary = [
             "event": "pinch",
             "data":[
@@ -33,7 +33,7 @@ class PinchEventTests: XCTestCase {
                 "methodName" : "handlePinch:",
                 "title": "handlePinch:",
                 "direction" : direction.rawValue,
-                "isDefaultMethod": true,
+                "isDefaultMethod": false,
                 "x":-1,
                 "y":-1,
                 "view": [

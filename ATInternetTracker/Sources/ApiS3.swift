@@ -25,7 +25,7 @@
 import Foundation
 
 
-typealias MappingRequest = (url: URL, onLoaded: (ATJSON?) -> (), onError: () -> ())
+typealias MappingRequest = (url: URL, callback: (ATJSON?) -> ())
 /**
  *  Simple storage protocol
  */
@@ -90,41 +90,28 @@ protocol SimpleNetworkService {
      - parameter onError:    callback if an error is detected
      - parameter retryCount: retrycount if error
      */
-    func getURL(_ request: MappingRequest, retryCount: Int)
+    func getURL(_ request: MappingRequest)
 }
 
 /// Light network service impl with error handling
 class S3NetworkService: SimpleNetworkService {
     
-    /// retry wrapper for getURL
-    func retry( _ f: (MappingRequest, Int) -> (), request: MappingRequest, retryCount: Int) -> () {
-        if retryCount >= 0 {
-            sleep(3+arc4random_uniform(5))
-            f((request.url, request.onLoaded, request.onError), retryCount)
-        } else {
-            request.onError()
-        }
-    }
-    
-    func getURL(_ request: MappingRequest, retryCount: Int) {
+    func getURL(_ request: MappingRequest) {
         var urlRequest = URLRequest(url: request.url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 30)
         urlRequest.httpMethod = "GET"
         
         let session = URLSession.shared
         let task = session.dataTask(with: urlRequest) { (data, urlResponse, err) in
             if let _ = err {
-                self.retry(self.getURL, request: (url: request.url, onLoaded: request.onLoaded, onError: request.onError), retryCount: retryCount-1)
+                request.callback(nil)
             }
             if let jsonData = data {
                 let res = ATJSON(data: jsonData)
-                if res["type"] >= 500 {
-                    self.retry(self.getURL, request: (url: request.url, onLoaded: request.onLoaded, onError: request.onError), retryCount: retryCount-1)
-                }
-                else if res["type"] >= 400 {
-                    request.onError()
+                if res["type"] >= 400 {
+                    request.callback(nil)
                 }
                 else {
-                    request.onLoaded(res)
+                    request.callback(res)
                 }
             }
         }
@@ -134,18 +121,18 @@ class S3NetworkService: SimpleNetworkService {
 
 /// Class handling the  loading of the LiveTagging configuration file
 class ApiS3Client {
-    let S3URL = SmartTrackerConfiguration.sharedInstance.apiConfEndPoint
-    let S3URLCheck = SmartTrackerConfiguration.sharedInstance.apiCheckEndPoint
+    let S3URL: String
     let store: SimpleStorageProtocol
     let network: SimpleNetworkService
     let token: String
     let version: String
 
-    init(token: String, version: String, store: SimpleStorageProtocol, networkService: SimpleNetworkService) {
+    init(token: String, version: String, store: SimpleStorageProtocol, networkService: SimpleNetworkService, endPoint: String) {
         self.token = token
         self.version = version
         self.store = store
         self.network = networkService
+        self.S3URL = endPoint
     }
 
     /**
@@ -159,29 +146,13 @@ class ApiS3Client {
             .replacingOccurrences(of: "{version}", with: self.version)
         )!
     }
-    
-    /**
-     get the check url
-     
-     - returns: the url
-     */
-    fileprivate func getCheckURL() -> URL {
-        return URL(string:S3URLCheck
-            .replacingOccurrences(of: "{token}", with: self.token)
-            .replacingOccurrences(of: "{version}", with: self.version)
-        )!
-    }
-
-    func fetchSmartSDKMapping(_ onLoaded: @escaping (ATJSON?) -> (), onError: @escaping () -> ()) {
-        network.getURL((getMappingURL(), onLoaded: onLoaded, onError: onError), retryCount: 5)
-    }
 
     /**
      save the config
      
      - parameter mapping: the config
      */
-    func saveSmartSDKMapping(_ mapping: ATJSON) {
+    func saveToLocal(_ mapping: ATJSON) {
         _ = store.saveByName(mapping.object, name: "at_smartsdk_config")
     }
     
@@ -190,7 +161,7 @@ class ApiS3Client {
      
      - returns: the config
      */
-    fileprivate func getSmartSDKMapping() -> ATJSON? {
+    fileprivate func takeLocalMapping() -> ATJSON? {
         let jsonObj = store.getByName("at_smartsdk_config")
         if let obj = jsonObj {
             return ATJSON(obj)
@@ -198,45 +169,37 @@ class ApiS3Client {
         return nil
     }
     
-    /**
-     get the checksum - actually it's a timestamp used to know if we need to fetch the configuration or not
-     
-     - parameter callback: the checksum
-     */
-    fileprivate func fetchCheckSum(_ callback: @escaping (ATJSON?) -> ()) {
-        
-        func err() -> () {
-            callback(nil)
-        }
-        
-        network.getURL((getCheckURL(), onLoaded: callback, onError: err), retryCount: 1)
+    func saveTTL() {
+        let ttl = Date().addingTimeInterval(TimeInterval(3600+arc4random_uniform(60*20)))
+        _ = store.saveByName(ttl, name: "at_smartsdk_ttl")
     }
     
-    /**
-     Main method - get the most recent configuration from the network/cache
-     
-     - parameter callback: the configuration
-     */
+    func shouldRefreshMapping() -> Bool {
+        if ATInternet.sharedInstance.defaultTracker.enableLiveTagging {
+            return true
+        }
+        if let ttl = store.getByName("at_smartsdk_ttl") as? Date {
+            if ttl > Date() {
+                return false
+            }
+        }
+        return true
+    }
+    
     func fetchMapping(_ callback: @escaping (ATJSON?) -> ()) {
-        func getRemoteMapping(_ callback: @escaping (ATJSON?) -> ()) {
-            self.fetchSmartSDKMapping({ (mapping: ATJSON?) in
-                callback(mapping)
-                }, onError: {
-                    callback(nil)
-            })
+        if !self.shouldRefreshMapping() {
+            callback(self.takeLocalMapping())
+            return
         }
         
-        if let localMapping = getSmartSDKMapping() {
-            let localTimestamp = localMapping["timestamp"].intValue
-            fetchCheckSum({ (remote: ATJSON?) in
-                if remote == nil || remote!["timestamp"].intValue != localTimestamp {
-                    getRemoteMapping(callback)
-                } else {
-                    callback(localMapping)
-                }
-            })
-        } else {
-            getRemoteMapping(callback)
-        }
+        self.network.getURL((self.getMappingURL(), {(json: ATJSON?) in
+            if let mapping = json {
+                self.saveToLocal(mapping)
+                self.saveTTL()
+                callback(mapping)
+            } else {
+                callback(self.takeLocalMapping())
+            }
+        }))
     }
 }

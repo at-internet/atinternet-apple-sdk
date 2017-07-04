@@ -36,7 +36,6 @@
 
 #import "JRSwizzle.h"
 #import "ATGestureRecognizer.h"
-#import "SRWebSocket.h"
 #import "KLCPopup.h"
 
 #endif

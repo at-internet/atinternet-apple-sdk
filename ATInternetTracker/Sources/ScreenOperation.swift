@@ -31,14 +31,6 @@ class ScreenOperation: Operation {
     /// The screen event to be sent
     var screenEvent: ScreenEvent
     
-    var timerDuration: TimeInterval = 0.2
-    
-    /// Timer to handle the timeout
-    var timerTotalDuration: TimeInterval = 0
-    
-    /// after timeout, the hit is sent
-    let TIMEOUT_OPERATION: TimeInterval = 5
-    
     /**
      ScreenOperation init
      
@@ -48,15 +40,6 @@ class ScreenOperation: Operation {
      */
     init(screenEvent: ScreenEvent) {
         self.screenEvent = screenEvent
-    }
-    
-    func handleTimer(_ screen: Screen) {
-        Thread.sleep(forTimeInterval: timerDuration)
-        timerTotalDuration = timerTotalDuration + timerDuration
-        
-        if timerTotalDuration > TIMEOUT_OPERATION {
-            screen.isReady = true
-        }
     }
 
     /**
@@ -82,7 +65,7 @@ class ScreenOperation: Operation {
             
             if (tracker.enableAutoTracking) {
                 if !sendScreenHit(tracker) {
-                    print("hit ignored")
+                    tracker.delegate?.warningDidOccur?("hit ignored")
                 }
             }
         }
@@ -140,14 +123,13 @@ class ScreenOperation: Operation {
      - parameter screen: the screen
      */
     func handleDelegate(_ screen: Screen) {
+        var screen = screen
+        
         if hasDelegate() {
-            screenEvent.viewController!.perform(#selector(IAutoTracker.screenWasDetected(_:)), with: screen)
-            if screen.isReady {
-                return
+            if let s = screenEvent.viewController!.perform(#selector(IAutoTracker.screenWasDetected(_:)), with: screen).takeUnretainedValue() as? Screen {
+                screen = s
             } else {
-                while(!screen.isReady) {
-                    handleTimer(screen)
-                }
+                ATInternet.sharedInstance.defaultTracker.delegate?.warningDidOccur?("The delegate has not returned a screen; \(screen.title) will not be modified.")
             }
         }
     }

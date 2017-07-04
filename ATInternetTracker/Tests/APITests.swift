@@ -10,8 +10,8 @@ class MockStore: SimpleStorageProtocol {
 }
 
 class MockNetwork: SimpleNetworkService {
-    func getURL(_ request: MappingRequest, retryCount: Int) {
-        request.onLoaded(ATJSON(["timestamp": 123456]))
+    func getURL(_ request: MappingRequest) {
+        request.callback(ATJSON(["timestamp": 123456]))
     }
 }
 
@@ -31,20 +31,22 @@ class APITests: XCTestCase {
     }
 
     func testApiUrlGeneration() {
-        let api = ApiS3Client( token: "6aed0903eda8c21f79febd5dc06a530cb3ef9c132414124afbd76e50f7074f9f",
+        let api = ApiS3Client( token: "test",
                               version: "1.1",
                               store: MockStore(),
-                              networkService: MockNetwork())
+                              networkService: MockNetwork(),
+                              endPoint: "https://8me4zn67yd.execute-api.eu-west-1.amazonaws.com/prod/token/{token}/version/{version}")
         let url = api.getMappingURL()
-        XCTAssertEqual(url, URL(string: "https://8me4zn67yd.execute-api.eu-west-1.amazonaws.com/prod/token/6aed0903eda8c21f79febd5dc06a530cb3ef9c132414124afbd76e50f7074f9f/version/1.1"))
+        XCTAssertEqual(url, URL(string: "https://8me4zn67yd.execute-api.eu-west-1.amazonaws.com/prod/token/test/version/1.1"))
     }
-
-    func testFetchMappingIfNoMappingInMemory() {
+    
+    func testGetConfig() {
         let exp = expectation(description: "async")
-        
-        let api = ApiS3Client(token: "X", version: "1.0", store: MockStore(), networkService: MockNetwork())
+        let store = MockStore()
+        let api = ApiS3Client(token: "X", version: "1.0", store: store, networkService: MockNetwork(), endPoint: "{token}/version/{version}/")
         api.fetchMapping({(apiMapping: ATJSON?) in
             XCTAssertNotNil(apiMapping)
+            XCTAssertNotNil(store.getByName("at_smartsdk_config"))
             exp.fulfill()
         })
         
@@ -55,37 +57,29 @@ class APITests: XCTestCase {
         }
     }
     
-    func testFetchMappingIfCheckSumDiffer() {
+    func testSaveTTL() {
+        let store = MockStore()
+        let api = ApiS3Client(token: "X", version: "1.0", store: store, networkService: MockNetwork(), endPoint: "{token}/version/{version}/")
+        api.saveTTL()
+        let ttl = store.getByName("at_smartsdk_ttl") as! Date
+        let InOneHour = Date().addingTimeInterval(3600)
+        let InOneHourTwenty = Date().addingTimeInterval(3600+60*20)
+        XCTAssertTrue(ttl >= InOneHour && ttl <= InOneHourTwenty, "le TTL est mal calculé")
+    }
+
+    /*func testFetchMappingIfNoMappingInMemory() {
         let exp = expectation(description: "async")
-        let ts = "123"
+        
         let api = ApiS3Client(token: "X", version: "1.0", store: MockStore(), networkService: MockNetwork())
-        let fakeAPI: ATJSON = ATJSON(["timestamp":ts])
-        api.saveSmartSDKMapping(fakeAPI)
-        api.fetchMapping({ (mapping:ATJSON?) in
-            XCTAssertNotEqual(mapping!["timestamp"].string, ts)
+        api.pullMapping({(apiMapping: ATJSON?) in
+            XCTAssertNotNil(apiMapping)
             exp.fulfill()
         })
         
-        self.waitForExpectations(timeout: 5.0) { (err) in
+        self.waitForExpectations(timeout: 0.5) { (err) in
             if let error = err {
                 print("timeout error \(error)")
             }
         }
-    }
-    
-    func testDontFetchMappingIfCheckSumOk() {
-        let exp = expectation(description: "async")
-        let api = ApiS3Client(token: "X", version: "1.0", store: MockStore(), networkService: MockNetwork())
-        api.fetchMapping({ (mapping:ATJSON?) in
-            api.saveSmartSDKMapping(mapping!)
-            api.fetchMapping({ (mapping:ATJSON?) in
-                exp.fulfill()
-            })
-        })
-        self.waitForExpectations(timeout: 5.0) { (err) in
-            if let error = err {
-                print("timeout error \(error)")
-            }
-        }
-    }
+    }*/
 }

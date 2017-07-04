@@ -24,11 +24,15 @@
 
 import Foundation
 
+
 /// Class reponsible for sending events
 public class SocketSender {
     
     /// Websocket
-    var socket: SRWebSocket?
+    //var socket: SRWebSocket?
+    var socket: Sockets?
+    
+    let serialQueue = DispatchQueue(label: "dsk_socketio")
     
     /// askforlive
     var timer: Timer?
@@ -37,17 +41,17 @@ public class SocketSender {
     let RECONNECT_INTERVAL: Double = 2.0
     
     /// delegate to handle incoming msg
-    var socketHandler: SocketDelegate
+    //var socketHandler: SocketDelegate
     
     /// URL of the ws
-    let URL: String
+    //let URL: String
     
     /// handler for the different scenarios of pairing
     let liveManager: LiveNetworkManager
     
     /// Buffer used to save the App and the current Screen displayed
     var buffer = EventBuffer()
-    
+
     /**
      *  Buffer used to handle the App and the current screen displayed in case of reconnections
      *  note : The App can be different at different time (orientation)
@@ -74,22 +78,20 @@ public class SocketSender {
         //self.URL = "ws://localhost:5000/"+token
         //self.URL = "ws://172.20.23.156:5000/" + token
         //self.URL = "ws://tag-smartsdk-dev.atinternet-solutions.com/" + token
-        self.URL = SmartTrackerConfiguration.sharedInstance.ebsEndpoint + token
+        //let URL = SmartTrackerConfiguration.sharedInstance.ebsEndpoint + token
         self.liveManager = liveManager
-        self.socketHandler = SocketDelegate(liveManager: liveManager)
+        self.socket = SocketFactory(liveManager: liveManager, URL: SmartTrackerConfiguration.sharedInstance.ebsEndpoint, token: token).createSocket(name: "socket.io")
+        //self.socketHandler = SocketDelegate(liveManager: liveManager)
     }
     
     /**
      open the socket
      */
     func open() {
-        if isConnected() || ATInternet.sharedInstance.defaultTracker.enableLiveTagging == false || socket?.readyState == SRReadyState.CONNECTING {
+        
+        if isConnected() || ATInternet.sharedInstance.defaultTracker.enableLiveTagging == false {
             return
         }
-        //print(URL)
-        let url = Foundation.URL(string: URL)
-        socket = SRWebSocket(url:url)
-        socket?.delegate = socketHandler
         socket?.open()
     }
     
@@ -108,14 +110,14 @@ public class SocketSender {
      - returns: the state of the connexion
      */
     fileprivate func isConnected() -> Bool {
-        return (socket != nil) && (socket?.readyState == SRReadyState.OPEN)
+        return (socket != nil) && socket!.isConnected()
     }
     
     func sendBuffer() {
         //assert(isConnected())
         //assert(self.liveManager.networkStatus == .Connected)
-        socket?.send(buffer.currentApp)
-        socket?.send(buffer.currentScreen)
+        socket?.send(data: buffer.currentApp)
+        socket?.send(data: buffer.currentScreen)
     }
     
     /**
@@ -124,8 +126,10 @@ public class SocketSender {
     func sendAll() {
         //assert(isConnected())
         //assert(self.liveManager.networkStatus == .Connected)
-        while queue.count > 0 {
-            self.sendFirst()
+        serialQueue.sync {
+            while queue.count > 0 {
+                self.sendFirst()
+            }
         }
     }
     
@@ -157,7 +161,7 @@ public class SocketSender {
      */
     func sendMessageForce(_ json: String) {
         if isConnected() {
-            socket?.send(json)
+            socket?.send(data: json)
         }
     }
     
@@ -190,7 +194,30 @@ public class SocketSender {
      */
     fileprivate func sendFirst() {
         let msg = queue.first
-        socket?.send(msg)
-        self.queue.remove(at: 0)
+        if let message = msg {
+            socket?.send(data: message)
+            self.queue.remove(at: 0)
+        }
     }
+}
+
+/**
+ Possible message comming from the socketserver
+ 
+ - Screenshot: A screenshot is requested (more below)
+ */
+enum SmartSocketEvent: String {
+    /// Socket -> Device
+    case Screenshot     = "ScreenshotRequest"
+    /// Front -> Device
+    case InterfaceAskedForLive  = "InterfaceAskedForLive"
+    /// Front -> Device : live accepted
+    case InterfaceAcceptedLive = "InterfaceAcceptedLive"
+    /// Front -> Device : live refused
+    case InterfaceRefusedLive = "InterfaceRefusedLive"
+    /// Front -> Device
+    case InterfaceAskedForScreenshot = "InterfaceAskedForScreenshot"
+    /// Front -> Device : live stopped
+    case InterfaceStoppedLive = "InterfaceStoppedLive"
+    case InterfaceAbortedLiveRequest = "InterfaceAbortedLiveRequest"
 }

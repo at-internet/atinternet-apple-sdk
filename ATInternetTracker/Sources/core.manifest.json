@@ -148,9 +148,9 @@
             "public": true,
             "global": true
         },
-        "AT-env": {
-            "title" : "Geode_Tag_SDK_Config_Title_AT-env",
-            "description": "Geode_Tag_SDK_Config_Description_AT-env",
+        "atEnv": {
+            "title" : "Geode_Tag_SDK_Config_Title_atEnv",
+            "description": "Geode_Tag_SDK_Config_Description_atEnv",
             "defaultValue": "prod",
             "type": "string",
             "public": false,

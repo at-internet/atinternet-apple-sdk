@@ -27,9 +27,9 @@ import Foundation
 class SmartTrackerConfiguration {
     
     private let ebs = [
-        "dev"       : "ws://tag-smartsdk-dev.atinternet-solutions.com/",
-        "preprod"   : "ws://tag-smartsdk-preprod.atinternet-solutions.com/",
-        "prod"       : "ws://tag-smartsdk.atinternet-solutions.com/"
+        "dev"       : "https://smartsdk.dev.aws.atinternet-solutions.com",
+        "preprod"   : "https://tag-smartsdk-preprod.atinternet-solutions.com/",
+        "prod"       : "https://smartsdk.atinternet-solutions.com"
     ]
 
     
@@ -50,7 +50,7 @@ class SmartTrackerConfiguration {
     
     private init() {
         let plist = Bundle(for: Tracker.self).path(forResource: "DefaultConfiguration", ofType: "plist")
-        let environment = NSDictionary(contentsOfFile: plist!)?.object(forKey: "AT-env") as? String
+        let environment = NSDictionary(contentsOfFile: plist!)?.object(forKey: "atEnv") as? String
         //assert(environment != nil, "something went wrong, AT-env is not set")
         env = environment ?? "prod"
     }

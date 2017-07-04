@@ -25,7 +25,7 @@ class PanEventTests: XCTestCase {
         UIApplicationContext.sharedInstance.currentTouchedView = aView
         let directions = [PanEvent.PanDirection.Left, PanEvent.PanDirection.Right, PanEvent.PanDirection.Up, PanEvent.PanDirection.Down]
         let direction = directions[Int(arc4random_uniform(UInt32(directions.count)))]
-        let pan = PanEvent(view: View(), direction: direction, currentScreen: Screen())
+        let pan = PanEvent(view: View(), direction: direction, currentScreen: Screen(), methodName: "handlePan:")
         let expected:NSDictionary = [
             "event": "pan",
             "data":[
@@ -33,7 +33,7 @@ class PanEventTests: XCTestCase {
                 "methodName" : "handlePan:",
                 "title" : "handlePan:",
                 "direction" : direction.rawValue,
-                "isDefaultMethod": true,
+                "isDefaultMethod": false,
                 "x":-1,
                 "y":-1,
                 "view": [

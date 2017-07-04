@@ -44,7 +44,7 @@ class SwipeEvent : GestureEvent {
         var jsonObj: [String: Any] = [
             "event": Gesture.getEventTypeRawValue(self.eventType.rawValue),
             "data":[
-                "x":-1,
+                "x":-1, // remplit par la View !
                 "y":-1,
                 "type": Gesture.getEventTypeRawValue(self.eventType.rawValue),
                 "methodName": self.methodName,
@@ -73,8 +73,8 @@ class SwipeEvent : GestureEvent {
      
      - returns: TapEvent
      */
-    init(view: View, direction: SwipeDirection, currentScreen: Screen) {
-        super.init(type: Gesture.GestureEventType.swipe, methodName: nil, view: view, direction: direction.rawValue, currentScreen: currentScreen)
+    init(view: View, direction: SwipeDirection, currentScreen: Screen, methodName: String?) {
+        super.init(type: Gesture.GestureEventType.swipe, methodName: methodName, view: view, direction: direction.rawValue, currentScreen: currentScreen)
         self.defaultMethodName = "handleSwipe:"
     }
 }

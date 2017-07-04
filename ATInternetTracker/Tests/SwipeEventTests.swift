@@ -24,7 +24,7 @@ class SwipeEventTests: XCTestCase {
         let aView = TestGenerator.randomViewGenerator()
         UIApplicationContext.sharedInstance.currentTouchedView = aView
         let direction = arc4random_uniform(2) > 0 ? SwipeEvent.SwipeDirection.Left : SwipeEvent.SwipeDirection.Right
-        let swipe = SwipeEvent(view: View(), direction: direction, currentScreen: Screen())
+        let swipe = SwipeEvent(view: View(), direction: direction, currentScreen: Screen(), methodName: "handleSwipe:")
         let expected:NSDictionary = [
             "event": "swipe",
             "data":[
@@ -32,7 +32,7 @@ class SwipeEventTests: XCTestCase {
                 "title" : "handleSwipe:",
                 "methodName" : "handleSwipe:",
                 "direction" : direction.rawValue,
-                "isDefaultMethod": true,
+                "isDefaultMethod": false,
                 "x" : -1,
                 "y" : -1,
                 "view": [

@@ -42,7 +42,8 @@ extension UILabel {
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
         let d:[String: Any] = [NSFontAttributeName:self.font, NSParagraphStyleAttributeName: paragraph]
-        let x = self.text!.boundingRect(with: max,options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: d, context: nil)
+        guard let text = self.text else {return 0}
+        let x = text.boundingRect(with: max,options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: d, context: nil)
         return x.height
     }
 }

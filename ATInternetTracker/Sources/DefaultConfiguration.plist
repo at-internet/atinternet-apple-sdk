@@ -2,12 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AT-env</key>
+	<key>atEnv</key>
 	<string>prod</string>
 	<key>autoTrackerToken</key>
 	<string></string>
 	<key>enableAutoTracking</key>
-	<string>false</string>
+	<string></string>
 	<key>campaignLifetime</key>
 	<string>30</string>
 	<key>sessionBackgroundDuration</key>
