@@ -88,6 +88,8 @@ class TechnicalContext: NSObject {
             let uuid: () -> String = {
                 if UserDefaults.standard.object(forKey: "ATIdclient") != nil {
                     return UserDefaults.standard.object(forKey: "ATIdclient") as! String
+                } else if UserDefaults.standard.object(forKey:"ApplicationUniqueIdentifier") != nil {
+                    return UserDefaults.standard.object(forKey: "ApplicationUniqueIdentifier") as! String
                 } else if UserDefaults.standard.object(forKey: "ATApplicationUniqueIdentifier") == nil {
                     let UUID = Foundation.UUID().uuidString
                     UserDefaults.standard.set(UUID, forKey: "ATApplicationUniqueIdentifier")

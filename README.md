@@ -18,7 +18,7 @@ Supported devices :
   - Install our library on your project (see below)
   - Check out the [documentation page] for an overview of the functionalities and code examples. _Note that this repository is refered as SDK 2.5+_
 
-# SmartTracker iOS
+# SmartTracker iOS (beta)
 SmartTracker makes it quick and easy to track your mobile app performance. Using a single line of code, tag your app just by navigating through its content in our simple tagging interface available at [livetagging.atinternet-solutions.com]. Update and correct your tags in just minutes, and your changes will be pushed to users’ phones in real time: You’ll no longer need to resubmit to app stores and hope users update each time you edit your tagging.
 
 ### Integration
@@ -34,7 +34,7 @@ CocoaPods is a dependency manager which automates and simplifies the process of 
 
 ```ruby
 target 'MyProject' do
-pod "ATInternet-Apple-SDK/Tracker",">=2.0"
+pod "ATInternet-Apple-SDK/Tracker",">=1.0"
 use_frameworks!
 end
 ```
@@ -42,7 +42,7 @@ end
 
 ```ruby
 target 'MyProject' do
-pod "ATInternet-Apple-SDK/tvOSTracker",">=2.0"
+pod "ATInternet-Apple-SDK/tvOSTracker",">=1.0"
 use_frameworks!
 end
 ```
@@ -50,7 +50,7 @@ end
 
 ```ruby
 target 'MyProject' do
-pod "ATInternet-Apple-SDK/watchOSTracker",">=2.0"
+pod "ATInternet-Apple-SDK/watchOSTracker",">=1.0"
 use_frameworks!
 end
 ```
@@ -58,7 +58,7 @@ end
 
 ```ruby
 target 'MyProject' do
-pod "ATInternet-Apple-SDK/SmartTracker",">=2.0"
+pod "ATInternet-Apple-SDK/SmartTracker",">=1.0"
 use_frameworks!
 end
 ```
@@ -68,7 +68,7 @@ end
 ```ruby
 
 target 'MyProject App Extension' do
-pod "ATInternet-iOS-Swift-SDK/AppExtension",">=2.0"
+pod "ATInternet-iOS-Swift-SDK/AppExtension",">=1.0"
 use_frameworks!
 end
 ```
@@ -99,10 +99,9 @@ import Tracker
 
 let tracker: AutoTracker = ATInternet.sharedInstance.defaultTracker
 tracker.token = "xxx-xxx-xxx"
+tracker.enableLiveTagging = true // Allow you to pair with the LiveTagging interface
 tracker.setSiteId(410501, sync: true, completionHandler: nil)
 tracker.setLog("logp", sync: true, completionHandler: nil)
-tracker.enableLiveTagging = true // Allow you to pair with the LiveTagging interface
-
     
 ```
 ### SmartTracker / AutoTracker
@@ -112,10 +111,9 @@ import Tracker
 
 let tracker: AutoTracker = ATInternet.sharedInstance.defaultTracker
 tracker.token = "xxx-xxx-xxx"
+tracker.enableAutoTracking = true // start sending hit automatically
 tracker.setSiteId(410501, sync: true, completionHandler: nil)
 tracker.setLog("logp", sync: true, completionHandler: nil)
-tracker.enableAutoTracking = true // start sending hit automatically
-
 ```
 
 ### License
