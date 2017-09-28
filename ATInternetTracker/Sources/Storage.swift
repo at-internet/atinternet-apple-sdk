@@ -54,12 +54,12 @@ class Storage {
     }()
     
     /// Data model
-    let managedObjectModel: NSManagedObjectModel = {
+    let managedObjectModel: NSManagedObjectModel? = {
         let bundle = Bundle(for: Tracker.self)
         let modelPath = bundle.path(forResource: "Tracker", ofType: "momd")
         let modelURL = URL(fileURLWithPath: modelPath!)
         
-        return NSManagedObjectModel(contentsOf: modelURL)!
+        return NSManagedObjectModel(contentsOf: modelURL)
     }()
     
     let persistentStoreCoordinator: NSPersistentStoreCoordinator?
@@ -74,7 +74,10 @@ class Storage {
      Default initializer
      */
     private init() {
-        persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        guard let managedObjectModel = self.managedObjectModel else {
+            fatalError()
+        }
+        persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
         // URL of database
         let url = self.databaseDirectory
         do {

@@ -34,7 +34,7 @@ import UIKit
 
 
 /// Wrapper class for Visited aisle tracking
-public class Aisle: ScreenInfo {
+@objcMembers public class Aisle: ScreenInfo {
     
     /// Aisle level1 label
     public var level1: String?
@@ -201,7 +201,7 @@ public class Aisles {
     ///
     /// - Parameter level1: level1 label
     /// - Returns: Aisle instance
-    public func add(level1: String) -> Aisle {
+    @objc public func add(level1: String) -> Aisle {
         return _add(level1: level1, level2: nil, level3: nil, level4: nil, level5: nil, level6: nil)
     }
     
@@ -211,7 +211,7 @@ public class Aisles {
     ///   - level1: level1 label
     ///   - level2: level2 label
     /// - Returns: Aisle instance
-    public func add(level1: String, level2: String) -> Aisle {
+    @objc public func add(level1: String, level2: String) -> Aisle {
         return _add(level1: level1, level2: level2, level3: nil, level4: nil, level5: nil, level6: nil)
     }
     
@@ -222,7 +222,7 @@ public class Aisles {
     ///   - level2: level2 label
     ///   - level3: level3 label
     /// - Returns: Aisle instance
-    public func add(level1: String, level2: String, level3: String) -> Aisle {
+    @objc public func add(level1: String, level2: String, level3: String) -> Aisle {
         return _add(level1: level1, level2: level2, level3: level3, level4: nil, level5: nil, level6: nil)
     }
     
@@ -234,7 +234,7 @@ public class Aisles {
     ///   - level3: level3 label
     ///   - level4: level4 label
     /// - Returns: Aisle instance
-    public func add(level1: String, level2: String, level3: String, level4: String) -> Aisle {
+    @objc public func add(level1: String, level2: String, level3: String, level4: String) -> Aisle {
         return _add(level1: level1, level2: level2, level3: level3, level4: level4, level5: nil, level6: nil)
     }
     
@@ -247,7 +247,7 @@ public class Aisles {
     ///   - level4: level4 label
     ///   - level5: level5 label
     /// - Returns: Aisle instance
-    public func add(level1: String, level2: String, level3: String, level4: String, level5: String) -> Aisle {
+    @objc public func add(level1: String, level2: String, level3: String, level4: String, level5: String) -> Aisle {
         return _add(level1: level1, level2: level2, level3: level3, level4: level4, level5: level5, level6: nil)
     }
     
@@ -261,7 +261,7 @@ public class Aisles {
     ///   - level5: level5 label
     ///   - level6: level6 label
     /// - Returns: Aisle instance
-    public func add(level1: String, level2: String, level3: String, level4: String, level5: String, level6: String) -> Aisle {
+    @objc public func add(level1: String, level2: String, level3: String, level4: String, level5: String, level6: String) -> Aisle {
         return _add(level1: level1, level2: level2, level3: level3, level4: level4, level5: level5, level6: level6)
     }
     

@@ -50,7 +50,7 @@ public class ATInternet: NSObject {
     
     #if os(iOS) && AT_SMART_TRACKER
     /// Get an AutoTracker with "defaultTracker" name
-    public var defaultTracker: AutoTracker {
+    @objc public var defaultTracker: AutoTracker {
         get {
             if(self.trackers == nil) {
                 self.trackers = [String: Tracker]()
@@ -68,7 +68,7 @@ public class ATInternet: NSObject {
     }
     #else
     /// Get a Tracker with "defaultTracker" name
-    public var defaultTracker: Tracker {
+    @objc public var defaultTracker: Tracker {
         get {
             return self.tracker("defaultTracker")
         }
@@ -86,7 +86,7 @@ public class ATInternet: NSObject {
     }
     
     /// Singleton
-    public class var sharedInstance: ATInternet {
+    @objc public class var sharedInstance: ATInternet {
         _ = ATInternet.__once
         
         return Static.instance!
@@ -97,7 +97,7 @@ public class ATInternet: NSObject {
     ///
     /// - Parameter name: the tracker identifier
     /// - Returns: a new tracker or an existing instance
-    public func tracker(_ name: String) -> Tracker {
+    @objc public func tracker(_ name: String) -> Tracker {
         if(self.trackers == nil) {
             self.trackers = [String: Tracker]()
         }
@@ -118,7 +118,7 @@ public class ATInternet: NSObject {
     ///   - name: the tracker identifier
     ///   - configuration: a custom configuration. See TrackerConfigurationKeys
     /// - Returns: a new tracker or an existing instance
-    public func tracker(_ name: String, configuration: [String: String]) -> Tracker {
+    @objc public func tracker(_ name: String, configuration: [String: String]) -> Tracker {
         if(self.trackers == nil) {
             self.trackers = [String: Tracker]()
         }

@@ -125,13 +125,13 @@ extern const KLCPopupLayout KLCPopupLayoutCenter;
 @property (nonatomic, assign) BOOL shouldDismissOnContentTouch;
 
 // Block gets called after show animation finishes. Be sure to use weak reference for popup within the block to avoid retain cycle.
-@property (nonatomic, copy) void (^didFinishShowingCompletion)();
+@property (nonatomic, copy) void (^didFinishShowingCompletion)(void);
 
 // Block gets called when dismiss animation starts. Be sure to use weak reference for popup within the block to avoid retain cycle.
-@property (nonatomic, copy) void (^willStartDismissingCompletion)();
+@property (nonatomic, copy) void (^willStartDismissingCompletion)(void);
 
 // Block gets called after dismiss animation finishes. Be sure to use weak reference for popup within the block to avoid retain cycle.
-@property (nonatomic, copy) void (^didFinishDismissingCompletion)();
+@property (nonatomic, copy) void (^didFinishDismissingCompletion)(void);
 
 // Convenience method for creating popup with default values (mimics UIAlertView).
 + (KLCPopup*)popupWithContentView:(UIView*)contentView;

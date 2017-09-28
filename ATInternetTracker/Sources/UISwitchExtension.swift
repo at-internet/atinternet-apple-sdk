@@ -75,7 +75,7 @@ extension UISwitch {
      - parameter touches: touches
      - parameter event:   event
      */
-    func at_touchesEnded(_ touches: Set<UITouch>, withEvent event: UIEvent) {
+    @objc func at_touchesEnded(_ touches: Set<UITouch>, withEvent event: UIEvent) {
         let _ = UIApplicationContext.sharedInstance
         let touch = touches.first
         let touchPoint = touch?.location(in: nil)

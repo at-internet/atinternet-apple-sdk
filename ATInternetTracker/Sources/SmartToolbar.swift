@@ -413,7 +413,7 @@ class SmartToolbar: UIView {
     /**
      Start the Clock
      */
-    func start(_ t: Timer) {
+    @objc func start(_ t: Timer) {
         seconds += 1
         if seconds == 59 {
             seconds = 0

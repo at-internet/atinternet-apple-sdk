@@ -71,7 +71,7 @@ public class LiveVideos: NSObject {
     ///
     /// - Parameter name: live name
     /// - Returns: the new live video instance
-    public func add(_ name:String) -> LiveVideo {
+    @objc public func add(_ name:String) -> LiveVideo {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
             return video
@@ -91,7 +91,7 @@ public class LiveVideos: NSObject {
     ///   - name: name
     ///   - chapter1: chapter1 label
     /// - Returns: a new live video instance
-    public func add(_ name: String, chapter1: String) -> LiveVideo {
+    @objc public func add(_ name: String, chapter1: String) -> LiveVideo {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
             return video
@@ -113,7 +113,7 @@ public class LiveVideos: NSObject {
     ///   - chapter1: chapter1 label
     ///   - chapter2: chapter2 label
     /// - Returns: the new live video instance
-    public func add(_ name: String, chapter1: String, chapter2: String) -> LiveVideo {
+    @objc public func add(_ name: String, chapter1: String, chapter2: String) -> LiveVideo {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
             return video
@@ -137,7 +137,7 @@ public class LiveVideos: NSObject {
     ///   - chapter2: chapter2 label
     ///   - chapter3: chapter3 label
     /// - Returns: a new live video instance
-    public func add(_ name: String, chapter1: String, chapter2: String, chapter3: String) -> LiveVideo {
+    @objc public func add(_ name: String, chapter1: String, chapter2: String, chapter3: String) -> LiveVideo {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
             return video
@@ -158,7 +158,7 @@ public class LiveVideos: NSObject {
     Remove a live video
     - parameter video: video name
     */
-    public func remove(_ name: String) {
+    @objc public func remove(_ name: String) {
         if let timer = list[name]?.timer {
             if timer.isValid {
                 list[name]!.sendStop()
@@ -170,7 +170,7 @@ public class LiveVideos: NSObject {
     /**
     Remove all live videos
     */
-    public func removeAll() {
+    @objc public func removeAll() {
         for (_, value) in self.list {
             if let timer = value.timer {
                 if timer.isValid {

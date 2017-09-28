@@ -28,7 +28,7 @@ extension NSObject {
     
     /// Allow to get the Class name of an object
     /// Swift equivalent of NSStringFromClass([self class])
-    var classLabel: String {
+    @objc var classLabel: String {
         let str =  NSStringFromClass(self.classForCoder)
         
         if let name = str.components(separatedBy: ".").last {
@@ -45,7 +45,7 @@ extension NSObject {
      
      - returns: true is the property is present in the object
      */
-    func at_hasProperty(_ property: String) -> Bool {
+    @objc func at_hasProperty(_ property: String) -> Bool {
         let cp = class_getProperty(object_getClass(self), property)
         if cp != nil {
             if let _ = self.value(forKey: property) {

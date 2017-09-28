@@ -37,10 +37,10 @@ import Foundation
 public class Audio: RichMedia {
     
     /// Media type
-    let type: String = "audio"
+    @objc let type: String = "audio"
     
     /// Duration
-    public var duration: Int = 0
+    @objc public var duration: Int = 0
     
     /// Set parameters in buffer
     override func setEvent() {
@@ -60,17 +60,17 @@ public class Audio: RichMedia {
 /// Wrapper class to manage Audio instances
 public class Audios: NSObject {
     
-    var list: [String: Audio] = [String: Audio]()
+    @objc var list: [String: Audio] = [String: Audio]()
     
     /// MediaPlayer instance
-    var player: MediaPlayer
+    @objc var player: MediaPlayer
     
     /**
     Audios initializer
     - parameter player: the player instance
     - returns: Audios instance
     */
-    init(player: MediaPlayer) {
+    @objc init(player: MediaPlayer) {
         self.player = player
     }
 
@@ -80,7 +80,7 @@ public class Audios: NSObject {
     ///   - name: audio name
     ///   - duration: duration of the track in second
     /// - Returns: the new Audio instance
-    public func add(_ name:String, duration: Int) -> Audio {
+    @objc public func add(_ name:String, duration: Int) -> Audio {
         if let audio = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
             return audio
@@ -102,7 +102,7 @@ public class Audios: NSObject {
     ///   - chapter1: audio first chapter
     ///   - duration: duration of the track in second
     /// - Returns: the new Audio instance
-    public func add(_ name: String, chapter1: String, duration: Int) -> Audio {
+    @objc public func add(_ name: String, chapter1: String, duration: Int) -> Audio {
         if let audio = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
             return audio
@@ -126,7 +126,7 @@ public class Audios: NSObject {
     ///   - chapter2: audio second chapter
     ///   - duration: duration of the track in second
     /// - Returns: the new Audio instance
-    public func add(_ name: String, chapter1: String, chapter2: String, duration: Int) -> Audio {
+    @objc public func add(_ name: String, chapter1: String, chapter2: String, duration: Int) -> Audio {
         if let audio = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
             return audio
@@ -152,7 +152,7 @@ public class Audios: NSObject {
     ///   - chapter3: audio third chapter
     ///   - duration: duration of the track in second
     /// - Returns: the new Audio instance
-    public func add(_ name: String, chapter1: String, chapter2: String, chapter3: String, duration: Int) -> Audio {
+    @objc public func add(_ name: String, chapter1: String, chapter2: String, chapter3: String, duration: Int) -> Audio {
         if let audio = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
             return audio
@@ -174,7 +174,7 @@ public class Audios: NSObject {
     /// Remove an audio by name
     ///
     /// - Parameter name: audio identified by name
-    public func remove(_ name: String) {
+    @objc public func remove(_ name: String) {
         if let timer = list[name]?.timer {
             if timer.isValid {
                 list[name]!.sendStop()
@@ -184,7 +184,7 @@ public class Audios: NSObject {
     }
     
     /// Remove all audios
-    public func removeAll() {
+    @objc public func removeAll() {
         for (_, value) in self.list {
             if let timer = value.timer {
                 if timer.isValid {

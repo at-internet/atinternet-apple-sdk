@@ -36,11 +36,11 @@ import Foundation
 /// Wrapper class for custom tree structure tracking
 public class CustomTreeStructure: ScreenInfo {
     /// Custom tree structure first category label
-    public var category1: Int = 0
+    @objc public var category1: Int = 0
     /// Custom tree structure first category label
-    public var category2: Int = 0
+    @objc public var category2: Int = 0
     /// Custom tree structure first category label
-    public var category3: Int = 0
+    @objc public var category3: Int = 0
     
     override init(tracker: Tracker) {
         super.init(tracker: tracker)
@@ -50,7 +50,7 @@ public class CustomTreeStructure: ScreenInfo {
     /// Create a new CustomTreeStructure
     ///
     /// - Parameter category1: first custom tree structure category
-    public init(category1: Int) {
+    @objc public init(category1: Int) {
         super.init()
         
         self.category1 = category1
@@ -61,7 +61,7 @@ public class CustomTreeStructure: ScreenInfo {
     /// - Parameters:
     ///   - category1: first custom tree structure category
     ///   - category2: second custom tree structure category
-    public convenience init(category1: Int, category2: Int) {
+    @objc public convenience init(category1: Int, category2: Int) {
         self.init(category1: category1)
         
         self.category2 = category2
@@ -73,7 +73,7 @@ public class CustomTreeStructure: ScreenInfo {
     ///   - category1: first custom tree structure category
     ///   - category2: second custom tree structure category
     ///   - category3: third custom tree structure category
-    public convenience init(category1: Int, category2: Int, category3: Int) {
+    @objc public convenience init(category1: Int, category2: Int, category3: Int) {
         self.init(category1: category1, category2: category2)
         
         self.category3 = category3

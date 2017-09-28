@@ -48,8 +48,6 @@ extension NSDictionary {
             return .connectParams(params)
         case let ("cookies", cookies as [HTTPCookie]):
             return .cookies(cookies)
-        case let ("doubleEncodeUTF8", encode as Bool):
-            return .doubleEncodeUTF8(encode)
         case let ("extraHeaders", headers as [String: String]):
             return .extraHeaders(headers)
         case let ("forceNew", force as Bool):
@@ -82,45 +80,45 @@ extension NSDictionary {
             return .selfSigned(selfSigned)
         case let ("sessionDelegate", delegate as URLSessionDelegate):
             return .sessionDelegate(delegate)
-        case let ("voipEnabled", enable as Bool):
-            return .voipEnabled(enable)
+        case let ("compress", compress as Bool):
+            return compress ? .compress : nil
         default:
             return nil
         }
     }
-    
+
     func toSocketConfiguration() -> SocketIOClientConfiguration {
         var options = [] as SocketIOClientConfiguration
-        
+
         for (rawKey, value) in self {
             if let key = rawKey as? String, let opt = NSDictionary.keyValueToSocketIOClientOption(key: key, value: value) {
                 options.insert(opt)
             }
         }
-        
+
         return options
     }
 }
 
 extension String {
     func toArray() throws -> [Any] {
-        guard let stringData = data(using: .utf8, allowLossyConversion: false) else { return [] }
+        guard let stringData = data(using: .utf16, allowLossyConversion: false) else { return [] }
         guard let array = try JSONSerialization.jsonObject(with: stringData, options: .mutableContainers) as? [Any] else {
              throw JSONError.notArray
         }
-        
+
         return array
     }
-    
+
     func toNSDictionary() throws -> NSDictionary {
-        guard let binData = data(using: .utf8, allowLossyConversion: false) else { return [:] }
+        guard let binData = data(using: .utf16, allowLossyConversion: false) else { return [:] }
         guard let json = try JSONSerialization.jsonObject(with: binData, options: .allowFragments) as? NSDictionary else {
             throw JSONError.notNSDictionary
         }
-        
+
         return json
     }
-    
+
     func urlEncode() -> String? {
         return addingPercentEncoding(withAllowedCharacters: .allowedURLCharacterSet)
     }

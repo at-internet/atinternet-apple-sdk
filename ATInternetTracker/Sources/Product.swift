@@ -42,49 +42,49 @@ public class Product : BusinessObject {
     }
     
     /// Product identifier
-    public var productId: String = ""
+    @objc public var productId: String = ""
     
     /// First Product category
-    public var category1: String?
+    @objc public var category1: String?
     
     // Second Product category
-    public var category2: String?
+    @objc public var category2: String?
     
     // Third Product category
-    public var category3: String?
+    @objc public var category3: String?
     
     // Fourth Product category
-    public var category4: String?
+    @objc public var category4: String?
     
     // Fifth Product category
-    public var category5: String?
+    @objc public var category5: String?
     
     // Sixth Product category
-    public var category6: String?
+    @objc public var category6: String?
     
     /// Product quantity
-    public var quantity: Int = -1
+    @objc public var quantity: Int = -1
     
     /// Product unit price with tax
-    public var unitPriceTaxIncluded: Double = -1
+    @objc public var unitPriceTaxIncluded: Double = -1
     
     /// Product unit price without tax
-    public var unitPriceTaxFree: Double = -1
+    @objc public var unitPriceTaxFree: Double = -1
     
     /// Discount value with tax
-    public var discountTaxIncluded: Double = -1
+    @objc public var discountTaxIncluded: Double = -1
     
     /// Discount value without tax
-    public var discountTaxFree: Double = -1
+    @objc public var discountTaxFree: Double = -1
     
     /// Promotional code
-    public var promotionalCode: String?
+    @objc public var promotionalCode: String?
     
     /// Action
-    public var action: ProductAction = ProductAction.view
+    @objc public var action: ProductAction = ProductAction.view
     
     // Custom objects to add to product hit
-    public lazy var customObjects: CustomObjects = CustomObjects(product: self)
+    @objc public lazy var customObjects: CustomObjects = CustomObjects(product: self)
     
     fileprivate func getProductActionRawValue(_ value: Int) -> String {
         switch value {
@@ -126,7 +126,7 @@ public class Product : BusinessObject {
     }
     
     /// Send products view hit
-    public func sendView() {
+    @objc public func sendView() {
         self.action = ProductAction.view
         self.tracker.dispatcher.dispatch([self])
     }
@@ -164,7 +164,7 @@ public class Products: NSObject {
     - parameter product: a product instance
     - returns: the product added
     */
-    public func add(_ product: Product) -> Product {
+    @objc public func add(_ product: Product) -> Product {
         if(cart != nil) {
             cart.productList[product.productId] = product
         } else {
@@ -199,7 +199,7 @@ public class Products: NSObject {
     ///   - productId: the product identifier
     ///   - category1: category1 label
     /// - Returns: the new product instance
-    public func add(_ productId: String, category1: String) -> Product {
+    @objc public func add(_ productId: String, category1: String) -> Product {
         let pdt = add(productId)
         pdt.category1 = category1
         return pdt
@@ -212,7 +212,7 @@ public class Products: NSObject {
     ///   - category1: category1 label
     ///   - category2: category2 label
     /// - Returns: the new product instance
-    public func add(_ productId: String, category1: String, category2: String) -> Product {
+    @objc public func add(_ productId: String, category1: String, category2: String) -> Product {
         let pdt = add(productId)
         pdt.category1 = category1
         pdt.category2 = category2
@@ -227,7 +227,7 @@ public class Products: NSObject {
     ///   - category2: category2 label
     ///   - category3: category3 label
     /// - Returns: the new product instance
-    public func add(_ productId: String, category1: String, category2: String, category3: String) -> Product {
+    @objc public func add(_ productId: String, category1: String, category2: String, category3: String) -> Product {
         let pdt = add(productId)
         pdt.category1 = category1
         pdt.category2 = category2
@@ -244,7 +244,7 @@ public class Products: NSObject {
     ///   - category3: category3 label
     ///   - category4: category4 label
     /// - Returns: the new product instance
-    public func add(_ productId: String, category1: String, category2: String, category3: String, category4: String) -> Product {
+    @objc public func add(_ productId: String, category1: String, category2: String, category3: String, category4: String) -> Product {
         let pdt = add(productId)
         pdt.category1 = category1
         pdt.category2 = category2
@@ -263,7 +263,7 @@ public class Products: NSObject {
     ///   - category4: category4 label
     ///   - category5: category5 label
     /// - Returns: the new product instance
-    public func add(_ productId: String, category1: String, category2: String, category3: String, category4: String, category5: String) -> Product {
+    @objc public func add(_ productId: String, category1: String, category2: String, category3: String, category4: String, category5: String) -> Product {
         let pdt = add(productId)
         pdt.category1 = category1
         pdt.category2 = category2
@@ -284,7 +284,7 @@ public class Products: NSObject {
     ///   - category5: category5 label
     ///   - category6: category6 label
     /// - Returns: the new product instance
-    public func add(_ productId: String, category1: String, category2: String, category3: String, category4: String, category5: String, category6: String) -> Product {
+    @objc public func add(_ productId: String, category1: String, category2: String, category3: String, category4: String, category5: String, category6: String) -> Product {
         let pdt = add(productId)
         pdt.category1 = category1
         pdt.category2 = category2
@@ -298,7 +298,7 @@ public class Products: NSObject {
     /// Remove a product
     ///
     /// - Parameter productId: the product identifier
-    public func remove(_ productId: String) {
+    @objc public func remove(_ productId: String) {
         if(cart != nil) {
             cart.productList.removeValue(forKey: productId)
         } else {
@@ -312,7 +312,7 @@ public class Products: NSObject {
     }
 
     /// Remove all the products
-    public func removeAll() {
+    @objc public func removeAll() {
         if(cart != nil) {
             cart.productList.removeAll(keepingCapacity: false)
         } else {
@@ -325,7 +325,7 @@ public class Products: NSObject {
     }
 
     /// Send viewed products
-    public func sendViews() {
+    @objc public func sendViews() {
         var impressions = [BusinessObject]()
         
         for(_,object) in self.tracker.businessObjects {

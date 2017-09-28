@@ -219,14 +219,14 @@ class Builder: Operation {
                                 self.tracker.delegate?.warningDidOccur?("Multihits: value still too long after slicing")
                                 // Truncate the value
                                 let idxMax = hit.index(hit.startIndex, offsetBy: refMaxSize - errQuery.characters.count)
-                                hit = hit.substring(to: idxMax)
+                                hit = "\(hit[..<idxMax])"
                                 // Check if in the last 5 characters there is misencoded character, if so we truncate again
                                 let idxEncode = hit.index(hit.endIndex, offsetBy: -5)
-                                let lastChars = hit.substring(from: idxEncode)
+                                let lastChars = hit[...idxEncode]
                                 let rangeMisencodedChar = lastChars.range(of: "%")
                                 if rangeMisencodedChar != nil {
                                     let idx = hit.index(hit.startIndex, offsetBy: hit.characters.count - 5)
-                                    hit = hit.substring(to: idx)
+                                    hit = "\(hit[..<idx])"
                                 }
                                 hit += errQuery
                                 err = true

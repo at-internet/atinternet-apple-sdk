@@ -198,12 +198,12 @@ class SmartPopUp: UIView {
     }
     
     /* color of the button in normal state */
-    func normal(_ sender: UIButton) {
+    @objc func normal(_ sender: UIButton) {
         sender.backgroundColor = customBackgroundColor()
     }
     
     /* on click */
-    func hightlight(_ sender: UIButton) {
+    @objc func hightlight(_ sender: UIButton) {
         sender.backgroundColor = UIColor(red: 225/255, green: 225/255, blue: 225/255, alpha: 1)
         if sender == btnCancel {
             if let action = cancelAction {

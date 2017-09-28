@@ -36,9 +36,9 @@ import Foundation
 /// Wrapper class to inject custom data in you tracking
 public class CustomObject: BusinessObject {
     /// custom data as string - json formatted
-    public var json: String = "{}"
+    @objc public var json: String = "{}"
     /// allow the custom object to persist
-    public var persistent = false
+    @objc public var persistent = false
     
     @objc(initWithString:)
     init(string: String) {
@@ -201,7 +201,7 @@ public class CustomObjects: NSObject {
     }
     
     /// Remove all custom objects
-    public func removeAll() {
+    @objc public func removeAll() {
         if(screen != nil) {
             screen!._customObjects.removeAll(keepingCapacity: false)
         } else if(gesture != nil) {

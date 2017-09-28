@@ -35,11 +35,11 @@ import Foundation
 /// Wrapper class for gps location tracking
 public class Location: ScreenInfo {
     /// latitude
-    public var latitude: Double = 0.0
+    @objc public var latitude: Double = 0.0
     /// longitude
-    public var longitude: Double = 0.0
+    @objc public var longitude: Double = 0.0
     
-    public init(latitude: Double, longitude: Double) {
+    @objc public init(latitude: Double, longitude: Double) {
         super.init()
         
         self.latitude = latitude
@@ -60,14 +60,14 @@ public class Location: ScreenInfo {
 /// /// Wrapper class to manage Locations instances
 public class Locations: NSObject {
     /// Tracker instance
-    var tracker: Tracker
+    @objc var tracker: Tracker
     
     /**
     Locations initializer
     - parameter tracker: the tracker instance
     - returns: Locations instance
     */
-    init(tracker: Tracker) {
+    @objc init(tracker: Tracker) {
         self.tracker = tracker
     }
     
@@ -77,7 +77,7 @@ public class Locations: NSObject {
     ///   - latitude: latitude x
     ///   - longitude: longitude y
     /// - Returns: a new location instance
-    public func add(_ latitude: Double, longitude: Double) -> Location {
+    @objc public func add(_ latitude: Double, longitude: Double) -> Location {
         let location = Location(tracker: tracker)
         location.latitude = latitude
         location.longitude = longitude

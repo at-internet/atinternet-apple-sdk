@@ -73,7 +73,7 @@ extension UIApplication {
      
      - parameter event: UIEvent
      */
-    func at_sendEvent(_ event: UIEvent) {
+    @objc func at_sendEvent(_ event: UIEvent) {
         // sometimes we need to wait the end of the event in order
         // to get a correct capture (uiswitch, uislider...)
         if shouldSendNow() {
@@ -126,8 +126,7 @@ extension UIApplication {
     func shouldSendNow() -> Bool {
         let ctx = UIApplicationContext.sharedInstance
         if let view = ctx.currentTouchedView {
-            if  view.type == UIApplicationContext.ViewType.button ||
-                view.type == UIApplicationContext.ViewType.tableViewCell ||
+            if  view.type == UIApplicationContext.ViewType.tableViewCell ||
                 view.type == UIApplicationContext.ViewType.textField ||
                 view.type == UIApplicationContext.ViewType.navigationBar ||
                 view.type == UIApplicationContext.ViewType.backButton ||

@@ -44,10 +44,15 @@ extension UIRefreshControl {
         }
         
         DispatchQueue.once(token: Static.token) {
+            guard
             // Get the "- (id)initWithFrame:" method.
-            let original = class_getInstanceMethod(self, #selector(UIRefreshControl.init as () -> UIRefreshControl))
+            let original = class_getInstanceMethod(self, #selector(UIRefreshControl.init as () -> UIRefreshControl)),
             // Get the "- (id)swizzled_initWithFrame:" method.
             let swizzle = class_getInstanceMethod(self, #selector(UIRefreshControl.at_init))
+            else {
+                print("Tracker at_swizzle failed")
+                return
+            }
             // Swap their implementations.
             method_exchangeImplementations(original, swizzle)
             do {
@@ -68,10 +73,15 @@ extension UIRefreshControl {
         }
         
         DispatchQueue.once(token: Static.token) {
+            guard
             // Get the "- (id)initWithFrame:" method.
-            let original = class_getInstanceMethod(self, #selector(UIRefreshControl.init as () -> UIRefreshControl))
+            let original = class_getInstanceMethod(self, #selector(UIRefreshControl.init as () -> UIRefreshControl)),
             // Get the "- (id)swizzled_initWithFrame:" method.
             let swizzle = class_getInstanceMethod(self, #selector(UIRefreshControl.at_init))
+            else {
+                print("at_unswizzle failed")
+                return
+            }
             // Swap their implementations.
             method_exchangeImplementations(swizzle, original)
             do {
@@ -83,12 +93,12 @@ extension UIRefreshControl {
         }
     }
     
-    func at_init() -> Any {
+    @objc func at_init() -> Any {
         self.addTarget(self, action: #selector(UIRefreshControl.at_refresh), for: UIControlEvents.valueChanged)
         return self.at_init()
     }
     
-    func at_refresh () {
+    @objc func at_refresh () {
         let lastOperation = EventManager.sharedInstance.lastEvent() as? GestureOperation
         let appContext = UIApplicationContext.sharedInstance
         
@@ -144,11 +154,11 @@ extension UIRefreshControl {
     }
 
     
-    func at_initWithFrame(_ frame: CGRect) {
+    @objc func at_initWithFrame(_ frame: CGRect) {
         self.at_initWithFrame(frame)
     }
     
-    func at_beginRefreshing() {
+    @objc func at_beginRefreshing() {
         self.at_beginRefreshing()
     }    
 }

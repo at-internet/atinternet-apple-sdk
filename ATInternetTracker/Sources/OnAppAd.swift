@@ -47,7 +47,7 @@ public class OnAppAd: BusinessObject {
     }
     
     /// Action
-    public var action: OnAppAdAction = OnAppAdAction.view
+    @objc public var action: OnAppAdAction = OnAppAdAction.view
     
     internal class func getOnAppAddActionRawValue(_ value: Int) -> String {
         switch value {

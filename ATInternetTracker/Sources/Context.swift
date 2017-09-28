@@ -47,7 +47,7 @@ public class Context: NSObject {
     internal var _level2: Int = 0
     
     /// Global level 2
-    public var level2: Int {
+    @objc public var level2: Int {
         get {
             return _level2
         }
@@ -70,7 +70,7 @@ public class Context: NSObject {
     internal var _backgroundMode: BackgroundMode = BackgroundMode.normal
     
     /// Tracker background mode. See BackgroundMode
-    public var backgroundMode: BackgroundMode {
+    @objc public var backgroundMode: BackgroundMode {
         get {
             return _backgroundMode
         }

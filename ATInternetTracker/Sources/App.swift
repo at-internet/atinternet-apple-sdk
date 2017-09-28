@@ -33,8 +33,8 @@ class App {
             "event":"app",
             "data" :[
                 "appIcon": TechnicalContext.applicationIcon ?? emptyIcon(),
-                "version": TechnicalContext.applicationVersion.isEmpty ? "" : TechnicalContext.applicationVersion,
-                "device" : TechnicalContext.device.isEmpty ? "" : TechnicalContext.device,
+                "version": TechnicalContext.applicationVersion.isEmpty ? "1" : TechnicalContext.applicationVersion,
+                "device" : TechnicalContext.device.isEmpty ? "x86_64" : TechnicalContext.device,
                 "token" : App.token ?? "",
                 "package" : TechnicalContext.applicationIdentifier,
                 "platform":"ios",

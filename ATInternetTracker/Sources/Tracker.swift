@@ -115,13 +115,13 @@ public enum HitParam: String {
 /// - normal: tracking in foreground
 /// - task: tracking in background
 /// - fetch: tracking in iOS fetching feature
-public enum BackgroundMode {
+@objc public enum BackgroundMode: Int {
     /// normal: tracking in foreground
-    case normal
+    case normal = 0
     /// task: tracking in background
-    case task
+    case task = 1
     /// fetch: tracking in iOS fetching feature
-    case fetch
+    case fetch = 2
 }
 
 // MARK: - Tracker Delegate
@@ -218,7 +218,7 @@ public class AutoTracker: Tracker {
     private var toolbar: SmartToolBarController?
     
     /// Token for authentication
-    public var token: String? {
+    @objc public var token: String? {
         get {
             return _token
         } set {
@@ -235,7 +235,7 @@ public class AutoTracker: Tracker {
     
     /// Enable LiveTagging. See http://livetagging.atinternet-solutions.com/
     /// You need to provide a token before enabling live tagging
-    public var enableLiveTagging: Bool {
+    @objc public var enableLiveTagging: Bool {
         get {
             return _enableLiveTagging
         } set {
@@ -263,7 +263,7 @@ public class AutoTracker: Tracker {
     
     /// Enables AutoTracking. Will send automatically click and screens hits.
     /// You can custom those hits by implementing IAutoTracker protocol in your ViewControllers
-    public var enableAutoTracking: Bool {
+    @objc public var enableAutoTracking: Bool {
         get {
             return _enableAutoTracking
         } set {
@@ -275,7 +275,7 @@ public class AutoTracker: Tracker {
                     Configuration.smartSDKMapping = nil
                     AutoTracker.isConfigurationLoaded = true
                 } else {
-                    //fetchMappingConfig()
+                    fetchMappingConfig()
                 }
             }
             
@@ -374,7 +374,7 @@ public class AutoTracker: Tracker {
         notificationCenter.addObserver(self, selector: #selector(AutoTracker.appWillGoBg(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
     }
     
-    func windowBecomeVisible(_ notification: NSNotification) {
+    @objc func windowBecomeVisible(_ notification: NSNotification) {
         if let delegate = UIApplication.shared.keyWindow {
             if let _ = delegate.window {
                 addToolbar()
@@ -444,7 +444,7 @@ public class AutoTracker: Tracker {
     }
     
     /// Add livetagging toolbar
-    func addToolbar() {
+    @objc func addToolbar() {
         if toolbar == nil && socketSender != nil && liveManager != nil && UIApplication.shared.keyWindow != nil{
             toolbar = SmartToolBarController(socket:self.socketSender!, networkManager: self.liveManager!)
             self.liveManager!.toolbar = toolbar
@@ -461,8 +461,9 @@ public class AutoTracker: Tracker {
             let dataFont = NSData(contentsOfFile: fontPath),
             let provider = CGDataProvider(data: dataFont)
             else { return }
-        let fontRef = CGFont(provider)
-        CTFontManagerRegisterGraphicsFont(fontRef, nil)
+        if let fontRef = CGFont(provider) {
+            CTFontManagerRegisterGraphicsFont(fontRef, nil)
+        }
     }
 }
     
@@ -473,10 +474,10 @@ public class AutoTracker: Tracker {
 /// Wrapper class for tracking usage of your application
 public class Tracker: NSObject {
     
-    internal weak var _delegate: TrackerDelegate? = nil
+    @objc internal weak var _delegate: TrackerDelegate? = nil
     
     /// Tracker current delegate
-    public var delegate: TrackerDelegate? {
+    @objc public var delegate: TrackerDelegate? {
         get {
             return _delegate
         }
@@ -489,17 +490,17 @@ public class Tracker: NSObject {
     }
     
     /// Contains tracker configuration
-    var configuration: Configuration
+    @objc var configuration: Configuration
     
     /// Contains parameters
-    lazy var buffer: Buffer = Buffer(tracker: self)
+    @objc lazy var buffer: Buffer = Buffer(tracker: self)
     
     /// Dispatcher
-    lazy var dispatcher: Dispatcher = Dispatcher(tracker: self)
+    @objc lazy var dispatcher: Dispatcher = Dispatcher(tracker: self)
     
     #if os(iOS) && !AT_EXTENSION
     /// Sets Tracker in debug mode and display debugger window
-    public var enableDebugger: Bool = false {
+    @objc public var enableDebugger: Bool = false {
         didSet {
             if enableDebugger == true {
                 let q = DispatchQueue(label: "com.atinternet.Tracker.debuggerQueue", attributes: [])
@@ -520,76 +521,76 @@ public class Tracker: NSObject {
     /**
      Display the debugger window
      */
-    func displayDebugger() {
+    @objc func displayDebugger() {
         Debugger.sharedInstance.initDebugger()
     }
     #endif
     
-    internal lazy var businessObjects: [String: BusinessObject] = [String: BusinessObject]()
+    @objc internal lazy var businessObjects: [String: BusinessObject] = [String: BusinessObject]()
     
     //MARK: Offline
     /// Return Offline instance
-    fileprivate(set) public lazy var offline: Offline = Offline(tracker: self)
+    @objc fileprivate(set) public lazy var offline: Offline = Offline(tracker: self)
     
     //MARK: Context Tracking
     /// Return Context instance
-    fileprivate(set) public lazy var context: Context = Context(tracker: self)
+    @objc fileprivate(set) public lazy var context: Context = Context(tracker: self)
     
     //MARK: NuggAd Tracking
     /// Return NuggAd instance
-    fileprivate(set) public lazy var nuggAds: NuggAds = NuggAds(tracker: self)
+    @objc fileprivate(set) public lazy var nuggAds: NuggAds = NuggAds(tracker: self)
     
     //MARK: GPS Tracking
     /// Return GPS tracking instance
     /// - Deprecated : location is now only available as a screen object property.
-    @available(*, deprecated, message: "location is now only available as a screen object property (> 2.5.0).")
+    @objc @available(*, deprecated, message: "location is now only available as a screen object property (> 2.5.0).")
     fileprivate(set) public lazy var locations: Locations = Locations(tracker: self)
     
     //MARK: Publisher Tracking
     /// Return Publisher instance
-    fileprivate(set) public lazy var publishers: Publishers = Publishers(tracker: self)
+    @objc fileprivate(set) public lazy var publishers: Publishers = Publishers(tracker: self)
     
     //MARK: SelfPromotion Tracking
     /// Return SelfPromotions instance
-    fileprivate(set) public lazy var selfPromotions: SelfPromotions = SelfPromotions(tracker: self)
+    @objc fileprivate(set) public lazy var selfPromotions: SelfPromotions = SelfPromotions(tracker: self)
     
     //MARK: Identified Visitor Tracking
     /// Return Identified visitor instance
-    fileprivate(set) public lazy var identifiedVisitor: IdentifiedVisitor = IdentifiedVisitor(tracker: self)
+    @objc fileprivate(set) public lazy var identifiedVisitor: IdentifiedVisitor = IdentifiedVisitor(tracker: self)
     
     //MARK: Screen Tracking
     /// Get Screens instances
-    fileprivate(set) public lazy var screens: Screens = Screens(tracker: self)
+    @objc fileprivate(set) public lazy var screens: Screens = Screens(tracker: self)
     
     //MARK: Dynamic Screen Tracking
     /// Dynamic Screen tracking
-    fileprivate(set) public lazy var dynamicScreens: DynamicScreens = DynamicScreens(tracker: self)
+    @objc fileprivate(set) public lazy var dynamicScreens: DynamicScreens = DynamicScreens(tracker: self)
     
     //MARK: Touch Tracking
     /// Return gestures instance
-    fileprivate(set) public lazy var gestures: Gestures = Gestures(tracker: self)
+    @objc fileprivate(set) public lazy var gestures: Gestures = Gestures(tracker: self)
     
     //MARK: Custom Object Tracking
     /// Return CustomObjects instance
-    fileprivate(set) public lazy var customObjects: CustomObjects = CustomObjects(tracker: self)
+    @objc fileprivate(set) public lazy var customObjects: CustomObjects = CustomObjects(tracker: self)
     
     //MARK: TV Tracking
     /// Return TvTracking instance
-    fileprivate(set) public lazy var tvTracking: TVTracking = TVTracking(tracker: self)
+    @objc fileprivate(set) public lazy var tvTracking: TVTracking = TVTracking(tracker: self)
     
     //MARK: Event Tracking
     /// Return Event instance
-    fileprivate(set) lazy var event: Event = Event(tracker: self)
+    @objc fileprivate(set) lazy var event: Event = Event(tracker: self)
     
     //MARK: CustomVar Tracking
     /// Return CustomVar instance
     /// - Deprecated : customVars is now only available as a screen object property.
-    @available(*, deprecated, message: "customVars is now only available as a screen object property (> 2.5.0).")
+    @objc @available(*, deprecated, message: "customVars is now only available as a screen object property (> 2.5.0).")
     fileprivate(set) public lazy var customVars: CustomVars = CustomVars(tracker: self)
     
     //MARK: Order Tracking
     /// Return Order instance
-    fileprivate(set) public lazy var orders: Orders = Orders(tracker: self)
+    @objc fileprivate(set) public lazy var orders: Orders = Orders(tracker: self)
     
     //MARK: Aisle Tracking
     /// Return Aisle instance
@@ -599,30 +600,30 @@ public class Tracker: NSObject {
     
     //MARK: Cart Tracking
     /// Return Cart instance
-    fileprivate(set) public lazy var cart: Cart = Cart(tracker: self)
+    @objc fileprivate(set) public lazy var cart: Cart = Cart(tracker: self)
     
     //MARK: Product Tracking
     /// Return Products instance
-    fileprivate(set) public lazy var products: Products = Products(tracker: self)
+    @objc fileprivate(set) public lazy var products: Products = Products(tracker: self)
     
     /// Campaign Tracking. Campaign is now available as a screen object property but you may use this method for notification tracking
-    fileprivate(set) public lazy var campaigns: Campaigns = Campaigns(tracker: self)
+    @objc fileprivate(set) public lazy var campaigns: Campaigns = Campaigns(tracker: self)
     
     //MARK: Internal Search Tracking
     /// Return InternalSearch instance
     /// - Deprecated : internalSearch is now only available as a screen object property.
-     @available(*, deprecated, message: "internalSearch is now only available as a screen object property (> 2.5.0).")
+     @objc @available(*, deprecated, message: "internalSearch is now only available as a screen object property (> 2.5.0).")
     fileprivate(set) public lazy var internalSearches: InternalSearches = InternalSearches(tracker: self)
     
     //MARK: Custom tree structure Tracking
     /// Return CustomTreeStructures instance
     /// - Deprecated : customTreeStructures is now only available as a screen object property.
-    @available(*, deprecated, message: "customTreeStructures is now only available as a screen object property (> 2.5.0).")
+    @objc @available(*, deprecated, message: "customTreeStructures is now only available as a screen object property (> 2.5.0).")
     fileprivate(set) public lazy var customTreeStructures: CustomTreeStructures = CustomTreeStructures(tracker: self)
     
     //MARK: Richmedia Tracking
     /// Return MediaPlayers instance
-    fileprivate(set) public lazy var mediaPlayers: MediaPlayers = MediaPlayers(tracker: self)
+    @objc fileprivate(set) public lazy var mediaPlayers: MediaPlayers = MediaPlayers(tracker: self)
 
     
     //MARK: - Initializer
@@ -637,7 +638,7 @@ public class Tracker: NSObject {
     /// Initialisation with a custom configuration
     ///
     /// - Parameter configuration: map that contains key/values. See TrackerConfigurationKeys
-    public init(configuration: [String: String]) {
+    @objc public init(configuration: [String: String]) {
         
         // Set the custom configuration
         self.configuration = Configuration(customConfiguration: configuration)
@@ -673,7 +674,7 @@ public class Tracker: NSObject {
     // MARK: - Configuration
     
     /// Get the current configuration (read-only)
-    public var config: [String:String] {
+    @objc public var config: [String:String] {
         get {
             return self.configuration.parameters
         }
@@ -686,7 +687,7 @@ public class Tracker: NSObject {
     ///   - override: if true: the old configuration is full cleared - all default keys _MUST_ be set (optional, default: false)
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setConfig(_ configuration: [String: String], override: Bool = false, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setConfig(_ configuration: [String: String], override: Bool = false, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         
         var keyCount = 0
         
@@ -732,7 +733,7 @@ public class Tracker: NSObject {
     ///   - value: /
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setConfig(_ key: String, value: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setConfig(_ key: String, value: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         if (sync) {
             if (!Configuration.ReadOnlyConfiguration.list.contains(key)) {
                 self.configuration.parameters[key] = value
@@ -767,7 +768,7 @@ public class Tracker: NSObject {
     ///   - log: ATInternet subdomain value
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setLog(_ log: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setLog(_ log: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.Log, value: log, sync: sync, completionHandler: completionHandler)
     }
     
@@ -777,7 +778,7 @@ public class Tracker: NSObject {
     ///   - securedLog: ATInternet secured subdomain value
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setSecuredLog(_ securedLog: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setSecuredLog(_ securedLog: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.LogSSL, value: securedLog, sync: sync, completionHandler: completionHandler)
     }
     
@@ -787,7 +788,7 @@ public class Tracker: NSObject {
     ///   - domain: ATInternet collect domain value
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setDomain(_ domain: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setDomain(_ domain: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.Domain, value: domain, sync: sync, completionHandler: completionHandler)
     }
     
@@ -797,7 +798,7 @@ public class Tracker: NSObject {
     ///   - siteId: ATInternet site identifier
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setSiteId(_ siteId: Int, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setSiteId(_ siteId: Int, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.Site, value: String(siteId), sync: sync, completionHandler: completionHandler)
     }
     
@@ -817,7 +818,7 @@ public class Tracker: NSObject {
     ///   - enabled: /
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setSecureModeEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setSecureModeEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.Secure, value: String(enabled), sync: sync, completionHandler: completionHandler)
     }
     
@@ -837,7 +838,7 @@ public class Tracker: NSObject {
     ///   - enabled: /
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setHashUserIdEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setHashUserIdEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.HashUserId, value: String(enabled), sync: sync, completionHandler: completionHandler)
     }
     
@@ -858,7 +859,7 @@ public class Tracker: NSObject {
     ///   - enabled: /
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setBackgroundTaskEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setBackgroundTaskEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.EnableBackgroundTask, value: String(enabled), sync: sync, completionHandler: completionHandler)
     }
     
@@ -868,7 +869,7 @@ public class Tracker: NSObject {
     ///   - pixelPath: request path to get pixel
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setPixelPath(_ pixelPath: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setPixelPath(_ pixelPath: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.PixelPath, value: pixelPath, sync: sync, completionHandler: completionHandler)
     }
     
@@ -878,7 +879,7 @@ public class Tracker: NSObject {
     ///   - enabled: /
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setPersistentIdentifiedVisitorEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setPersistentIdentifiedVisitorEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.PersistIdentifiedVisitor, value: String(enabled), sync: sync, completionHandler: completionHandler)
     }
     
@@ -888,7 +889,7 @@ public class Tracker: NSObject {
     ///   - url: TVTTracking campaign url
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setTvTrackingUrl(_ url: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setTvTrackingUrl(_ url: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.TvTrackingURL, value: url, sync: sync, completionHandler: completionHandler)
     }
     
@@ -898,7 +899,7 @@ public class Tracker: NSObject {
     ///   - visitDuration: duration of the visit
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setTvTrackingVisitDuration(_ visitDuration: Int, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setTvTrackingVisitDuration(_ visitDuration: Int, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.TvTrackingVisitDuration, value: String(visitDuration), sync: sync, completionHandler: completionHandler)
     }
     
@@ -908,7 +909,7 @@ public class Tracker: NSObject {
     ///   - time: time during which campaign is valid
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setTvTrackingSpotValidityTime(_ time: Int, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setTvTrackingSpotValidityTime(_ time: Int, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.TvTrackingSpotValidityTime, value: String(time), sync: sync, completionHandler: completionHandler)
     }
     
@@ -918,7 +919,7 @@ public class Tracker: NSObject {
     ///   - enabled: store last or first campaign
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setCampaignLastPersistenceEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setCampaignLastPersistenceEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.CampaignLastPersistence, value: String(enabled), sync: sync, completionHandler: completionHandler)
     }
     
@@ -928,7 +929,7 @@ public class Tracker: NSObject {
     ///   - lifetime: campaign lifetime
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setCampaignLifetime(_ lifetime: Int, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setCampaignLifetime(_ lifetime: Int, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.CampaignLifetime, value: String(lifetime), sync: sync, completionHandler: completionHandler)
     }
     
@@ -938,7 +939,7 @@ public class Tracker: NSObject {
     ///   - duration: Duration between two application openings after which a new session is started
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    public func setSessionBackgroundDuration(_ duration: Int, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+    @objc public func setSessionBackgroundDuration(_ duration: Int, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.SessionBackgroundDuration, value: String(duration), sync: sync, completionHandler: completionHandler)
     }
     
@@ -1010,7 +1011,7 @@ public class Tracker: NSObject {
     ///   - key: parameter key
     ///   - value: string parameter value
     /// - Returns: the current tracker
-    @discardableResult
+    @objc @discardableResult
     public func setParam(_ key: String, value: @escaping ()->(String)) -> Tracker {
         processSetParam(key, value: value)
         
@@ -1024,7 +1025,7 @@ public class Tracker: NSObject {
     ///   - value: string parameter value
     ///   - options: parameter options
     /// - Returns: the current tracker
-    @discardableResult
+    @objc @discardableResult
     public func setParam(_ key: String, value: @escaping ()->(String), options: ParamOption) -> Tracker {
         processSetParam(key, value: value, options: options)
         
@@ -1251,7 +1252,7 @@ public class Tracker: NSObject {
     ///   - value: parameter value
     ///   - type: parameter type
     ///   - options: parameter options
-    func handleNotStringParameterSetting(_ key: String, value: Any, options: ParamOption? = nil) {
+    @objc func handleNotStringParameterSetting(_ key: String, value: Any, options: ParamOption? = nil) {
         var stringValue: (value: String, success: Bool)
         if let optOptions = options {
             stringValue = Tool.convertToString(value, separator: optOptions.separator)
@@ -1273,13 +1274,13 @@ public class Tracker: NSObject {
     /// Remove a parameter from the hit querystring
     ///
     /// - Parameter param: type
-    public func unsetParam(_ param: String) {
+    @objc public func unsetParam(_ param: String) {
         buffer.volatileParameters.removeValue(forKey: param)
         buffer.persistentParameters.removeValue(forKey: param)
     }
     
     /// Remove the screen context: Use only for specific issue mark screenA, mark touchA, dont mark screenB, mark touchB. touchB will be no longer attached to screenA
-    public func resetScreenContext() {
+    @objc public func resetScreenContext() {
         TechnicalContext.screenName = ""
         TechnicalContext.level2 = 0
     }
@@ -1287,7 +1288,7 @@ public class Tracker: NSObject {
     // MARK: - Dispatch
     
     /// Sends all tracking objects added
-    public func dispatch() {
+    @objc public func dispatch() {
         
         if(businessObjects.count > 0) {
             
@@ -1428,7 +1429,7 @@ public class Tracker: NSObject {
     ///  Get the user id
     ///
     /// - Returns: the user id depending on configuration (uuid, idfv)
-    public func getUserId() -> String {
+    @objc public func getUserId() -> String {
         if let hash = self.configuration.parameters["hashUserId"] {
             if (hash == "true") {
                 return TechnicalContext.userId(self.configuration.parameters["identifier"]).sha256Value
@@ -1444,7 +1445,7 @@ public class Tracker: NSObject {
     /// Set a custom user id
     ///
     /// - Parameter userId: the userID. if hashUserId is enabled, the hash will be performed on this userID
-    public func setUserId(userId: String) {
+    @objc public func setUserId(userId: String) {
         let param = ParamOption()
         param.persistent = true
         handleNotStringParameterSetting(HitParam.userID.rawValue, value: userId, options: param)
@@ -1454,7 +1455,7 @@ public class Tracker: NSObject {
     
     
     /// Disable user identification.
-    public class var doNotTrack: Bool {
+    @objc public class var doNotTrack: Bool {
         get {
             return TechnicalContext.doNotTrack
         } set {
@@ -1473,7 +1474,7 @@ public class Tracker: NSObject {
     /// Set tracker crash handler
     /// Use only if you don't already use another crash analytics solution
     /// Once enabled, tracker crash handler can't be disabled until tracker instance termination
-    public class var handleCrash: Bool {
+    @objc public class var handleCrash: Bool {
         get {
             return _handleCrash
         } set {
@@ -1508,14 +1509,14 @@ class TrackerQueue: NSObject {
     }
     
     /// TrackerQueue singleton
-    class var sharedInstance: TrackerQueue {
+    @objc class var sharedInstance: TrackerQueue {
         _ = TrackerQueue.__once
         
         return Static.instance!
     }
     
     /// Queue
-    lazy var queue: OperationQueue = {
+    @objc lazy var queue: OperationQueue = {
         var queue = OperationQueue()
         queue.name = "TrackerQueue"
         queue.maxConcurrentOperationCount = 1

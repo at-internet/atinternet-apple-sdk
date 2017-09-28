@@ -75,7 +75,7 @@ public class NuggAds: NSObject {
     ///
     /// - Parameter data: NuggAd response data
     /// - Returns: NuggAd instance
-    public func add(_ data: [String: Any]) -> NuggAd {
+    @objc public func add(_ data: [String: Any]) -> NuggAd {
         let ad = NuggAd(tracker: tracker)
         ad.data = data
         tracker.businessObjects[ad.id] = ad

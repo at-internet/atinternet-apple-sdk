@@ -40,37 +40,37 @@ public class Order: BusinessObject {
     fileprivate var _isConfirmationRequired: Bool?
     
     /// Order Id
-    public var orderId: String = ""
+    @objc public var orderId: String = ""
     /// Turnover
-    public var turnover: Double = 0.0
+    @objc public var turnover: Double = 0.0
     /// Status
-    public var status: Int = -1 {
+    @objc public var status: Int = -1 {
         didSet {
             _status = status
         }
     }
     /// Discount
-    public lazy var discount: OrderDiscount = OrderDiscount(order: self)
+    @objc public lazy var discount: OrderDiscount = OrderDiscount(order: self)
     /// Amount
-    public lazy var amount: OrderAmount = OrderAmount(order: self)
+    @objc public lazy var amount: OrderAmount = OrderAmount(order: self)
     /// Delivery info
-    public lazy var delivery: OrderDelivery = OrderDelivery(order: self)
+    @objc public lazy var delivery: OrderDelivery = OrderDelivery(order: self)
     /// Custom variables
-    public lazy var customVariables: OrderCustomVars = OrderCustomVars(order: self)
+    @objc public lazy var customVariables: OrderCustomVars = OrderCustomVars(order: self)
     /// New Customer
-    public var isNewCustomer: Bool = false {
+    @objc public var isNewCustomer: Bool = false {
         didSet {
             _isNewCustomer = isNewCustomer
         }
     }
     /// Payment method
-    public var paymentMethod: Int = -1 {
+    @objc public var paymentMethod: Int = -1 {
         didSet {
             _paymentMethod = paymentMethod
         }
     }
     /// Requires confirmation
-    public var isConfirmationRequired: Bool = false {
+    @objc public var isConfirmationRequired: Bool = false {
         didSet {
             _isConfirmationRequired = isConfirmationRequired
         }
@@ -85,7 +85,7 @@ public class Order: BusinessObject {
     /// - Parameters:
     ///   - orderId: order identifier
     ///   - turnover: order turnover
-    public init(orderId: String, turnover: Double) {
+    @objc public init(orderId: String, turnover: Double) {
         super.init()
         
         self.orderId = orderId
@@ -98,7 +98,7 @@ public class Order: BusinessObject {
     ///   - orderId: order identifier
     ///   - turnover: order turnover
     ///   - status: order status 0=No information, 1=Pending, 2=cancelled, 3=approved, 4=return
-    public convenience init(orderId: String, turnover: Double, status: Int) {
+    @objc public convenience init(orderId: String, turnover: Double, status: Int) {
         self.init(orderId: orderId, turnover: turnover)
         
         self.status = status
@@ -190,7 +190,8 @@ public class Orders: NSObject {
     ///   - orderId: order identifier
     ///   - turnover: order turnover
     /// - Returns: Order instance
-    public func add(_ orderId: String, turnover: Double) -> Order {
+    @discardableResult
+    @objc public func add(_ orderId: String, turnover: Double) -> Order {
         let order = Order(tracker: tracker)
         order.orderId = orderId
         order.turnover = turnover
@@ -206,7 +207,7 @@ public class Orders: NSObject {
     ///   - turnover: order turnover
     ///   - status: order status. 0=No information, 1=Pending, 2=cancelled, 3=approved, 4=return
     /// - Returns: Order instance
-    public func add(_ orderId: String, turnover: Double, status: Int) -> Order {
+    @discardableResult @objc public func add(_ orderId: String, turnover: Double, status: Int) -> Order {
         let order = add(orderId, turnover: turnover)
         order.status = status
         
@@ -221,11 +222,11 @@ public class OrderDiscount: NSObject {
     var order: Order
     
     /// Discount with tax
-    public var discountTaxIncluded: Double = -1
+    @objc public var discountTaxIncluded: Double = -1
     /// Discount without tax
-    public var discountTaxFree: Double = -1
+    @objc public var discountTaxFree: Double = -1
     /// Promotional code
-    public var promotionalCode: String?
+    @objc public var promotionalCode: String?
     
     /**
     OrderDiscount initializer
@@ -243,7 +244,7 @@ public class OrderDiscount: NSObject {
     ///   - discountTaxIncluded: discount value tax included
     ///   - promotionalCode: promotional code
     /// - Returns: the Order instance
-    public func set(_ discountTaxFree: Double, discountTaxIncluded: Double, promotionalCode: String) -> Order {
+    @objc public func set(_ discountTaxFree: Double, discountTaxIncluded: Double, promotionalCode: String) -> Order {
         self.discountTaxIncluded = discountTaxIncluded
         self.discountTaxFree = discountTaxFree
         self.promotionalCode = promotionalCode
@@ -259,13 +260,13 @@ public class OrderAmount: NSObject {
     var order: Order
     
     /// Amount without tax
-    public var amountTaxFree: Double = -1
+    @objc public var amountTaxFree: Double = -1
     
     /// Amount with tax
-    public var amountTaxIncluded: Double = -1
+    @objc public var amountTaxIncluded: Double = -1
     
     /// Tax amount
-    public var taxAmount: Double = -1
+    @objc public var taxAmount: Double = -1
     
     /**
     OrderAmount initializer
@@ -283,7 +284,7 @@ public class OrderAmount: NSObject {
     ///   - amountTaxIncluded:  amount value tax included
     ///   - taxAmount: tax amount
     /// - Returns: the Order instance
-    public func set(_ amountTaxFree: Double, amountTaxIncluded: Double, taxAmount: Double) -> Order {
+    @objc public func set(_ amountTaxFree: Double, amountTaxIncluded: Double, taxAmount: Double) -> Order {
         self.amountTaxFree = amountTaxFree
         self.amountTaxIncluded = amountTaxIncluded
         self.taxAmount = taxAmount
@@ -299,11 +300,11 @@ public class OrderDelivery: NSObject {
     var order: Order
     
     /// Shipping fees with tax
-    public var shippingFeesTaxIncluded: Double = -1
+    @objc public var shippingFeesTaxIncluded: Double = -1
     /// Shipping fees without tax
-    public var shippingFeesTaxFree: Double = -1
+    @objc public var shippingFeesTaxFree: Double = -1
     /// Delivery method
-    public var deliveryMethod: String?
+    @objc public var deliveryMethod: String?
     
     /// OrderDelivery initializer
     ///
@@ -319,7 +320,7 @@ public class OrderDelivery: NSObject {
     ///   - shippingFeesTaxIncluded: shipping fees tax included
     ///   - deliveryMethod: delivery method
     /// - Returns: the Order instance
-    public func set(_ shippingFeesTaxFree: Double, shippingFeesTaxIncluded: Double, deliveryMethod: String) -> Order {
+    @objc public func set(_ shippingFeesTaxFree: Double, shippingFeesTaxIncluded: Double, deliveryMethod: String) -> Order {
         self.shippingFeesTaxFree = shippingFeesTaxFree
         self.shippingFeesTaxIncluded = shippingFeesTaxIncluded
         self.deliveryMethod = deliveryMethod
@@ -332,9 +333,9 @@ public class OrderDelivery: NSObject {
 public class OrderCustomVar: NSObject {
     
     /// Custom var identifier
-    public var varId: Int = 0
+    @objc public var varId: Int = 0
     /// Custom var value
-    public var value: String = ""
+    @objc public var value: String = ""
     
     /// initializer
     ///
@@ -371,7 +372,7 @@ public class OrderCustomVars: NSObject {
     ///   - varId: custom var identifier
     ///   - value: custom var value
     /// - Returns: the OrderCustomVar instance
-    public func add(_ varId: Int, value: String) ->  OrderCustomVar {
+    @objc public func add(_ varId: Int, value: String) ->  OrderCustomVar {
         let customVar = OrderCustomVar(varId: varId, value: value)
         
         list.append(customVar)

@@ -118,6 +118,7 @@ public class IdentifiedVisitor: NSObject {
     ///
     /// - Returns: tracker instance
     @discardableResult
+    @objc
     public func unset() -> Tracker {
         _ = tracker.unsetParam(HitParam.visitorIdentifierNumeric.rawValue)
         _ = tracker.unsetParam(HitParam.visitorIdentifierText.rawValue)

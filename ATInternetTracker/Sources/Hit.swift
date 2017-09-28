@@ -63,7 +63,7 @@ class ProcessedHitType: NSObject {
 
 
 /// Class to provide Hit information. A hit is an HTTP request with a querystring containing all tracking information.
-public class Hit: NSObject {
+@objcMembers public class Hit: NSObject {
     
     /// HitType Enum
     ///
@@ -81,7 +81,7 @@ public class Hit: NSObject {
     /// - productDisplay: productDisplay
     /// - weborama: weborama
     /// - mvTesting: mvTesting
-    public enum HitType: Int {
+    @objc public enum HitType: Int {
         case unknown = 0
         /// screen
         case screen = 1
@@ -112,13 +112,13 @@ public class Hit: NSObject {
     }
     
     /// Hit url
-    public var url: String
+    @objc public var url: String
     /// Date of creation
-    public var creationDate: Date
+    @objc public var creationDate: Date
     /// Number of retry that were made to send the hit
-    public var retryCount: NSNumber
+    @objc public var retryCount: NSNumber
     /// Indicates wheter the hit comes from storage
-    public var isOffline: Bool
+    @objc public var isOffline: Bool
     /// Hit type - See HitType
     public  var type: HitType {
         get {
@@ -126,7 +126,7 @@ public class Hit: NSObject {
         }
     }
     /// Description
-    public var text: String {
+    @objc public var text: String {
         return url
     }
     

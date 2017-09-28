@@ -47,28 +47,28 @@ public class Offline: NSObject {
     }
     
     /// Send all hits stored
-    public func dispatch() {
+    @objc public func dispatch() {
         Sender.sendOfflineHits(self.tracker, forceSendOfflineHits: true, async: true)
     }
     
     /// Get all offline hits stored in database
     ///
     /// - Returns: collection of offline hits
-    public func get() -> [Hit] {
+    @objc public func get() -> [Hit] {
         return Storage.sharedInstance.get()
     }
     
     /// Get the number of offline hits stored in database
     ///
     /// - Returns: number of offline hits
-    public func count() -> Int {
+    @objc public func count() -> Int {
         return Storage.sharedInstance.count()
     }
 
     /// Delete all offline hits stored in database
     ///
     /// - Returns: number of deleted hits (-1 if an error occured)
-    public func delete() -> Int {
+    @objc public func delete() -> Int {
         return Storage.sharedInstance.delete()
     }
 
@@ -101,14 +101,14 @@ public class Offline: NSObject {
     /// Get the first hit stored in database
     ///
     /// - Returns: the oldest hit
-    public func oldest() -> Hit? {
+    @objc public func oldest() -> Hit? {
         return Storage.sharedInstance.first()
     }
     
     /// Get the latest hit stored in database
     ///
     /// - Returns: the latest hit
-    public func latest() -> Hit? {
+    @objc public func latest() -> Hit? {
         return Storage.sharedInstance.last()
     }
 }

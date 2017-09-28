@@ -128,6 +128,7 @@ public class CustomVars: NSObject {
     ///   - type: type of the custom variable - See CustomVarType
     /// - Returns: the new custom var instance
     @discardableResult
+    @objc
     public func add(_ varId: Int, value: String, type: CustomVar.CustomVarType) -> CustomVar {
         let customVar = CustomVar(varId: varId, value: value, type: type)
         customVar.tracker = self.tracker
@@ -145,7 +146,7 @@ public class CustomVars: NSObject {
      Remove a custom variable
      - parameter customVarId: the custom variable identifier
      */
-    public func remove(_ customVarId: String) {
+    @objc public func remove(_ customVarId: String) {
         if(screen != nil) {
             screen!._customVars.removeValue(forKey: customVarId)
         } else {
@@ -161,7 +162,7 @@ public class CustomVars: NSObject {
     /**
      Remove all the custom variables
      */
-    public func removeAll() {
+    @objc public func removeAll() {
         if(screen != nil) {
             screen!._customVars.removeAll(keepingCapacity: false)
         } else {

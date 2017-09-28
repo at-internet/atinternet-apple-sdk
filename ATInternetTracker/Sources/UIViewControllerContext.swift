@@ -60,6 +60,7 @@ class UIViewControllerContext {
         NSClassFromString("MKSmallCalloutViewController"),
         NSClassFromString("UIPageViewController"),
         NSClassFromString("UIApplicationRotationFollowingController"),
+        NSClassFromString("_UIRemoteInputViewController")
     ];
     
     /// An array representing "noise" protocols that are loaded quietly that we want to ignore

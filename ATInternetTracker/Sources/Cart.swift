@@ -35,10 +35,10 @@ SOFTWARE.
 public class Cart: BusinessObject {
     
     /// Cart identifier
-    public var cartId: String = ""
+    @objc public var cartId: String = ""
     
     /// Cart products
-    public lazy var products: Products = Products(cart: self)
+    @objc public lazy var products: Products = Products(cart: self)
     
     /// Product list
     lazy var productList: [String: Product] = [String: Product]()
@@ -47,7 +47,7 @@ public class Cart: BusinessObject {
     ///
     /// - Parameter cartId: the cart identifier
     /// - Returns: the cart
-    public func set(_ cartId: String) -> Cart {
+    @objc public func set(_ cartId: String) -> Cart {
         if(cartId != self.cartId) {
             products.removeAll()
         }
@@ -61,7 +61,7 @@ public class Cart: BusinessObject {
     /**
     Unset the cart
     */
-    public func unset() {
+    @objc public func unset() {
         self.cartId = ""
         self.products.removeAll()
         

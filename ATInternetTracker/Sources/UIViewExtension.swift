@@ -159,6 +159,14 @@ extension UIView {
         return nil;
     }
     
+    func safeIsKind(ofClass: String) -> Bool {
+        guard let cls = NSClassFromString(ofClass) else {
+            return false
+        }
+        
+        return self.isKind(of: cls)
+    }
+    
     /// Gets the type of UIView
     var type: UIApplicationContext.ViewType {
         if self.isInTableViewCell {
@@ -166,27 +174,27 @@ extension UIView {
         } else if self.isInCollectionViewCell {
             return UIApplicationContext.ViewType.collectionViewCell
         }
-        else if(self.isKind(of: NSClassFromString("_UINavigationBarBackIndicatorView")!)) {
+        else if self.safeIsKind(ofClass: "_UINavigationBarBackIndicatorView") {
             return UIApplicationContext.ViewType.backButton
-        } else if(self.isKind(of: NSClassFromString("UITabBarButton")!)) {
+        } else if self.safeIsKind(ofClass: "UITabBarButton") {
             return UIApplicationContext.ViewType.tabBarButton
-        } else if(self.isKind(of: NSClassFromString("UISegmentedControl")!)) {
+        } else if self.safeIsKind(ofClass: "UISegmentedControl") {
             return UIApplicationContext.ViewType.segmentedControl
-        } else if(self.isKind(of: NSClassFromString("UISlider")!)) {
+        } else if self.safeIsKind(ofClass: "UISlider") {
             return UIApplicationContext.ViewType.slider
-        } else if(self.isKind(of: NSClassFromString("UITextField")!)) {
+        } else if self.safeIsKind(ofClass: "UITextField") {
             return UIApplicationContext.ViewType.textField
-        } else if(self.isKind(of: NSClassFromString("UIStepper")!)) {
+        } else if self.safeIsKind(ofClass: "UIStepper") {
             return UIApplicationContext.ViewType.stepper
-        } else if(self.isKind(of: NSClassFromString("UIButton")!)) {
+        } else if self.safeIsKind(ofClass: "UIButton") {
             return UIApplicationContext.ViewType.button
-        } else if(self.isKind(of: NSClassFromString("UISwitch")!)) {
+        } else if self.safeIsKind(ofClass: "UISwitch") {
             return UIApplicationContext.ViewType.uiswitch
-        } else if(self.isKind(of: NSClassFromString("UINavigationBar")!)) {
+        } else if self.safeIsKind(ofClass: "UINavigationBar") {
             return UIApplicationContext.ViewType.navigationBar
-        } else if(self.isKind(of: NSClassFromString("UIPageControl")!)) {
+        } else if self.safeIsKind(ofClass: "UIPageControl") {
             return UIApplicationContext.ViewType.pageControl
-        } else if(self.isKind(of: NSClassFromString("UIDatePicker")!)) {
+        } else if self.safeIsKind(ofClass: "UIDatePicker") {
             return UIApplicationContext.ViewType.datePicker
         } else {
             return UIApplicationContext.ViewType.unknown

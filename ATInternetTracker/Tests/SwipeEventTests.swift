@@ -55,8 +55,8 @@ class SwipeEventTests: XCTestCase {
                     "height":UIScreen.main.bounds.size.height,
                     "app":[
                         "device":"x86_64",
-                        "token":"",
-                        "package":"",
+                        "token":"-",
+                        "package":"noApplicationIdentifier",
                         "version":"",
                         "platform":"ios",
                     ],

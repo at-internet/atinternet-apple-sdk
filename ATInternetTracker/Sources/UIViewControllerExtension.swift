@@ -87,23 +87,27 @@ extension UIViewController {
         }
         let swizzle = Swizzler(_class: selfClass, _sel1: name, _sel2: name2)
         UIViewController.swizzlers.append(swizzle)
-        
-        let orig = class_getInstanceMethod(selfClass, name)
-        let replace = class_getInstanceMethod(selfClass, name2)
+        guard
+            let orig = class_getInstanceMethod(selfClass, name),
+            let replace = class_getInstanceMethod(selfClass, name2)
+        else {
+            print("tracker at_swizzle_instance failed")
+            return
+        }
         method_exchangeImplementations(orig, replace)
     }
     
-    func at_previewingContext(_ previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+    @objc func at_previewingContext(_ previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
         UIViewControllerContext.sharedInstance.isPeekAndPoped = true
         self.at_previewingContext(previewingContext, commitViewController: viewControllerToCommit)
     }
     
-    func at_previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+    @objc func at_previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         UIViewControllerContext.sharedInstance.isPeek = true
         return self.at_previewingContext(previewingContext, viewControllerForLocation: location)
     }
     
-    func at_viewWillTransitionToSize(_ size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    @objc func at_viewWillTransitionToSize(_ size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         let oldOrientation = UIViewControllerContext.sharedInstance.currentOrientation
         if size.width < size.height {
             if oldOrientation != .portrait {
@@ -120,8 +124,10 @@ extension UIViewController {
         self.at_viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
     }
 
-    func at_viewDidLoad() {
-        let selfClass: AnyClass = object_getClass(self)
+    @objc func at_viewDidLoad() {
+        guard let selfClass: AnyClass = object_getClass(self) else {
+            return
+        }
         guard let previewProtocol = NSProtocolFromString("UIViewControllerPreviewingDelegate") else {
             return
         }
@@ -129,15 +135,17 @@ extension UIViewController {
             var mc:CUnsignedInt = 0
             var mlist = class_copyMethodList(selfClass, &mc);
             for _ in 0...mc {
-                let name = method_getName(mlist?.pointee)
-                mlist = mlist?.successor()
-                if name?.description == "previewingContext:commitViewController:" {
-                    let s = #selector(UIViewController.at_previewingContext(_:commitViewController:))
-                    at_swizzle_instance(name!, name2: s, selfClass: selfClass)
-                }
-                if name?.description == "previewingContext:viewControllerForLocation:" {
-                    let s = #selector(UIViewController.at_previewingContext(_:viewControllerForLocation:))
-                    at_swizzle_instance(name!, name2: s, selfClass: selfClass)
+                if let pointee = mlist?.pointee {
+                    let name = method_getName(pointee)
+                    mlist = mlist?.successor()
+                    if name.description == "previewingContext:commitViewController:" {
+                        let s = #selector(UIViewController.at_previewingContext(_:commitViewController:))
+                        at_swizzle_instance(name, name2: s, selfClass: selfClass)
+                    }
+                    if name.description == "previewingContext:viewControllerForLocation:" {
+                        let s = #selector(UIViewController.at_previewingContext(_:viewControllerForLocation:))
+                        at_swizzle_instance(name, name2: s, selfClass: selfClass)
+                    }
                 }
             }
         }
@@ -147,8 +155,13 @@ extension UIViewController {
     /// do not use this method unless you know what you are doing. Disable the swizzling for autotracking
     public class func at_unswizzle_instances () {
         for s in swizzlers {
-            let orig = class_getInstanceMethod(s._class, s._sel1)
-            let replace = class_getInstanceMethod(s._class, s._sel2)
+            guard
+                let orig = class_getInstanceMethod(s._class, s._sel1),
+                let replace = class_getInstanceMethod(s._class, s._sel2)
+            else {
+                print("Tracker unswizzle failure")
+                return
+            }
             method_exchangeImplementations(orig, replace)
         }
         swizzlers.removeAll()
@@ -159,7 +172,7 @@ extension UIViewController {
      
      - parameter animated: not related
      */
-    func at_viewDidAppear(_ animated: Bool) {
+    @objc func at_viewDidAppear(_ animated: Bool) {
         // reset the screen context
         TechnicalContext.screenName = ""
         TechnicalContext.level2 = 0
@@ -221,7 +234,7 @@ extension UIViewController {
      
      - parameter animated: animated
      */
-    func at_viewWillDisappear(_ animated: Bool) {
+    @objc func at_viewWillDisappear(_ animated: Bool) {
         self.at_viewWillDisappear(animated)
         
         if UIViewControllerContext.sharedInstance.isPeek {
@@ -256,7 +269,7 @@ extension UIViewController {
      
      - parameter animated: not related (how the VC is transitioning)
      */
-    func at_viewDidDisappear(_ animated: Bool) {
+    @objc func at_viewDidDisappear(_ animated: Bool) {
         let context = UIViewControllerContext.sharedInstance
         
         for i in (0 ..< context.activeViewControllers.count).reversed() {

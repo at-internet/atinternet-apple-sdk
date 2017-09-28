@@ -187,7 +187,7 @@ class TechnicalContext: NSObject {
     }
     
     /// Device OS (name + version)
-    class var operatingSystem: String {
+    @objc class var operatingSystem: String {
         get {
             #if os(watchOS)
             return String(format: "[%@]-[%@]", WKInterfaceDevice.current().systemName.removeSpaces().lowercased(), WKInterfaceDevice.current().systemVersion)
@@ -199,24 +199,19 @@ class TechnicalContext: NSObject {
     
     /// Application localized name
     class var applicationName: String {
-        get {
-            let name = Bundle.main.infoDictionary!["CFBundleDisplayName"] as? String
-            
-            if let optName = name {
-                return optName
-            } else {
-                
-                if let localizedDic = Bundle.main.localizedInfoDictionary {
-                    let localizedName = localizedDic["CFBundleDisplayName"] as? String
-                    
-                    if let optLocalizedName = localizedName {
-                        return optLocalizedName
-                    }
-                }
+        let defaultAppName = TechnicalContext.applicationIdentifier
+        if let info = Bundle.main.infoDictionary,  let name = info["CFBundleDisplayName"] as? String {
+            if !name.isEmpty {
+                return name
             }
-            
-            return TechnicalContext.applicationIdentifier
         }
+        if let localizedDic = Bundle.main.localizedInfoDictionary, let name = localizedDic["CFBundleDisplayName"] as? String {
+            if !name.isEmpty {
+                return name
+            }
+        }
+        
+        return defaultAppName
     }
     
     #if os(iOS) && AT_SMART_TRACKER
@@ -228,14 +223,14 @@ class TechnicalContext: NSObject {
     #endif
     
     /// Application identifier (eg. com.atinternet.testapp)
-    class var applicationIdentifier: String {
+     class var applicationIdentifier: String {
         get {
-            let identifier = Bundle.main.infoDictionary!["CFBundleIdentifier"] as? String
+            let identifier = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String
             
             if let optIdentifier = identifier {
                 return String(format:"%@", optIdentifier)
             } else {
-                return ""
+                return "noApplicationIdentifier"
             }
         }
     }
@@ -281,7 +276,7 @@ class TechnicalContext: NSObject {
     
     #if os(iOS)
     /// Carrier
-    class var carrier: String {
+    @objc class var carrier: String {
         get {
             let networkInfo = CTTelephonyNetworkInfo()
             let provider = networkInfo.subscriberCellularProvider

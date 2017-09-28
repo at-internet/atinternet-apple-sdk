@@ -39,19 +39,19 @@ public class MediaPlayer: NSObject {
     var tracker: Tracker
     
     /// Player ID
-    public var playerId: Int = 1
+    @objc public var playerId: Int = 1
     
     /// List of videos attached to this player
-    public lazy var videos: Videos = Videos(player: self)
+    @objc public lazy var videos: Videos = Videos(player: self)
     
     /// List of audios attached to this player
-    public lazy var audios: Audios = Audios(player: self)
+    @objc public lazy var audios: Audios = Audios(player: self)
     
     /// List of live videos attached to this player
-    public lazy var liveVideos: LiveVideos = LiveVideos(player: self)
+    @objc public lazy var liveVideos: LiveVideos = LiveVideos(player: self)
     
     /// List of live audios attached to this player
-    public lazy var liveAudios: LiveAudios = LiveAudios(player: self)
+    @objc public lazy var liveAudios: LiveAudios = LiveAudios(player: self)
     
     /**
     Players initializer
@@ -84,7 +84,7 @@ public class MediaPlayers: NSObject {
     /// Add a new Media Player
     ///
     /// - Returns: the new MediaPlayer instance
-    public func add() -> MediaPlayer {
+    @objc public func add() -> MediaPlayer {
         let player = MediaPlayer(tracker: tracker)
         
         if playerIds.count > 0 {
@@ -102,7 +102,7 @@ public class MediaPlayers: NSObject {
     ///
     /// - Parameter playerId: the player identifier
     /// - Returns: the new MediaPlayer instance
-    public func add(_ playerId: Int) -> MediaPlayer {
+    @objc public func add(_ playerId: Int) -> MediaPlayer {
         
         if (playerIds.index(forKey: playerId) != nil) {
             self.tracker.delegate?.warningDidOccur?("A player with the same id already exists.")
@@ -120,7 +120,7 @@ public class MediaPlayers: NSObject {
     /// Remove a MediaPlayer by ID
     ///
     /// - Parameter playerId: the player identifier
-    public func remove(_ playerId: Int) {
+    @objc public func remove(_ playerId: Int) {
         let player = playerIds[playerId]
         
         if let player = player {
@@ -131,7 +131,7 @@ public class MediaPlayers: NSObject {
     }
     
     /// Remove all MediaPlayer and stop every players
-    public func removeAll() {
+    @objc public func removeAll() {
         for (player) in self.playerIds.values {
             self.sendStops(player)
         }

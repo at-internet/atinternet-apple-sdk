@@ -94,28 +94,28 @@ public class RichMedia : BusinessObject {
     var broadcastMode: BroadcastMode = BroadcastMode.clip
     
     /// Media name
-    public var name: String = ""
+    @objc public var name: String = ""
     
     /// First chapter
-    public var chapter1: String?
+    @objc public var chapter1: String?
     
     /// Second chapter
-    public var chapter2: String?
+    @objc public var chapter2: String?
     
     /// Third chapter
-    public var chapter3: String?
+    @objc public var chapter3: String?
     
     /// Level 2
-    public var level2: Int = 0
+    @objc public var level2: Int = 0
     
     /// Refresh Duration
     var refreshDuration: Int = 5
     
     /// Action. see RichMediaAction
-    public var action: RichMediaAction = RichMediaAction.play
+    @objc public var action: RichMediaAction = RichMediaAction.play
     
     /// Web domain 
-    public var webdomain: String?
+    @objc public var webdomain: String?
    
     init(player: MediaPlayer) {
         self.player = player
@@ -196,7 +196,7 @@ public class RichMedia : BusinessObject {
     }
     
     /// Send a play action tracking. Refresh is enabled with default duration
-    public func sendPlay() {
+    @objc public func sendPlay() {
         self.action = RichMediaAction.play
         
         self.tracker.dispatcher.dispatch([self])
@@ -207,7 +207,7 @@ public class RichMedia : BusinessObject {
     /// Send a play action tracking. Refresh is enabled with custom duration
     ///
     /// - Parameter refreshDuration: duration in second, must be >= 5
-    public func sendPlay(_ refreshDuration: Int) {
+    @objc public func sendPlay(_ refreshDuration: Int) {
         
         self.action = RichMediaAction.play
         
@@ -223,7 +223,7 @@ public class RichMedia : BusinessObject {
     }
     
     /// Send a pause action tracking
-    public func sendPause(){
+    @objc public func sendPause(){
         
         if let timer = self.timer {
             if timer.isValid {
@@ -239,7 +239,7 @@ public class RichMedia : BusinessObject {
     
     
     /// Send a stop action tracking
-    public func sendStop() {
+    @objc public func sendStop() {
         
         if let timer = self.timer {
             if timer.isValid {
@@ -255,7 +255,7 @@ public class RichMedia : BusinessObject {
     
     
     /// Send a move action tracking
-    public func sendMove() {
+    @objc public func sendMove() {
         self.action  = RichMediaAction.move
         
         self.tracker.dispatcher.dispatch([self])

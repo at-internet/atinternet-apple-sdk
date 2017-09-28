@@ -36,11 +36,11 @@ import Foundation
 /// Wrapper class for internal search tracking
 public class InternalSearch: BusinessObject {
     /// Searched keywords
-    public var keyword: String = ""
+    @objc public var keyword: String = ""
     /// Number of page result
-    public var resultScreenNumber: Int = 1
+    @objc public var resultScreenNumber: Int = 1
     /// Position of result in list
-    public var resultPosition: Int = -1
+    @objc public var resultPosition: Int = -1
     
     override init(tracker: Tracker) {
         super.init(tracker: tracker)
@@ -51,7 +51,7 @@ public class InternalSearch: BusinessObject {
     /// - Parameters:
     ///   - keyword: internal search keyword
     ///   - resultScreenNumber: number of screens returned
-    public init(keyword: String, resultScreenNumber: Int) {
+    @objc public init(keyword: String, resultScreenNumber: Int) {
         super.init()
         
         self.keyword = keyword
@@ -89,7 +89,7 @@ public class InternalSearches: NSObject {
     ///   - keyword: keyword search
     ///   - resultScreenNumber: page number result
     /// - Returns: a new internal search instance
-    public func add(_ keyword: String, resultScreenNumber: Int) -> InternalSearch {
+    @objc public func add(_ keyword: String, resultScreenNumber: Int) -> InternalSearch {
         let search = InternalSearch(tracker: tracker)
         search.keyword = keyword
         search.resultScreenNumber = resultScreenNumber
@@ -105,7 +105,7 @@ public class InternalSearches: NSObject {
     ///   - resultScreenNumber: page number result
     ///   - resultPosition: the result position in the list
     /// - Returns: a new internal search instance
-    public func add(_ keyword: String, resultScreenNumber: Int, resultPosition: Int) -> InternalSearch {
+    @objc public func add(_ keyword: String, resultScreenNumber: Int, resultPosition: Int) -> InternalSearch {
         let search = add(keyword, resultScreenNumber: resultScreenNumber)
         search.resultPosition = resultPosition
         

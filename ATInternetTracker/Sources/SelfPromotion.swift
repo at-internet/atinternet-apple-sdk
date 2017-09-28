@@ -38,19 +38,19 @@ public class SelfPromotion : OnAppAd {
     lazy var _customObjects: [String: CustomObject] = [String: CustomObject]()
     
     /// Advertising identifier
-    public var adId: Int = 0
+    @objc public var adId: Int = 0
     /// Advertising format
-    public var format: String?
+    @objc public var format: String?
     /// Product identifier
-    public var productId: String?
+    @objc public var productId: String?
     
     /// Get a wrapper for Custom objects management
-    public lazy var customObjects: CustomObjects = CustomObjects(selfPromotion: self)
+    @objc public lazy var customObjects: CustomObjects = CustomObjects(selfPromotion: self)
     
     /**
     Send self promotion touch hit
     */
-    public func sendTouch() {
+    @objc public func sendTouch() {
         self.action = OnAppAdAction.touch
         self.tracker.dispatcher.dispatch([self])
     }
@@ -58,7 +58,7 @@ public class SelfPromotion : OnAppAd {
     /**
     Send self promotion view hit
     */
-    public func sendImpression() {
+    @objc public func sendImpression() {
         self.action = OnAppAdAction.view
         self.tracker.dispatcher.dispatch([self])
     }
@@ -122,16 +122,16 @@ public class SelfPromotion : OnAppAd {
 /// self promotion impression tracking
 public class SelfPromotionImpression: ScreenInfo {
     /// Advertising identifier
-    public var adId: Int = 0
+    @objc public var adId: Int = 0
     /// Advertising format
-    public var format: String?
+    @objc public var format: String?
     /// Product identifier
-    public var productId: String?
+    @objc public var productId: String?
     
     /// Constructor
     ///
     /// - Parameter adId: Advertising identifier
-    public init(adId: Int) {
+    @objc public init(adId: Int) {
         super.init()
         
         self.adId = adId
@@ -186,7 +186,7 @@ public class SelfPromotionImpressions: NSObject {
     ///
     /// - Parameter adId: Advertiser indentifier
     /// - Returns: the new SelfPromotionImpression
-    public func add(_ adId: Int) -> SelfPromotionImpression {
+    @objc public func add(_ adId: Int) -> SelfPromotionImpression {
         let selfPromo = SelfPromotionImpression(tracker: self.tracker)
         selfPromo.adId = adId
         
@@ -216,6 +216,7 @@ public class SelfPromotions: NSObject {
     /// - Parameter adId: advertiser identifier
     /// - Returns: the new SelfPromotion instance
     @discardableResult
+    @objc
     public func add(_ adId: Int) -> SelfPromotion {
         let selfPromotion = SelfPromotion(tracker: self.tracker)
         selfPromotion.adId = adId
@@ -227,7 +228,7 @@ public class SelfPromotions: NSObject {
     
     
     /// Send all impressions
-    public func sendImpressions() {
+    @objc public func sendImpressions() {
         var impressions = [BusinessObject]()
         
         for(_, object) in self.tracker.businessObjects {

@@ -41,7 +41,7 @@ extension UILabel {
         let max = CGSize(width: self.frame.size.width,height: 9999)
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
-        let d:[String: Any] = [NSFontAttributeName:self.font, NSParagraphStyleAttributeName: paragraph]
+        let d:[NSAttributedStringKey: Any] = [NSAttributedStringKey.font:self.font, NSAttributedStringKey.paragraphStyle: paragraph]
         guard let text = self.text else {return 0}
         let x = text.boundingRect(with: max,options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: d, context: nil)
         return x.height

@@ -37,9 +37,9 @@ class ScreenObjectTests: XCTestCase {
                 "height": UIScreen.main.bounds.height,
                 "app":[
                     "device":"x86_64",
-                    "token":"",
+                    "token":"-",
                     "version":"",
-                    "package":"",
+                    "package":"noApplicationIdentifier",
                     "platform":"ios",
                 ],
                 "orientation":1

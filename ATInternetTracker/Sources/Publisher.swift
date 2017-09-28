@@ -37,34 +37,34 @@ public class Publisher : OnAppAd {
     lazy var _customObjects: [String: CustomObject] = [String: CustomObject]()
     
     /// Campaign identifier
-    public var campaignId: String = ""
+    @objc public var campaignId: String = ""
     
     /// Creation
-    public var creation: String?
+    @objc public var creation: String?
     
     /// Variant
-    public var variant: String?
+    @objc public var variant: String?
     
     /// Format
-    public var format: String?
+    @objc public var format: String?
     
     /// General placement
-    public var generalPlacement: String?
+    @objc public var generalPlacement: String?
     
     /// Detailed placement
-    public var detailedPlacement: String?
+    @objc public var detailedPlacement: String?
     
     /// Advertiser identifier
-    public var advertiserId: String?
+    @objc public var advertiserId: String?
     
     /// URL
-    public var url: String?
+    @objc public var url: String?
     
     // Custom objects to add to publisher hit
-    public lazy var customObjects: CustomObjects = CustomObjects(publisher: self)
+    @objc public lazy var customObjects: CustomObjects = CustomObjects(publisher: self)
     
     /// Send publisher touch hit
-    public func sendTouch() {
+    @objc public func sendTouch() {
         self.action = OnAppAdAction.touch
         self.tracker.dispatcher.dispatch([self])
     }
@@ -72,7 +72,7 @@ public class Publisher : OnAppAd {
     /**
     Send publisher view hit
     */
-    public func sendImpression() {
+    @objc public func sendImpression() {
         self.action = OnAppAdAction.view
         self.tracker.dispatcher.dispatch([self])
     }
@@ -164,33 +164,33 @@ public class Publisher : OnAppAd {
 /// Wrapper class for publisher impression tracking. They are attached to a Screen
 public class PublisherImpression: ScreenInfo {
     /// Campaign identifier
-    public var campaignId: String = ""
+    @objc public var campaignId: String = ""
     
     /// Creation
-    public var creation: String?
+    @objc public var creation: String?
     
     /// Variant
-    public var variant: String?
+    @objc public var variant: String?
     
     /// Format
-    public var format: String?
+    @objc public var format: String?
     
     /// General placement
-    public var generalPlacement: String?
+    @objc public var generalPlacement: String?
     
     /// Detailed placement
-    public var detailedPlacement: String?
+    @objc public var detailedPlacement: String?
     
     /// Advertiser identifier
-    public var advertiserId: String?
+    @objc public var advertiserId: String?
     
     /// URL
-    public var url: String?
+    @objc public var url: String?
     
     /// Create a PublisherImpression with a campaignId
     ///
     /// - Parameter campaignId: campaign identifier
-    public init(campaignId: String) {
+    @objc public init(campaignId: String) {
         super.init()
         
         self.campaignId = campaignId
@@ -255,7 +255,7 @@ public class PublisherImpression: ScreenInfo {
 }
 
 /// Wrapper class to manage PublisherImpressions instances
-public class PublisherImpressions: NSObject {
+@objc public class PublisherImpressions: NSObject {
     /// Tracker instance
     var tracker: Tracker!
     
@@ -272,6 +272,7 @@ public class PublisherImpressions: NSObject {
     /// - Parameter campaignId: campaign identifier
     /// - Returns: the new publisher instance
     @discardableResult
+    @objc
     public func add(_ campaignId: String) -> PublisherImpression {
         let publisherDetail = PublisherImpression(tracker: self.tracker)
         publisherDetail.campaignId = campaignId
@@ -301,6 +302,7 @@ public class Publishers: NSObject {
     /// - Parameter campaignId: campaign identifier
     /// - Returns: the new Publisher instance
     @discardableResult
+    @objc
     public func add(_ campaignId: String) -> Publisher {
         let publisherDetail = Publisher(tracker: self.tracker)
         publisherDetail.campaignId = campaignId
@@ -313,7 +315,7 @@ public class Publishers: NSObject {
     /**
     Send publisher views hits
     */
-    public func sendImpressions() {
+    @objc public func sendImpressions() {
         var impressions = [BusinessObject]()
         
         for(_, object) in self.tracker.businessObjects {

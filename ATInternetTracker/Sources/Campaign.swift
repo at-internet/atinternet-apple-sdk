@@ -36,7 +36,7 @@ import Foundation
 /// Wrapper class for marketing campaign tracking
 public class Campaign: ScreenInfo {
     /// Campaign id (XTO)
-    public var campaignId: String = ""
+    @objc public var campaignId: String = ""
     
     override init(tracker: Tracker) {
         super.init(tracker: tracker)
@@ -46,7 +46,7 @@ public class Campaign: ScreenInfo {
     /// Create a new campaign with an identifier
     ///
     /// - Parameter campaignId: campaignId identifier
-    public init(campaignId: String) {
+    @objc public init(campaignId: String) {
         super.init()
         
         self.campaignId = campaignId
@@ -103,7 +103,7 @@ public class Campaigns: NSObject {
     ///
     /// - Parameter campaignId: campaign identifier
     /// - Returns: the Campaign instance
-    public func add(campaignId: String) -> Campaign {
+    @objc public func add(campaignId: String) -> Campaign {
         let campaign = Campaign(tracker: tracker)
         campaign.campaignId = campaignId
         tracker.businessObjects[campaign.id] = campaign

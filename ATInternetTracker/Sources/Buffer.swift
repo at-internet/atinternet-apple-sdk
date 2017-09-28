@@ -33,7 +33,7 @@ SOFTWARE.
 import Foundation
 
 /// Buffer that stores hit parameters
-public class Buffer: NSObject {
+class Buffer: NSObject {
     /// Tracker instance
     var tracker: Tracker
     /// Dictionary that contains persistent parameters (context variables, etc.)

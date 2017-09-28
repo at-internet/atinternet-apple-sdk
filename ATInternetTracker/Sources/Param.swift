@@ -146,7 +146,7 @@ class Param: NSObject {
 }
 
 /// Parameter option
-public class ParamOption: NSObject {
+@objcMembers public class ParamOption: NSObject {
     /// Enum to customize parameter options
     ///
     /// - none: Undefined

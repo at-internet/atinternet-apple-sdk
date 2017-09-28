@@ -84,6 +84,7 @@ public class TVTracking: NSObject {
     - returns: tracker instance
     */
     @discardableResult
+    @objc
     public func set() -> Tracker {
         if ((PluginParam.list(self.tracker)["tvt"]) != nil) {
             let option = ParamOption()
@@ -103,6 +104,7 @@ public class TVTracking: NSObject {
     /// - Parameter campaignURL: campaign string url
     /// - Returns: tracker instance
     @discardableResult
+    @objc
     public func set(_ campaignURL: String) -> Tracker {
         let URL = Foundation.URL(string: campaignURL)
         
@@ -121,7 +123,7 @@ public class TVTracking: NSObject {
     ///   - campaignURL: campaign string url
     ///   - visitDuration: visitDuration
     /// - Returns: tracker instance
-    public func set(_ campaignURL: String, visitDuration: Int) -> Tracker {
+    @objc public func set(_ campaignURL: String, visitDuration: Int) -> Tracker {
         self.visitDuration = visitDuration
         
         return set(campaignURL)
@@ -130,7 +132,7 @@ public class TVTracking: NSObject {
     /**
     Disable TV Tracking
     */
-    public func unset() {
+    @objc public func unset() {
         self.tracker.unsetParam("tvt")
         configure()
     }
