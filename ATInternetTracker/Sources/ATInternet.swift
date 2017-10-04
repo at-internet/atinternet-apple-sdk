@@ -49,7 +49,7 @@ public class ATInternet: NSObject {
         }()
     
     #if os(iOS) && AT_SMART_TRACKER
-    /// Get an AutoTracker with "defaultTracker" name
+    /// /!\ SmartSDK only - Get an AutoTracker with "defaultTracker" name
     @objc public var defaultTracker: AutoTracker {
         get {
             if(self.trackers == nil) {

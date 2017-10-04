@@ -38,7 +38,7 @@ class NuggAdTests: XCTestCase {
     func testSetNuggAdNotEnabled() {
         let expectation = self.expectation(description: "test")
         
-        let tracker = Tracker(configuration: ["log":"logp", "logSSL":"logs", "domain":"xiti.com", "pixelPath":"/hit.xiti", "site":"549808", "secure":"false", "identifier":"uuid", "plugins": "", "storage":"required","enableBackgroundTask":"true", "hashUserId": "false","persistIdentifiedVisitor":"true","tvtUrl":"http://tochange.com/resources/spot4","tvtVisitDuration":"1"])
+        let tracker = Tracker(configuration: ["log":"logp", "logSSL":"logs", "domain":"xiti.com", "pixelPath":"/hit.xiti", "site":"549808", "secure":"false", "identifier":"uuid", "plugins": "", "storage":"required","enableBackgroundTask":"true", "hashUserId": "false","persistIdentifiedVisitor":"true"])
 
         let nuggAd = tracker.nuggAds.add(["k0": "v0", "k1": "v1"])
         nuggAd.setEvent()
@@ -56,7 +56,7 @@ class NuggAdTests: XCTestCase {
     func testSetNuggAdEnabled() {
         let expectation = self.expectation(description: "test")
         
-        let tracker = Tracker(configuration: ["log":"logp", "logSSL":"logs", "domain":"xiti.com", "pixelPath":"/hit.xiti", "site":"549808", "secure":"false", "identifier":"uuid", "plugins": "nuggad", "storage":"required","enableBackgroundTask":"true", "hashUserId": "false","persistIdentifiedVisitor":"true","tvtUrl":"http://tochange.com/resources/resources/spot4","tvtVisitDuration":"1", "sessionBackgroundDuration":"60"])
+        let tracker = Tracker(configuration: ["log":"logp", "logSSL":"logs", "domain":"xiti.com", "pixelPath":"/hit.xiti", "site":"549808", "secure":"false", "identifier":"uuid", "plugins": "nuggad", "storage":"required","enableBackgroundTask":"true", "hashUserId": "false","persistIdentifiedVisitor":"true", "sessionBackgroundDuration":"60"])
         let nuggAd = tracker.nuggAds.add(["k0": "v0"])
         nuggAd.setEvent()
         

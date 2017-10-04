@@ -157,11 +157,15 @@ class TechnicalContext: NSObject {
         
     }
     
-    /// SDK Version
+    /// SmartSDK Version
     class var sdkVersion: String {
         get {
             if let optInfoDic = Bundle(for: Tracker.self).infoDictionary {
-                return optInfoDic["CFBundleShortVersionString"] as! String
+                #if os(iOS) && AT_SMART_TRACKER
+                    return (optInfoDic["CFBundleShortVersionString"] as! String)+"s"
+                #else
+                    return optInfoDic["CFBundleShortVersionString"] as! String
+                #endif
             } else {
                 return ""
             }

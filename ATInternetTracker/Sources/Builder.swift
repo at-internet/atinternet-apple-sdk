@@ -388,13 +388,13 @@ class Builder: Operation {
         volatileParameters.forEach { (k,v) in buffer[k] = v }
         
         // Plugin management
-        if buffer["tvt"] != nil {
+        /*if buffer["tvt"] != nil {
             if let optPlugin = PluginParam.list(tracker)["tvt"] {
                 let plugin = optPlugin.init(tracker: tracker)
                 plugin.execute()
                 buffer["stc"]?.values.append({plugin.response})
             }
-        }
+        }*/
         
         let bufferParams = organizeParameters(buffer)
         

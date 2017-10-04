@@ -46,10 +46,8 @@ public enum OfflineModeKey: String {
 
 /// Plugin keys
 ///
-/// - tvTracking: TvTracking
 /// - nuggAd: NuggAd
 public enum PluginKey: String {
-    case tvTracking = "tvtracking"
     case nuggAd = "nuggad"
 }
 
@@ -73,12 +71,6 @@ public class TrackerConfigurationKeys: NSObject {
     public static let CampaignLifetime = "campaignLifetime"
     /// campaignLastPersistence
     public static let CampaignLastPersistence = "campaignLastPersistence"
-    /// tvtURL
-    public static let TvTrackingURL = "tvtURL"
-    /// tvtVisitDuration
-    public static let TvTrackingVisitDuration = "tvtVisitDuration"
-    /// tvtSpotValidityTime
-    public static let TvTrackingSpotValidityTime = "tvtSpotValidityTime"
     /// persistIdentifiedVisitor
     public static let PersistIdentifiedVisitor = "persistIdentifiedVisitor"
     /// hashUserId

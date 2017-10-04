@@ -37,13 +37,13 @@ class PluginParam: NSObject {
     
     /// Returns all the parameters which needs custom handler
     class func list(_ tracker: Tracker) -> [String: Plugin.Type] {
-        var dic = [String: Plugin.Type]()
-        
+        let dic = [String: Plugin.Type]()
+        /*
         if let optPlugin = tracker.configuration.parameters["plugins"] {
             if (optPlugin.range(of: "tvtracking") != nil) {
                 dic["tvt"] = TVTrackingPlugin.self
             }
-        }
+        }*/
         
         return dic
     }

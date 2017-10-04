@@ -368,8 +368,8 @@ class TrackerTests: XCTestCase, TrackerDelegate {
         let expectation = self.expectation(description: "test")
         
         
-        tracker.setPlugins([.tvTracking, .nuggAd], completionHandler: { (isSet) -> Void in
-            XCTAssert(self.tracker.configuration.parameters["plugins"] == "tvtracking,nuggad", "Les nouveaux plugins sont incorrects")
+        tracker.setPlugins([.nuggAd], completionHandler: { (isSet) -> Void in
+            XCTAssert(self.tracker.configuration.parameters["plugins"] == "nuggad", "Les nouveaux plugins sont incorrects")
             expectation.fulfill()
         })
         
@@ -425,39 +425,6 @@ class TrackerTests: XCTestCase, TrackerDelegate {
         
         tracker.setPersistentIdentifiedVisitorEnabled(true, completionHandler: { (isSet) -> Void in
             XCTAssert(self.tracker.configuration.parameters["persistIdentifiedVisitor"] == "true", "Le nouveau mode de persistence est incorrect")
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: 10, handler: nil)
-    }
-    
-    func testSetTVTUrlConfiguration() {
-        let expectation = self.expectation(description: "test")
-        
-        tracker.setTvTrackingUrl("test.com", completionHandler: { (isSet) -> Void in
-            XCTAssert(self.tracker.configuration.parameters["tvtURL"] == "test.com", "La nouvelle tvtURL est incorrecte")
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: 10, handler: nil)
-    }
-    
-    func testSetTVTVisitDurationConfiguration() {
-        let expectation = self.expectation(description: "test")
-        
-        tracker.setTvTrackingVisitDuration(20, completionHandler: { (isSet) -> Void in
-            XCTAssert(self.tracker.configuration.parameters["tvtVisitDuration"] == "20", "La nouvelle tvtVisitDuration est incorrecte")
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: 10, handler: nil)
-    }
-    
-    func testSetTVTSpotValidityTimeConfiguration() {
-        let expectation = self.expectation(description: "test")
-        
-        tracker.setTvTrackingSpotValidityTime(4, completionHandler: { (isSet) -> Void in
-            XCTAssert(self.tracker.configuration.parameters["tvtSpotValidityTime"] == "4", "Le nouveau tvtSpotValidityTime est incorrect")
             expectation.fulfill()
         })
         

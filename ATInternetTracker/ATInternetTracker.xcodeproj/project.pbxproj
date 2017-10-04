@@ -177,10 +177,6 @@
 		4F47A51A1D35446700702747 /* SelfPromotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BA1D35446700702747 /* SelfPromotion.swift */; };
 		4F47A51B1D35446700702747 /* SelfPromotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BA1D35446700702747 /* SelfPromotion.swift */; };
 		4F47A51C1D35446700702747 /* SelfPromotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BA1D35446700702747 /* SelfPromotion.swift */; };
-		4F47A51D1D35446700702747 /* TVTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BB1D35446700702747 /* TVTracking.swift */; };
-		4F47A51E1D35446700702747 /* TVTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BB1D35446700702747 /* TVTracking.swift */; };
-		4F47A51F1D35446700702747 /* TVTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BB1D35446700702747 /* TVTracking.swift */; };
-		4F47A5201D35446700702747 /* TVTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BB1D35446700702747 /* TVTracking.swift */; };
 		4F47A5211D35446700702747 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BC1D35446700702747 /* Video.swift */; };
 		4F47A5221D35446700702747 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BC1D35446700702747 /* Video.swift */; };
 		4F47A5231D35446700702747 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BC1D35446700702747 /* Video.swift */; };
@@ -205,10 +201,6 @@
 		4F47A53C1D35451A00702747 /* Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A52E1D35451A00702747 /* Hash.m */; };
 		4F47A53D1D35451A00702747 /* Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A52E1D35451A00702747 /* Hash.m */; };
 		4F47A53E1D35451A00702747 /* Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A52E1D35451A00702747 /* Hash.m */; };
-		4F47A5411D35456600702747 /* TVTrackingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5401D35456600702747 /* TVTrackingPlugin.swift */; };
-		4F47A5421D35456600702747 /* TVTrackingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5401D35456600702747 /* TVTrackingPlugin.swift */; };
-		4F47A5431D35456600702747 /* TVTrackingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5401D35456600702747 /* TVTrackingPlugin.swift */; };
-		4F47A5441D35456600702747 /* TVTrackingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5401D35456600702747 /* TVTrackingPlugin.swift */; };
 		4F47A5461D35458E00702747 /* DefaultTrackerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5451D35458E00702747 /* DefaultTrackerDelegate.swift */; };
 		4F47A5471D35458E00702747 /* DefaultTrackerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5451D35458E00702747 /* DefaultTrackerDelegate.swift */; };
 		4F47A5481D35458E00702747 /* DefaultTrackerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5451D35458E00702747 /* DefaultTrackerDelegate.swift */; };
@@ -271,9 +263,7 @@
 		4F47A59B1D36210700702747 /* RichMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4B81D35446700702747 /* RichMedia.swift */; };
 		4F47A59C1D36210700702747 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4B91D35446700702747 /* Screen.swift */; };
 		4F47A59D1D36210700702747 /* SelfPromotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BA1D35446700702747 /* SelfPromotion.swift */; };
-		4F47A59E1D36210700702747 /* TVTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BB1D35446700702747 /* TVTracking.swift */; };
 		4F47A59F1D36210700702747 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BC1D35446700702747 /* Video.swift */; };
-		4F47A5A01D36210B00702747 /* TVTrackingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5401D35456600702747 /* TVTrackingPlugin.swift */; };
 		4F47A5A11D36210E00702747 /* Crash.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F47A52B1D35451A00702747 /* Crash.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F47A5A21D36210E00702747 /* Crash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A52C1D35451A00702747 /* Crash.m */; };
 		4F47A5A31D36210E00702747 /* Hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F47A52D1D35451A00702747 /* Hash.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -293,11 +283,6 @@
 		4F47A5B61D36214200702747 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
 		4F47A5B71D36214200702747 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
 		4F47A5B81D36214200702747 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
-		4F47A5B91D36214200702747 /* tvtracking.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A91D36214200702747 /* tvtracking.manifest.json */; };
-		4F47A5BA1D36214200702747 /* tvtracking.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A91D36214200702747 /* tvtracking.manifest.json */; };
-		4F47A5BB1D36214200702747 /* tvtracking.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A91D36214200702747 /* tvtracking.manifest.json */; };
-		4F47A5BC1D36214200702747 /* tvtracking.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A91D36214200702747 /* tvtracking.manifest.json */; };
-		4F47A5BD1D36214200702747 /* tvtracking.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A91D36214200702747 /* tvtracking.manifest.json */; };
 		4F47A5BF1D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
 		4F47A5C01D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
 		4F47A5C11D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
@@ -397,7 +382,6 @@
 		4F47A7FE1D3D13B500702747 /* SelfPromotionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7111D3D126500702747 /* SelfPromotionTests.swift */; };
 		4F47A8001D3D141000702747 /* TechnicalContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7151D3D126500702747 /* TechnicalContextTests.swift */; };
 		4F47A8011D3D141500702747 /* TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7171D3D126500702747 /* TrackerTests.swift */; };
-		4F47A8021D3D141800702747 /* TVTrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7181D3D126500702747 /* TVTrackingTests.swift */; };
 		4F47A8031D3D179200702747 /* Aisle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4A31D35446700702747 /* Aisle.swift */; };
 		4F47A8051D3D179600702747 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4A41D35446700702747 /* Audio.swift */; };
 		4F47A8071D3D17BD00702747 /* BusinessObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5251D3544F400702747 /* BusinessObject.swift */; };
@@ -423,7 +407,6 @@
 		4F47A8231D3D17FC00702747 /* RichMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4B81D35446700702747 /* RichMedia.swift */; };
 		4F47A8241D3D17FC00702747 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4B91D35446700702747 /* Screen.swift */; };
 		4F47A8251D3D17FC00702747 /* SelfPromotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BA1D35446700702747 /* SelfPromotion.swift */; };
-		4F47A8261D3D17FC00702747 /* TVTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BB1D35446700702747 /* TVTracking.swift */; };
 		4F47A8271D3D17FC00702747 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BC1D35446700702747 /* Video.swift */; };
 		4F47A83A1D3D192500702747 /* BackgroundTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A44B1D3542A400702747 /* BackgroundTask.swift */; };
 		4F47A83C1D3D192C00702747 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A44C1D3542A400702747 /* Buffer.swift */; };
@@ -445,7 +428,6 @@
 		4F47A85E1D3D226B00702747 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4981D35436200702747 /* Debugger.swift */; };
 		4F47A8611D3D230600702747 /* TrackerTests-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F47A8601D3D230600702747 /* TrackerTests-Bridging-Header.h */; };
 		4F47A8621D3D230600702747 /* TrackerTests-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F47A8601D3D230600702747 /* TrackerTests-Bridging-Header.h */; };
-		4F47A8651D3D237D00702747 /* TVTrackingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5401D35456600702747 /* TVTrackingPlugin.swift */; };
 		4F47A8661D3D23D700702747 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A62C1D3624AF00702747 /* UIImageExtension.swift */; };
 		4F47A8681D3D260900702747 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
 		4F47A86A1D3D270F00702747 /* DefaultConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A55A1D3620E800702747 /* DefaultConfiguration.plist */; };
@@ -478,13 +460,10 @@
 		4F47A93B1D3E2FE100702747 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4551D3542A400702747 /* Sender.swift */; };
 		4F47A93C1D3E2FE100702747 /* EventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F71D3D126500702747 /* EventTests.swift */; };
 		4F47A93D1D3E2FE100702747 /* ScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A70F1D3D126500702747 /* ScreenTests.swift */; };
-		4F47A93E1D3E2FE100702747 /* TVTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BB1D35446700702747 /* TVTracking.swift */; };
-		4F47A93F1D3E2FE100702747 /* TVTrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7181D3D126500702747 /* TVTrackingTests.swift */; };
 		4F47A9401D3E2FE100702747 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A44D1D3542A400702747 /* Builder.swift */; };
 		4F47A9411D3E2FE100702747 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A44C1D3542A400702747 /* Buffer.swift */; };
 		4F47A9421D3E2FE100702747 /* LifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4521D3542A400702747 /* LifeCycle.swift */; };
 		4F47A9431D3E2FE100702747 /* Gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4AB1D35446700702747 /* Gesture.swift */; };
-		4F47A9441D3E2FE100702747 /* TVTrackingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5401D35456600702747 /* TVTrackingPlugin.swift */; };
 		4F47A9451D3E2FE100702747 /* InternalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4AD1D35446700702747 /* InternalSearch.swift */; };
 		4F47A9461D3E2FE100702747 /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F01D3D126500702747 /* ConfigurationTests.swift */; };
 		4F47A9471D3E2FE100702747 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4B91D35446700702747 /* Screen.swift */; };
@@ -620,7 +599,6 @@
 		4FF594311D3F63800004D336 /* SelfPromotionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7111D3D126500702747 /* SelfPromotionTests.swift */; };
 		4FF594321D3F63800004D336 /* TechnicalContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7151D3D126500702747 /* TechnicalContextTests.swift */; };
 		4FF594331D3F63800004D336 /* TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7171D3D126500702747 /* TrackerTests.swift */; };
-		4FF594341D3F63800004D336 /* TVTrackingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7181D3D126500702747 /* TVTrackingTests.swift */; };
 		4FF594351D3F65E20004D336 /* DefaultConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A55A1D3620E800702747 /* DefaultConfiguration.plist */; };
 		4FF594361D3F65E80004D336 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
 		4FF594371D3F66250004D336 /* TechnicalContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4571D3542A400702747 /* TechnicalContext.swift */; };
@@ -666,9 +644,7 @@
 		4FF594601D3F66B30004D336 /* RichMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4B81D35446700702747 /* RichMedia.swift */; };
 		4FF594611D3F66BA0004D336 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4B91D35446700702747 /* Screen.swift */; };
 		4FF594621D3F66BD0004D336 /* SelfPromotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BA1D35446700702747 /* SelfPromotion.swift */; };
-		4FF594631D3F66C00004D336 /* TVTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BB1D35446700702747 /* TVTracking.swift */; };
 		4FF594641D3F66C20004D336 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4BC1D35446700702747 /* Video.swift */; };
-		4FF594651D3F66C70004D336 /* TVTrackingPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5401D35456600702747 /* TVTrackingPlugin.swift */; };
 		4FF594661D3FB4500004D336 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7121D3D126500702747 /* SwiftyJSON.swift */; };
 		4FF594671D3FB46B0004D336 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7121D3D126500702747 /* SwiftyJSON.swift */; };
 		4FF594681D3FB46B0004D336 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7121D3D126500702747 /* SwiftyJSON.swift */; };
@@ -741,7 +717,6 @@
 		8E9398B51D9583810065D58D /* SmartTrackerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9398B41D9583810065D58D /* SmartTrackerConfiguration.swift */; };
 		8EC97ED31D5A2CC1007360F3 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC97ED21D5A2CC1007360F3 /* APITests.swift */; };
 		8EDC3CF61D3E225100A14458 /* ApiS3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDC3CF51D3E225100A14458 /* ApiS3.swift */; };
-		8EF724541F7CE1A300D4BFC8 /* include.h in Sources */ = {isa = PBXBuildFile; fileRef = 8EF724531F7CE1A300D4BFC8 /* include.h */; };
 		8EFF4AF81D50D79C005DF2A7 /* DeviceRotationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFF4AF71D50D79C005DF2A7 /* DeviceRotationEvent.swift */; };
 		8EFF4AF91D50D79C005DF2A7 /* DeviceRotationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFF4AF71D50D79C005DF2A7 /* DeviceRotationEvent.swift */; };
 /* End PBXBuildFile section */
@@ -827,14 +802,12 @@
 		4F47A4B81D35446700702747 /* RichMedia.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RichMedia.swift; sourceTree = "<group>"; };
 		4F47A4B91D35446700702747 /* Screen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
 		4F47A4BA1D35446700702747 /* SelfPromotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfPromotion.swift; sourceTree = "<group>"; };
-		4F47A4BB1D35446700702747 /* TVTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVTracking.swift; sourceTree = "<group>"; };
 		4F47A4BC1D35446700702747 /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		4F47A5251D3544F400702747 /* BusinessObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessObject.swift; sourceTree = "<group>"; };
 		4F47A52B1D35451A00702747 /* Crash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Crash.h; sourceTree = "<group>"; };
 		4F47A52C1D35451A00702747 /* Crash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Crash.m; sourceTree = "<group>"; };
 		4F47A52D1D35451A00702747 /* Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hash.h; sourceTree = "<group>"; };
 		4F47A52E1D35451A00702747 /* Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hash.m; sourceTree = "<group>"; };
-		4F47A5401D35456600702747 /* TVTrackingPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TVTrackingPlugin.swift; sourceTree = "<group>"; };
 		4F47A5451D35458E00702747 /* DefaultTrackerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultTrackerDelegate.swift; sourceTree = "<group>"; };
 		4F47A5501D35465100702747 /* SmartTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SmartTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F47A5541D35465200702747 /* Info-iOS-SmartTracker.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-iOS-SmartTracker.plist"; sourceTree = "<group>"; };
@@ -845,7 +818,6 @@
 		4F47A5A51D36214200702747 /* core.manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = core.manifest.json; sourceTree = "<group>"; };
 		4F47A5A61D36214200702747 /* nuggad.manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nuggad.manifest.json; sourceTree = "<group>"; };
 		4F47A5A81D36214200702747 /* Tracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tracker.xcdatamodel; sourceTree = "<group>"; };
-		4F47A5A91D36214200702747 /* tvtracking.manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tvtracking.manifest.json; sourceTree = "<group>"; };
 		4F47A5BE1D36215D00702747 /* ATReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATReachability.swift; sourceTree = "<group>"; };
 		4F47A5C61D36223D00702747 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		4F47A5D41D3622B100702747 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
@@ -946,7 +918,6 @@
 		4F47A7151D3D126500702747 /* TechnicalContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TechnicalContextTests.swift; path = Tests/TechnicalContextTests.swift; sourceTree = "<group>"; };
 		4F47A7161D3D126500702747 /* TestGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestGenerator.swift; path = Tests/TestGenerator.swift; sourceTree = "<group>"; };
 		4F47A7171D3D126500702747 /* TrackerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackerTests.swift; path = Tests/TrackerTests.swift; sourceTree = "<group>"; };
-		4F47A7181D3D126500702747 /* TVTrackingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVTrackingTests.swift; path = Tests/TVTrackingTests.swift; sourceTree = "<group>"; };
 		4F47A7191D3D126500702747 /* UIApplicationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIApplicationTests.swift; path = Tests/UIApplicationTests.swift; sourceTree = "<group>"; };
 		4F47A71A1D3D126500702747 /* UIViewControllerExtensionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewControllerExtensionTests.swift; path = Tests/UIViewControllerExtensionTests.swift; sourceTree = "<group>"; };
 		4F47A71B1D3D126500702747 /* UIViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewTests.swift; path = Tests/UIViewTests.swift; sourceTree = "<group>"; };
@@ -993,7 +964,6 @@
 		8EC97ED21D5A2CC1007360F3 /* APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APITests.swift; path = Tests/APITests.swift; sourceTree = "<group>"; };
 		8EDC3CF51D3E225100A14458 /* ApiS3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiS3.swift; sourceTree = "<group>"; };
 		8EEBADC51DF5779200FD1CFD /* ATInternet-Apple-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = "ATInternet-Apple-SDK.podspec"; path = "../../ATInternet-Apple-SDK.podspec"; sourceTree = "<group>"; };
-		8EF724531F7CE1A300D4BFC8 /* include.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = include.h; path = Sources/zlib/include.h; sourceTree = "<group>"; };
 		8EFF4AF71D50D79C005DF2A7 /* DeviceRotationEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceRotationEvent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1071,7 +1041,6 @@
 		4F47A3D21D351E3C00702747 = {
 			isa = PBXGroup;
 			children = (
-				8EF724531F7CE1A300D4BFC8 /* include.h */,
 				4F47A4441D353F5C00702747 /* Dependencies */,
 				4F47A4021D351F2800702747 /* Sources */,
 				4F47A3DF1D351E8100702747 /* Products */,
@@ -1106,7 +1075,6 @@
 				4F47A5C41D3621F400702747 /* Extension */,
 				4FF594881D3FB92C0004D336 /* Header */,
 				4F47A4A21D3543BB00702747 /* Object */,
-				4F47A53F1D35452F00702747 /* Plugin */,
 				4F47A52A1D3544FA00702747 /* Tool */,
 			);
 			path = Sources;
@@ -1185,7 +1153,6 @@
 				4F47A5ED1D36230D00702747 /* Rotator.swift */,
 				4F47A4B91D35446700702747 /* Screen.swift */,
 				4F47A4BA1D35446700702747 /* SelfPromotion.swift */,
-				4F47A4BB1D35446700702747 /* TVTracking.swift */,
 				4F47A4BC1D35446700702747 /* Video.swift */,
 				4F47A5EE1D36230D00702747 /* View.swift */,
 			);
@@ -1211,14 +1178,6 @@
 				4F47A7121D3D126500702747 /* SwiftyJSON.swift */,
 			);
 			name = Tool;
-			sourceTree = "<group>";
-		};
-		4F47A53F1D35452F00702747 /* Plugin */ = {
-			isa = PBXGroup;
-			children = (
-				4F47A5401D35456600702747 /* TVTrackingPlugin.swift */,
-			);
-			name = Plugin;
 			sourceTree = "<group>";
 		};
 		4F47A54A1D3545D000702747 /* AutoTracker */ = {
@@ -1248,7 +1207,6 @@
 				4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */,
 				4F47A5A51D36214200702747 /* core.manifest.json */,
 				4F47A5A61D36214200702747 /* nuggad.manifest.json */,
-				4F47A5A91D36214200702747 /* tvtracking.manifest.json */,
 			);
 			name = Asset;
 			sourceTree = "<group>";
@@ -1378,7 +1336,6 @@
 				4F47A7111D3D126500702747 /* SelfPromotionTests.swift */,
 				4F47A7151D3D126500702747 /* TechnicalContextTests.swift */,
 				4F47A7171D3D126500702747 /* TrackerTests.swift */,
-				4F47A7181D3D126500702747 /* TVTrackingTests.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -1764,7 +1721,6 @@
 				4F47A5681D3620E800702747 /* DefaultConfiguration~iphone.plist in Resources */,
 				4F47A55E1D3620E800702747 /* DefaultConfiguration.plist in Resources */,
 				4F47A5631D3620E800702747 /* DefaultConfiguration~ipad.plist in Resources */,
-				4F47A5B91D36214200702747 /* tvtracking.manifest.json in Resources */,
 				4F47A49E1D35437300702747 /* Images.xcassets in Resources */,
 				4F47A5AF1D36214200702747 /* nuggad.manifest.json in Resources */,
 			);
@@ -1774,7 +1730,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F47A5BB1D36214200702747 /* tvtracking.manifest.json in Resources */,
 				4F47A5B11D36214200702747 /* nuggad.manifest.json in Resources */,
 				4F47A5601D3620E800702747 /* DefaultConfiguration.plist in Resources */,
 				4F47A5AC1D36214200702747 /* core.manifest.json in Resources */,
@@ -1785,7 +1740,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F47A5BC1D36214200702747 /* tvtracking.manifest.json in Resources */,
 				4F47A5B21D36214200702747 /* nuggad.manifest.json in Resources */,
 				4F47A5611D3620E800702747 /* DefaultConfiguration.plist in Resources */,
 				4F47A5AD1D36214200702747 /* core.manifest.json in Resources */,
@@ -1798,7 +1752,6 @@
 			files = (
 				4F47A5AB1D36214200702747 /* core.manifest.json in Resources */,
 				4F47A5B01D36214200702747 /* nuggad.manifest.json in Resources */,
-				4F47A5BA1D36214200702747 /* tvtracking.manifest.json in Resources */,
 				4F47A5641D3620E800702747 /* DefaultConfiguration~ipad.plist in Resources */,
 				4F47A56E1D3620E800702747 /* DefaultConfiguration~ipod.plist in Resources */,
 				4F47A55F1D3620E800702747 /* DefaultConfiguration.plist in Resources */,
@@ -1814,7 +1767,6 @@
 				4F47A5AE1D36214200702747 /* core.manifest.json in Resources */,
 				4F47A5B31D36214200702747 /* nuggad.manifest.json in Resources */,
 				4FF28F901D95773500F4AFFB /* Localizable.strings in Resources */,
-				4F47A5BD1D36214200702747 /* tvtracking.manifest.json in Resources */,
 				4F47A5711D3620E800702747 /* DefaultConfiguration~ipod.plist in Resources */,
 				4F47A5841D36210200702747 /* Images.xcassets in Resources */,
 				4F47A56C1D3620E800702747 /* DefaultConfiguration~iphone.plist in Resources */,
@@ -1889,9 +1841,7 @@
 				4F47A4821D3542A400702747 /* Sender.swift in Sources */,
 				4F47A4D11D35446700702747 /* CustomTreeStructure.swift in Sources */,
 				4F47A5151D35446700702747 /* Screen.swift in Sources */,
-				4F47A5411D35456600702747 /* TVTrackingPlugin.swift in Sources */,
 				4F47A4721D3542A400702747 /* Hit.swift in Sources */,
-				4F47A51D1D35446700702747 /* TVTracking.swift in Sources */,
 				4F47A50D1D35446700702747 /* Publisher.swift in Sources */,
 				4F47A5CC1D36223D00702747 /* StringExtension.swift in Sources */,
 				4F47A4C91D35446700702747 /* Cart.swift in Sources */,
@@ -1949,13 +1899,11 @@
 				4F47A4841D3542A400702747 /* Sender.swift in Sources */,
 				4F47A4741D3542A400702747 /* Hit.swift in Sources */,
 				4F47A4D71D35446700702747 /* CustomVar.swift in Sources */,
-				4F47A5431D35456600702747 /* TVTrackingPlugin.swift in Sources */,
 				4F47A6B81D3CD75600702747 /* UIImageExtension.swift in Sources */,
 				4F47A4681D3542A400702747 /* Configuration.swift in Sources */,
 				4F47A4491D3541C500702747 /* ATInternet.swift in Sources */,
 				4F47A46C1D3542A400702747 /* Context.swift in Sources */,
 				4F47A5231D35446700702747 /* Video.swift in Sources */,
-				4F47A51F1D35446700702747 /* TVTracking.swift in Sources */,
 				4F47A4DB1D35446700702747 /* Event.swift in Sources */,
 				4F47A4C71D35446700702747 /* Campaign.swift in Sources */,
 				4F47A48C1D3542A400702747 /* TechnicalContext.swift in Sources */,
@@ -2008,12 +1956,10 @@
 				4F47A4851D3542A400702747 /* Sender.swift in Sources */,
 				4F47A4751D3542A400702747 /* Hit.swift in Sources */,
 				4F47A4D81D35446700702747 /* CustomVar.swift in Sources */,
-				4F47A5441D35456600702747 /* TVTrackingPlugin.swift in Sources */,
 				4F47A4691D3542A400702747 /* Configuration.swift in Sources */,
 				4F47A44A1D3541C500702747 /* ATInternet.swift in Sources */,
 				4F47A46D1D3542A400702747 /* Context.swift in Sources */,
 				4F47A5241D35446700702747 /* Video.swift in Sources */,
-				4F47A5201D35446700702747 /* TVTracking.swift in Sources */,
 				4F47A4DC1D35446700702747 /* Event.swift in Sources */,
 				4F47A4C81D35446700702747 /* Campaign.swift in Sources */,
 				4F47A48D1D3542A400702747 /* TechnicalContext.swift in Sources */,
@@ -2067,9 +2013,7 @@
 				4F47A4831D3542A400702747 /* Sender.swift in Sources */,
 				4F47A4D21D35446700702747 /* CustomTreeStructure.swift in Sources */,
 				4F47A5161D35446700702747 /* Screen.swift in Sources */,
-				4F47A5421D35456600702747 /* TVTrackingPlugin.swift in Sources */,
 				4F47A4731D3542A400702747 /* Hit.swift in Sources */,
-				4F47A51E1D35446700702747 /* TVTracking.swift in Sources */,
 				4F47A50E1D35446700702747 /* Publisher.swift in Sources */,
 				4F47A5CD1D36223D00702747 /* StringExtension.swift in Sources */,
 				4F47A4CA1D35446700702747 /* Cart.swift in Sources */,
@@ -2159,7 +2103,6 @@
 				4F47A61B1D36244400702747 /* GestureOperation.swift in Sources */,
 				4F47A5901D36210700702747 /* InternalSearch.swift in Sources */,
 				4F47A5961D36210700702747 /* Offline.swift in Sources */,
-				4F47A5A01D36210B00702747 /* TVTrackingPlugin.swift in Sources */,
 				4F47A5951D36210700702747 /* NuggAd.swift in Sources */,
 				4F47A5721D3620F500702747 /* ATInternet.swift in Sources */,
 				8E6DD3511F4D83B000E81E79 /* SocketIOClientConfiguration.swift in Sources */,
@@ -2223,7 +2166,6 @@
 				4F3AF58D1D7D6E51001B86EE /* DispatchQueueExtension.swift in Sources */,
 				4F47A6321D3624AF00702747 /* DictionaryExtension.swift in Sources */,
 				4F47A6541D36264300702747 /* SmartPopUp.swift in Sources */,
-				4F47A59E1D36210700702747 /* TVTracking.swift in Sources */,
 				4F47A6001D3623B100702747 /* LiveManager.swift in Sources */,
 				4F47A5971D36210700702747 /* OnAppAd.swift in Sources */,
 				8E6DD3541F4D83B000E81E79 /* SocketIOClientStatus.swift in Sources */,
@@ -2265,13 +2207,10 @@
 				4F47A8461D3D192C00702747 /* Sender.swift in Sources */,
 				4F47A7F21D3D136A00702747 /* EventTests.swift in Sources */,
 				4F47A7FD1D3D13B100702747 /* ScreenTests.swift in Sources */,
-				4F47A8261D3D17FC00702747 /* TVTracking.swift in Sources */,
-				4F47A8021D3D141800702747 /* TVTrackingTests.swift in Sources */,
 				4F47A83D1D3D192C00702747 /* Builder.swift in Sources */,
 				4F47A83C1D3D192C00702747 /* Buffer.swift in Sources */,
 				4F47A8431D3D192C00702747 /* LifeCycle.swift in Sources */,
 				4F47A8151D3D17EB00702747 /* Gesture.swift in Sources */,
-				4F47A8651D3D237D00702747 /* TVTrackingPlugin.swift in Sources */,
 				4F47A8181D3D17FC00702747 /* InternalSearch.swift in Sources */,
 				4F47A7EC1D3D134F00702747 /* ConfigurationTests.swift in Sources */,
 				4F47A8241D3D17FC00702747 /* Screen.swift in Sources */,
@@ -2370,11 +2309,8 @@
 				4FF594521D3F66920004D336 /* Event.swift in Sources */,
 				4FF5942E1D3F63800004D336 /* PublisherTests.swift in Sources */,
 				4FF5942B1D3F63670004D336 /* NuggAdTests.swift in Sources */,
-				4FF594651D3F66C70004D336 /* TVTrackingPlugin.swift in Sources */,
 				4FF5945F1D3F66B00004D336 /* Publisher.swift in Sources */,
-				4FF594631D3F66C00004D336 /* TVTracking.swift in Sources */,
 				4FF5945B1D3F66A70004D336 /* Offline.swift in Sources */,
-				4FF594341D3F63800004D336 /* TVTrackingTests.swift in Sources */,
 				4FF594641D3F66C20004D336 /* Video.swift in Sources */,
 				4FF594571D3F669D0004D336 /* LiveVideo.swift in Sources */,
 				4FF594271D3F61E50004D336 /* GPSTests.swift in Sources */,
@@ -2452,9 +2388,7 @@
 				4F47A93C1D3E2FE100702747 /* EventTests.swift in Sources */,
 				4F47A93D1D3E2FE100702747 /* ScreenTests.swift in Sources */,
 				4F47A98E1D3E316B00702747 /* ScreenRotationOperation.swift in Sources */,
-				4F47A93E1D3E2FE100702747 /* TVTracking.swift in Sources */,
 				4F47A98D1D3E316B00702747 /* ScreenRotationEvent.swift in Sources */,
-				4F47A93F1D3E2FE100702747 /* TVTrackingTests.swift in Sources */,
 				4F47A9401D3E2FE100702747 /* Builder.swift in Sources */,
 				4F47A9841D3E316B00702747 /* EventManager.swift in Sources */,
 				4F47A9C11D3E346E00702747 /* UISwitchExtension.swift in Sources */,
@@ -2463,7 +2397,6 @@
 				4F47A9421D3E2FE100702747 /* LifeCycle.swift in Sources */,
 				4F47A9431D3E2FE100702747 /* Gesture.swift in Sources */,
 				4F47A99A1D3E317000702747 /* SocketSender.swift in Sources */,
-				4F47A9441D3E2FE100702747 /* TVTrackingPlugin.swift in Sources */,
 				4F47A9A51D3E319900702747 /* MathTests.swift in Sources */,
 				8E6DD36F1F4DA8AE00E81E79 /* SocketPacket.swift in Sources */,
 				4F47A9861D3E316B00702747 /* GestureOperation.swift in Sources */,
@@ -2569,7 +2502,6 @@
 				4F47A9B71D3E31E300702747 /* View.swift in Sources */,
 				4F47A99C1D3E318000702747 /* IgnoredViews.swift in Sources */,
 				4F47A9821D3E316400702747 /* UIApplicationContext.swift in Sources */,
-				8EF724541F7CE1A300D4BFC8 /* include.h in Sources */,
 				4F47A96F1D3E2FE100702747 /* SelfPromotion.swift in Sources */,
 				8E6DD3631F4DA8AE00E81E79 /* SocketEnginePacketType.swift in Sources */,
 			);
@@ -3264,7 +3196,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				OTHER_SWIFT_FLAGS = "-DAT_SMART_TRACKER";
+				OTHER_SWIFT_FLAGS = "-DAT_SMART_TRACKER -Xfrontend -warn-long-function-bodies=200";
 				PRODUCT_BUNDLE_IDENTIFIER = com.atinternet.SmartTracker;
 				PRODUCT_NAME = SmartTracker;
 				PROVISIONING_PROFILE = "";

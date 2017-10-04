@@ -14,12 +14,6 @@
 	<string>true</string>
 	<key>campaignLifetime</key>
 	<string>30</string>
-	<key>tvtURL</key>
-	<string></string>
-	<key>tvtVisitDuration</key>
-	<string>10</string>
-	<key>tvtSpotValidityTime</key>
-	<string>5</string>
 	<key>persistIdentifiedVisitor</key>
 	<string>true</string>
 	<key>hashUserId</key>
