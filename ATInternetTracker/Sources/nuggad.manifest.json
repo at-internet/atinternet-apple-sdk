@@ -1,0 +1,6 @@
+{
+    "name": "Geode_Tag_Plg_NuggAd",
+    "description": "Plugin permettant de récupérer les informations liées à NuggAd",
+    "type": "sdkplugins",
+    "config": {}
+}

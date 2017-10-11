@@ -1,0 +1,168 @@
+{
+    "name":"Core",
+    "description": "SDK iOS Swift",
+    "type": "core",
+    "config": {
+        "storage":
+        {
+            "title": "Geode_Tag_SDK_Config_Title_storage",
+            "description": "Geode_Tag_SDK_Config_Description_storage",
+            "defaultValue": "required",
+            "type": "string",
+            "public": true,
+            "global": true
+        },
+        "plugins":
+        {
+            "title": "plugins",
+            "description": "",
+            "defaultValue": "",
+            "type": "string",
+            "public": true,
+            "global": true
+        },
+        "log":
+        {
+            "title": "Geode_Tag_SDK_Config_Title_log",
+            "description": "",
+            "defaultValue": "",
+            "type": "string",
+            "public": true,
+            "global": true
+        },
+        "logSSL":
+        {
+            "title": "Geode_Tag_SDK_Config_Title_logSSL",
+            "description": "",
+            "defaultValue": "",
+            "type": "string",
+            "public": true,
+            "global": true
+        },
+        "domain":
+        {
+            "title": "Geode_Tag_SDK_Config_Title_domain",
+            "description": "",
+            "defaultValue": "xiti.com",
+            "type": "string",
+            "public": true,
+            "global": true
+        },
+        "pixelPath":
+        {
+            "title": "Geode_Tag_SDK_Config_Title_pixelPath",
+            "description": "",
+            "defaultValue": "/hit.xiti",
+            "type": "string",
+            "public": true,
+            "global": true
+        },
+        "site":
+        {
+            "title": "Geode_Tag_SDK_Config_Title_site",
+            "description": "Geode_Tag_SDK_Config_Description_site",
+            "defaultValue": "0",
+            "type": "int",
+            "public": true,
+            "global": true
+        },
+        "secure":
+        {
+            "title": "Geode_Tag_SDK_Config_Title_secure",
+            "description": "Geode_Tag_SDK_Config_Description_secure",
+            "defaultValue": "false",
+            "type": "bool",
+            "public": true,
+            "global": true
+        },
+        "identifier":
+        {
+            "title": "Geode_Tag_SDK_Config_Title_identifier",
+            "description": "Geode_Tag_SDK_Config_Description_identifier_Apple",
+            "defaultValue": "UUID",
+            "type": "string",
+            "public": true,
+            "global": true
+        },
+        "enableBackgroundTask": {
+            "title" : "Geode_Tag_SDK_Config_Title_enableBackgroundTask",
+            "description": "Geode_Tag_SDK_Config_Description_enableBackgroundTask",
+            "defaultValue": "true",
+            "type": "bool",
+            "public": true,
+            "global": true
+        },
+        "hashUserId": {
+            "title" : "Geode_Tag_SDK_Config_Title_hashUserId",
+            "description": "Geode_Tag_SDK_Config_Description_hashUserId",
+            "defaultValue": "false",
+            "type": "bool",
+            "public": true,
+            "global": true
+        },
+        "persistIdentifiedVisitor": {
+            "title" : "Geode_Tag_SDK_Config_Title_persistIdentifiedVisitor",
+            "description": "Geode_Tag_SDK_Config_Description_persistIdentifiedVisitor",
+            "defaultValue": "true",
+            "type": "bool",
+            "public": true,
+            "global": true
+        },
+        "campaignLifetime": {
+            "title" : "Geode_Tag_SDK_Config_Title_lifetime",
+            "description": "Geode_Tag_SDK_Config_Description_lifetime",
+            "defaultValue": "30",
+            "type": "int",
+            "public": true,
+            "global": true
+        },
+        "campaignLastPersistence": {
+            "title" : "Geode_Tag_SDK_Config_Title_campaignLastPersistence",
+            "description": "Geode_Tag_SDK_Config_Description_campaignLastPersistence",
+            "defaultValue": "true",
+            "type": "bool",
+            "public": true,
+            "global": true
+        },
+        "sessionBackgroundDuration": {
+            "title" : "Geode_Tag_SDK_Config_Title_sessionBackgroundDuration",
+            "description": "Geode_Tag_SDK_Config_Description_sessionBackgroundDuration",
+            "defaultValue": "60",
+            "type": "int",
+            "public": true,
+            "global": true
+        },
+        "enableAutoTracking": {
+            "title" : "Geode_Tag_SDK_Config_Title_enableAutoTracking",
+            "description": "Geode_Tag_SDK_Config_Description_enableAutoTracking",
+            "defaultValue": "false",
+            "type": "bool",
+            "public": true,
+            "global": true
+        },
+        "autoTrackerToken": {
+            "title" : "Geode_Tag_SDK_Config_Title_autoTrackerToken",
+            "description": "Geode_Tag_SDK_Config_Description_autoTrackerToken",
+            "defaultValue": "",
+            "type": "string",
+            "public": true,
+            "global": true
+        },
+        "atEnv": {
+            "title" : "Geode_Tag_SDK_Config_Title_atEnv",
+            "description": "Geode_Tag_SDK_Config_Description_atEnv",
+            "defaultValue": "prod",
+            "type": "string",
+            "public": false,
+            "global": true
+        },
+        "downloadSource": {
+            "title" : "Geode_Tag_SDK_Config_Title_downloadSource",
+            "description": "Geode_Tag_SDK_Config_Description_downloadSource",
+            "defaultValue": "int",
+            "type": "string",
+            "public": false,
+            "global": true
+        }
+    }
+}

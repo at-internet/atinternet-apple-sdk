@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>SmartTracker iOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>SmartTrackerTests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>Tracker iOS Extension.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Tracker iOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>Tracker tvOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Tracker watchOS.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>TrackerTests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>macOSTracker.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>tvOSTrackerTests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>4F47A3DD1D351E8100702747</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F47A3F81D351EA700702747</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F47A4071D351F9C00702747</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F47A4311D3532A900702747</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F47A54F1D35465100702747</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F47A6BD1D3D0A3000702747</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F47A6DB1D3D10E000702747</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4F47A9201D3E2FE100702747</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4FA44EF51EC31AB8007D516C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4FCD6F401EC998FA000D4264</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
