@@ -239,7 +239,7 @@ class TechnicalContext: NSObject {
         }
     }
     
-    /// Application version (eg. [5.0])
+    /// Application version (eg. 5.0)
     class var applicationVersion: String {
         get {
             let version = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String

@@ -93,7 +93,8 @@ class Buffer: NSObject {
         var applicationVersion = TechnicalContext.applicationVersion
         
         if !applicationVersion.isEmpty {
-            applicationVersion = "[" + applicationVersion + "]"
+            // fix [1.1] -> [1.000001] instead of "[1.1]"
+            applicationVersion = "[\"" + applicationVersion + "\"]"
         }
         
         self.persistentParameters["apvr"] = Param(key: "apvr", value: {applicationVersion}, options: persistentOptionWithEncoding)
