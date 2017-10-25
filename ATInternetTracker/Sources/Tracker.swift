@@ -1,25 +1,25 @@
 /*
-This SDK is licensed under the MIT license (MIT)
-Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ This SDK is licensed under the MIT license (MIT)
+ Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
 
 
@@ -34,15 +34,15 @@ import Foundation
 import CoreData
 
 #if !os(watchOS)
-import UIKit
+    import UIKit
 #else
-import WatchKit
+    import WatchKit
 #endif
 
 /// Build or send status of the hit
 ///
 /// - failed: failed
-/// - success: success 
+/// - success: success
 @objc public enum HitStatus: Int {
     /// failed
     case failed = 0
@@ -130,343 +130,339 @@ public enum HitParam: String {
 @objc public protocol TrackerDelegate {
     
     /**
-    Notify when tracker needs first launch approval
-    
-    - parameter message: approval message for confidentiality
-    */
+     Notify when tracker needs first launch approval
+     
+     - parameter message: approval message for confidentiality
+     */
     @objc optional func trackerNeedsFirstLaunchApproval(_ message: String)
     
     /**
-    Notify when hit has been built
-    
-    - parameter status: status of hit building
-    - parameter message: query string or error message
-    */
+     Notify when hit has been built
+     
+     - parameter status: status of hit building
+     - parameter message: query string or error message
+     */
     @objc optional func buildDidEnd(_ status: HitStatus, message: String)
     
     /**
-    Notify when hit has been sent
-    
-    - parameter status: status of hit sending
-    - parameter message: querystring or http response message
-    */
+     Notify when hit has been sent
+     
+     - parameter status: status of hit sending
+     - parameter message: querystring or http response message
+     */
     @objc optional func sendDidEnd(_ status: HitStatus, message: String)
     
     /**
-    Notify when hit has been saved in device local storage
-    
-    - parameter message: the saved hit
-    */
+     Notify when hit has been saved in device local storage
+     
+     - parameter message: the saved hit
+     */
     @objc optional func saveDidEnd(_ message: String)
     
     /**
-    Notify when a partner has been called
-    
-    - parameter response: the response received from the partner
-    */
+     Notify when a partner has been called
+     
+     - parameter response: the response received from the partner
+     */
     @objc optional func didCallPartner(_ response: String)
     
     /**
-    Notify when a warning has been detected
-    
-    - parameter message: the warning message
-    */
+     Notify when a warning has been detected
+     
+     - parameter message: the warning message
+     */
     @objc optional func warningDidOccur(_ message: String)
     
     /**
-    Notify when a critical error has been detected
-    
-    - parameter message: the error message
-    */
+     Notify when a critical error has been detected
+     
+     - parameter message: the error message
+     */
     @objc optional func errorDidOccur(_ message: String)
     
 }
 
 #if os(iOS) && AT_SMART_TRACKER
     
-/// /!\ SmartSDK only - AutoTracker Interface. Allows to customize the Screens/Gestures generated by AutoTracker
-@objc public protocol IAutoTracker {
-    /**
-     /!\ SmartSDK only - Called when a screen has been detected. When done with completing the screen object, just return it. A screen hit will be sent.
-     */
-    @objc optional func screenWasDetected(_ screen: Screen) -> Screen
-    
-    /**
-     /!\ SmartSDK only - Called when a gesture has been detected. When done with completing the gesture object, just return it. A gesture hit will be sent.
-     */
-    @objc optional func gestureWasDetected(_ gesture: Gesture) -> Gesture
-}
-
-///  /!\ SmartSDK only - Class for tracking screen and touch automatically
-public class AutoTracker: Tracker {
-    
-    /// Private variables
-    fileprivate var _token: String?
-    fileprivate var _enableAutoTracking: Bool = false
-    fileprivate var _enableLiveTagging: Bool = false
-    
-    /// Checks whether swizzling has already been activated
-    private static var eventDetectionEnabled = false
-    
-    static var isConfigurationLoaded = false
-
-    /// Screen orientation
-    internal var orientation: UIDeviceOrientation?
-    
-    /// Smart SDK toolbar
-    private var toolbar: SmartToolBarController?
-    
-    /// /!\ SmartSDK only -  Token for authentication
-    @objc public var token: String? {
-        get {
-            return _token
-        } set {
-            _token = newValue
-        }
+    /// /!\ SmartSDK only - AutoTracker Interface. Allows to customize the Screens/Gestures generated by AutoTracker
+    @objc public protocol IAutoTracker {
+        /**
+         /!\ SmartSDK only - Called when a screen has been detected. When done with completing the screen object, just return it. A screen hit will be sent.
+         */
+        @objc optional func screenWasDetected(_ screen: Screen) -> Screen
+        
+        /**
+         /!\ SmartSDK only - Called when a gesture has been detected. When done with completing the gesture object, just return it. A gesture hit will be sent.
+         */
+        @objc optional func gestureWasDetected(_ gesture: Gesture) -> Gesture
     }
     
-    /// /!\ SmartSDK only -  Sets Auto Tracker in debug mode
-    public lazy var debug: Bool = false
-    
-    var socketSender: SocketSender?
-    
-    var liveManager: LiveNetworkManager?
-    
-    ///  /!\ SmartSDK only
-    /// Enable LiveTagging. See http://livetagging.atinternet-solutions.com/
-    /// You need to provide a token before enabling live tagging
-    @objc public var enableLiveTagging: Bool {
-        get {
-            return _enableLiveTagging
-        } set {
-            assert(Thread.isMainThread,"You should set enableLiveTagging in the main thread to ensure the framework stability")
-            assert(token != nil && token != "", "you must provide a token before enabling live tagging")
-            
-            _enableLiveTagging = newValue
-            enableEventDetection(_enableLiveTagging)
-            if _enableLiveTagging {
-                self.registerFont("OpenSans-Regular")
-                self.registerFont("Montserrat-Bold")
-                self.registerFont("Montserrat-Regular")
-                
-                self.liveManager = LiveNetworkManager()
-                self.liveManager!.initState()
-                self.socketSender = SocketSender(liveManager: liveManager!, token: _token!)
-                liveManager!.sender = socketSender
-                
-                self.socketSender?.open()
-            } else {
-                self.socketSender?.close()
+    ///  /!\ SmartSDK only - Class for tracking screen and touch automatically
+    public class AutoTracker: Tracker {
+        
+        /// Private variables
+        fileprivate var _token: String?
+        fileprivate var _enableAutoTracking: Bool = false
+        fileprivate var _enableLiveTagging: Bool = false
+        
+        /// Checks whether swizzling has already been activated
+        private static var eventDetectionEnabled = false
+        
+        static var isConfigurationLoaded = false
+        
+        /// Screen orientation
+        internal var orientation: UIDeviceOrientation?
+        
+        /// Smart SDK toolbar
+        private var toolbar: SmartToolBarController?
+        
+        /// /!\ SmartSDK only -  Token for authentication
+        @objc public var token: String? {
+            get {
+                return _token
+            } set {
+                _token = newValue
             }
         }
-    }
-    
-    /// /!\ SmartSDK only -
-    /// Enables AutoTracking. Will send automatically click and screens hits.
-    /// You can custom those hits by implementing IAutoTracker protocol in your ViewControllers
-    @objc public var enableAutoTracking: Bool {
-        get {
-            return _enableAutoTracking
-        } set {
-            _enableAutoTracking = newValue
-            
-            if _enableAutoTracking {
-                if token == nil || token == "" {
-                    self.delegate?.warningDidOccur?("No token provided")
-                    Configuration.smartSDKMapping = nil
-                    AutoTracker.isConfigurationLoaded = true
+        
+        /// /!\ SmartSDK only -  Sets Auto Tracker in debug mode
+        public lazy var debug: Bool = false
+        
+        var socketSender: SocketSender?
+        
+        var liveManager: LiveNetworkManager?
+        
+        ///  /!\ SmartSDK only
+        /// Enable LiveTagging. See http://livetagging.atinternet-solutions.com/
+        /// You need to provide a token before enabling live tagging
+        @objc public var enableLiveTagging: Bool {
+            get {
+                return _enableLiveTagging
+            } set {
+                assert(Thread.isMainThread,"You should set enableLiveTagging in the main thread to ensure the framework stability")
+                assert(token != nil && token != "", "you must provide a token before enabling live tagging")
+                
+                _enableLiveTagging = newValue
+                enableEventDetection(_enableLiveTagging)
+                if _enableLiveTagging {
+                    self.registerFont("OpenSans-Regular")
+                    self.registerFont("Montserrat-Bold")
+                    self.registerFont("Montserrat-Regular")
+                    
+                    self.liveManager = LiveNetworkManager()
+                    self.liveManager!.initState()
+                    self.socketSender = SocketSender(liveManager: liveManager!, token: _token!)
+                    liveManager!.sender = socketSender
+                    
+                    self.socketSender?.open()
                 } else {
-                    fetchMappingConfig()
+                    self.socketSender?.close()
+                }
+            }
+        }
+        
+        /// /!\ SmartSDK only -
+        /// Enables AutoTracking. Will send automatically click and screens hits.
+        /// You can custom those hits by implementing IAutoTracker protocol in your ViewControllers
+        @objc public var enableAutoTracking: Bool {
+            get {
+                return _enableAutoTracking
+            } set {
+                _enableAutoTracking = newValue
+                
+                if _enableAutoTracking {
+                    if token == nil || token == "" {
+                        self.delegate?.warningDidOccur?("No token provided")
+                        Configuration.smartSDKMapping = nil
+                        AutoTracker.isConfigurationLoaded = true
+                    } else {
+                        fetchMappingConfig()
+                    }
+                }
+                
+                enableEventDetection(_enableAutoTracking)
+            }
+        }
+        
+        /// get the configuration from amazon
+        private func fetchMappingConfig() {
+            let version = TechnicalContext.applicationVersion
+            let s3Client = ApiS3Client(token: token!,
+                                       version: version,
+                                       store: UserDefaultSimpleStorage(),
+                                       networkService: S3NetworkService(),
+                                       endPoint: SmartTrackerConfiguration.sharedInstance.apiConfEndPoint)
+            s3Client.fetchMapping { (mapping: ATJSON?) in
+                Configuration.smartSDKMapping = mapping
+                if nil == mapping {
+                    self.delegate?.warningDidOccur?("No livetagging configuration loaded")
+                }
+                AutoTracker.isConfigurationLoaded = true
+            }
+        }
+        
+        private func enableEventDetection(_ enabled: Bool) {
+            if enabled == true {
+                if AutoTracker.eventDetectionEnabled == false {
+                    
+                    AutoTracker.eventDetectionEnabled = true
+                    
+                    removeNotifications()
+                    addNotifications()
+                    registerCurrentOrientation()
+                    
+                    UIApplication.at_swizzle()
+                    UIViewController.at_unswizzle_instances()
+                    UIViewController.at_swizzle()
+                    UIRefreshControl.at_swizzle()
+                    UISwitch.at_swizzle()
+                    
+                }
+                // time consuming, so last call of the init
+                if enableLiveTagging {
+                    if UIApplication.shared.keyWindow == nil {
+                        NotificationCenter.default.addObserver(self, selector: #selector(AutoTracker.addToolbar), name: NSNotification.Name.UIWindowDidBecomeKey, object: nil)
+                    } else {
+                        self.performSelector(onMainThread: #selector(addToolbar), with: nil, waitUntilDone: false)
+                    }
+                }
+            } else {
+                if AutoTracker.eventDetectionEnabled == true && self.enableAutoTracking == false && self.enableLiveTagging == false {
+                    
+                    AutoTracker.eventDetectionEnabled = false
+                    
+                    removeNotifications()
+                    
+                    UIViewController.at_swizzle()
+                    UIViewController.at_unswizzle_instances()
+                    UIApplication.at_swizzle()
+                    UIRefreshControl.at_swizzle()
+                    UISwitch.at_swizzle()
+                    self.toolbar?.toolbar.removeFromSuperview()
+                }
+            }
+        }
+        
+        func registerCurrentOrientation() {
+            let orientation = UIApplication.shared.statusBarOrientation
+            if orientation == .portrait || orientation == .portraitUpsideDown {
+                UIViewControllerContext.sharedInstance.currentOrientation = UIViewControllerContext.UIViewControllerOrientation.portrait
+            } else {
+                UIViewControllerContext.sharedInstance.currentOrientation = UIViewControllerContext.UIViewControllerOrientation.landscape
+            }
+        }
+        
+        init() {
+            super.init(configuration: Configuration().parameters)
+            
+            if let token = self.configuration.parameters[TrackerConfigurationKeys.AutoTrackerToken] {
+                self.token = token
+            }
+            
+            if let autoTrack = self.configuration.parameters[TrackerConfigurationKeys.AutoTracking] {
+                if autoTrack == "true" {
+                    self.enableAutoTracking = true
+                }
+            }
+        }
+        
+        /**
+         Listen to app notifications (orientation, lifecycle ...)
+         */
+        private func addNotifications() {
+            let notificationCenter = NotificationCenter.default
+            UIDevice.current.beginGeneratingDeviceOrientationNotifications()
+            notificationCenter.addObserver(self, selector: #selector(AutoTracker.deviceOrientationDidChange(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(AutoTracker.applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+            
+            notificationCenter.addObserver(self, selector: #selector(AutoTracker.UIApplicationWillTerminate(_:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(AutoTracker.appWillGoBg(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        }
+        
+        /**
+         Removes listeners
+         */
+        private func removeNotifications() {
+            let notificationCenter = NotificationCenter.default
+            UIDevice.current.endGeneratingDeviceOrientationNotifications()
+            notificationCenter.removeObserver(self)
+        }
+        
+        /**
+         Application is going background
+         */
+        @objc func appWillGoBg(_ notification: NSNotification) {
+            UIApplication.shared.beginBackgroundTask {
+                self.liveManager?.deviceStoppedLive()
+            }
+        }
+        
+        /**
+         Device orientation detection
+         
+         - parameter notification: notification
+         */
+        @objc func deviceOrientationDidChange(_ notification: NSNotification) {
+            let currentOrientation = UIDevice.current.orientation
+            if orientation == nil {
+                orientation = currentOrientation
+            } else {
+                if currentOrientation != orientation && currentOrientation != UIDeviceOrientation.faceUp && currentOrientation != UIDeviceOrientation.faceDown && UIViewControllerContext.sharedInstance.currentViewController != nil {
+                    let deviceRotation = DeviceRotationEvent(orientation: currentOrientation)
+                    deviceRotation.viewController = UIViewControllerContext.sharedInstance.currentViewController
+                    //EventManager.sharedInstance.addEvent(DeviceRotationOperation(rotationEvent: deviceRotation))
+                    EventManager.sharedInstance.addEvent(GestureOperation(gestureEvent: deviceRotation))
                 }
             }
             
-            enableEventDetection(_enableAutoTracking)
-        }
-    }
-    
-    /// get the configuration from amazon
-    private func fetchMappingConfig() {
-        let version = TechnicalContext.applicationVersion
-        let s3Client = ApiS3Client(token: token!,
-                                   version: version,
-                                   store: UserDefaultSimpleStorage(),
-                                   networkService: S3NetworkService(),
-                                   endPoint: SmartTrackerConfiguration.sharedInstance.apiConfEndPoint)
-        s3Client.fetchMapping { (mapping: ATJSON?) in
-            Configuration.smartSDKMapping = mapping
-            if nil == mapping {
-                self.delegate?.warningDidOccur?("No livetagging configuration loaded")
+            if currentOrientation != UIDeviceOrientation.faceUp && currentOrientation != UIDeviceOrientation.faceDown {
+                orientation = currentOrientation
             }
-            AutoTracker.isConfigurationLoaded = true
-        }
-    }
-
-    private func enableEventDetection(_ enabled: Bool) {
-        if enabled == true {
-            if AutoTracker.eventDetectionEnabled == false {
-                
-                AutoTracker.eventDetectionEnabled = true
-                
-                removeNotifications()
-                addNotifications()
-                registerCurrentOrientation()
-                
-                UIApplication.at_swizzle()
-                UIViewController.at_unswizzle_instances()
-                UIViewController.at_swizzle()
-                UIRefreshControl.at_swizzle()
-                UISwitch.at_swizzle()
-
-            }
-            // time consuming, so last call of the init
-            if enableLiveTagging {
-                self.performSelector(onMainThread: #selector(addToolbar), with: nil, waitUntilDone: false)
-            }
-        } else {
-            if AutoTracker.eventDetectionEnabled == true && self.enableAutoTracking == false && self.enableLiveTagging == false {
-                
-                AutoTracker.eventDetectionEnabled = false
-                
-                removeNotifications()
-                
-                UIViewController.at_swizzle()
-                UIViewController.at_unswizzle_instances()
-                UIApplication.at_swizzle()
-                UIRefreshControl.at_swizzle()
-                UISwitch.at_swizzle()
-                self.toolbar?.toolbar.removeFromSuperview()
-            }
-        }
-    }
-    
-    func registerCurrentOrientation() {
-        let orientation = UIApplication.shared.statusBarOrientation
-        if orientation == .portrait || orientation == .portraitUpsideDown {
-            UIViewControllerContext.sharedInstance.currentOrientation = UIViewControllerContext.UIViewControllerOrientation.portrait
-        } else {
-            UIViewControllerContext.sharedInstance.currentOrientation = UIViewControllerContext.UIViewControllerOrientation.landscape
-        }
-    }
-    
-    init() {
-        super.init(configuration: Configuration().parameters)
-        
-        if let token = self.configuration.parameters[TrackerConfigurationKeys.AutoTrackerToken] {
-            self.token = token
+            
+            toolbar?.rotateIfNeeded()
         }
         
-        if let autoTrack = self.configuration.parameters[TrackerConfigurationKeys.AutoTracking] {
-            if autoTrack == "true" {
-                self.enableAutoTracking = true
-            }
-        }
-    }
-    
-    /**
-     Listen to app notifications (orientation, lifecycle ...)
-     */
-    private func addNotifications() {
-        let notificationCenter = NotificationCenter.default
-        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
-        notificationCenter.addObserver(self, selector: #selector(AutoTracker.deviceOrientationDidChange(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(AutoTracker.applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(AutoTracker.windowBecomeVisible(_:)), name: NSNotification.Name.UIWindowDidBecomeKey, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(AutoTracker.UIApplicationWillTerminate(_:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(AutoTracker.appWillGoBg(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
-    }
-    
-    @objc func windowBecomeVisible(_ notification: NSNotification) {
-        if let delegate = UIApplication.shared.keyWindow {
-            if let _ = delegate.window {
-                addToolbar()
-            }
-        }
-    }
-
-    /**
-     Removes listeners
-     */
-    private func removeNotifications() {
-        let notificationCenter = NotificationCenter.default
-        UIDevice.current.endGeneratingDeviceOrientationNotifications()
-        notificationCenter.removeObserver(self)
-    }
-    
-    /**
-     Application is going background
-     */
-    @objc func appWillGoBg(_ notification: NSNotification) {
-        UIApplication.shared.beginBackgroundTask {
-            self.liveManager?.deviceStoppedLive()
-        }
-    }
-    
-    /**
-     Device orientation detection
-     
-     - parameter notification: notification
-     */
-    @objc func deviceOrientationDidChange(_ notification: NSNotification) {
-        let currentOrientation = UIDevice.current.orientation
-        if orientation == nil {
-            orientation = currentOrientation
-        } else {
-            if currentOrientation != orientation && currentOrientation != UIDeviceOrientation.faceUp && currentOrientation != UIDeviceOrientation.faceDown && UIViewControllerContext.sharedInstance.currentViewController != nil {
-                let deviceRotation = DeviceRotationEvent(orientation: currentOrientation)
-                deviceRotation.viewController = UIViewControllerContext.sharedInstance.currentViewController
-                //EventManager.sharedInstance.addEvent(DeviceRotationOperation(rotationEvent: deviceRotation))
-                EventManager.sharedInstance.addEvent(GestureOperation(gestureEvent: deviceRotation))
+        /// Triggered when app goes foreground
+        ///
+        /// - Parameter application: application
+        @objc func applicationDidBecomeActive(_ application: UIApplication) {
+            if enableAutoTracking && token != nil && token != "" {
+                fetchMappingConfig()
             }
         }
         
-        if currentOrientation != UIDeviceOrientation.faceUp && currentOrientation != UIDeviceOrientation.faceDown {
-            orientation = currentOrientation
+        /// Triggered when app shutdown
+        ///
+        /// - Parameter application: application
+        @objc func UIApplicationWillTerminate(_ application: UIApplication) {
+            if self.enableLiveTagging == true {
+                self.liveManager?.deviceStoppedLive()
+            }
         }
         
-        toolbar?.rotateIfNeeded()
-    }
-    
-    /// Triggered when app goes foreground
-    ///
-    /// - Parameter application: application
-    @objc func applicationDidBecomeActive(_ application: UIApplication) {
-        if enableAutoTracking && token != nil && token != "" {
-            fetchMappingConfig()
+        /// Add livetagging toolbar
+        @objc func addToolbar() {
+            if toolbar == nil && socketSender != nil && liveManager != nil && UIApplication.shared.keyWindow != nil {
+                toolbar = SmartToolBarController(socket:self.socketSender!, networkManager: self.liveManager!)
+                self.liveManager!.toolbar = toolbar
+            }
+        }
+        
+        /**
+         Register font for SmartTracker toolbar
+         */
+        func registerFont(_ font: String) {
+            _ = UIFont()
+            guard
+                let fontPath = Bundle(for: Tracker.self).path(forResource: font, ofType: ".ttf"),
+                let dataFont = NSData(contentsOfFile: fontPath),
+                let provider = CGDataProvider(data: dataFont)
+                else { return }
+            if let fontRef = CGFont(provider) {
+                CTFontManagerRegisterGraphicsFont(fontRef, nil)
+            }
         }
     }
-    
-    /// Triggered when app shutdown
-    ///
-    /// - Parameter application: application
-    @objc func UIApplicationWillTerminate(_ application: UIApplication) {
-        if self.enableLiveTagging == true {
-            self.liveManager?.deviceStoppedLive()
-        }
-    }
-    
-    /// Add livetagging toolbar
-    @objc func addToolbar() {
-        if toolbar == nil && socketSender != nil && liveManager != nil && UIApplication.shared.keyWindow != nil{
-            toolbar = SmartToolBarController(socket:self.socketSender!, networkManager: self.liveManager!)
-            self.liveManager!.toolbar = toolbar
-        }
-    }
-    
-    /**
-     Register font for SmartTracker toolbar
-     */
-    func registerFont(_ font: String) {
-        _ = UIFont()
-        guard
-            let fontPath = Bundle(for: Tracker.self).path(forResource: font, ofType: ".ttf"),
-            let dataFont = NSData(contentsOfFile: fontPath),
-            let provider = CGDataProvider(data: dataFont)
-            else { return }
-        if let fontRef = CGFont(provider) {
-            CTFontManagerRegisterGraphicsFont(fontRef, nil)
-        }
-    }
-}
     
 #endif
 
@@ -504,19 +500,19 @@ public class Tracker: NSObject {
     @objc public var enableDebugger: Bool = false {
         didSet {
             if enableDebugger == true {
-                let q = DispatchQueue(label: "com.atinternet.Tracker.debuggerQueue", attributes: [])
-                
-                q.async(execute: {
-                    while(UIApplication.shared.windows.count == 0) {
-                         Thread.sleep(forTimeInterval: 0.2)
-                    }
-                    
+                if (UIApplication.shared.windows.count == 0) {
+                    NotificationCenter.default.addObserver(self, selector: #selector(Tracker.displayDebuggerOnMainThread), name: NSNotification.Name.UIWindowDidBecomeKey, object: nil)
+                } else {
                     self.performSelector(onMainThread: #selector(self.displayDebugger), with: nil, waitUntilDone: false)
-                })
+                }
             } else {
                 Debugger.sharedInstance.deinitDebugger()
             }
         }
+    }
+    
+    @objc func displayDebuggerOnMainThread() {
+        self.performSelector(onMainThread: #selector(self.displayDebugger), with: nil, waitUntilDone: false)
     }
     
     /**
@@ -609,7 +605,7 @@ public class Tracker: NSObject {
     //MARK: Internal Search Tracking
     /// Return InternalSearch instance
     /// - Deprecated : internalSearch is now only available as a screen object property.
-     @objc @available(*, deprecated, message: "internalSearch is now only available as a screen object property (> 2.5.0).")
+    @objc @available(*, deprecated, message: "internalSearch is now only available as a screen object property (> 2.5.0).")
     fileprivate(set) public lazy var internalSearches: InternalSearches = InternalSearches(tracker: self)
     
     //MARK: Custom tree structure Tracking
@@ -621,7 +617,7 @@ public class Tracker: NSObject {
     //MARK: Richmedia Tracking
     /// Return MediaPlayers instance
     @objc fileprivate(set) public lazy var mediaPlayers: MediaPlayers = MediaPlayers(tracker: self)
-
+    
     
     //MARK: - Initializer
     
@@ -913,11 +909,11 @@ public class Tracker: NSObject {
     // MARK: - Parameter
     
     /**
-    Add a parameter in the hit querystring
-    
-    - parameter key: parameter key
-    - parameter value: parameter value
-    */
+     Add a parameter in the hit querystring
+     
+     - parameter key: parameter key
+     - parameter value: parameter value
+     */
     fileprivate func processSetParam(_ key: String, value: @escaping ()->(String)) {
         // Check whether the parameter is not in read only mode
         if(!ReadOnlyParam.list.contains(key)) {
@@ -928,12 +924,12 @@ public class Tracker: NSObject {
     }
     
     /**
-    Add a parameter in the hit querystring
-    
-    - parameter key: parameter key
-    - parameter value: parameter value
-    - parameter options: parameter options
-    */
+     Add a parameter in the hit querystring
+     
+     - parameter key: parameter key
+     - parameter value: parameter value
+     - parameter options: parameter options
+     */
     fileprivate func processSetParam(_ key: String, value: @escaping ()->(String), options: ParamOption) {
         // Check whether the parameter is not in read only mode
         if !ReadOnlyParam.list.contains(key) {
@@ -1167,7 +1163,7 @@ public class Tracker: NSObject {
         
         return self
     }
-
+    
     /// Add a parameter in the hit querystring
     ///
     /// - Parameters:
@@ -1251,7 +1247,7 @@ public class Tracker: NSObject {
         TechnicalContext.screenName = ""
         TechnicalContext.level2 = 0
     }
-
+    
     // MARK: - Dispatch
     
     /// Sends all tracking objects added
@@ -1342,7 +1338,7 @@ public class Tracker: NSObject {
                     onAppAds.removeAll(keepingCapacity: false)
                     customObjects.removeAll(keepingCapacity: false)
                 } else {
-
+                    
                     if(object is Gesture && (object as! Gesture).action == Gesture.GestureAction.search) {
                         onAppAds += internalSearchObjects
                         internalSearchObjects.removeAll(keepingCapacity: false)
@@ -1380,8 +1376,8 @@ public class Tracker: NSObject {
     }
     
     /**
-    Dispatch objects with their customObjects
-    */
+     Dispatch objects with their customObjects
+     */
     func dispatchObjects(_ objects: inout [BusinessObject], customObjects: inout [BusinessObject]) {
         if(objects.count > 0) {
             objects += customObjects
@@ -1466,11 +1462,11 @@ class TrackerQueue: NSObject {
     }
     
     private static var __once: () = {
-            Static.instance = TrackerQueue()
-        }()
+        Static.instance = TrackerQueue()
+    }()
     /**
-    Private initializer (cannot instantiate BuilderQueue)
-    */
+     Private initializer (cannot instantiate BuilderQueue)
+     */
     fileprivate override init() {
         
     }
@@ -1489,5 +1485,5 @@ class TrackerQueue: NSObject {
         queue.maxConcurrentOperationCount = 1
         queue.qualityOfService = QualityOfService.background
         return queue
-        }()
+    }()
 }

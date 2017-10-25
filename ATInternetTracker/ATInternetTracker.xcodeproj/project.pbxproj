@@ -960,6 +960,7 @@
 		8E6DD3411F4D81C700E81E79 /* SocketIOClientConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOClientConfiguration.swift; sourceTree = "<group>"; };
 		8E6DD3421F4D81C700E81E79 /* SocketEngineWebsocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketEngineWebsocket.swift; sourceTree = "<group>"; };
 		8E82306E1F7BA99B00B750DC /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppTests.swift; path = Tests/AppTests.swift; sourceTree = "<group>"; };
+		8E9334901FA0E4F5001E185A /* ATInternet-Apple-SDK-AppExtension.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = "ATInternet-Apple-SDK-AppExtension.podspec"; path = "../../ATInternet-Apple-SDK-AppExtension.podspec"; sourceTree = "<group>"; };
 		8E9398B41D9583810065D58D /* SmartTrackerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartTrackerConfiguration.swift; sourceTree = "<group>"; };
 		8EC97ED21D5A2CC1007360F3 /* APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APITests.swift; path = Tests/APITests.swift; sourceTree = "<group>"; };
 		8EDC3CF51D3E225100A14458 /* ApiS3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiS3.swift; sourceTree = "<group>"; };
@@ -1194,6 +1195,7 @@
 		4F47A5591D36209900702747 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				8E9334901FA0E4F5001E185A /* ATInternet-Apple-SDK-AppExtension.podspec */,
 				8EEBADC51DF5779200FD1CFD /* ATInternet-Apple-SDK.podspec */,
 				4F47A43A1D3532FE00702747 /* Info-iOS-Extension.plist */,
 				4F47A5541D35465200702747 /* Info-iOS-SmartTracker.plist */,
