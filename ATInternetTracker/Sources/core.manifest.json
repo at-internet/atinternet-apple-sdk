@@ -92,6 +92,14 @@
             "public": true,
             "global": true
         },
+        "enableSmartSDK": {
+            "title": "Geode_Tag_SDK_Config_Title_enableSmartSDK",
+            "description": "Geode_Tag_SDK_Config_Description_enableSmartSDK",
+            "defaultValue": "false",
+            "type": "bool",
+            "public": true,
+            "global": true
+        },
         "hashUserId": {
             "title" : "Geode_Tag_SDK_Config_Title_hashUserId",
             "description": "Geode_Tag_SDK_Config_Description_hashUserId",

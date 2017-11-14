@@ -62,8 +62,6 @@ class ConfigurationTests: XCTestCase {
         
         for (key,value) in config {
             if (defaultConf[key] != value) {
-                print(defaultConf[key]!)
-                print(value)
                 testOK = false;
                 break;
             }

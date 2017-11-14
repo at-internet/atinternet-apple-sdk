@@ -81,7 +81,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
     var tracker = Tracker()
     let configuration = ["log":"logp", "logSSL":"logs", "domain":"xiti.com", "pixelPath":"/hit.xiti", "site":"549808", "secure":"false", "identifier":"uuid"]
     
-    let nbPersistentParameters = 15
+    let nbPersistentParameters = 17
     
     // Variables références
     var callbackCalled = false

@@ -82,7 +82,10 @@ class Buffer: NSObject {
         self.persistentParameters["lng"] = Param(key: "lng", value: {TechnicalContext.language}, options: persistentOption)
         // Add device information
         let device = "[apple]-[" + TechnicalContext.device + "]"
+        let modelDevice = TechnicalContext.model
         self.persistentParameters["mfmd"] = Param(key: "mfmd", value: {device}, options: persistentOption)
+        self.persistentParameters["manufacturer"] = Param(key: "manufacturer", value: {"Apple"}, options: persistentOption)
+        self.persistentParameters["model"] = Param(key: "model", value: {modelDevice}, options: persistentOption)
         // Add OS information
         let operatingSystem = TechnicalContext.operatingSystem
         self.persistentParameters["os"] = Param(key: "os", value: {operatingSystem}, options: persistentOption)
