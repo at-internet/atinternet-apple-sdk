@@ -172,7 +172,7 @@ public class SelfPromotionImpressions: NSObject {
     var tracker: Tracker!
     
     /// Screen instance
-    weak var screen: AbstractScreen
+    weak var screen: AbstractScreen!
     
     /// Constructor.
     ///
