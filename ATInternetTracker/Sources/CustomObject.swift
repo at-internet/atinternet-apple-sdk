@@ -75,7 +75,7 @@ public class CustomObjects: NSObject {
     var tracker: Tracker!
     
     /// Screen instance
-    var screen: AbstractScreen!
+    weak var screen: AbstractScreen!
     
     /// Gesture instance
     var gesture: Gesture!

@@ -1,4 +1,4 @@
-module CommonCrypto [system] {
+module ATCommonCrypto [system] {
     header "include.h"
     export *
 }

@@ -192,6 +192,13 @@ class TechnicalContext: NSObject {
         }
     }
     
+    class var model: String {
+        if let simulatorModelIdentifier = ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] { return simulatorModelIdentifier }
+        var sysinfo = utsname()
+        uname(&sysinfo)
+        return String(bytes: Data(bytes: &sysinfo.machine, count: Int(_SYS_NAMELEN)), encoding: .ascii)?.trimmingCharacters(in: .controlCharacters) ?? ""
+    }
+    
     /// Device OS (name + version)
     @objc class var operatingSystem: String {
         get {
@@ -244,7 +251,7 @@ class TechnicalContext: NSObject {
         }
     }
     
-    /// Application version (eg. [5.0])
+    /// Application version (eg. 5.0)
     class var applicationVersion: String {
         get {
             let version = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as? String

@@ -61,10 +61,6 @@ class ConfigurationTests: XCTestCase {
         
         for (key,value) in config {
             if (defaultConf[key] != value) {
-                print("error below...\(key)")
-                print(defaultConf[key]!)
-                print(value)
-                print("...")
                 testOK = false;
                 break;
             }
@@ -72,7 +68,6 @@ class ConfigurationTests: XCTestCase {
         
         if (testOK) {
             if (defaultConf.count != config.count) {
-                print("count differ")
                 testOK = false;
             }
         }

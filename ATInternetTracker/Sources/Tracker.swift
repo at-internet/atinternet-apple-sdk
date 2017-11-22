@@ -33,10 +33,10 @@ SOFTWARE.
 import Foundation
 import CoreData
 
-#if os(watchOS)
-import WatchKit
-#elseif os(iOS)
-import UIKit
+#if !os(watchOS)
+    import UIKit
+#else
+    import WatchKit
 #endif
 
 /// Build or send status of the hit

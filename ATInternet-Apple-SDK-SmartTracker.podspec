@@ -3,7 +3,7 @@ $external_dependencies = File.readlines('dependencies.txt').map(&:strip)
 
 Pod::Spec.new do |s|
 	s.name = "ATInternet-Apple-SDK-SmartTracker"
-	s.version = '2.7.0'
+	s.version = '2.8.1'
 	s.summary = "AT Internet mobile analytics solution for iOS App"
 	s.homepage = "https://github.com/at-internet/atinternet-apple-sdk"
 	s.documentation_url	= 'http://developers.atinternet-solutions.com/apple-en/getting-started-apple-en/operating-principle-apple-en/'

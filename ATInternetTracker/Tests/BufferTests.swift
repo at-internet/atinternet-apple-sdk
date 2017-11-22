@@ -57,9 +57,9 @@ class BufferTests: XCTestCase {
     func testAddParamPer() {
         buffer.persistentParameters[paramPer.key] = paramPer
         #if os(iOS)
-        XCTAssertEqual(buffer.persistentParameters.count, 15, "persistentParameters doit contenir un élément")
+        XCTAssertEqual(buffer.persistentParameters.count, 16, "persistentParameters doit contenir un élément")
         #elseif os(tvOS)
-         XCTAssertEqual(buffer.persistentParameters.count, 14, "persistentParameters doit contenir un élément")
+         XCTAssertEqual(buffer.persistentParameters.count, 15, "persistentParameters doit contenir un élément")
         #endif
     }
     
