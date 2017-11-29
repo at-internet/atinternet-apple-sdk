@@ -33,9 +33,9 @@ SOFTWARE.
 import Foundation
 import CoreData
 
-#if !os(watchOS)
+#if os(iOS) || os(tvOS)
     import UIKit
-#else
+#elseif os(watchOS)
     import WatchKit
 #endif
 
