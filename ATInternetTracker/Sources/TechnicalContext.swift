@@ -282,8 +282,8 @@ class TechnicalContext: NSObject {
                 let screenBounds = WKInterfaceDevice.current().screenBounds
                 let screenScale = WKInterfaceDevice.current().screenScale
             #elseif os(OSX)
-                let screenBounds = NSScreen.main?.frame
-                let screenScale = NSScreen.main?.backingScaleFactor
+                let screenBounds = NSScreen.main()?.frame
+                let screenScale = NSScreen.main()?.backingScaleFactor
             #elseif os(iOS) || os(tvOS)
                 let screenBounds = UIScreen.main.bounds
                 let screenScale = UIScreen.main.scale
