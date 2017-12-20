@@ -3,7 +3,7 @@ $external_dependencies = File.readlines('dependencies.txt').map(&:strip)
 
 Pod::Spec.new do |s|
 	s.name = "ATInternet-Apple-SDK"
-	s.version = '2.8.3'
+	s.version = '2.8.4'
 	s.summary = "AT Internet mobile analytics solution for Apple devices"
 	s.homepage = "https://github.com/at-internet/atinternet-apple-sdk"
 	s.documentation_url	= 'http://developers.atinternet-solutions.com/apple-en/getting-started-apple-en/operating-principle-apple-en/'
@@ -42,9 +42,9 @@ Pod::Spec.new do |s|
 		st.ios.deployment_target = '8.0'
 		st.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '-DAT_SMART_TRACKER' }
 		st.libraries = "icucore"
-		st.dependency 'JRSwizzle'
-		st.dependency 'KLCPopup'
-		st.dependency 'Socket.IO-Client-Swift'
+		st.dependency 'JRSwizzle', '1.0'
+		st.dependency 'KLCPopup', '1.0'
+		st.dependency 'Socket.IO-Client-Swift', '~> 12.0'
 	end
 
     s.subspec 'watchOSTracker' do |wos|
