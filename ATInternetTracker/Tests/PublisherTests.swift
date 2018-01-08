@@ -1,25 +1,25 @@
 /*
-This SDK is licensed under the MIT license (MIT)
-Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ This SDK is licensed under the MIT license (MIT)
+ Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
 
 
@@ -30,7 +30,6 @@ SOFTWARE.
 //  Tracker
 //
 
-import UIKit
 import XCTest
 
 class PublisherTests: XCTestCase {
@@ -38,7 +37,11 @@ class PublisherTests: XCTestCase {
     lazy var publisher: Publisher = Publisher(tracker: Tracker())
     lazy var publisher2: Publisher = Publisher(tracker: Tracker())
     lazy var publishers: Publishers = Publishers(tracker: Tracker())
-    
+    func lookupParam(key: String, params: [ (key: String, value: (String, String)) ]) -> (key: String, value: (String, String)) {
+        return params.filter({ (tuple) -> Bool in
+            return tuple.key == key
+        })[0]
+    }
     func testInitPublisher() {
         XCTAssertTrue(publisher.campaignId == "", "Le nom de la pub doit être vide")
         XCTAssertTrue(publisher.action == OnAppAd.OnAppAdAction.view, "L'action par défaut doit être view")
@@ -101,12 +104,11 @@ class PublisherTests: XCTestCase {
         XCTAssert(publisher.tracker.buffer.volatileParameters["ati"]?.values[1]() == "PUB-2-creation-variante-format-quelquePart-enBasAGauche-advId-atinternet", "La valeur du 3ème paramètre doit être PUB-2-creation-variante-format-quelquePart-enBasAGauche-advId-atinternet")
         
         let builder = Builder(tracker: publisher.tracker)
-        let param: Dictionary<String, (String, String)> = builder.prepareQuery()
+        let param: [ (key: String, value: (String, String)) ] = builder.prepareQuery()
         
-        XCTAssertTrue(param["ati"] != nil, "Le paramètre doit être ati")
-        XCTAssertTrue(param["ati"]?.0 == "&ati=" + "PUB%2D1%2D%2D%2D%2D%2D%2D%2D%2CPUB%2D2%2Dcreation%2Dvariante%2Dformat%2DquelquePart%2DenBasAGauche%2DadvId%2Datinternet")
+        XCTAssertTrue(lookupParam(key: "ati", params: param).value.0 == "&ati=" + "PUB%2D1%2D%2D%2D%2D%2D%2D%2D%2CPUB%2D2%2Dcreation%2Dvariante%2Dformat%2DquelquePart%2DenBasAGauche%2DadvId%2Datinternet")
     }
-
+    
     func testSetScreenWithPublisherView() {
         let screen = publisher.tracker.screens.add("Home")
         screen.setEvent()
@@ -164,3 +166,4 @@ class PublisherTests: XCTestCase {
         XCTAssert(publisher.tracker.buffer.volatileParameters["atc"]?.values[0]() == "PUB-2-creation-variante-format-quelquePart-enBasAGauche-advId-atinternet", "La valeur du second paramètre doit être PUB-2-creation-variante-format-quelquePart-enBasAGauche-advId-atinternet")
     }
 }
+

@@ -1,25 +1,25 @@
 /*
-This SDK is licensed under the MIT license (MIT)
-Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ This SDK is licensed under the MIT license (MIT)
+ Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
 
 
@@ -30,7 +30,6 @@ SOFTWARE.
 //  Tracker
 //
 
-import UIKit
 import XCTest
 
 class SelfPromotionTests: XCTestCase {
@@ -38,7 +37,11 @@ class SelfPromotionTests: XCTestCase {
     lazy var selfPromo: SelfPromotion = SelfPromotion(tracker: Tracker())
     lazy var selfPromo2: SelfPromotion = SelfPromotion(tracker: Tracker())
     lazy var selfPromos: SelfPromotions = SelfPromotions(tracker: Tracker())
-    
+    func lookupParam(key: String, params: [ (key: String, value: (String, String)) ]) -> (key: String, value: (String, String)) {
+        return params.filter({ (tuple) -> Bool in
+            return tuple.key == key
+        })[0]
+    }
     func testInitSelfPromo() {
         XCTAssertTrue(selfPromo.adId == 0, "L'id de la pub doit être égal à 0")
         XCTAssertTrue(selfPromo.action == OnAppAd.OnAppAdAction.view, "L'action par défaut doit être view")
@@ -91,10 +94,9 @@ class SelfPromotionTests: XCTestCase {
         XCTAssert(selfPromo.tracker.buffer.volatileParameters["ati"]?.values[1]() == "INT-2-format||productId", "La valeur du 3ème paramètre doit être INT-2-format||productId")
         
         let builder = Builder(tracker: selfPromo.tracker)
-        let param: Dictionary<String, (String, String)> = builder.prepareQuery()
+        let param: [ (key: String, value: (String, String)) ] = builder.prepareQuery()
         
-        XCTAssertTrue(param["ati"] != nil, "Le paramètre doit être ati")
-        XCTAssertTrue(param["ati"]?.0 == "&ati=" + "INT%2D1%2D%7C%7C%2CINT%2D2%2Dformat%7C%7CproductId")
+        XCTAssertTrue(lookupParam(key: "ati", params: param).value.0 == "&ati=" + "INT%2D1%2D%7C%7C%2CINT%2D2%2Dformat%7C%7CproductId")
     }
     
     func testSetScreenWithPublisherView() {
@@ -149,3 +151,4 @@ class SelfPromotionTests: XCTestCase {
         XCTAssert(selfPromo.tracker.buffer.volatileParameters["atc"]?.values[0]() == "INT-2-format||productId", "La valeur du second paramètre doit être INT-2-format||productId")
     }
 }
+

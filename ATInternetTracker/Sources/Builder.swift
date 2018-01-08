@@ -178,10 +178,10 @@ class Builder: Operation {
         let idclient = TechnicalContext.userId(tracker.configuration.parameters["identifier"])
         
         // For each prebuilt queryString, we check the length
-        for parameterKey in formattedParams.keys {
-            guard let value = formattedParams[parameterKey]?.0, let separator = formattedParams[parameterKey]?.1 else {
-                continue
-            }
+        for tupleKey_ValueSeparator in formattedParams {
+            let parameterKey = tupleKey_ValueSeparator.key
+            let value = tupleKey_ValueSeparator.value.0
+            let separator = tupleKey_ValueSeparator.value.1
             
             // If the queryString length is too long
             if (value.characters.count > refMaxSize) {
@@ -380,8 +380,8 @@ class Builder: Operation {
     
     - returns: An array of prepared parameters
     */
-    func prepareQuery() -> Dictionary<String, (String, String)> {
-        var formattedParameters = Dictionary<String, (String, String)>()
+    func prepareQuery() -> [ (key: String, value: (String, String)) ] {
+        var formattedParameters = [ (key: String, value: (String, String)) ]()
         
         var buffer = [String:Param]()
         persistentParameters.forEach { (k,v) in buffer[k] = v }
@@ -468,7 +468,7 @@ class Builder: Operation {
                 separator = opts.separator.percentEncodedString
             }
             
-            formattedParameters[p.key] = (self.makeSubQuery(p.key, value: strValue), separator)
+            formattedParameters.append( (p.key, (self.makeSubQuery(p.key, value: strValue), separator)) )
         }
         return formattedParameters
     }

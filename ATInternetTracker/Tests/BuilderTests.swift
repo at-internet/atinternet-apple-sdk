@@ -1,25 +1,25 @@
 /*
-This SDK is licensed under the MIT license (MIT)
-Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ This SDK is licensed under the MIT license (MIT)
+ Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
 
 
@@ -30,10 +30,15 @@ SOFTWARE.
 //  Tracker
 //
 
-import UIKit
 import XCTest
 
 class BuilderTests: XCTestCase, TrackerDelegate {
+    
+    func lookupParam(key: String, params: [ (key: String, value: (String, String)) ]) -> (key: String, value: (String, String)) {
+        return params.filter({ (tuple) -> Bool in
+            return tuple.key == key
+        })[0]
+    }
     
     func trackerNeedsFirstLaunchApproval(_ message: String) {
         print(message)
@@ -48,7 +53,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
     }
     
     func saveDidEnd(_ message: String) {
-
+        
     }
     
     func didCallPartner(_ response: String) {
@@ -116,7 +121,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
     func testBuildHitWithFloatParam() {
         
         let floatParam = Param(key: "float", value: {Tool.convertToString(3.1415).value})
-
+        
         tracker.buffer.volatileParameters["float"] = floatParam
         
         let builder = Builder(tracker: self.tracker)
@@ -149,7 +154,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         let hits = builder.build()
         let url = URL(string: hits[0])
         
-
+        
         let urlComponents = url?.query!.components(separatedBy: "&")
         
         for component in urlComponents! as [String] {
@@ -165,7 +170,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
     
     // Teste que le hit construit avec une paramètre dont la valeur est un bool contient bien le résultat attendu
     func testBuildHitWithBoolParam() {
-
+        
         let trueBoolParam = Param(key: "trueBool", value: {Tool.convertToString(true).value})
         let falseBoolParam = Param(key: "falseBool", value: {Tool.convertToString(false).value})
         
@@ -177,7 +182,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         let hits = builder.build()
         let url = URL(string: hits[0])
         
-
+        
         let urlComponents = url?.query!.components(separatedBy: "&")
         
         for component in urlComponents! as [String] {
@@ -201,7 +206,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
     func testBuildHitWithDictionnaryParam() {
         
         let dictParam = Param(key: "json", value: {Tool.convertToString(["légume":["chou","patate","tomate","carotte"], "fruits": ["pomme", "abricot", "poire"]]).value})
-
+        
         tracker.buffer.volatileParameters["json"] = dictParam
         
         let builder = Builder(tracker: self.tracker)
@@ -246,7 +251,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
             }
         }
     }
-
+    
     // Teste que le hit construit avec une paramètre dont la valeur est un tableau et le separator |contient bien le résultat attendu
     func testBuildHitWithArrayParamAndPipeSeparator() {
         
@@ -276,7 +281,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
     }
     
     // Teste l'envoi d'un hit
-    func testSendHit() {        
+    func testSendHit() {
         let pageParam = Param(key: "p", value: {"home"})
         
         let stcParamOption = ParamOption()
@@ -312,7 +317,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         let hit = Hit(url: hits[0])
         let sender = Sender(tracker: tracker, hit: hit, forceSendOfflineHits: false, mhOlt: nil)
         
-       
+        
         sender.sendWithCompletionHandler({(success) in
             XCTAssert(success, "Hit could not be sent")
             expectation.fulfill()
@@ -331,7 +336,10 @@ class BuilderTests: XCTestCase, TrackerDelegate {
     
     // Teste le formattage de paramètres volatiles
     func testPreQueryWithVolatileParameters() {
-        let pageParam = Param(key: "p", value: {"home"})
+        let refParamOptionFirst = ParamOption()
+        refParamOptionFirst.relativePosition = ParamOption.RelativePosition.first
+        
+        let pageParam = Param(key: "p", value: {"home"}, options: refParamOptionFirst)
         let stcParam = Param(key: "stc", value: {Tool.convertToString(["chou", "patate", "carotte"]).value})
         
         let refParamOption = ParamOption()
@@ -351,11 +359,11 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         
         var strings = builder.prepareQuery()
         
-        XCTAssert(strings["p"]!.0 == "&p=home", "le premier paramètre doit être égal à &p=home")
-        XCTAssert(strings["stc"]!.0 == "&stc=chou,patate,carotte", "le second paramètre doit être égal à &stc=chou,patate,carotte")
-        XCTAssert(strings["dslu"]!.0 == "&dslu=10", "le paramètre dslu doit être égal à &dslu=10")
-        XCTAssert(strings["crash"]!.0 == "&crash=false", "le paramètre crash doit être égal à &crash=false")
-        XCTAssert(strings["ref"]!.0 == "&ref=www.atinternet.com?test1=1$test2=2$test3=script/script", "le paramètre ref doit être égal à &ref=www.atinternet.com et doit être le dernier paramètre")
+        XCTAssert(strings[0].value.0 == "&p=home", "le premier paramètre doit être égal à &p=home")
+        XCTAssert(lookupParam(key: "stc", params: strings).value.0 == "&stc=chou,patate,carotte", "le second paramètre doit être égal à &stc=chou,patate,carotte")
+        XCTAssert(lookupParam(key: "dslu", params: strings).value.0 == "&dslu=10", "le paramètre dslu doit être égal à &dslu=10")
+        XCTAssert(lookupParam(key: "crash", params: strings).value.0 == "&crash=false", "le paramètre crash doit être égal à &crash=false")
+        XCTAssert(strings.last?.value.0 == "&ref=www.atinternet.com?test1=1$test2=2$test3=script/script", "le paramètre ref doit être égal à &ref=www.atinternet.com et doit être le dernier paramètre")
     }
     
     // Teste le formattage de paramètres permanents
@@ -380,11 +388,11 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         
         var strings = builder.prepareQuery()
         
-        XCTAssert(strings["p"]?.0 == "&p=home", "le premier paramètre doit être égal à &p=home")
-        XCTAssert(strings["stc"]?.0 == "&stc=chou,patate,carotte", "le second paramètre doit être égal à &stc=chou,patate,carotte")
-        XCTAssert(strings["dslu"]?.0 == "&dslu=10", "le paramètre dslu doit être égal à &dslu=10")
-        XCTAssert(strings["crash"]?.0 == "&crash=false", "le paramètre crash doit être égal à &crash=false")
-        XCTAssert(strings["ref"]?.0 == "&ref=www.atinternet.com?test1=1$test2=2$test3=script/script", "le paramètre ref doit être égal à &ref=www.atinternet.com et doit être le dernier paramètre")
+        XCTAssert(lookupParam(key: "p", params: strings).value.0 == "&p=home", "le premier paramètre doit être égal à &p=home")
+        XCTAssert(lookupParam(key: "stc", params: strings).value.0 == "&stc=chou,patate,carotte", "le second paramètre doit être égal à &stc=chou,patate,carotte")
+        XCTAssert(lookupParam(key: "dslu", params: strings).value.0 == "&dslu=10", "le paramètre dslu doit être égal à &dslu=10")
+        XCTAssert(lookupParam(key: "crash", params: strings).value.0 == "&crash=false", "le paramètre crash doit être égal à &crash=false")
+        XCTAssert(strings.last?.value.0 == "&ref=www.atinternet.com?test1=1$test2=2$test3=script/script", "le paramètre ref doit être égal à &ref=www.atinternet.com et doit être le dernier paramètre")
     }
     
     // Teste le formattage de paramètres volatiles et persistents
@@ -409,11 +417,11 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         
         var strings = builder.prepareQuery()
         
-        XCTAssert(strings["p"]!.0 == "&p=home", "le premier paramètre doit être égal à &p=home")
-        XCTAssert(strings["stc"]!.0 == "&stc=chou,patate,carotte", "le second paramètre doit être égal à &stc=chou,patate,carotte")
-        XCTAssert(strings["dslu"]!.0 == "&dslu=10", "le paramètre dslu doit être égal à &dslu=10")
-        XCTAssert(strings["crash"]!.0 == "&crash=false", "le paramètre crash doit être égal à &crash=false")
-        XCTAssert(strings["ref"]?.0 == "&ref=www.atinternet.com?test1=1$test2=2$test3=script/script", "le paramètre ref doit être égal à &ref=www.atinternet.com et doit être le dernier paramètre")
+        XCTAssert(lookupParam(key: "p", params: strings).value.0 == "&p=home", "le premier paramètre doit être égal à &p=home")
+        XCTAssert(lookupParam(key: "stc", params: strings).value.0 == "&stc=chou,patate,carotte", "le second paramètre doit être égal à &stc=chou,patate,carotte")
+        XCTAssert(lookupParam(key: "dslu", params: strings).value.0 == "&dslu=10", "le paramètre dslu doit être égal à &dslu=10")
+        XCTAssert(lookupParam(key: "crash", params: strings).value.0 == "&crash=false", "le paramètre crash doit être égal à &crash=false")
+        XCTAssert(strings.last?.value.0 == "&ref=www.atinternet.com?test1=1$test2=2$test3=script/script", "le paramètre ref doit être égal à &ref=www.atinternet.com et doit être le dernier paramètre")
     }
     
     func testOrganizeParameters() {
@@ -452,16 +460,11 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         builder.volatileParameters.forEach { (k,v) in buffer[k] = v }
         var params = builder.organizeParameters(buffer)
         
-        XCTAssert(params[0].key == "p", "Le premier paramètre doit etre p=")
-        #if os(iOS)
-        XCTAssert(params[params.count-2].key == "crash", "Le sixième paramètre doit etre hl=")
-        XCTAssert(params[params.count-1].key == "ref", "Le septième paramètre doit etre ref=")
-        #elseif os(tvOS)
-        XCTAssert(params[params.count-2].key == "stc", "Le sixième paramètre doit etre hl=")
-        XCTAssert(params[params.count-1].key == "ref", "Le septième paramètre doit etre ref=")
-        #endif
+        XCTAssert(params[0].key == "p", "Le premier paramètre doit etre p")
+        XCTAssert(params[params.count-2].key == "crash", "L'avant dernier paramètre doit etre crash")
+        XCTAssert(params[params.count-1].key == "ref", "Le dernier paramètre doit etre ref")
     }
-
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure() {
@@ -575,5 +578,6 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         XCTAssertTrue(hits.count == 1, "Le hit ne devrait pas être découpé")
         XCTAssertTrue(isErr, "Le hit ne contient pas la variable d'erreur alors que cela devrait être le cas")
     }
-
+    
 }
+
