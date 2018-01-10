@@ -165,7 +165,7 @@ class Builder: Operation {
         // Reference maximum size
         let refMaxSize = hitMaxLength
             - mhidMaxLength
-            - config.characters.count
+            - config.count
             - oltMaxLength
             - idclientMaxLength
             - separatorMaxLength
@@ -184,7 +184,7 @@ class Builder: Operation {
             let separator = tupleKey_ValueSeparator.value.1
             
             // If the queryString length is too long
-            if (value.characters.count > refMaxSize) {
+            if (value.count > refMaxSize) {
                 
                 // Check if the concerned parameter value in the queryString is allowed to be sliced
                 if (SliceReadyParam.list.contains(parameterKey)) {
@@ -199,10 +199,10 @@ class Builder: Operation {
                     
                     // For each sliced value we check if we can add it to current hit, else we create and add a new hit
                     for valChunk in valChunks {
-                        if (!keyAdded && (hit + keySplit + valChunk).characters.count <= refMaxSize) {
+                        if (!keyAdded && (hit + keySplit + valChunk).count <= refMaxSize) {
                             hit = hit + keySplit + valChunk
                             keyAdded = true
-                        } else if (keyAdded && (hit + separator + valChunk).characters.count < refMaxSize){
+                        } else if (keyAdded && (hit + separator + valChunk).count < refMaxSize){
                             hit = hit + separator + valChunk
                         } else {
                             chunksCount += 1
@@ -214,18 +214,18 @@ class Builder: Operation {
                                 // Too much chunks
                                 err = true
                                 break
-                            } else if (hit.characters.count > refMaxSize) {
+                            } else if (hit.count > refMaxSize) {
                                 // Value still too long
                                 self.tracker.delegate?.warningDidOccur?("Multihits: value still too long after slicing")
                                 // Truncate the value
-                                let idxMax = hit.index(hit.startIndex, offsetBy: refMaxSize - errQuery.characters.count)
+                                let idxMax = hit.index(hit.startIndex, offsetBy: refMaxSize - errQuery.count)
                                 hit = "\(hit[..<idxMax])"
                                 // Check if in the last 5 characters there is misencoded character, if so we truncate again
                                 let idxEncode = hit.index(hit.endIndex, offsetBy: -5)
                                 let lastChars = hit[...idxEncode]
                                 let rangeMisencodedChar = lastChars.range(of: "%")
                                 if rangeMisencodedChar != nil {
-                                    let idx = hit.index(hit.startIndex, offsetBy: hit.characters.count - 5)
+                                    let idx = hit.index(hit.startIndex, offsetBy: hit.count - 5)
                                     hit = "\(hit[..<idx])"
                                 }
                                 hit += errQuery
@@ -245,7 +245,7 @@ class Builder: Operation {
                 }
             
             // Else if the current hit + queryString length is not too long, we add it to the current hit
-            } else if ((hit+value).characters.count <= refMaxSize) {
+            } else if ((hit+value).count <= refMaxSize) {
                 hit += value
             
             // Else, we add a new hit

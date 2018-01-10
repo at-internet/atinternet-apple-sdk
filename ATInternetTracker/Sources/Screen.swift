@@ -353,7 +353,7 @@ public class DynamicScreen: AbstractScreen {
         
         _ = tracker.setParam("pchap", value: chapters == nil ? "" : chapters!, options:encodingOption)
         
-        if(screenId.characters.count > 255){
+        if(screenId.count > 255){
             screenId = ""
             tracker.delegate?.warningDidOccur?("screenId too long, replaced by empty value")
         }
