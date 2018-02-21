@@ -42,7 +42,6 @@ class PanEventTests: XCTestCase {
                     "y":0,
                     "width":aView.frame.size.width,
                     "height":aView.frame.size.height,
-                    "text":"",
                     "screenshot":"",
                     "path":aView.classLabel,
                     "position":-1,
@@ -56,7 +55,7 @@ class PanEventTests: XCTestCase {
                     "height":UIScreen.main.bounds.size.height,
                     "app":[
                         "device":"x86_64",
-                        "token":"-",
+                        "token":"",
                         "version":"",
                         "package":"noApplicationIdentifier",
                         "platform":"ios"

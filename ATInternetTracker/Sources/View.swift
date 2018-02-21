@@ -43,9 +43,6 @@ public class View: NSObject {
     /// View height
     public var height: Float
     
-    /// Text in view
-    public var text: String
-    
     /// Visibility of the view 
     public var visible: Bool
     
@@ -71,7 +68,6 @@ public class View: NSObject {
                 "y": self.y,
                 "width": self.width,
                 "height": self.height,
-                "text": self.text,
                 "path": self.path,
                 "screenshot": self.screenshot,
                 "visible": self.visible,
@@ -100,7 +96,6 @@ public class View: NSObject {
             self.y = Float(newFrame.origin.y)
             self.width = Float(newFrame.width)
             self.height = Float(newFrame.height)
-            self.text = v.findText(UIApplicationContext.sharedInstance.initialTouchPosition) ?? ""
             self.visible = (v.isHidden || v.alpha == 0)
             super.init()
             self.path = v.path
@@ -110,7 +105,6 @@ public class View: NSObject {
             self.y = 0
             self.width = 0
             self.height = 0
-            self.text = ""
             self.visible = true
             super.init()
         }

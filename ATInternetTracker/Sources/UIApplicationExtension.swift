@@ -273,10 +273,6 @@ extension UIApplication {
                     appContext.pinchType = getPinchType(touches)
                 }
                 
-                if let text = infoText {
-                    gestureEvent?.view.text = text
-                }
-                
                 if let className = infoClassName {
                     gestureEvent?.view.className = className
                 }
@@ -790,18 +786,9 @@ class TouchUIViewInfo {
     func textField() -> ViewInfo {
         return { view in
             var text: String?
-            
             let textField = view as! UITextField
             
-            if let fieldText = textField.text {
-                if !fieldText.isEmpty  {
-                    text = fieldText
-                } else if let placeHolder = textField.placeholder {
-                    if !placeHolder.isEmpty  {
-                        text = placeHolder
-                    }
-                }
-            } else if let placeHolder = textField.placeholder {
+            if let placeHolder = textField.placeholder {
                 if !placeHolder.isEmpty  {
                     text = placeHolder
                 }

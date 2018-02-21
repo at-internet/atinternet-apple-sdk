@@ -12,7 +12,7 @@ class TestGenerator {
     class func randomViewGenerator(_ filterViews:(UIView) -> (Bool) = {_ in return true} ) -> UIView {
         let allViews: [UIView] = [UIView(), UILabel(), UIButton(), UISegmentedControl(), UITextField(), UISlider(), UIStepper(), UIImageView(), UITextView(), UIScrollView(), UIDatePicker(), UIWebView(), UINavigationBar(), UISearchBar()]
         let views = allViews.filter(filterViews)
-        let aView = views[Int(arc4random_uniform(UInt32(views.count)))]
+        let aView = views[0]
         let x = CGFloat(arc4random_uniform(300))
         let y = CGFloat(arc4random_uniform(300))
         let w = CGFloat(arc4random_uniform(300))

@@ -91,7 +91,6 @@ extension UISwitch {
                         operation.cancel()
                     }
                     
-                    gesture.view.text = self.isOn ? "On" : "Off"
                     gesture.view.className = self.classLabel
                     gesture.view.path = self.path
                     gesture.methodName = "setOn:"

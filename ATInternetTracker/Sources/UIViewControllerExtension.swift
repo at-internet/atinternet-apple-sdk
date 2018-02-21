@@ -254,9 +254,6 @@ extension UIViewController {
                     let pendingEvent = operation.gestureEvent
                     EventManager.sharedInstance.cancelLastEvent()
                     pendingEvent.methodName = "handleBack:"
-                    if pendingEvent.view.text.isEmpty {
-                        pendingEvent.view.text = "Back"
-                    }
                     
                     EventManager.sharedInstance.addEvent(GestureOperation(gestureEvent: pendingEvent))
                 }
@@ -322,9 +319,6 @@ extension UIViewController {
             if let _ = className {
                 tap.view.className = className!
             }
-            if let _ = text {
-                tap.view.text = text!
-            }
             if let _ = position {
                 tap.view.position = position!
             }
@@ -336,7 +330,6 @@ extension UIViewController {
                 for i in 0..<nb {
                     let aTap = TapEvent(x: -1, y: -1, view: View(view: segments[i]), direction: "single", currentScreen: currentScreen, methodName: tap.methodName)
                     aTap.view.position = i
-                    aTap.view.text = segmented.titleForSegment(at: i) ?? ""
                     events.append(aTap)
                 }
             }

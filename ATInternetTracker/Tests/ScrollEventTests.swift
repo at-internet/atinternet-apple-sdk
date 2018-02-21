@@ -13,6 +13,7 @@ class ScrollEventTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        ATInternet.sharedInstance.defaultTracker.token = ""
         UIApplicationContext.sharedInstance.currentTouchedView = nil
     }
     
@@ -43,7 +44,6 @@ class ScrollEventTests: XCTestCase {
                     "path" : aView.classLabel,
                     "position" : -1,
                     "screenshot" : "",
-                    "text" : "",
                     "width" : aView.frame.width,
                     "visible":false,
                     "x" : 0,
@@ -57,7 +57,7 @@ class ScrollEventTests: XCTestCase {
                     "height":UIScreen.main.bounds.size.height,
                     "app":[
                         "device":"x86_64",
-                        "token":"-",
+                        "token":"",
                         "version":"",
                         "package":"noApplicationIdentifier",
                         "platform":"ios",

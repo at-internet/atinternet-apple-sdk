@@ -46,7 +46,7 @@ class ScreenRotationEventTests: XCTestCase {
                     "height":UIScreen.main.bounds.size.height,
                     "app":[
                         "device":"x86_64",
-                        "token":"-",
+                        "token":"",
                         "version":"",
                         "package":"noApplicationIdentifier",
                         "platform":"ios"

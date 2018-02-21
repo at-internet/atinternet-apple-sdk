@@ -27,8 +27,8 @@ import Foundation
 class SmartTrackerConfiguration {
     
     private let ebs = [
-        "dev"       : "https://tag-smartsdk-dev.atinternet-solutions.com/",
-        "preprod"   : "https://tag-smartsdk-preprod.atinternet-solutions.com/",
+        "dev"       : "https://smartsdk.dev.aws.atinternet-solutions.com/",
+        "preprod"   : "https://smartsdk.atinternet-solutions.com",
         "prod"       : "https://smartsdk.atinternet-solutions.com"
     ]
 

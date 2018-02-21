@@ -41,7 +41,6 @@ class SwipeEventTests: XCTestCase {
                     "path" : aView.classLabel,
                     "position" : -1,
                     "screenshot" : "",
-                    "text" : "",
                     "width" : aView.frame.width,
                     "visible":false,
                     "x" : 0,
@@ -55,7 +54,7 @@ class SwipeEventTests: XCTestCase {
                     "height":UIScreen.main.bounds.size.height,
                     "app":[
                         "device":"x86_64",
-                        "token":"-",
+                        "token":"",
                         "package":"noApplicationIdentifier",
                         "version":"",
                         "platform":"ios",

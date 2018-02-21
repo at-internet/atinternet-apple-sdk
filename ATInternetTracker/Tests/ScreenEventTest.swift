@@ -45,7 +45,7 @@ class ScreenEventTest: XCTestCase {
                     "height": UIScreen.main.bounds.height,
                     "app":[
                         "device":"x86_64",
-                        "token":"-",
+                        "token":"",
                         "version":"",
                         "package":"noApplicationIdentifier",
                         "platform":"ios"
