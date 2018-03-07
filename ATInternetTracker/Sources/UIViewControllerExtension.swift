@@ -45,8 +45,8 @@ extension UIViewController {
     var screenTitle:String {
         var title = self.title;
         
-        if (title == nil || title == "") {
-            title = self.navigationController?.navigationBar.topItem?.title
+        if ((title == nil || title == "") && Thread.isMainThread) {
+           title = self.navigationController?.navigationBar.topItem?.title
         }
         if (title == nil || title == "") {
             title = self.navigationController?.navigationItem.title;

@@ -136,7 +136,7 @@ class TechnicalContext: NSObject {
                 switch(optIdentifier.lowercased())
                 {
                 case "idfv":
-                    return UIDevice.current.identifierForVendor!.uuidString
+                    return UIDevice.current.identifierForVendor?.uuidString ?? ""
                 case "idfa":
                     return idfa()
                 default:

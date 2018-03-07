@@ -60,7 +60,7 @@ class ScreenOperation: Operation {
             }
             
             if(tracker.enableLiveTagging) {
-                tracker.socketSender!.sendMessage(screenEvent.description)
+                tracker.socketSender?.sendMessage(screenEvent.description)
             }
             
             if (tracker.enableAutoTracking) {
@@ -126,7 +126,7 @@ class ScreenOperation: Operation {
         var screen = screen
         
         if hasDelegate() {
-            if let s = screenEvent.viewController!.perform(#selector(IAutoTracker.screenWasDetected(_:)), with: screen).takeUnretainedValue() as? Screen {
+            if let s = screenEvent.viewController?.perform(#selector(IAutoTracker.screenWasDetected(_:)), with: screen).takeUnretainedValue() as? Screen {
                 screen = s
             } else {
                 ATInternet.sharedInstance.defaultTracker.delegate?.warningDidOccur?("The delegate has not returned a screen; \(screen.title) will not be modified.")

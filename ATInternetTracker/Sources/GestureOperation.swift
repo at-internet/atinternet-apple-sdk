@@ -79,7 +79,7 @@ class GestureOperation: Operation {
             
             if tracker.enableLiveTagging {
                 UIApplicationContext.sharedInstance.previousEventSent = gestureEvent
-                ATInternet.sharedInstance.defaultTracker.socketSender!.sendMessage(gestureEvent.description)
+                ATInternet.sharedInstance.defaultTracker.socketSender?.sendMessage(gestureEvent.description)
             }
             
             if tracker.enableAutoTracking {
@@ -134,7 +134,7 @@ class GestureOperation: Operation {
         var gesture = gesture
         
         if hasDelegate() {
-            if let g = gestureEvent.viewController!.perform(#selector(IAutoTracker.gestureWasDetected(_:)), with: gesture).takeUnretainedValue() as? Gesture {
+            if let g = gestureEvent.viewController?.perform(#selector(IAutoTracker.gestureWasDetected(_:)), with: gesture).takeUnretainedValue() as? Gesture {
                 gesture = g
             } else {
                 ATInternet.sharedInstance.defaultTracker.delegate?.warningDidOccur?("The delegate has not returned a gesture; \(gesture.name) will not be modified.")

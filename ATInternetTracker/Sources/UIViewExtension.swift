@@ -229,13 +229,18 @@ extension UIView {
         var info = info
         var title:String?
         for subview in view.subviews {
-            let frame = subview.superview?.convert(subview.frame, to: view.window?.rootViewController?.view)
+            let optFrame = subview.superview?.convert(subview.frame, to: view.window?.rootViewController?.view)
             title = subview.textValue
-            if title != nil && frame!.contains(p) {
+            
+            guard let frame = optFrame else {
+                return info
+            }
+            
+            if title != nil && frame.contains(p) {
                 info["title"] = title
             } else {
                 info = rFindText(subview, p: p, info: info)
-                if info["title"] != nil && frame!.contains(p) {
+                if info["title"] != nil && frame.contains(p) {
                     return info
                 }
             }

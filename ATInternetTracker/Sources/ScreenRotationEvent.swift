@@ -34,13 +34,14 @@ class ScreenRotationEvent {
     var orientation: UIViewControllerContext.UIViewControllerOrientation
     
     /// current screen
-    lazy var currentScreen: Screen = Screen()
+    var currentScreen: Screen = Screen()
     
     /// the general event type
     let type: String = "screen"
     
     /// JSON description
     var description: String {
+        print(self.orientation)
         var jsonObj: [String: Any] = [
             "event": "screenRotation",
             "data":[

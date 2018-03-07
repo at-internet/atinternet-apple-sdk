@@ -159,9 +159,13 @@ class ProcessedHitType: NSObject {
         
         if(url != "") {
             let hitUrl = URL(string: self.url)
-            
             if let optURL = hitUrl {
-                let urlComponents = optURL.query!.components(separatedBy: "&")
+                
+                guard let query = optURL.query else {
+                    return HitType.unknown
+                }
+                
+                let urlComponents = query.components(separatedBy: "&")
                 
                 for component in urlComponents as [String] {
                     let pairComponents = component.components(separatedBy: "=")

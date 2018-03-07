@@ -67,7 +67,12 @@ class SmartPopUp: UIView {
         self.addSingleButtonOk(okTitle)
         self.addTitleText(title)
         self.addContentText(message)
-        let addSizes = lblTitle!.frame.height + lblContent!.frame.height
+        
+        guard let label = lblTitle else {
+            print("something wrong happened, lblTitle is nil")
+            return
+        }
+        let addSizes = label.frame.height + label.frame.height
         let margin: CGFloat = 15.0
         let globalSize = addSizes + margin*3 + ButtonHeight
         self.frame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y, width: self.frame.width, height: globalSize)
@@ -126,8 +131,8 @@ class SmartPopUp: UIView {
      */
     func addTitleText(_ title: String) {
         lblTitle = self.addText(title, f: UIFont(name: "Montserrat-Bold", size: 14)!, margin: 20)
-        lblTitle!.frame.origin.y = margin
-        lblTitle!.frame.origin.x = 20
+        lblTitle?.frame.origin.y = margin
+        lblTitle?.frame.origin.x = 20
         self.addSubview(lblTitle!)
         
     }
@@ -137,9 +142,12 @@ class SmartPopUp: UIView {
      */
     func addContentText(_ content: String) {
         lblContent = self.addText(content, f: UIFont(name: "OpenSans", size: 14)!, margin: 10)
-        lblContent!.frame.origin.y = margin*2 + lblTitle!.frame.height
-        lblContent!.frame.origin.x = 10
-        self.addSubview(lblContent!)
+        guard let content = lblContent, let title = lblTitle else {
+            return
+        }
+        content.frame.origin.y = margin*2 + title.frame.height
+        content.frame.origin.x = 10
+        self.addSubview(content)
     }
     
     /**

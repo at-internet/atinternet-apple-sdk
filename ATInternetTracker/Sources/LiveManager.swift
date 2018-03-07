@@ -121,14 +121,14 @@ class LiveNetworkManager: LiveNetworkState {
                              dismissOnContentTouch: false)
         p.addOkAction { () -> () in
             self.deviceAcceptedLive()
-            self.currentPopupDisplayed!.dismiss(true)
+            self.currentPopupDisplayed?.dismiss(true)
         }
         p.addCancelAction { () -> () in
             self.deviceRefusedLive()
-            self.currentPopupDisplayed!.dismiss(true)
+            self.currentPopupDisplayed?.dismiss(true)
         }
         
-        self.currentPopupDisplayed!.show()
+        self.currentPopupDisplayed?.show()
     }
     
     
@@ -144,10 +144,10 @@ class LiveNetworkManager: LiveNetworkState {
                              dismissOnBackgroundTouch: false,
                              dismissOnContentTouch: false)
         p.addOkAction { () -> () in
-            self.currentPopupDisplayed!.dismiss(true)
+            self.currentPopupDisplayed?.dismiss(true)
         }
         
-        self.currentPopupDisplayed!.show()
+        self.currentPopupDisplayed?.show()
     }
     
     func showStoppedPopup() {
@@ -161,10 +161,10 @@ class LiveNetworkManager: LiveNetworkState {
                              dismissOnBackgroundTouch: false,
                              dismissOnContentTouch: false)
         p.addOkAction { () -> () in
-            self.currentPopupDisplayed!.dismiss(true)
+            self.currentPopupDisplayed?.dismiss(true)
         }
         
-        self.currentPopupDisplayed!.show()
+        self.currentPopupDisplayed?.show()
     }
     
     func showRefusedPopup() {
@@ -178,10 +178,10 @@ class LiveNetworkManager: LiveNetworkState {
                              dismissOnBackgroundTouch: false,
                              dismissOnContentTouch: false)
         p.addOkAction { () -> () in
-            self.currentPopupDisplayed!.dismiss(true)
+            self.currentPopupDisplayed?.dismiss(true)
         }
 
-        self.currentPopupDisplayed!.show()
+        self.currentPopupDisplayed?.show()
     }
     
     func getTexts() -> [String:String] {

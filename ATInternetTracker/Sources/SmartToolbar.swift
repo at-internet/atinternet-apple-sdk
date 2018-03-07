@@ -337,31 +337,35 @@ class SmartToolbar: UIView {
      */
     
     func display() {
+        guard let window = refWindow else {
+            print("[ATTracker] window not ready")
+            return
+        }
         if alreadyCalled {
             reinit()
         }
         alreadyCalled = true
-        refWindow?.addSubview(self)
+        window.addSubview(self)
         windowConstraintLeft = NSLayoutConstraint(item: self
             , attribute: NSLayoutAttribute.left
             , relatedBy: NSLayoutRelation.equal
-            , toItem: refWindow
+            , toItem: window
             , attribute: NSLayoutAttribute.left
             , multiplier: 1
-            , constant: refWindow!.frame.width/2 - WIDTH/2)
+            , constant: window.frame.width/2 - WIDTH/2)
         
         windowConstraintTop = NSLayoutConstraint(item: self
             , attribute: NSLayoutAttribute.top
             , relatedBy: NSLayoutRelation.equal
-            , toItem: refWindow
+            , toItem: window
             , attribute: NSLayoutAttribute.top
             , multiplier: 1
-            , constant: refWindow!.frame.height - HEIGHT - HEIGHT/2)
+            , constant: window.frame.height - HEIGHT - HEIGHT/2)
         
         windowConstraintHeight = NSLayoutConstraint(item: self
             , attribute: NSLayoutAttribute.height
             , relatedBy: NSLayoutRelation.equal
-            , toItem: refWindow
+            , toItem: window
             , attribute: NSLayoutAttribute.height
             , multiplier: 0
             , constant: HEIGHT)
@@ -369,13 +373,12 @@ class SmartToolbar: UIView {
         windowConstraintWidth = NSLayoutConstraint(item: self
             , attribute: NSLayoutAttribute.width
             , relatedBy: NSLayoutRelation.equal
-            , toItem: refWindow
+            , toItem: window
             , attribute: NSLayoutAttribute.width
             , multiplier: 0
             , constant: WIDTH)
         
-        refWindow?.addConstraints([windowConstraintLeft!, windowConstraintHeight!, windowConstraintTop!, windowConstraintWidth!])
-        
+        window.addConstraints([windowConstraintLeft!, windowConstraintHeight!, windowConstraintTop!, windowConstraintWidth!])
     }
     
     /**

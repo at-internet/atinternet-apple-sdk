@@ -48,7 +48,7 @@ class ScreenRotationOperation: Operation {
             Thread.sleep(forTimeInterval: 0.2)
             if !self.isCancelled {
                 //TODO: sendBuffer
-                ATInternet.sharedInstance.defaultTracker.socketSender!.sendMessage(rotationEvent.description)
+                ATInternet.sharedInstance.defaultTracker.socketSender?.sendMessage(rotationEvent.description)
             }
         }
     }

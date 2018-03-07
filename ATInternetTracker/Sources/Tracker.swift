@@ -250,10 +250,13 @@ public enum HitParam: String {
                     self.registerFont("Montserrat-Regular")
                     
                     self.liveManager = LiveNetworkManager()
-                    self.liveManager!.initState()
-                    self.socketSender = SocketSender(liveManager: liveManager!, token: _token!)
-                    liveManager!.sender = socketSender
-                    
+                    guard let live = self.liveManager else {
+                        print("cannot init network")
+                        return
+                    }
+                    live.initState()
+                    self.socketSender = SocketSender(liveManager: live, token: _token!)
+                    live.sender = socketSender
                     self.socketSender?.open()
                 } else {
                     self.socketSender?.close()
