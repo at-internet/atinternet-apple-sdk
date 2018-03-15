@@ -68,11 +68,10 @@ internal class Debugger: NSObject {
     let hourFormatter = DateFormatter()
     /// Date formatter (dd/MM/yyyy HH:mm:ss)
     let dateHourFormatter = DateFormatter()
-    /// Offline storage
-    let storage = Storage.sharedInstance
     /// Debugger is initialize
     var initialized: Bool = false
-    
+    /// Offline storage
+    var storage: StorageProtocol!
     class var sharedInstance: Debugger {
         _ = Debugger.__once
         
@@ -82,8 +81,8 @@ internal class Debugger: NSObject {
     /**
      Add debugger to view controller
      */
-    func initDebugger() {
-        
+    func initDebugger(offlineMode: String) {
+        storage = Storage.sharedInstanceOf(offlineMode)
         if !initialized {
             hourFormatter.dateFormat = "HH':'mm':'ss"
             hourFormatter.locale = LifeCycle.locale

@@ -36,6 +36,7 @@ import Foundation
 public class Offline: NSObject {
     /// Tracker instance
     var tracker: Tracker
+    var offlineMode: String
     
     /**
     Offline initializer
@@ -44,6 +45,7 @@ public class Offline: NSObject {
     */
     init(tracker: Tracker) {
         self.tracker = tracker;
+        self.offlineMode = tracker.configuration.parameters["storage"] ?? "never"
     }
     
     /// Send all hits stored
@@ -55,21 +57,21 @@ public class Offline: NSObject {
     ///
     /// - Returns: collection of offline hits
     @objc public func get() -> [Hit] {
-        return Storage.sharedInstance.get()
+        return Storage.sharedInstanceOf(offlineMode).get()
     }
     
     /// Get the number of offline hits stored in database
     ///
     /// - Returns: number of offline hits
     @objc public func count() -> Int {
-        return Storage.sharedInstance.count()
+        return Storage.sharedInstanceOf(offlineMode).count()
     }
 
     /// Delete all offline hits stored in database
     ///
     /// - Returns: number of deleted hits (-1 if an error occured)
     @objc public func delete() -> Int {
-        return Storage.sharedInstance.delete()
+        return Storage.sharedInstanceOf(offlineMode).delete()
     }
 
     /// Delete offline hits older than the number of days passed in parameter
@@ -78,7 +80,7 @@ public class Offline: NSObject {
     /// - Returns: number of deleted hits (-1 if an error occured)
     @objc(deleteOlderThanInt:)
     public func delete(_ olderThan: Int) -> Int {
-        let storage = Storage.sharedInstance
+        let storage = Storage.sharedInstanceOf(offlineMode)
         
         let now = Date()
         var dateComponent = DateComponents()
@@ -95,20 +97,20 @@ public class Offline: NSObject {
     /// - Returns: number of deleted hits (-1 if an error occured)
     @objc(deleteOlderThanDate:)
     public func delete(_ olderThan: Date) -> Int {
-        return Storage.sharedInstance.delete(olderThan)
+        return Storage.sharedInstanceOf(offlineMode).delete(olderThan)
     }
     
     /// Get the first hit stored in database
     ///
     /// - Returns: the oldest hit
     @objc public func oldest() -> Hit? {
-        return Storage.sharedInstance.first()
+        return Storage.sharedInstanceOf(offlineMode).first()
     }
     
     /// Get the latest hit stored in database
     ///
     /// - Returns: the latest hit
     @objc public func latest() -> Hit? {
-        return Storage.sharedInstance.last()
+        return Storage.sharedInstanceOf(offlineMode).last()
     }
 }

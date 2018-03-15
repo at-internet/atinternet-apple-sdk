@@ -33,10 +33,65 @@
 import Foundation
 import CoreData
 
-/// Offline hit storage
-class Storage {
+protocol StorageProtocol {
+    func insert(_ hit: inout String, mhOlt: String?) -> Bool
+    func setRetryCount(_ count: Int, offlineHit: NSManagedObjectID)
+    func getRetryCountForHit(_ hit: String) -> Int
+    func setRetryCount(_ retryCount: Int, hit: String)
+    func getRetryCount(_ oid: NSManagedObjectID) -> Int
+    func get() -> [Hit]
+    func getStoredHits() -> [StoredOfflineHit]
+    func get(_ hit: String) -> Hit?
+    func getStoredHit(_ hit: String) -> NSManagedObjectID?
+    func count() -> Int
+    func exists(_ hit: String) -> Bool
+    func delete() -> Int
+    func delete(_ olderThan: Date) -> Int
+    func delete(_ hit: String) -> Bool
+    func first() -> Hit?
+    func last() -> Hit?
+    func buildHitToStore(_ hit: String, olt: String) -> String
+}
 
-    static let sharedInstance = Storage()
+class NilStorage: StorageProtocol {
+    func insert(_ hit: inout String, mhOlt: String?) -> Bool {return false}
+    func setRetryCount(_ count: Int, offlineHit: NSManagedObjectID) {}
+    func getRetryCountForHit(_ hit: String) -> Int {return 0}
+    func setRetryCount(_ retryCount: Int, hit: String) {}
+    func getRetryCount(_ oid: NSManagedObjectID) -> Int {return 0}
+    func get() -> [Hit] {return []}
+    func getStoredHits() -> [StoredOfflineHit] {return []}
+    func get(_ hit: String) -> Hit? {return nil}
+    func getStoredHit(_ hit: String) -> NSManagedObjectID? {return nil}
+    func count() -> Int {return 0}
+    func exists(_ hit: String) -> Bool {return false}
+    func delete() -> Int {return 0}
+    func delete(_ olderThan: Date) -> Int {return 0}
+    func delete(_ hit: String) -> Bool {return false}
+    func first() -> Hit? {return nil}
+    func last() -> Hit? {return nil}
+    func buildHitToStore(_ hit: String, olt: String) -> String {return ""}
+}
+
+/// Offline hit storage
+class Storage: StorageProtocol {
+
+    fileprivate static let sharedInstance: StorageProtocol = {
+        do {
+            return try Storage()
+        }
+        catch {
+            return NilStorage()
+        }
+    }()
+    
+    static func sharedInstanceOf(_ offlineMode: String) -> StorageProtocol {
+        if offlineMode == "never" {
+            return NilStorage()
+        } else {
+            return Storage.sharedInstance
+        }
+    }
     
     /// Directory where the database is saved
     let databaseDirectory: URL = {
@@ -73,9 +128,9 @@ class Storage {
     /**
      Default initializer
      */
-    private init() {
+    private init() throws {
         guard let managedObjectModel = self.managedObjectModel else {
-            fatalError()
+            throw NSError(domain: "ATTracker: managedObjectModel failure", code: -1, userInfo: nil)
         }
         persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
         // URL of database
@@ -96,12 +151,15 @@ class Storage {
                 ])
         } catch _ as NSError {
             deleteOldDB()
-            try! persistentStoreCoordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: [
-                NSMigratePersistentStoresAutomaticallyOption: true,
-                NSInferMappingModelAutomaticallyOption: true
+            do {
+                try persistentStoreCoordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: dbURL, options: [
+                    NSMigratePersistentStoresAutomaticallyOption: true,
+                    NSInferMappingModelAutomaticallyOption: true
                 ])
-        } catch {
-            fatalError()
+            }
+            catch {
+                throw NSError(domain: "ATTracker: unable to init database", code: -1, userInfo: nil)
+            }
         }
         managedObjectContext!.persistentStoreCoordinator = persistentStoreCoordinator
     }

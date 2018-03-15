@@ -95,7 +95,7 @@ class Sender: Operation {
     - parameter a: callback to indicate whether hit was sent successfully or not
     */
     func sendWithCompletionHandler(_ completionHandler: ((_ success: Bool) -> Void)?) {
-        let db = Storage.sharedInstance
+        let db = Storage.sharedInstanceOf(self.tracker.configuration.parameters["storage"] ?? "never")
         
         // Si pas de connexion ou que le mode offline est à "always"
         if((self.tracker.configuration.parameters["storage"] == "always" && !self.forceSendOfflineHits)
@@ -278,7 +278,7 @@ class Sender: Operation {
                     
                     // If there's no offline hit being sent
                     if(offlineOperations.count == 0) {
-                        let storage = Storage.sharedInstance
+                        let storage = Storage.sharedInstanceOf(tracker.configuration.parameters["storage"] ?? "never")
                         
                         // Check if offline hits exists in database
                         if(storage.count() > 0) {

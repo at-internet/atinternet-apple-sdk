@@ -522,7 +522,7 @@ public class Tracker: NSObject {
      Display the debugger window
      */
     @objc func displayDebugger() {
-        Debugger.sharedInstance.initDebugger()
+        Debugger.sharedInstance.initDebugger(offlineMode: self.configuration.parameters["storage"] ?? "never")
     }
     #endif
     
