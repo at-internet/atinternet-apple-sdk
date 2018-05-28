@@ -51,6 +51,7 @@ protocol StorageProtocol {
     func first() -> Hit?
     func last() -> Hit?
     func buildHitToStore(_ hit: String, olt: String) -> String
+    func addSkipBackupAttributeToItemAtURL(preventBackup: Bool) -> Bool
 }
 
 class NilStorage: StorageProtocol {
@@ -71,6 +72,7 @@ class NilStorage: StorageProtocol {
     func first() -> Hit? {return nil}
     func last() -> Hit? {return nil}
     func buildHitToStore(_ hit: String, olt: String) -> String {return ""}
+    func addSkipBackupAttributeToItemAtURL(preventBackup: Bool) -> Bool {return false}
 }
 
 /// Offline hit storage
@@ -109,12 +111,33 @@ class Storage: StorageProtocol {
     }()
     
     /// Data model
-    let managedObjectModel: NSManagedObjectModel? = {
-        let bundle = Bundle(for: Tracker.self)
-        let modelPath = bundle.path(forResource: "Tracker", ofType: "momd")
-        let modelURL = URL(fileURLWithPath: modelPath!)
+    let hitObjectModel: NSManagedObjectModel = {
+        let hit = NSManagedObjectModel()
         
-        return NSManagedObjectModel(contentsOf: modelURL)
+        let hitEntity = NSEntityDescription()
+        hitEntity.name = "StoredOfflineHit"
+        hitEntity.managedObjectClassName = "StoredOfflineHit"
+        
+        let hitStr = NSAttributeDescription()
+        hitStr.name = "hit"
+        hitStr.attributeType = NSAttributeType.stringAttributeType
+        hitStr.isOptional = false
+        
+        let hitDate = NSAttributeDescription()
+        hitDate.name = "date"
+        hitDate.attributeType = NSAttributeType.dateAttributeType
+        hitDate.isOptional = false
+        
+        let hitRetry = NSAttributeDescription()
+        hitRetry.name = "retry"
+        hitRetry.attributeType = NSAttributeType.integer32AttributeType
+        hitRetry.isOptional = false
+        
+        hitEntity.properties = [hitStr, hitDate, hitRetry]
+        
+        hit.entities = [hitEntity]
+        
+        return hit
     }()
     
     let persistentStoreCoordinator: NSPersistentStoreCoordinator?
@@ -129,9 +152,7 @@ class Storage: StorageProtocol {
      Default initializer
      */
     private init() throws {
-        guard let managedObjectModel = self.managedObjectModel else {
-            throw NSError(domain: "ATTracker: managedObjectModel failure", code: -1, userInfo: nil)
-        }
+        let managedObjectModel = self.hitObjectModel
         persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
         // URL of database
         let url = self.databaseDirectory
@@ -161,7 +182,23 @@ class Storage: StorageProtocol {
                 throw NSError(domain: "ATTracker: unable to init database", code: -1, userInfo: nil)
             }
         }
+        // _ = addSkipBackupAttributeToItemAtURL(url: dbURL)
         managedObjectContext!.persistentStoreCoordinator = persistentStoreCoordinator
+    }
+    
+    func addSkipBackupAttributeToItemAtURL(preventBackup: Bool) -> Bool {
+        var url = self.databaseDirectory.appendingPathComponent("Tracker.sqlite")
+        var success: Bool
+        do {
+            var resourceValue = URLResourceValues()
+            resourceValue.isExcludedFromBackup = preventBackup
+            try url.setResourceValues(resourceValue)
+            success = true
+        } catch let error as NSError {
+            success = false
+            print("Error excluding \(url.lastPathComponent) from backup \(error)");
+        }
+        return success
     }
     
     func deleteOldDB() {
@@ -755,6 +792,7 @@ class Storage: StorageProtocol {
 }
 
 /// Stored Offline hit
+@objc(StoredOfflineHit)
 class StoredOfflineHit: NSManagedObject {
     /// Hit
     @NSManaged var hit: String

@@ -641,7 +641,7 @@ public class Tracker: NSObject {
         
         super.init()
         
-        if(!LifeCycle.isInitialized) {
+        if(!LifeCycle.isInitialized && !Tracker.doNotTrack) {
             let notificationCenter = NotificationCenter.default
             
             notificationCenter.addObserver(self, selector: #selector(Tracker.applicationDidEnterBackground), name:NSNotification.Name(rawValue: "UIApplicationDidEnterBackgroundNotification"), object: nil)
@@ -918,12 +918,7 @@ public class Tracker: NSObject {
      - parameter value: parameter value
      */
     fileprivate func processSetParam(_ key: String, value: @escaping ()->(String)) {
-        // Check whether the parameter is not in read only mode
-        if(!ReadOnlyParam.list.contains(key)) {
-            buffer.volatileParameters[key] = Param(key: key, value: value)
-        } else {
-            delegate?.warningDidOccur?(String(format: "Parameter %@ is read only. Value will not be updated", key))
-        }
+        buffer.volatileParameters[key] = Param(key: key, value: value)
     }
     
     /**
@@ -934,40 +929,35 @@ public class Tracker: NSObject {
      - parameter options: parameter options
      */
     fileprivate func processSetParam(_ key: String, value: @escaping ()->(String), options: ParamOption) {
-        // Check whether the parameter is not in read only mode
-        if !ReadOnlyParam.list.contains(key) {
-            let param = Param(key: key, value: value, options: options)
-            var newValues = [() -> String]()
-            if param.isPersistent {
-                if options.append {
-                    if let existingParam = buffer.persistentParameters[key] {
-                        newValues = existingParam.values
-                    }
-                    if let existingParam = buffer.volatileParameters[key] {
-                        existingParam.values.append(value)
-                    }
-                } else {
-                    buffer.volatileParameters.removeValue(forKey: key)
+        let param = Param(key: key, value: value, options: options)
+        var newValues = [() -> String]()
+        if param.isPersistent {
+            if options.append {
+                if let existingParam = buffer.persistentParameters[key] {
+                    newValues = existingParam.values
                 }
-                
-                newValues.append(value)
-                param.values = newValues
-                buffer.persistentParameters[key] = param
+                if let existingParam = buffer.volatileParameters[key] {
+                    existingParam.values.append(value)
+                }
             } else {
-                if options.append {
-                    if let existingParam = buffer.volatileParameters[key] {
-                        newValues = existingParam.values
-                    }
-                    else if let existingParam = buffer.persistentParameters[key] {
-                        newValues = Array.init(existingParam.values)
-                    }
-                }
-                newValues.append(value)
-                param.values = newValues
-                buffer.volatileParameters[key] = param
+                buffer.volatileParameters.removeValue(forKey: key)
             }
+            
+            newValues.append(value)
+            param.values = newValues
+            buffer.persistentParameters[key] = param
         } else {
-            delegate?.warningDidOccur?(String(format: "Parameter %@ is read only. Value will not be updated", key))
+            if options.append {
+                if let existingParam = buffer.volatileParameters[key] {
+                    newValues = existingParam.values
+                }
+                else if let existingParam = buffer.persistentParameters[key] {
+                    newValues = Array.init(existingParam.values)
+                }
+            }
+            newValues.append(value)
+            param.values = newValues
+            buffer.volatileParameters[key] = param
         }
     }
     
@@ -1421,16 +1411,68 @@ public class Tracker: NSObject {
     
     
     /// Disable user identification.
-    @objc public class var doNotTrack: Bool {
+    @objc public class var optOut: Bool {
         get {
+            return TechnicalContext.optOut
+        } set {
+            let optOutOperation = BlockOperation(block: {
+                TechnicalContext.optOut = newValue
+            })
+            
+            TrackerQueue.sharedInstance.queue.addOperation(optOutOperation)
+        }
+    }
+    
+    /// Disable user identification.
+    @objc public class var doNotTrack: Bool {
+        /*get {
             return TechnicalContext.doNotTrack
         } set {
+            if (!LifeCycle.isInitialized && !newValue) {
+                LifeCycle.initLifeCycle()
+            }
             let dotNotTrackOperation = BlockOperation(block: {
                 TechnicalContext.doNotTrack = newValue
             })
             
             TrackerQueue.sharedInstance.queue.addOperation(dotNotTrackOperation)
+        }*/
+        get {
+            return Tracker.optOut
+        } set {
+            Tracker.optOut = newValue
         }
+    }
+    
+    /*@objc public func resetAllUserData() {
+        let userDefault = UserDefaults.standard
+        var keys = [
+            LifeCycle.LifeCycleKey.allValues.map { $0.rawValue },
+            IdentifiedVisitorHelperKey.allValues.map { $0.rawValue },
+            TechnicalContext.TechnicalContextKeys
+                .allValues
+                .filter{$0 != TechnicalContext.TechnicalContextKeys.DoNotTrack && $0 != TechnicalContext.TechnicalContextKeys.OptOut}
+                .map { $0.rawValue },
+            CampaignKeys.allValues.map { $0.rawValue }
+            ]
+        #if os(iOS) && AT_SMART_TRACKER
+        keys.append(SSDKStorageKeys.allValues.map { $0.rawValue })
+        #endif
+        for key in keys.joined() {
+            userDefault.removeObject(forKey: key)
+        }
+        userDefault.synchronize()
+        LifeCycle.sessionId = UUID().uuidString
+    }*/
+    
+    
+    /// Prevent offline hits to be sync with icloud
+    ///
+    /// - Parameter preventBackup: true for disabling the icloud sync
+    /// - Returns: true if it worked
+    @objc public func preventSyncWithICloud(preventBackup: Bool) -> Bool {
+        let storageMode = self.configuration.parameters["storage"] ?? "never"
+        return Storage.sharedInstanceOf(storageMode).addSkipBackupAttributeToItemAtURL(preventBackup: preventBackup)
     }
     
     // MARK: - Crash

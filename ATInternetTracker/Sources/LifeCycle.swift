@@ -53,7 +53,7 @@ class LifeCycle: NSObject {
     static var timeInBackground: Date? = nil
     
     /// Lifecycle keys
-    enum LifeCycleKey: String {
+    enum LifeCycleKey: String, EnumCollection {
         case FirstSession = "ATFirstLaunch"
         case LastSession = "ATLastUse"
         case FirstSessionDate = "ATFirstLaunchDate"
@@ -61,6 +61,8 @@ class LifeCycle: NSObject {
         case LastApplicationVersion = "ATLastApplicationVersion"
         case ApplicationUpdate = "ATApplicationUpdate"
         case SessionCountSinceUpdate = "ATLaunchCountSinceUpdate"
+        case FirstSessionDateV1 = "firstLaunchDate"
+        case LastSessionV1 = "lastUseDate"
     }
     
     /**
@@ -131,7 +133,7 @@ class LifeCycle: NSObject {
         self.firstSession = true
         
         // If SDK V1 first launch exists
-        if let optFirstLaunchDate = userDefaults.object(forKey: "firstLaunchDate") as? String {
+        if let optFirstLaunchDate = userDefaults.object(forKey: LifeCycleKey.FirstSessionDateV1.rawValue) as? String {
             let dateFormatter = DateFormatter()
             dateFormatter.locale = locale
             dateFormatter.dateFormat = "YYYYMMdd"
@@ -140,7 +142,7 @@ class LifeCycle: NSObject {
             userDefaults.set(fld ?? now, forKey: LifeCycleKey.FirstSessionDate.rawValue)
                     userDefaults.set(0, forKey: LifeCycleKey.FirstSession.rawValue)
             
-            userDefaults.set(nil, forKey: "firstLaunchDate")
+            userDefaults.set(nil, forKey: LifeCycleKey.FirstSessionDateV1.rawValue)
             self.firstSession = false
             
         } else {
@@ -151,7 +153,7 @@ class LifeCycle: NSObject {
         }
         
         // Launch Count update from SDK V1
-        if let optSessionCount = userDefaults.object(forKey: "ATLaunchCount") as? Int {
+        if let optSessionCount = userDefaults.object(forKey: LifeCycleKey.SessionCount.rawValue) as? Int {
             userDefaults.set(optSessionCount + 1, forKey: LifeCycleKey.SessionCount.rawValue)
         } else {
             userDefaults.set(1, forKey: LifeCycleKey.SessionCount.rawValue)
@@ -162,8 +164,8 @@ class LifeCycle: NSObject {
         userDefaults.set(TechnicalContext.applicationVersion, forKey: LifeCycleKey.LastApplicationVersion.rawValue)
         
         // Last use update from SDK V1
-        if let optLastSessionDate = userDefaults.object(forKey: "lastUseDate") as? Date  {
-            userDefaults.set(nil, forKey: "lastUseDate")
+        if let optLastSessionDate = userDefaults.object(forKey: LifeCycleKey.LastSessionV1.rawValue) as? Date  {
+            userDefaults.set(nil, forKey: LifeCycleKey.LastSessionV1.rawValue)
             LifeCycle.daysSinceLastSession = Tool.daysBetweenDates(optLastSessionDate, toDate: now)
         }
         userDefaults.set(now, forKey: LifeCycleKey.LastSession.rawValue)
@@ -183,7 +185,7 @@ class LifeCycle: NSObject {
     }
     
     /**
-     Get the default sessionBackground duraion
+     Get the default sessionBackground duration
      
      - parameter parameters: the default parameters
      

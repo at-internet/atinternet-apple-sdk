@@ -29,8 +29,8 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#import <Tracker/Crash.h>
-#import <Tracker/Hash.h>
+#import "Crash.h"
+#import "Hash.h"
 
 #if TARGET_OS_IPHONE && defined(AT_SMART_TRACKER)
 

@@ -117,6 +117,10 @@ public class RichMedia : BusinessObject {
     /// Web domain 
     @objc public var webdomain: String?
    
+    /// default config for dynamic refresh
+    let DynamicRefreshDefaultConfiguration = [0:5, 1:15, 5:30, 10: 60]
+    var chronoRefresh: DynamicRefresher?
+    
     init(player: MediaPlayer) {
         self.player = player
         
@@ -195,59 +199,82 @@ public class RichMedia : BusinessObject {
         return mediaName
     }
     
-    /// Send a play action tracking. Refresh is enabled with default duration
+    /// Send a play action tracking. Refresh is enabled with default refresh configuration. See doc for more details
     @objc public func sendPlay() {
         self.action = RichMediaAction.play
-        
         self.tracker.dispatcher.dispatch([self])
-        
-        self.initRefresh()
+        self.sendPlay(dynamicRefreshConfiguration: self.DynamicRefreshDefaultConfiguration)
     }
     
     /// Send a play action tracking. Refresh is enabled with custom duration
     ///
     /// - Parameter refreshDuration: duration in second, must be >= 5
-    @objc public func sendPlay(_ refreshDuration: Int) {
-        
+    @objc @available(*, deprecated, message: "Static values are not recomanded anymore. Use sendPlay() or sendPlay(dynamicRefreshConfiguration)")
+    public func sendPlay(_ refreshDuration: Int) {
+        var refreshDuration = refreshDuration
         self.action = RichMediaAction.play
-        
         self.tracker.dispatcher.dispatch([self])
-        
-        if (refreshDuration != 0) {
-            if (refreshDuration > 5) {
-                self.refreshDuration = refreshDuration
-            }
-            self.initRefresh()
+        if (refreshDuration == 0) {
+            return
         }
-        
+        if (refreshDuration < 5) {
+            refreshDuration = 5
+        }
+        self.sendPlay(dynamicRefreshConfiguration: [0: refreshDuration])
+    }
+    
+    /// Send a play action. No refresh hits will be sent after the action.
+    @objc public func sendPlayWithoutRefresh() {
+        self.action = RichMediaAction.play
+        self.tracker.dispatcher.dispatch([self])
+    }
+    
+    /// Send a Play action then send several Resfresh action based on the configuration provided
+    ///
+    /// - Parameter dynamicRefreshConfiguration: Describe the refresh send rate: [0:5, 1:10] : from 0 to 1 minute, send one refresh every 5s, then refresh every 10s after 1min. See documentation for more details.
+    @objc public func sendPlay(dynamicRefreshConfiguration: [Int: Int]) {
+        var conf = dynamicRefreshConfiguration
+        if conf.count == 0 {
+            conf = DynamicRefreshDefaultConfiguration
+        }
+        if conf.index(forKey: 0) == nil {
+            conf[0] = 5
+        }
+        for (min, rd) in conf {
+            if rd < 5 {
+                conf[min] = 5
+            }
+            if (min < 0) {
+                conf.removeValue(forKey: min)
+            }
+        }
+        let config = DynamicRefreshConfiguration(configuration: conf)
+        self.chronoRefresh = DynamicRefresher(configuration: config) {
+            self.sendRefresh()
+        }
+        self.action = RichMediaAction.play
+        self.tracker.dispatcher.dispatch([self])
+        self.chronoRefresh?.start()
+    }
+    
+    /// Resume a previous pause() call
+    @objc public func sendResume() {
+        self.chronoRefresh?.resume()
+        self.action = RichMediaAction.play
+        self.tracker.dispatcher.dispatch([self])
     }
     
     /// Send a pause action tracking
     @objc public func sendPause(){
-        
-        if let timer = self.timer {
-            if timer.isValid {
-                timer.invalidate()
-                self.timer = nil
-            }
-        }
-        
+        self.chronoRefresh?.pause()
         self.action = RichMediaAction.pause
-        
         self.tracker.dispatcher.dispatch([self])
     }
     
     
     /// Send a stop action tracking
     @objc public func sendStop() {
-        
-        if let timer = self.timer {
-            if timer.isValid {
-                timer.invalidate()
-                self.timer = nil
-            }
-        }
-        
+        self.chronoRefresh?.stop()
         self.action = RichMediaAction.stop
         
         self.tracker.dispatcher.dispatch([self])
@@ -259,15 +286,6 @@ public class RichMedia : BusinessObject {
         self.action  = RichMediaAction.move
         
         self.tracker.dispatcher.dispatch([self])
-    }
-    
-    /// Start the refresh timer
-    func initRefresh() {
-        if self.timer == nil {
-            self.timer = Timer.scheduledTimer(
-                timeInterval: TimeInterval(self.refreshDuration), target: self, selector: #selector(RichMedia.sendRefresh), userInfo: nil, repeats: true)
-        }
-        
     }
     
     /// Medthod called on the timer tick

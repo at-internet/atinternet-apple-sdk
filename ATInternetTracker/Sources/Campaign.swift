@@ -32,6 +32,10 @@ SOFTWARE.
 
 import Foundation
 
+enum CampaignKeys: String, EnumCollection {
+    case ATCampaign = "ATCampaign"
+    case ATCampaignDate = "ATCampaignDate"
+}
 
 /// Wrapper class for marketing campaign tracking
 public class Campaign: ScreenInfo {
@@ -41,7 +45,6 @@ public class Campaign: ScreenInfo {
     override init(tracker: Tracker) {
         super.init(tracker: tracker)
     }
-    
     
     /// Create a new campaign with an identifier
     ///
@@ -58,11 +61,11 @@ public class Campaign: ScreenInfo {
         let encodeOption = ParamOption()
         encodeOption.encode = true
         
-        if let remanentCampaign = userDefaults.value(forKey: "ATCampaign") as? String, let campaignDate = userDefaults.object(forKey: "ATCampaignDate") as? Date {
+        if let remanentCampaign = userDefaults.value(forKey: CampaignKeys.ATCampaign.rawValue) as? String, let campaignDate = userDefaults.object(forKey: CampaignKeys.ATCampaignDate.rawValue) as? Date {
             let nbDays: Int = Tool.daysBetweenDates(campaignDate, toDate: Date())
             
             if(nbDays > Int(tracker.configuration.parameters["campaignLifetime"]!)!) {
-                userDefaults.removeObject(forKey: "ATCampaign")
+                userDefaults.removeObject(forKey: CampaignKeys.ATCampaign.rawValue)
                 userDefaults.synchronize()
             } else {
                 let remanent = remanentCampaign
@@ -70,16 +73,16 @@ public class Campaign: ScreenInfo {
                 _ = tracker.setParam("xtor", value: remanent, options: encodeOption)
             }
         } else {
-            userDefaults.set(Date(), forKey: "ATCampaignDate")
-            userDefaults.setValue(campaignId, forKey: "ATCampaign")
+            userDefaults.set(Date(), forKey: CampaignKeys.ATCampaignDate.rawValue)
+            userDefaults.setValue(campaignId, forKey: CampaignKeys.ATCampaign.rawValue)
             userDefaults.synchronize()
         }
         
         _ = tracker.setParam("xto", value: campaignId, options: encodeOption)
         
         if(tracker.configuration.parameters["campaignLastPersistence"]?.lowercased() == "true") {
-            userDefaults.set(Date(), forKey: "ATCampaignDate")
-            userDefaults.setValue(campaignId, forKey: "ATCampaign")
+            userDefaults.set(Date(), forKey: CampaignKeys.ATCampaignDate.rawValue)
+            userDefaults.setValue(campaignId, forKey: CampaignKeys.ATCampaign.rawValue)
             userDefaults.synchronize()
         }
     }

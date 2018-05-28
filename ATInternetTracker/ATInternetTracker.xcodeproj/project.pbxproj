@@ -278,11 +278,6 @@
 		4F47A5B11D36214200702747 /* nuggad.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A61D36214200702747 /* nuggad.manifest.json */; };
 		4F47A5B21D36214200702747 /* nuggad.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A61D36214200702747 /* nuggad.manifest.json */; };
 		4F47A5B31D36214200702747 /* nuggad.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A61D36214200702747 /* nuggad.manifest.json */; };
-		4F47A5B41D36214200702747 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
-		4F47A5B51D36214200702747 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
-		4F47A5B61D36214200702747 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
-		4F47A5B71D36214200702747 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
-		4F47A5B81D36214200702747 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
 		4F47A5BF1D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
 		4F47A5C01D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
 		4F47A5C11D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
@@ -429,7 +424,6 @@
 		4F47A8611D3D230600702747 /* TrackerTests-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F47A8601D3D230600702747 /* TrackerTests-Bridging-Header.h */; };
 		4F47A8621D3D230600702747 /* TrackerTests-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F47A8601D3D230600702747 /* TrackerTests-Bridging-Header.h */; };
 		4F47A8661D3D23D700702747 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A62C1D3624AF00702747 /* UIImageExtension.swift */; };
-		4F47A8681D3D260900702747 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
 		4F47A86A1D3D270F00702747 /* DefaultConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A55A1D3620E800702747 /* DefaultConfiguration.plist */; };
 		4F47A86C1D3D271300702747 /* DefaultConfiguration~ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A55B1D3620E800702747 /* DefaultConfiguration~ipad.plist */; };
 		4F47A86D1D3D271300702747 /* DefaultConfiguration~iphone.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A55C1D3620E800702747 /* DefaultConfiguration~iphone.plist */; };
@@ -489,7 +483,6 @@
 		4F47A95B1D3E2FE100702747 /* RichMediaSubclassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7091D3D126500702747 /* RichMediaSubclassTests.swift */; };
 		4F47A95C1D3E2FE100702747 /* Dispatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4501D3542A400702747 /* Dispatcher.swift */; };
 		4F47A95D1D3E2FE100702747 /* ContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F11D3D126500702747 /* ContextTests.swift */; };
-		4F47A95E1D3E2FE100702747 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
 		4F47A95F1D3E2FE100702747 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4B01D35446700702747 /* Location.swift */; };
 		4F47A9601D3E2FE100702747 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4981D35436200702747 /* Debugger.swift */; };
 		4F47A9621D3E2FE100702747 /* BuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6ED1D3D126500702747 /* BuilderTests.swift */; };
@@ -600,7 +593,6 @@
 		4FF594321D3F63800004D336 /* TechnicalContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7151D3D126500702747 /* TechnicalContextTests.swift */; };
 		4FF594331D3F63800004D336 /* TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7171D3D126500702747 /* TrackerTests.swift */; };
 		4FF594351D3F65E20004D336 /* DefaultConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A55A1D3620E800702747 /* DefaultConfiguration.plist */; };
-		4FF594361D3F65E80004D336 /* Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */; };
 		4FF594371D3F66250004D336 /* TechnicalContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4571D3542A400702747 /* TechnicalContext.swift */; };
 		4FF594381D3F66330004D336 /* BackgroundTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A44B1D3542A400702747 /* BackgroundTask.swift */; };
 		4FF594391D3F66350004D336 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A44C1D3542A400702747 /* Buffer.swift */; };
@@ -656,6 +648,14 @@
 		4FF594721D3FB8690004D336 /* watchOSTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FF594711D3FB8690004D336 /* watchOSTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4FFB609D1D3E7FD900586F9E /* ATInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4461D3541C500702747 /* ATInternet.swift */; };
 		8E000C3E1F78F77B00C4AACF /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
+		8E3061E020A9945A00D433B0 /* DynamicRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3061DF20A9945A00D433B0 /* DynamicRefresh.swift */; };
+		8E3061E120A9945A00D433B0 /* DynamicRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3061DF20A9945A00D433B0 /* DynamicRefresh.swift */; };
+		8E3061E220A9945A00D433B0 /* DynamicRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3061DF20A9945A00D433B0 /* DynamicRefresh.swift */; };
+		8E3061E320A9945A00D433B0 /* DynamicRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3061DF20A9945A00D433B0 /* DynamicRefresh.swift */; };
+		8E3061E420A9945A00D433B0 /* DynamicRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3061DF20A9945A00D433B0 /* DynamicRefresh.swift */; };
+		8E3061E520A9945A00D433B0 /* DynamicRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3061DF20A9945A00D433B0 /* DynamicRefresh.swift */; };
+		8E3061E620A9945A00D433B0 /* DynamicRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3061DF20A9945A00D433B0 /* DynamicRefresh.swift */; };
+		8E3061E720A9945A00D433B0 /* DynamicRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3061DF20A9945A00D433B0 /* DynamicRefresh.swift */; };
 		8E5339831D3F82A80081445B /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7121D3D126500702747 /* SwiftyJSON.swift */; };
 		8E5339841D3F845F0081445B /* ApiS3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDC3CF51D3E225100A14458 /* ApiS3.swift */; };
 		8E54A8941E4A1F8D0059582A /* EventFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E54A8931E4A1F8D0059582A /* EventFactory.swift */; };
@@ -715,6 +715,9 @@
 		8E82306F1F7BA99C00B750DC /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E82306E1F7BA99B00B750DC /* AppTests.swift */; };
 		8E88418C1DB5358D003BB11D /* SmartTrackerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9398B41D9583810065D58D /* SmartTrackerConfiguration.swift */; };
 		8E9398B51D9583810065D58D /* SmartTrackerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9398B41D9583810065D58D /* SmartTrackerConfiguration.swift */; };
+		8EA41A2A20AF0688009ED4B0 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6281D3624AF00702747 /* DictionaryExtension.swift */; };
+		8EA41A2B20AF0689009ED4B0 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6281D3624AF00702747 /* DictionaryExtension.swift */; };
+		8EC45F06206A471E00B0EC52 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
 		8EC97ED31D5A2CC1007360F3 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC97ED21D5A2CC1007360F3 /* APITests.swift */; };
 		8EDC3CF61D3E225100A14458 /* ApiS3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDC3CF51D3E225100A14458 /* ApiS3.swift */; };
 		8EFF4AF81D50D79C005DF2A7 /* DeviceRotationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFF4AF71D50D79C005DF2A7 /* DeviceRotationEvent.swift */; };
@@ -817,7 +820,6 @@
 		4F47A55D1D3620E800702747 /* DefaultConfiguration~ipod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DefaultConfiguration~ipod.plist"; sourceTree = "<group>"; };
 		4F47A5A51D36214200702747 /* core.manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = core.manifest.json; sourceTree = "<group>"; };
 		4F47A5A61D36214200702747 /* nuggad.manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nuggad.manifest.json; sourceTree = "<group>"; };
-		4F47A5A81D36214200702747 /* Tracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tracker.xcdatamodel; sourceTree = "<group>"; };
 		4F47A5BE1D36215D00702747 /* ATReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATReachability.swift; sourceTree = "<group>"; };
 		4F47A5C61D36223D00702747 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		4F47A5D41D3622B100702747 /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
@@ -931,6 +933,8 @@
 		4FF5946F1D3FB7FB0004D336 /* tvOSTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tvOSTracker.h; sourceTree = "<group>"; };
 		4FF594711D3FB8690004D336 /* watchOSTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = watchOSTracker.h; sourceTree = "<group>"; };
 		8E2E9AB11DAF861D00ED4D98 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8E3061DF20A9945A00D433B0 /* DynamicRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicRefresh.swift; sourceTree = "<group>"; };
+		8E41DCBF20BC0170002CE4CC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		8E54A8931E4A1F8D0059582A /* EventFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventFactory.swift; sourceTree = "<group>"; };
 		8E54A8E01E4B044D0059582A /* Sockets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sockets.swift; sourceTree = "<group>"; };
 		8E6DD3291F4D81A000E81E79 /* zlib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = zlib; sourceTree = "<group>"; };
@@ -1137,6 +1141,7 @@
 				4F47A4A81D35446700702747 /* CustomTreeStructure.swift */,
 				4F47A4A91D35446700702747 /* CustomVar.swift */,
 				4F47A4AA1D35446700702747 /* Event.swift */,
+				8E3061DF20A9945A00D433B0 /* DynamicRefresh.swift */,
 				4F47A4AB1D35446700702747 /* Gesture.swift */,
 				4F47A4AC1D35446700702747 /* IdentifiedVisitor.swift */,
 				4F47A4AD1D35446700702747 /* InternalSearch.swift */,
@@ -1195,6 +1200,7 @@
 		4F47A5591D36209900702747 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				8E41DCBF20BC0170002CE4CC /* README.md */,
 				8E9334901FA0E4F5001E185A /* ATInternet-Apple-SDK-AppExtension.podspec */,
 				8EEBADC51DF5779200FD1CFD /* ATInternet-Apple-SDK.podspec */,
 				4F47A43A1D3532FE00702747 /* Info-iOS-Extension.plist */,
@@ -1206,7 +1212,6 @@
 				4F47A55B1D3620E800702747 /* DefaultConfiguration~ipad.plist */,
 				4F47A55C1D3620E800702747 /* DefaultConfiguration~iphone.plist */,
 				4F47A55D1D3620E800702747 /* DefaultConfiguration~ipod.plist */,
-				4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */,
 				4F47A5A51D36214200702747 /* core.manifest.json */,
 				4F47A5A61D36214200702747 /* nuggad.manifest.json */,
 			);
@@ -1637,7 +1642,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				TargetAttributes = {
 					4F47A3DD1D351E8100702747 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1851,9 +1856,9 @@
 				4F47A5111D35446700702747 /* RichMedia.swift in Sources */,
 				4F47A4BD1D35446700702747 /* Aisle.swift in Sources */,
 				4F47A4FD1D35446700702747 /* Offline.swift in Sources */,
+				8E3061E020A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A4471D3541C500702747 /* ATInternet.swift in Sources */,
 				4F47A4E51D35446700702747 /* InternalSearch.swift in Sources */,
-				4F47A5B41D36214200702747 /* Tracker.xcdatamodeld in Sources */,
 				4F47A4C51D35446700702747 /* Campaign.swift in Sources */,
 				4F47A46A1D3542A400702747 /* Context.swift in Sources */,
 				4F47A48A1D3542A400702747 /* TechnicalContext.swift in Sources */,
@@ -1891,7 +1896,6 @@
 				4F47A47C1D3542A400702747 /* Param.swift in Sources */,
 				4F47A5351D35451A00702747 /* Crash.m in Sources */,
 				4F47A5CE1D36223D00702747 /* StringExtension.swift in Sources */,
-				4F47A5B61D36214200702747 /* Tracker.xcdatamodeld in Sources */,
 				4F47A4901D3542A400702747 /* Tool.swift in Sources */,
 				4F47A4941D3542A400702747 /* Tracker.swift in Sources */,
 				4F47A4781D3542A400702747 /* LifeCycle.swift in Sources */,
@@ -1907,6 +1911,7 @@
 				4F47A46C1D3542A400702747 /* Context.swift in Sources */,
 				4F47A5231D35446700702747 /* Video.swift in Sources */,
 				4F47A4DB1D35446700702747 /* Event.swift in Sources */,
+				8E3061E220A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A4C71D35446700702747 /* Campaign.swift in Sources */,
 				4F47A48C1D3542A400702747 /* TechnicalContext.swift in Sources */,
 				4F47A53D1D35451A00702747 /* Hash.m in Sources */,
@@ -1948,11 +1953,11 @@
 				4F47A47D1D3542A400702747 /* Param.swift in Sources */,
 				4F47A5361D35451A00702747 /* Crash.m in Sources */,
 				4F47A5CF1D36223D00702747 /* StringExtension.swift in Sources */,
-				4F47A5B71D36214200702747 /* Tracker.xcdatamodeld in Sources */,
 				4F47A4911D3542A400702747 /* Tool.swift in Sources */,
 				4F47A4951D3542A400702747 /* Tracker.swift in Sources */,
 				4F47A4791D3542A400702747 /* LifeCycle.swift in Sources */,
 				4F47A4E81D35446700702747 /* InternalSearch.swift in Sources */,
+				8E3061E320A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A4CC1D35446700702747 /* Cart.swift in Sources */,
 				4F47A5101D35446700702747 /* Publisher.swift in Sources */,
 				4F47A4851D3542A400702747 /* Sender.swift in Sources */,
@@ -2021,11 +2026,11 @@
 				4F47A4CA1D35446700702747 /* Cart.swift in Sources */,
 				4F47A4671D3542A400702747 /* Configuration.swift in Sources */,
 				4F47A5121D35446700702747 /* RichMedia.swift in Sources */,
+				8E3061E120A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A4BE1D35446700702747 /* Aisle.swift in Sources */,
 				4F47A4FE1D35446700702747 /* Offline.swift in Sources */,
 				4F47A4481D3541C500702747 /* ATInternet.swift in Sources */,
 				4F47A4E61D35446700702747 /* InternalSearch.swift in Sources */,
-				4F47A5B51D36214200702747 /* Tracker.xcdatamodeld in Sources */,
 				4F47A4C61D35446700702747 /* Campaign.swift in Sources */,
 				4F47A46B1D3542A400702747 /* Context.swift in Sources */,
 				4F47A48B1D3542A400702747 /* TechnicalContext.swift in Sources */,
@@ -2130,7 +2135,6 @@
 				4F47A58B1D36210700702747 /* CustomTreeStructure.swift in Sources */,
 				4F47A5831D3620FF00702747 /* Debugger.swift in Sources */,
 				4F47A5FE1D3623B100702747 /* ConnectedState.swift in Sources */,
-				4F47A5B81D36214200702747 /* Tracker.xcdatamodeld in Sources */,
 				4F47A5851D36210700702747 /* Aisle.swift in Sources */,
 				8E6DD3531F4D83B000E81E79 /* SocketIOClientSpec.swift in Sources */,
 				8E6DD3591F4D83B000E81E79 /* SocketTypes.swift in Sources */,
@@ -2142,6 +2146,7 @@
 				4F47A6041D3623B100702747 /* SocketEvents.swift in Sources */,
 				4F47A5EB1D3622B100702747 /* KLCPopup.m in Sources */,
 				8E6DD3551F4D83B000E81E79 /* SocketLogger.swift in Sources */,
+				8E3061E420A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A5751D3620FA00702747 /* Builder.swift in Sources */,
 				4F47A58F1D36210700702747 /* IdentifiedVisitor.swift in Sources */,
 				4F47A5F11D36230D00702747 /* View.swift in Sources */,
@@ -2195,6 +2200,7 @@
 				4F47A81D1D3D17FC00702747 /* NuggAd.swift in Sources */,
 				4F47A84A1D3D192C00702747 /* Tracker.swift in Sources */,
 				4F47A85B1D3D20F400702747 /* StringExtension.swift in Sources */,
+				8EA41A2A20AF0688009ED4B0 /* DictionaryExtension.swift in Sources */,
 				4F47A7F41D3D137800702747 /* GPSTests.swift in Sources */,
 				4F47A8211D3D17FC00702747 /* Product.swift in Sources */,
 				4F47A8191D3D17FC00702747 /* LiveAudio.swift in Sources */,
@@ -2222,10 +2228,12 @@
 				4F47A8221D3D17FC00702747 /* Publisher.swift in Sources */,
 				4F47A83F1D3D192C00702747 /* Context.swift in Sources */,
 				4F47A8421D3D192C00702747 /* Hit.swift in Sources */,
+				8E3061E520A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A8171D3D17FC00702747 /* IdentifiedVisitor.swift in Sources */,
 				4F47A8091D3D17C000702747 /* Campaign.swift in Sources */,
 				4F47A7F91D3D139300702747 /* OrderTests.swift in Sources */,
 				4F47A8481D3D192C00702747 /* TechnicalContext.swift in Sources */,
+				8EC45F06206A471E00B0EC52 /* ATReachability.swift in Sources */,
 				4F47A83E1D3D192C00702747 /* Configuration.swift in Sources */,
 				4F47A81E1D3D17FC00702747 /* Offline.swift in Sources */,
 				4F47A8231D3D17FC00702747 /* RichMedia.swift in Sources */,
@@ -2238,7 +2246,6 @@
 				4F47A7FC1D3D13A400702747 /* RichMediaSubclassTests.swift in Sources */,
 				4F47A8411D3D192C00702747 /* Dispatcher.swift in Sources */,
 				4F47A7ED1D3D135500702747 /* ContextTests.swift in Sources */,
-				4F47A8681D3D260900702747 /* Tracker.xcdatamodeld in Sources */,
 				4F47A81B1D3D17FC00702747 /* Location.swift in Sources */,
 				4F47A85E1D3D226B00702747 /* Debugger.swift in Sources */,
 				4F47A7E91D3D134F00702747 /* BuilderTests.swift in Sources */,
@@ -2289,6 +2296,7 @@
 				4FF594591D3F66A30004D336 /* MediaPlayer.swift in Sources */,
 				4FF5945A1D3F66A50004D336 /* NuggAd.swift in Sources */,
 				4FF594291D3F61E50004D336 /* InternalSearchTests.swift in Sources */,
+				8EA41A2B20AF0689009ED4B0 /* DictionaryExtension.swift in Sources */,
 				4FF5943C1D3F663E0004D336 /* Context.swift in Sources */,
 				4FF5943F1D3F66440004D336 /* Hit.swift in Sources */,
 				4FF594501D3F668E0004D336 /* CustomTreeStructure.swift in Sources */,
@@ -2313,10 +2321,10 @@
 				4FF5942B1D3F63670004D336 /* NuggAdTests.swift in Sources */,
 				4FF5945F1D3F66B00004D336 /* Publisher.swift in Sources */,
 				4FF5945B1D3F66A70004D336 /* Offline.swift in Sources */,
+				8E3061E620A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4FF594641D3F66C20004D336 /* Video.swift in Sources */,
 				4FF594571D3F669D0004D336 /* LiveVideo.swift in Sources */,
 				4FF594271D3F61E50004D336 /* GPSTests.swift in Sources */,
-				4FF594361D3F65E80004D336 /* Tracker.xcdatamodeld in Sources */,
 				4FF5945D1D3F66AC0004D336 /* Order.swift in Sources */,
 				4FF594481D3F66700004D336 /* StringExtension.swift in Sources */,
 				4FF594391D3F66350004D336 /* Buffer.swift in Sources */,
@@ -2464,7 +2472,6 @@
 				4F47A95D1D3E2FE100702747 /* ContextTests.swift in Sources */,
 				8E6DD3681F4DA8AE00E81E79 /* SocketExtensions.swift in Sources */,
 				8E6DD3611F4DA8AE00E81E79 /* SocketEngine.swift in Sources */,
-				4F47A95E1D3E2FE100702747 /* Tracker.xcdatamodeld in Sources */,
 				4F47A95F1D3E2FE100702747 /* Location.swift in Sources */,
 				4F47A9851D3E316B00702747 /* GestureEvent.swift in Sources */,
 				8E6DD36C1F4DA8AE00E81E79 /* SocketIOClientSpec.swift in Sources */,
@@ -2474,6 +2481,7 @@
 				4F47A9621D3E2FE100702747 /* BuilderTests.swift in Sources */,
 				8E6DD3721F4DA8AE00E81E79 /* SocketTypes.swift in Sources */,
 				4F3EAB811D3E789900013032 /* App.swift in Sources */,
+				8E3061E720A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A9631D3E2FE100702747 /* CartTests.swift in Sources */,
 				4F47A9B41D3E319900702747 /* UIViewControllerExtensionTests.swift in Sources */,
 				4F47A9C01D3E346C00702747 /* UIRefreshControlExtension.swift in Sources */,
@@ -2554,11 +2562,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -2601,11 +2611,13 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -3666,19 +3678,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		4F47A5A71D36214200702747 /* Tracker.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				4F47A5A81D36214200702747 /* Tracker.xcdatamodel */,
-			);
-			currentVersion = 4F47A5A81D36214200702747 /* Tracker.xcdatamodel */;
-			path = Tracker.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 4F47A3D31D351E3C00702747 /* Project object */;
 }

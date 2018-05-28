@@ -66,6 +66,8 @@ class IdentifiedVisitorTests: XCTestCase {
         let refCount = self.tracker.buffer.persistentParameters.count
         _ = self.tracker.identifiedVisitor.set(123)
         XCTAssertTrue(self.tracker.buffer.persistentParameters.count == refCount, "Il ne doit pas y avoir de paramètre supplémentaire")
+        let X = UserDefaults.standard.object(forKey: IdentifiedVisitorHelperKey.numeric.rawValue)
+        print(X)
         let test = UserDefaults.standard.object(forKey: IdentifiedVisitorHelperKey.numeric.rawValue) as! String
         XCTAssertTrue(test == "123", "La valeur doit être 123")
         _ = self.tracker.identifiedVisitor.unset()

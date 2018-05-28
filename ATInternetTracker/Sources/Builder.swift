@@ -447,7 +447,7 @@ class Builder: Operation {
             }
             
             if p.key == HitParam.userID.rawValue {
-                if TechnicalContext.doNotTrack {
+                if TechnicalContext.optOut {
                     strValue = "opt-out"
                 }
                 else if let hash = self.tracker.configuration.parameters["hashUserId"] {

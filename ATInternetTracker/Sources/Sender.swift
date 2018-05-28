@@ -95,6 +95,11 @@ class Sender: Operation {
     - parameter a: callback to indicate whether hit was sent successfully or not
     */
     func sendWithCompletionHandler(_ completionHandler: ((_ success: Bool) -> Void)?) {
+        if (TechnicalContext.doNotTrack) {
+            completionHandler?(false)
+            return
+        }
+        
         let db = Storage.sharedInstanceOf(self.tracker.configuration.parameters["storage"] ?? "never")
         
         // Si pas de connexion ou que le mode offline est à "always"

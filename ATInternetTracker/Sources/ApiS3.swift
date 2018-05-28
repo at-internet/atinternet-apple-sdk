@@ -24,6 +24,11 @@
 
 import Foundation
 
+/// Lifecycle keys
+enum SSDKStorageKeys: String, EnumCollection {
+    case Config = "at_smartsdk_config"
+    case TTL = "at_smartsdk_ttl"
+}
 
 typealias MappingRequest = (url: URL, callback: (ATJSON?) -> ())
 /**
@@ -153,7 +158,7 @@ class ApiS3Client {
      - parameter mapping: the config
      */
     func saveToLocal(_ mapping: ATJSON) {
-        _ = store.saveByName(mapping.object, name: "at_smartsdk_config")
+        _ = store.saveByName(mapping.object, name: SSDKStorageKeys.Config.rawValue)
     }
     
     /**
@@ -162,7 +167,7 @@ class ApiS3Client {
      - returns: the config
      */
     fileprivate func takeLocalMapping() -> ATJSON? {
-        let jsonObj = store.getByName("at_smartsdk_config")
+        let jsonObj = store.getByName(SSDKStorageKeys.Config.rawValue)
         if let obj = jsonObj {
             return ATJSON(obj)
         }
@@ -171,14 +176,14 @@ class ApiS3Client {
     
     func saveTTL() {
         let ttl = Date().addingTimeInterval(TimeInterval(3600+arc4random_uniform(60*20)))
-        _ = store.saveByName(ttl, name: "at_smartsdk_ttl")
+        _ = store.saveByName(ttl, name: SSDKStorageKeys.TTL.rawValue)
     }
     
     func shouldRefreshMapping() -> Bool {
         if ATInternet.sharedInstance.defaultTracker.enableLiveTagging {
             return true
         }
-        if let ttl = store.getByName("at_smartsdk_ttl") as? Date {
+        if let ttl = store.getByName(SSDKStorageKeys.TTL.rawValue) as? Date {
             if ttl > Date() {
                 return false
             }

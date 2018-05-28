@@ -219,7 +219,7 @@ extension UIApplication {
                 var methodName: String?
                 
                 // get method from action
-                let (infoText, infoMethodName, infoClassName, position) = getTouchedViewInfo(appContext.currentTouchedView!)
+                let (_ , infoMethodName, infoClassName, position) = getTouchedViewInfo(appContext.currentTouchedView!)
                 let touchedView = getTouchedView(touches)
                 var tag: Int = (position != nil) ? position! : 0
                 

@@ -39,7 +39,6 @@ import WatchKit
 import UIKit
 #endif
 
-    
 /// Contextual information from user device
 class TechnicalContext: NSObject {
     
@@ -56,29 +55,52 @@ class TechnicalContext: NSObject {
         unknown = "unknown"
     }
     
+    enum TechnicalContextKeys: String, EnumCollection {
+        case OptOut = "ATDoNotTrack"
+        case DoNotTrack = "ATDoNotSendHit"
+        case UserIDV1 = "ATIdclient"
+        case UserIDV2 = "ApplicationUniqueIdentifier"
+        case UserID = "ATApplicationUniqueIdentifier"
+    }
+    
     /// Name of the last tracked screen
     static var screenName: String = ""
     /// ID of the last level2 id set in parameters
     static var level2: Int = 0
     
-    /// Enable or disable tracking
-    class var doNotTrack: Bool {
+    /// Enable or disable user identification
+    class var optOut: Bool {
         get {
             let userDefaults = UserDefaults.standard
             
-            if (userDefaults.object(forKey: "ATDoNotTrack") == nil) {
+            if (userDefaults.object(forKey: TechnicalContextKeys.OptOut.rawValue) == nil) {
                 return false
             } else {
-                return userDefaults.bool(forKey: "ATDoNotTrack")
+                return userDefaults.bool(forKey: TechnicalContextKeys.OptOut.rawValue)
             }
         } set {
             let userDefaults = UserDefaults.standard
-            userDefaults.set(newValue, forKey: "ATDoNotTrack")
+            userDefaults.set(newValue, forKey: TechnicalContextKeys.OptOut.rawValue)
             userDefaults.synchronize()
         }
     }
     
-    
+    /// Enable or disable hit tracking
+    class var doNotTrack: Bool {
+        get {
+            let userDefaults = UserDefaults.standard
+            
+            if (userDefaults.object(forKey: TechnicalContextKeys.DoNotTrack.rawValue) == nil) {
+                return false
+            } else {
+                return userDefaults.bool(forKey: TechnicalContextKeys.DoNotTrack.rawValue)
+            }
+        } set {
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(newValue, forKey: TechnicalContextKeys.DoNotTrack.rawValue)
+            userDefaults.synchronize()
+        }
+    }
     
     /// Unique user id
     class func userId(_ identifier: String?) -> String {
@@ -86,17 +108,17 @@ class TechnicalContext: NSObject {
         if(!self.doNotTrack) {
             
             let uuid: () -> String = {
-                if UserDefaults.standard.object(forKey: "ATIdclient") != nil {
-                    return UserDefaults.standard.object(forKey: "ATIdclient") as! String
-                } else if UserDefaults.standard.object(forKey:"ApplicationUniqueIdentifier") != nil {
-                    return UserDefaults.standard.object(forKey: "ApplicationUniqueIdentifier") as! String
-                } else if UserDefaults.standard.object(forKey: "ATApplicationUniqueIdentifier") == nil {
+                if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV1.rawValue) != nil {
+                    return UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV1.rawValue) as! String
+                } else if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV2.rawValue) != nil {
+                    return UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV2.rawValue) as! String
+                } else if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) == nil {
                     let UUID = Foundation.UUID().uuidString
-                    UserDefaults.standard.set(UUID, forKey: "ATApplicationUniqueIdentifier")
+                    UserDefaults.standard.set(UUID, forKey: TechnicalContextKeys.UserID.rawValue)
                     UserDefaults.standard.synchronize()
                     return UUID
                 } else {
-                    return UserDefaults.standard.object(forKey: "ATApplicationUniqueIdentifier") as! String
+                    return UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) as! String
                 }
             }
             

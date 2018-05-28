@@ -124,9 +124,4 @@ class ParameterTests: XCTestCase {
         XCTAssert(param.options?.relativePosition == ParamOption.RelativePosition.after, "l'option relativePosition doit être égale à after")
         XCTAssert(param.options?.relativeParameterKey == "stc", "l'option relativeParameter doit être égale à 'stc'")
     }
-    
-    // On vérifie que la liste des paramètres en lecture seule contient les 10 clés à ne pas surcharger (sujet à modification)
-    func testReadOnlyParametersKeys() {
-        XCTAssertEqual(11, ReadOnlyParam.list.count, "Il doit y avoir 10 clés de paramètres en lecture seule")
-    }
 }

@@ -49,28 +49,6 @@ class PluginParam: NSObject {
     }
 }
 
-/// Read only parameter
-class ReadOnlyParam: NSObject {
-    /// Set of all parameters which value cannot be updated
-    class var list: Set<String> {
-        get {
-            return [
-                "vtag",
-                "lng",
-                "mfmd",
-                "os",
-                "apvr",
-                "hl",
-                "r",
-                "car",
-                "cn",
-                "ts",
-                "olt"
-            ]
-        }
-    }
-}
-
 /// Slice ready parameter
 class SliceReadyParam: NSObject {
     

@@ -33,7 +33,7 @@ SOFTWARE.
 import Foundation
 
 /// NSUserDefaults and configuration keys for persistent identified visitor data
-enum IdentifiedVisitorHelperKey: String {
+enum IdentifiedVisitorHelperKey: String, EnumCollection {
     case configuration = "persistIdentifiedVisitor"
     case numeric = "ATIdentifiedVisitorNumeric"
     case text = "ATIdentifiedVisitorText"
