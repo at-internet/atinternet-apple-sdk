@@ -3,7 +3,7 @@ $external_dependencies = File.readlines('dependencies.txt').map(&:strip)
 
 Pod::Spec.new do |s|
 	s.name = "ATInternet-Apple-SDK"
-	s.version = '2.9.0'
+	s.version = '2.9.2'
 	s.summary = "AT Internet mobile analytics solution for Apple devices"
 	s.homepage = "https://github.com/at-internet/atinternet-apple-sdk"
 	s.documentation_url	= 'http://developers.atinternet-solutions.com/apple-en/getting-started-apple-en/operating-principle-apple-en/'
@@ -15,12 +15,11 @@ Pod::Spec.new do |s|
 	s.ios.deployment_target	= '8.0'
 	s.tvos.deployment_target = '9.0'
 	s.watchos.deployment_target = '2.0'
-    s.static_framework = true
 
 	s.subspec 'Tracker' do |tracker|
 		tracker.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
 		tracker.exclude_files = $smart_sdk + $external_dependencies
-		tracker.resources = "ATInternetTracker/Sources/*.{plist,png,json}", "ATInternetTracker/Sources/DebuggerImages.xcassets"
+		tracker.resources = "ATInternetTracker/Sources/*.{plist,xcdatamodeld,png,json}", "ATInternetTracker/Sources/Images.xcassets"
 		tracker.frameworks = "CoreData", "CoreFoundation", "UIKit", "CoreTelephony", "SystemConfiguration"
 		tracker.platform = :ios
 	end
@@ -31,13 +30,13 @@ Pod::Spec.new do |s|
 		appExt.exclude_files          = ["ATInternetTracker/Sources/BackgroundTask.swift","ATInternetTracker/Sources/Debugger.swift","ATInternetTracker/Sources/TrackerTests-Bridging-Header.h"] + $smart_sdk + $external_dependencies
 		appExt.frameworks             = "CoreData", "CoreFoundation", "WatchKit", "UIKit", "SystemConfiguration", "CoreTelephony"
 		appExt.platform				  = :ios
-		appExt.resources = "ATInternetTracker/Sources/*.{plist,png,json}", "ATInternetTracker/Sources/DebuggerImages.xcassets"
+		appExt.resources = "ATInternetTracker/Sources/*.{plist,xcdatamodeld,png,json}", "ATInternetTracker/Sources/Images.xcassets"
 	end
 
 	s.subspec 'SmartTracker' do |st|
 		st.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
 		st.exclude_files = $external_dependencies
-		st.resources = "ATInternetTracker/Sources/*.{plist,png,json,mp3,ttf}", "ATInternetTracker/Sources/DebuggerImages.xcassets", "ATInternetTracker/Sources/SmartSDKImages.xcassets","ATInternetTracker/Sources/en.lproj", "ATInternetTracker/Sources/fr.lproj"
+		st.resources = "ATInternetTracker/Sources/*.{plist,xcdatamodeld,png,json,mp3,ttf}", "ATInternetTracker/Sources/Images.xcassets", "ATInternetTracker/Sources/SmartSDK.xcassets","ATInternetTracker/Sources/en.lproj", "ATInternetTracker/Sources/fr.lproj"
 		st.frameworks = "CoreData", "CoreFoundation", "UIKit", "CoreTelephony", "SystemConfiguration", "CFNetwork", "Security", "Foundation"
 		st.platform	= :ios
 		st.ios.deployment_target = '8.0'
@@ -53,13 +52,13 @@ Pod::Spec.new do |s|
 		wos.exclude_files          = ["ATInternetTracker/Sources/BackgroundTask.swift","ATInternetTracker/Sources/ATReachability.swift","ATInternetTracker/Sources/Debugger.swift","ATInternetTracker/Sources/TrackerTests-Bridging-Header.h"] + $smart_sdk + $external_dependencies
 		wos.frameworks             = "CoreData", "CoreFoundation", "WatchKit"
 		wos.platform				  = :watchos
-		wos.resources = "ATInternetTracker/Sources/DefaultConfiguration.plist","ATInternetTracker/Sources/core.manifest.json"
+		wos.resources = "ATInternetTracker/Sources/DefaultConfiguration.plist","ATInternetTracker/Sources/core.manifest.json", "ATInternetTracker/Sources/*.xcdatamodeld"
 	end
 
     s.subspec 'tvOSTracker' do |tvos|
 		tvos.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
 		tvos.exclude_files = $smart_sdk + $external_dependencies + ["ATInternetTracker/Sources/TrackerTests-Bridging-Header.h"]
-		tvos.resources = "ATInternetTracker/Sources/*.{plist,png,json,mp3,ttf}", "ATInternetTracker/Sources/DebuggerImages.xcassets"
+		tvos.resources = "ATInternetTracker/Sources/*.{plist,xcdatamodeld,png,json,mp3,ttf}", "ATInternetTracker/Sources/Images.xcassets"
 		tvos.frameworks = "CoreData", "CoreFoundation", "UIKit", "SystemConfiguration"
 		tvos.platform = :tvos
 	end

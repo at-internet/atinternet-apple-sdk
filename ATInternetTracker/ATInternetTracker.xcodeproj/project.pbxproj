@@ -80,7 +80,7 @@
 		4F47A4941D3542A400702747 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4591D3542A400702747 /* Tracker.swift */; };
 		4F47A4951D3542A400702747 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4591D3542A400702747 /* Tracker.swift */; };
 		4F47A4991D35436200702747 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4981D35436200702747 /* Debugger.swift */; };
-		4F47A49E1D35437300702747 /* DebuggerImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A49D1D35437300702747 /* DebuggerImages.xcassets */; };
+		4F47A49E1D35437300702747 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A49D1D35437300702747 /* Images.xcassets */; };
 		4F47A4BD1D35446700702747 /* Aisle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4A31D35446700702747 /* Aisle.swift */; };
 		4F47A4BE1D35446700702747 /* Aisle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4A31D35446700702747 /* Aisle.swift */; };
 		4F47A4BF1D35446700702747 /* Aisle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4A31D35446700702747 /* Aisle.swift */; };
@@ -237,7 +237,7 @@
 		4F47A5811D3620FA00702747 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4581D3542A400702747 /* Tool.swift */; };
 		4F47A5821D3620FA00702747 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4591D3542A400702747 /* Tracker.swift */; };
 		4F47A5831D3620FF00702747 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4981D35436200702747 /* Debugger.swift */; };
-		4F47A5841D36210200702747 /* DebuggerImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A49D1D35437300702747 /* DebuggerImages.xcassets */; };
+		4F47A5841D36210200702747 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A49D1D35437300702747 /* Images.xcassets */; };
 		4F47A5851D36210700702747 /* Aisle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4A31D35446700702747 /* Aisle.swift */; };
 		4F47A5861D36210700702747 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4A41D35446700702747 /* Audio.swift */; };
 		4F47A5871D36210700702747 /* BusinessObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5251D3544F400702747 /* BusinessObject.swift */; };
@@ -336,7 +336,7 @@
 		4F47A6531D36264300702747 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A64A1D36264300702747 /* OpenSans-Regular.ttf */; };
 		4F47A6541D36264300702747 /* SmartPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A64B1D36264300702747 /* SmartPopUp.swift */; };
 		4F47A6551D36264300702747 /* SmartToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A64C1D36264300702747 /* SmartToolbar.swift */; };
-		4F47A6561D36264300702747 /* SmartSDKImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A64D1D36264300702747 /* SmartSDKImages.xcassets */; };
+		4F47A6561D36264300702747 /* SmartSDK.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A64D1D36264300702747 /* SmartSDK.xcassets */; };
 		4F47A6591D362C1F00702747 /* DefaultConfiguration.plist in Headers */ = {isa = PBXBuildFile; fileRef = 4F47A55A1D3620E800702747 /* DefaultConfiguration.plist */; };
 		4F47A65A1D362C3900702747 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47A4401D353F4300702747 /* CFNetwork.framework */; };
 		4F47A65B1D362C4400702747 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47A43C1D353F3000702747 /* AVFoundation.framework */; };
@@ -534,7 +534,7 @@
 		4F47A9A01D3E318900702747 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A64A1D36264300702747 /* OpenSans-Regular.ttf */; };
 		4F47A9A11D3E318E00702747 /* SmartPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A64B1D36264300702747 /* SmartPopUp.swift */; };
 		4F47A9A21D3E318E00702747 /* SmartToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A64C1D36264300702747 /* SmartToolbar.swift */; };
-		4F47A9A31D3E318E00702747 /* SmartSDKImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A64D1D36264300702747 /* SmartSDKImages.xcassets */; };
+		4F47A9A31D3E318E00702747 /* SmartSDK.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A64D1D36264300702747 /* SmartSDK.xcassets */; };
 		4F47A9A41D3E319900702747 /* EventManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F61D3D126500702747 /* EventManagerTests.swift */; };
 		4F47A9A51D3E319900702747 /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6FE1D3D126500702747 /* MathTests.swift */; };
 		4F47A9A61D3E319900702747 /* NSObjectExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7001D3D126500702747 /* NSObjectExtensionTests.swift */; };
@@ -780,7 +780,7 @@
 		4F47A4581D3542A400702747 /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		4F47A4591D3542A400702747 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		4F47A4981D35436200702747 /* Debugger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
-		4F47A49D1D35437300702747 /* DebuggerImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = DebuggerImages.xcassets; sourceTree = "<group>"; };
+		4F47A49D1D35437300702747 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4F47A4A31D35446700702747 /* Aisle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aisle.swift; sourceTree = "<group>"; };
 		4F47A4A41D35446700702747 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		4F47A4A51D35446700702747 /* Campaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
@@ -871,7 +871,7 @@
 		4F47A64A1D36264300702747 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		4F47A64B1D36264300702747 /* SmartPopUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartPopUp.swift; sourceTree = "<group>"; };
 		4F47A64C1D36264300702747 /* SmartToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartToolbar.swift; sourceTree = "<group>"; };
-		4F47A64D1D36264300702747 /* SmartSDKImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SmartSDKImages.xcassets; sourceTree = "<group>"; };
+		4F47A64D1D36264300702747 /* SmartSDK.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SmartSDK.xcassets; sourceTree = "<group>"; };
 		4F47A6BE1D3D0A3000702747 /* TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F47A6DC1D3D10E000702747 /* tvOSTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tvOSTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F47A6E81D3D11B400702747 /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-tvOS.plist"; path = "Tests/Info-tvOS.plist"; sourceTree = "<group>"; };
@@ -1123,7 +1123,7 @@
 			isa = PBXGroup;
 			children = (
 				4F47A4981D35436200702747 /* Debugger.swift */,
-				4F47A49D1D35437300702747 /* DebuggerImages.xcassets */,
+				4F47A49D1D35437300702747 /* Images.xcassets */,
 			);
 			name = Debugger;
 			sourceTree = "<group>";
@@ -1293,7 +1293,7 @@
 				4F47A65E1D363C1300702747 /* Font */,
 				4F47A64B1D36264300702747 /* SmartPopUp.swift */,
 				4F47A64C1D36264300702747 /* SmartToolbar.swift */,
-				4F47A64D1D36264300702747 /* SmartSDKImages.xcassets */,
+				4F47A64D1D36264300702747 /* SmartSDK.xcassets */,
 				4FF28F921D95773500F4AFFB /* Localizable.strings */,
 			);
 			name = UI;
@@ -1728,7 +1728,7 @@
 				4F47A5681D3620E800702747 /* DefaultConfiguration~iphone.plist in Resources */,
 				4F47A55E1D3620E800702747 /* DefaultConfiguration.plist in Resources */,
 				4F47A5631D3620E800702747 /* DefaultConfiguration~ipad.plist in Resources */,
-				4F47A49E1D35437300702747 /* DebuggerImages.xcassets in Resources */,
+				4F47A49E1D35437300702747 /* Images.xcassets in Resources */,
 				4F47A5AF1D36214200702747 /* nuggad.manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1775,13 +1775,13 @@
 				4F47A5B31D36214200702747 /* nuggad.manifest.json in Resources */,
 				4FF28F901D95773500F4AFFB /* Localizable.strings in Resources */,
 				4F47A5711D3620E800702747 /* DefaultConfiguration~ipod.plist in Resources */,
-				4F47A5841D36210200702747 /* DebuggerImages.xcassets in Resources */,
+				4F47A5841D36210200702747 /* Images.xcassets in Resources */,
 				4F47A56C1D3620E800702747 /* DefaultConfiguration~iphone.plist in Resources */,
 				4F47A5671D3620E800702747 /* DefaultConfiguration~ipad.plist in Resources */,
 				4F47A6511D36264300702747 /* Montserrat-Bold.ttf in Resources */,
 				4F47A6531D36264300702747 /* OpenSans-Regular.ttf in Resources */,
 				4F47A5621D3620E800702747 /* DefaultConfiguration.plist in Resources */,
-				4F47A6561D36264300702747 /* SmartSDKImages.xcassets in Resources */,
+				4F47A6561D36264300702747 /* SmartSDK.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1812,7 +1812,7 @@
 				4F47A9731D3E2FE100702747 /* DefaultConfiguration~ipod.plist in Resources */,
 				4F47A9741D3E2FE100702747 /* DefaultConfiguration~iphone.plist in Resources */,
 				4F47A9751D3E2FE100702747 /* DefaultConfiguration~ipad.plist in Resources */,
-				4F47A9A31D3E318E00702747 /* SmartSDKImages.xcassets in Resources */,
+				4F47A9A31D3E318E00702747 /* SmartSDK.xcassets in Resources */,
 				4F47A9761D3E2FE100702747 /* DefaultConfiguration.plist in Resources */,
 				4F47A9A01D3E318900702747 /* OpenSans-Regular.ttf in Resources */,
 				4F47A99E1D3E318900702747 /* Montserrat-Bold.ttf in Resources */,
