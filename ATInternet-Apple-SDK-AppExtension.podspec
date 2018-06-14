@@ -3,7 +3,7 @@ $external_dependencies = File.readlines('dependencies.txt').map(&:strip)
 
 Pod::Spec.new do |s|
 	s.name = "ATInternet-Apple-SDK-AppExtension"
-	s.version = '2.9.2'
+	s.version = '2.9.3'
 	s.summary = "AT Internet mobile analytics solution for iOS App Extension"
 	s.homepage = "https://github.com/at-internet/atinternet-apple-sdk"
 	s.documentation_url	= 'http://developers.atinternet-solutions.com/apple-en/getting-started-apple-en/operating-principle-apple-en/'
@@ -19,4 +19,5 @@ Pod::Spec.new do |s|
   s.frameworks             = "CoreData", "CoreFoundation", "WatchKit", "UIKit", "SystemConfiguration", "CoreTelephony"
   s.platform				  = :ios, '8.0'
   s.resources = "ATInternetTracker/Sources/*.{plist,png,json}"
+  s.swift_version = '4.1'
 end
