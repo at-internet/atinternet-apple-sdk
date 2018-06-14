@@ -112,6 +112,41 @@ public class ATInternet: NSObject {
         }
     }
     
+    /// Directory where the database is saved
+    #if os(tvOS)
+    static var _databaseDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).last!
+    #else
+    static var _databaseDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!
+    #endif
+    
+    @objc public class var databaseDirectory: URL {
+        get {
+            return ATInternet._databaseDirectory
+        } set {
+            if (Storage.isInitialised) {
+                print("[warning] Changing database path when storage is already initialized")
+            } else {
+                ATInternet._databaseDirectory = newValue
+            }
+        }
+    }
+    
+    /// Disable user identification.
+    @objc public class var optOut: Bool {
+        get {
+            return TechnicalContext.optOut
+        } set {
+            let optOutOperation = BlockOperation(block: {
+                TechnicalContext.optOut = newValue
+            })
+            
+            TrackerQueue.sharedInstance.queue.addOperation(optOutOperation)
+        }
+    }
+    
+    /// Prevent offline hits to be sync with icloud
+    @objc public static var preventICloudSync = false
+    
     /// Get a tracker with custom configuration
     ///
     /// - Parameters:

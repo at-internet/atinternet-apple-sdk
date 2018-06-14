@@ -77,7 +77,9 @@ class NilStorage: StorageProtocol {
 
 /// Offline hit storage
 class Storage: StorageProtocol {
-
+    
+    public static var isInitialised = false
+    
     fileprivate static let sharedInstance: StorageProtocol = {
         do {
             return try Storage()
@@ -94,16 +96,6 @@ class Storage: StorageProtocol {
             return Storage.sharedInstance
         }
     }
-    
-    /// Directory where the database is saved
-    let databaseDirectory: URL = {
-        #if os(tvOS)
-        let urls = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
-        #else
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        #endif
-        return urls[urls.count - 1]
-    }()
 
     /// Context
     let managedObjectContext: NSManagedObjectContext? = {
@@ -155,7 +147,8 @@ class Storage: StorageProtocol {
         let managedObjectModel = self.hitObjectModel
         persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
         // URL of database
-        let url = self.databaseDirectory
+        let url = ATInternet.databaseDirectory
+        Storage.isInitialised = true
         do {
             try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
         }
@@ -182,12 +175,12 @@ class Storage: StorageProtocol {
                 throw NSError(domain: "ATTracker: unable to init database", code: -1, userInfo: nil)
             }
         }
-        // _ = addSkipBackupAttributeToItemAtURL(url: dbURL)
+        _ = addSkipBackupAttributeToItemAtURL(preventBackup: ATInternet.preventICloudSync)
         managedObjectContext!.persistentStoreCoordinator = persistentStoreCoordinator
     }
     
     func addSkipBackupAttributeToItemAtURL(preventBackup: Bool) -> Bool {
-        var url = self.databaseDirectory.appendingPathComponent("Tracker.sqlite")
+        var url = ATInternet.databaseDirectory.appendingPathComponent("Tracker.sqlite")
         var success: Bool
         do {
             var resourceValue = URLResourceValues()

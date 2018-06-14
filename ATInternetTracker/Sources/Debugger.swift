@@ -139,7 +139,14 @@ internal class Debugger: NSObject {
      Create debug button
      */
     func createDebugButton() {
-        debugButton.setBackgroundImage(UIImage(named: "atinternet-logo", in: Bundle(for: Tracker.self), compatibleWith: nil), for: UIControlState())
+        /*NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"BundleName" ofType:@"bundle"];
+        NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+        NSString *resource = [bundle pathForResource:@"fileName" ofType:@"fileType"];*/
+        
+        let bundlePath = Bundle(for: Tracker.self).path(forResource: "TrackerBun", ofType: "bundle")
+        let bundle = Bundle(path: bundlePath!)
+        let logo = bundle?.path(forResource: "atinternet-logo@2x", ofType: "png")
+        debugButton.setBackgroundImage(UIImage(named: logo!), for: UIControlState())
         debugButton.frame = CGRect(x: 0, y: 0, width: 94, height: 73)
         debugButton.translatesAutoresizingMaskIntoConstraints = false
         debugButton.alpha = 0

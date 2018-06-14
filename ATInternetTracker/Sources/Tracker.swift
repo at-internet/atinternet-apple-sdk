@@ -1411,7 +1411,8 @@ public class Tracker: NSObject {
     
     
     /// Disable user identification.
-    @objc public class var optOut: Bool {
+    @objc @available(*, deprecated, message: "Use ATInternet.optOut instead")
+    public class var optOut: Bool {
         get {
             return TechnicalContext.optOut
         } set {
@@ -1424,7 +1425,8 @@ public class Tracker: NSObject {
     }
     
     /// Disable user identification.
-    @objc public class var doNotTrack: Bool {
+    @objc @available(*, deprecated, message: "Use ATInternet.optOut instead")
+    public class var doNotTrack: Bool {
         /*get {
             return TechnicalContext.doNotTrack
         } set {
@@ -1465,16 +1467,6 @@ public class Tracker: NSObject {
         LifeCycle.sessionId = UUID().uuidString
     }*/
     
-    
-    /// Prevent offline hits to be sync with icloud
-    ///
-    /// - Parameter preventBackup: true for disabling the icloud sync
-    /// - Returns: true if it worked
-    @objc public func preventSyncWithICloud(preventBackup: Bool) -> Bool {
-        let storageMode = self.configuration.parameters["storage"] ?? "never"
-        return Storage.sharedInstanceOf(storageMode).addSkipBackupAttributeToItemAtURL(preventBackup: preventBackup)
-    }
-    
     // MARK: - Crash
     
     fileprivate static var _handleCrash: Bool = false
@@ -1495,7 +1487,6 @@ public class Tracker: NSObject {
             }
         }
     }
-    
 }
 
 // MARK: - Tracker Queue
