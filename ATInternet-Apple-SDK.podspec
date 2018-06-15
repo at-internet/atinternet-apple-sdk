@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 	s.subspec 'Tracker' do |tracker|
 		tracker.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
 		tracker.exclude_files = $smart_sdk + $external_dependencies
-		tracker.resources = "ATInternetTracker/Sources/*.{plist,json}", "ATInternetTracker/Sources/TrackerBun.bundle"
+		tracker.resources = "ATInternetTracker/Sources/*.{plist,json}", "ATInternetTracker/Sources/TrackerBundle.bundle"
 		tracker.frameworks = "CoreData", "CoreFoundation", "UIKit", "CoreTelephony", "SystemConfiguration"
 		tracker.platform = :ios
 	end
@@ -32,13 +32,13 @@ Pod::Spec.new do |s|
 		appExt.exclude_files          = ["ATInternetTracker/Sources/BackgroundTask.swift","ATInternetTracker/Sources/Debugger.swift","ATInternetTracker/Sources/TrackerTests-Bridging-Header.h"] + $smart_sdk + $external_dependencies
 		appExt.frameworks             = "CoreData", "CoreFoundation", "WatchKit", "UIKit", "SystemConfiguration", "CoreTelephony"
 		appExt.platform				  = :ios
-		appExt.resources = "ATInternetTracker/Sources/*.{plist,json}", "ATInternetTracker/Sources/TrackerBun.bundle"
+		appExt.resources = "ATInternetTracker/Sources/*.{plist,json}", "ATInternetTracker/Sources/TrackerBundle.bundle"
 	end
 
 	s.subspec 'SmartTracker' do |st|
 		st.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
 		st.exclude_files = $external_dependencies
-		st.resources = "ATInternetTracker/Sources/*.{plist,json,mp3,ttf}","ATInternetTracker/Sources/en.lproj", "ATInternetTracker/Sources/fr.lproj", "ATInternetTracker/Sources/TrackerBun.bundle"
+		st.resources = "ATInternetTracker/Sources/*.{plist,json,mp3,ttf}","ATInternetTracker/Sources/en.lproj", "ATInternetTracker/Sources/fr.lproj", "ATInternetTracker/Sources/TrackerBundle.bundle"
 		st.frameworks = "CoreData", "CoreFoundation", "UIKit", "CoreTelephony", "SystemConfiguration", "CFNetwork", "Security", "Foundation"
 		st.platform	= :ios
 		st.ios.deployment_target = '8.0'
@@ -60,7 +60,7 @@ Pod::Spec.new do |s|
     s.subspec 'tvOSTracker' do |tvos|
 		tvos.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
 		tvos.exclude_files = $smart_sdk + $external_dependencies + ["ATInternetTracker/Sources/TrackerTests-Bridging-Header.h"]
-		tvos.resources = "ATInternetTracker/Sources/*.{plist,json,mp3,ttf}", "ATInternetTracker/Sources/TrackerBun.bundle"
+		tvos.resources = "ATInternetTracker/Sources/*.{plist,json,mp3,ttf}", "ATInternetTracker/Sources/TrackerBundle.bundle"
 		tvos.frameworks = "CoreData", "CoreFoundation", "UIKit", "SystemConfiguration"
 		tvos.platform = :tvos
 	end

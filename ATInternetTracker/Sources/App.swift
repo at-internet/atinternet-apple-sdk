@@ -66,7 +66,8 @@ class App {
     
     func emptyIcon() -> String {
         guard
-            let img = UIImage(named: "emptyIcon", in: Bundle(for: Tracker.self), compatibleWith: nil),
+            let iconPath = pathFor(asset: "emptyIcon"),
+            let img = UIImage(named: iconPath, in: Bundle(for: Tracker.self), compatibleWith: nil),
             let b64 = img.toBase64()
         else { return "" }
         

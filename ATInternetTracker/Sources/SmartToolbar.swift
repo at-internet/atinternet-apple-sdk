@@ -118,7 +118,8 @@ class SmartToolbar: UIView {
      Build all the subviews with contraints
      */
     fileprivate func buildSubviews() {
-        let imgPhoto = UIImage(named: "flat_photo", in: Bundle(for: Tracker.self), compatibleWith: nil)
+        let img = pathFor(asset: "flat_photo") ?? ""
+        let imgPhoto = UIImage(named: img)
         photo = SmartImageViewIgnored(image: imgPhoto)
         photo.isUserInteractionEnabled = true
         self.addSubview(photo)
@@ -521,10 +522,10 @@ class SmartToolBarController {
     }
     
     func screenshotClickSound() -> () {
-        let path = Bundle(for: Tracker.self).path(forResource: "camera-sound", ofType: "mp3")
+        /*let path = Bundle(for: Tracker.self).path(forResource: "camera-sound", ofType: "mp3")
         var soundID: SystemSoundID = 0
         AudioServicesCreateSystemSoundID(URL(fileURLWithPath: path!) as CFURL, &soundID)
-        AudioServicesPlaySystemSound(soundID)
+        AudioServicesPlaySystemSound(soundID)*/
     }
     
     func screenshotAnimation() -> () {

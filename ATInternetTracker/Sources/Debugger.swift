@@ -72,6 +72,30 @@ internal class Debugger: NSObject {
     var initialized: Bool = false
     /// Offline storage
     var storage: StorageProtocol!
+    let images: [String:String?] = {
+        return [
+            "atinternet-logo@2x": pathFor(asset: "atinternet-logo@2x"),
+            "back64@2x": pathFor(asset: "back64@2x"),
+            "database64@2x": pathFor(asset: "database64@2x"),
+            "error48@2x": pathFor(asset: "error48@2x"),
+            "info48@2x": pathFor(asset: "info48@2x"),
+            "refresh64@2x": pathFor(asset: "refresh64@2x"),
+            "save48@2x": pathFor(asset: "save48@2x"),
+            "sent48@2x": pathFor(asset: "sent48@2x"),
+            "smartphone48@2x": pathFor(asset: "smartphone48@2x"),
+            "target32@2X": pathFor(asset: "target32@2X"),
+            "touch48@2x": pathFor(asset: "touch48@2x"),
+            "trash48@2x": pathFor(asset: "trash48@2x"),
+            "trash64@2x": pathFor(asset: "trash64@2x"),
+            "tv48@2x": pathFor(asset: "tv48@2x"),
+            "product48@2x": pathFor(asset: "product48@2x"),
+            "audio48@2x": pathFor(asset: "audio48@2x"),
+            "video48@2x": pathFor(asset: "video48@2x"),
+            "warning48@2x": pathFor(asset: "warning48@2x")
+         ]
+    }()
+    
+    
     class var sharedInstance: Debugger {
         _ = Debugger.__once
         
@@ -139,14 +163,9 @@ internal class Debugger: NSObject {
      Create debug button
      */
     func createDebugButton() {
-        /*NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"BundleName" ofType:@"bundle"];
-        NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-        NSString *resource = [bundle pathForResource:@"fileName" ofType:@"fileType"];*/
-        
-        let bundlePath = Bundle(for: Tracker.self).path(forResource: "TrackerBun", ofType: "bundle")
-        let bundle = Bundle(path: bundlePath!)
-        let logo = bundle?.path(forResource: "atinternet-logo@2x", ofType: "png")
-        debugButton.setBackgroundImage(UIImage(named: logo!), for: UIControlState())
+        if let logo = images["atinternet-logo@2x"] ?? nil {
+            debugButton.setBackgroundImage(UIImage(named: logo), for: UIControlState())
+        }
         debugButton.frame = CGRect(x: 0, y: 0, width: 94, height: 73)
         debugButton.translatesAutoresizingMaskIntoConstraints = false
         debugButton.alpha = 0
@@ -350,7 +369,9 @@ internal class Debugger: NSObject {
         
         let offlineButton = DebuggerButton()
         offlineButton.translatesAutoresizingMaskIntoConstraints = false
-        offlineButton.setBackgroundImage(UIImage(named: "database64", in: Bundle(for: Tracker.self), compatibleWith: nil), for: UIControlState())
+        if let db = images["database64@2x"] ?? nil {
+            offlineButton.setBackgroundImage(UIImage(named: db), for: UIControlState())
+        }
         offlineButton.addTarget(self, action: #selector(Debugger.createOfflineHitsViewer), for: UIControlEvents.touchUpInside)
         
         eventViewer.menu.addSubview(offlineButton)
@@ -400,7 +421,9 @@ internal class Debugger: NSObject {
         
         trashButton.translatesAutoresizingMaskIntoConstraints = false
         
-        trashButton.setBackgroundImage(UIImage(named: "trash64", in: Bundle(for: Tracker.self), compatibleWith: nil), for: UIControlState())
+        if let trash = pathFor(asset: "trash64@2x") {
+            trashButton.setBackgroundImage(UIImage(named: trash), for: UIControlState())
+        }
         trashButton.addTarget(self, action: #selector(Debugger.trashEvents), for: UIControlEvents.touchUpInside)
         
         // width constraint
@@ -694,20 +717,23 @@ internal class Debugger: NSObject {
             hitTypeView.isHidden = false
             
             let hit = Hit(url: optURL.absoluteString)
-            
+            var image: String? = nil
             switch(hit.getHitType()) {
             case Hit.HitType.touch:
-                hitTypeView.image = UIImage(named: "touch48", in: Bundle(for: Tracker.self), compatibleWith: nil)
+                image = images["touch48@2x"] ?? nil
             case Hit.HitType.adTracking:
-                hitTypeView.image = UIImage(named: "tv48", in: Bundle(for: Tracker.self), compatibleWith: nil)
+                image = images["tv48@2x"] ?? nil
             case Hit.HitType.audio:
-                hitTypeView.image = UIImage(named: "audio48", in: Bundle(for: Tracker.self), compatibleWith: nil)
+                image = images["audio48@2x"] ?? nil
             case Hit.HitType.video:
-                hitTypeView.image = UIImage(named: "video48", in: Bundle(for: Tracker.self), compatibleWith: nil)
+                image = images["video48@2x"] ?? nil
             case Hit.HitType.productDisplay:
-                hitTypeView.image = UIImage(named: "product48", in: Bundle(for: Tracker.self), compatibleWith: nil)
+                image = images["product48@2x"] ?? nil
             default:
-                hitTypeView.image = UIImage(named: "smartphone48", in: Bundle(for: Tracker.self), compatibleWith: nil)
+                image = images["smartphone48@2x"] ?? nil
+            }
+            if let img = image {
+                hitTypeView.image = UIImage(named: img)
             }
         } else {
             hitTypeView.isHidden = true
@@ -799,7 +825,9 @@ internal class Debugger: NSObject {
         
         backButton.translatesAutoresizingMaskIntoConstraints = false
         
-        backButton.setBackgroundImage(UIImage(named: "back64", in: Bundle(for: Tracker.self), compatibleWith: nil), for: UIControlState())
+        if let back = images["back64@2x"] ?? nil {
+            backButton.setBackgroundImage(UIImage(named: back), for: UIControlState())
+        }
         backButton.tag = self.windows.count - 1
         backButton.addTarget(self, action: #selector(Debugger.backButtonWasTouched(_:)), for: UIControlEvents.touchUpInside)
         
@@ -1091,8 +1119,9 @@ internal class Debugger: NSObject {
         offlineHits.menu.addSubview(backButton)
         
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        backButton.setBackgroundImage(UIImage(named: "back64", in: Bundle(for: Tracker.self), compatibleWith: nil), for: UIControlState())
+        if let back = images["back64@2x"] ?? nil {
+            backButton.setBackgroundImage(UIImage(named: back), for: UIControlState())
+        }
         backButton.tag = self.windows.count - 1
         backButton.addTarget(self, action: #selector(Debugger.backButtonWasTouched(_:)), for: UIControlEvents.touchUpInside)
         
@@ -1119,7 +1148,9 @@ internal class Debugger: NSObject {
         
         trashButton.translatesAutoresizingMaskIntoConstraints = false
         
-        trashButton.setBackgroundImage(UIImage(named: "trash64", in: Bundle(for: Tracker.self), compatibleWith: nil), for: UIControlState())
+        if let trash = images["trash64@2x"] ?? nil {
+            trashButton.setBackgroundImage(UIImage(named: trash), for: UIControlState())
+        }
         trashButton.addTarget(self, action: #selector(Debugger.trashOfflineHits), for: UIControlEvents.touchUpInside)
         
         // width constraint
@@ -1145,7 +1176,9 @@ internal class Debugger: NSObject {
         
         refreshButton.translatesAutoresizingMaskIntoConstraints = false
         
-        refreshButton.setBackgroundImage(UIImage(named: "refresh64", in: Bundle(for: Tracker.self), compatibleWith: nil), for: UIControlState())
+        if let refresh = images["refresh64@2x"] ?? nil {
+            refreshButton.setBackgroundImage(UIImage(named: refresh), for: UIControlState())
+        }
         refreshButton.addTarget(self, action: #selector(Debugger.refreshOfflineHits), for: UIControlEvents.touchUpInside)
         
         // width constraint
@@ -1405,19 +1438,23 @@ internal class Debugger: NSObject {
                 /******* END HIT ********/
                 
                 /******* HIT TYPE ********/
+                var image: String? = nil
                 switch(hit.getHitType()) {
                 case Hit.HitType.touch:
-                    hitTypeView.image = UIImage(named: "touch48", in: Bundle(for: Tracker.self), compatibleWith: nil)
+                    image = images["touch48@2x"] ?? nil
                 case Hit.HitType.adTracking:
-                    hitTypeView.image = UIImage(named: "tv48", in: Bundle(for: Tracker.self), compatibleWith: nil)
+                    image = images["tv48@2x"] ?? nil
                 case Hit.HitType.audio:
-                    hitTypeView.image = UIImage(named: "audio48", in: Bundle(for: Tracker.self), compatibleWith: nil)
+                    image = images["audio48@2x"] ?? nil
                 case Hit.HitType.video:
-                    hitTypeView.image = UIImage(named: "video48", in: Bundle(for: Tracker.self), compatibleWith: nil)
+                    image = images["video48@2x"] ?? nil
                 case Hit.HitType.productDisplay:
-                    hitTypeView.image = UIImage(named: "product48", in: Bundle(for: Tracker.self), compatibleWith: nil)
+                    image = images["product48@2x"] ?? nil
                 default:
-                    hitTypeView.image = UIImage(named: "smartphone48", in: Bundle(for: Tracker.self), compatibleWith: nil)
+                    image = images["smartphone48@2x"] ?? nil
+                }
+                if let img = image {
+                    hitTypeView.image = UIImage(named: img)
                 }
                 
                 rowView.addConstraint(NSLayoutConstraint(item: hitTypeView,
@@ -1444,8 +1481,9 @@ internal class Debugger: NSObject {
                 rowView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[hitTypeView(==24)]", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views:["hitTypeView": hitTypeView]))
                 
                 /******* DELETE BUTTON ********/
-                
-                deleteButton.setBackgroundImage(UIImage(named: "trash48", in: Bundle(for: Tracker.self), compatibleWith: nil), for: UIControlState())
+                if let trash = images["trash48@2x"] ?? nil {
+                    deleteButton.setBackgroundImage(UIImage(named: trash), for: UIControlState())
+                }
                 deleteButton.tag = i
                 deleteButton.addTarget(self, action: #selector(Debugger.deleteOfflineHit(_:)), for: UIControlEvents.touchUpInside)
                 

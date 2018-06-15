@@ -236,7 +236,6 @@
 		4F47A5811D3620FA00702747 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4581D3542A400702747 /* Tool.swift */; };
 		4F47A5821D3620FA00702747 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4591D3542A400702747 /* Tracker.swift */; };
 		4F47A5831D3620FF00702747 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4981D35436200702747 /* Debugger.swift */; };
-		4F47A5841D36210200702747 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A49D1D35437300702747 /* Images.xcassets */; };
 		4F47A5851D36210700702747 /* Aisle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4A31D35446700702747 /* Aisle.swift */; };
 		4F47A5861D36210700702747 /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4A41D35446700702747 /* Audio.swift */; };
 		4F47A5871D36210700702747 /* BusinessObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5251D3544F400702747 /* BusinessObject.swift */; };
@@ -335,7 +334,6 @@
 		4F47A6531D36264300702747 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A64A1D36264300702747 /* OpenSans-Regular.ttf */; };
 		4F47A6541D36264300702747 /* SmartPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A64B1D36264300702747 /* SmartPopUp.swift */; };
 		4F47A6551D36264300702747 /* SmartToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A64C1D36264300702747 /* SmartToolbar.swift */; };
-		4F47A6561D36264300702747 /* SmartSDK.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A64D1D36264300702747 /* SmartSDK.xcassets */; };
 		4F47A6591D362C1F00702747 /* DefaultConfiguration.plist in Headers */ = {isa = PBXBuildFile; fileRef = 4F47A55A1D3620E800702747 /* DefaultConfiguration.plist */; };
 		4F47A65A1D362C3900702747 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47A4401D353F4300702747 /* CFNetwork.framework */; };
 		4F47A65B1D362C4400702747 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47A43C1D353F3000702747 /* AVFoundation.framework */; };
@@ -533,7 +531,6 @@
 		4F47A9A01D3E318900702747 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A64A1D36264300702747 /* OpenSans-Regular.ttf */; };
 		4F47A9A11D3E318E00702747 /* SmartPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A64B1D36264300702747 /* SmartPopUp.swift */; };
 		4F47A9A21D3E318E00702747 /* SmartToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A64C1D36264300702747 /* SmartToolbar.swift */; };
-		4F47A9A31D3E318E00702747 /* SmartSDK.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A64D1D36264300702747 /* SmartSDK.xcassets */; };
 		4F47A9A41D3E319900702747 /* EventManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F61D3D126500702747 /* EventManagerTests.swift */; };
 		4F47A9A51D3E319900702747 /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6FE1D3D126500702747 /* MathTests.swift */; };
 		4F47A9A61D3E319900702747 /* NSObjectExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7001D3D126500702747 /* NSObjectExtensionTests.swift */; };
@@ -711,14 +708,22 @@
 		8E6DD3721F4DA8AE00E81E79 /* SocketTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6DD3381F4D81C600E81E79 /* SocketTypes.swift */; };
 		8E6DD3731F4DA8AE00E81E79 /* SSLSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6DD3361F4D81C600E81E79 /* SSLSecurity.swift */; };
 		8E6DD3741F4DA8AE00E81E79 /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6DD33E1F4D81C700E81E79 /* WebSocket.swift */; };
-		8E7AD14420D2C834000FDB08 /* TrackerBun.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E7AD14320D2C834000FDB08 /* TrackerBun.bundle */; };
-		8E7AD14520D2C834000FDB08 /* TrackerBun.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E7AD14320D2C834000FDB08 /* TrackerBun.bundle */; };
-		8E7AD14620D2C834000FDB08 /* TrackerBun.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E7AD14320D2C834000FDB08 /* TrackerBun.bundle */; };
-		8E7AD14720D2C834000FDB08 /* TrackerBun.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E7AD14320D2C834000FDB08 /* TrackerBun.bundle */; };
-		8E7AD14820D2C834000FDB08 /* TrackerBun.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E7AD14320D2C834000FDB08 /* TrackerBun.bundle */; };
+		8E7AD14420D2C834000FDB08 /* TrackerBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E7AD14320D2C834000FDB08 /* TrackerBundle.bundle */; };
+		8E7AD14520D2C834000FDB08 /* TrackerBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E7AD14320D2C834000FDB08 /* TrackerBundle.bundle */; };
+		8E7AD14620D2C834000FDB08 /* TrackerBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E7AD14320D2C834000FDB08 /* TrackerBundle.bundle */; };
+		8E7AD14720D2C834000FDB08 /* TrackerBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E7AD14320D2C834000FDB08 /* TrackerBundle.bundle */; };
+		8E7AD14820D2C834000FDB08 /* TrackerBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8E7AD14320D2C834000FDB08 /* TrackerBundle.bundle */; };
 		8E82306F1F7BA99C00B750DC /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E82306E1F7BA99B00B750DC /* AppTests.swift */; };
 		8E88418C1DB5358D003BB11D /* SmartTrackerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9398B41D9583810065D58D /* SmartTrackerConfiguration.swift */; };
 		8E9398B51D9583810065D58D /* SmartTrackerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9398B41D9583810065D58D /* SmartTrackerConfiguration.swift */; };
+		8E9497EA20D3F0890006872F /* ATBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9497E920D3F0890006872F /* ATBundle.swift */; };
+		8E9497EB20D3F1670006872F /* ATBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9497E920D3F0890006872F /* ATBundle.swift */; };
+		8E9497EC20D3F1670006872F /* ATBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9497E920D3F0890006872F /* ATBundle.swift */; };
+		8E9497ED20D3F1680006872F /* ATBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9497E920D3F0890006872F /* ATBundle.swift */; };
+		8E9497EE20D3F1680006872F /* ATBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9497E920D3F0890006872F /* ATBundle.swift */; };
+		8E9497EF20D3F1A80006872F /* ATBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9497E920D3F0890006872F /* ATBundle.swift */; };
+		8E9497F120D3F1AA0006872F /* ATBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9497E920D3F0890006872F /* ATBundle.swift */; };
+		8E9497F220D3F1AA0006872F /* ATBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9497E920D3F0890006872F /* ATBundle.swift */; };
 		8EA41A2A20AF0688009ED4B0 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6281D3624AF00702747 /* DictionaryExtension.swift */; };
 		8EA41A2B20AF0689009ED4B0 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6281D3624AF00702747 /* DictionaryExtension.swift */; };
 		8EC45F06206A471E00B0EC52 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
@@ -784,7 +789,6 @@
 		4F47A4581D3542A400702747 /* Tool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		4F47A4591D3542A400702747 /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		4F47A4981D35436200702747 /* Debugger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
-		4F47A49D1D35437300702747 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4F47A4A31D35446700702747 /* Aisle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aisle.swift; sourceTree = "<group>"; };
 		4F47A4A41D35446700702747 /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		4F47A4A51D35446700702747 /* Campaign.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Campaign.swift; sourceTree = "<group>"; };
@@ -875,7 +879,6 @@
 		4F47A64A1D36264300702747 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		4F47A64B1D36264300702747 /* SmartPopUp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartPopUp.swift; sourceTree = "<group>"; };
 		4F47A64C1D36264300702747 /* SmartToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartToolbar.swift; sourceTree = "<group>"; };
-		4F47A64D1D36264300702747 /* SmartSDK.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SmartSDK.xcassets; sourceTree = "<group>"; };
 		4F47A6BE1D3D0A3000702747 /* TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F47A6DC1D3D10E000702747 /* tvOSTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tvOSTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F47A6E81D3D11B400702747 /* Info-tvOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-tvOS.plist"; path = "Tests/Info-tvOS.plist"; sourceTree = "<group>"; };
@@ -967,10 +970,11 @@
 		8E6DD3401F4D81C700E81E79 /* SocketAckManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketAckManager.swift; sourceTree = "<group>"; };
 		8E6DD3411F4D81C700E81E79 /* SocketIOClientConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOClientConfiguration.swift; sourceTree = "<group>"; };
 		8E6DD3421F4D81C700E81E79 /* SocketEngineWebsocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketEngineWebsocket.swift; sourceTree = "<group>"; };
-		8E7AD14320D2C834000FDB08 /* TrackerBun.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TrackerBun.bundle; path = Sources/TrackerBun.bundle; sourceTree = "<group>"; };
+		8E7AD14320D2C834000FDB08 /* TrackerBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TrackerBundle.bundle; path = Sources/TrackerBundle.bundle; sourceTree = "<group>"; };
 		8E82306E1F7BA99B00B750DC /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppTests.swift; path = Tests/AppTests.swift; sourceTree = "<group>"; };
 		8E9334901FA0E4F5001E185A /* ATInternet-Apple-SDK-AppExtension.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = "ATInternet-Apple-SDK-AppExtension.podspec"; path = "../../ATInternet-Apple-SDK-AppExtension.podspec"; sourceTree = "<group>"; };
 		8E9398B41D9583810065D58D /* SmartTrackerConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmartTrackerConfiguration.swift; sourceTree = "<group>"; };
+		8E9497E920D3F0890006872F /* ATBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATBundle.swift; sourceTree = "<group>"; };
 		8EC97ED21D5A2CC1007360F3 /* APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APITests.swift; path = Tests/APITests.swift; sourceTree = "<group>"; };
 		8EDC3CF51D3E225100A14458 /* ApiS3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiS3.swift; sourceTree = "<group>"; };
 		8EEBADC51DF5779200FD1CFD /* ATInternet-Apple-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = "ATInternet-Apple-SDK.podspec"; path = "../../ATInternet-Apple-SDK.podspec"; sourceTree = "<group>"; };
@@ -1051,7 +1055,7 @@
 		4F47A3D21D351E3C00702747 = {
 			isa = PBXGroup;
 			children = (
-				8E7AD14320D2C834000FDB08 /* TrackerBun.bundle */,
+				8E7AD14320D2C834000FDB08 /* TrackerBundle.bundle */,
 				4F47A4441D353F5C00702747 /* Dependencies */,
 				4F47A4021D351F2800702747 /* Sources */,
 				4F47A3DF1D351E8100702747 /* Products */,
@@ -1129,7 +1133,6 @@
 			isa = PBXGroup;
 			children = (
 				4F47A4981D35436200702747 /* Debugger.swift */,
-				4F47A49D1D35437300702747 /* Images.xcassets */,
 			);
 			name = Debugger;
 			sourceTree = "<group>";
@@ -1188,6 +1191,7 @@
 				4F47A63E1D36256500702747 /* Maths.swift */,
 				4F47A5BE1D36215D00702747 /* ATReachability.swift */,
 				4F47A7121D3D126500702747 /* SwiftyJSON.swift */,
+				8E9497E920D3F0890006872F /* ATBundle.swift */,
 			);
 			name = Tool;
 			sourceTree = "<group>";
@@ -1299,7 +1303,6 @@
 				4F47A65E1D363C1300702747 /* Font */,
 				4F47A64B1D36264300702747 /* SmartPopUp.swift */,
 				4F47A64C1D36264300702747 /* SmartToolbar.swift */,
-				4F47A64D1D36264300702747 /* SmartSDK.xcassets */,
 				4FF28F921D95773500F4AFFB /* Localizable.strings */,
 			);
 			name = UI;
@@ -1731,7 +1734,7 @@
 			files = (
 				4F47A56D1D3620E800702747 /* DefaultConfiguration~ipod.plist in Resources */,
 				4F47A5AA1D36214200702747 /* core.manifest.json in Resources */,
-				8E7AD14420D2C834000FDB08 /* TrackerBun.bundle in Resources */,
+				8E7AD14420D2C834000FDB08 /* TrackerBundle.bundle in Resources */,
 				4F47A5681D3620E800702747 /* DefaultConfiguration~iphone.plist in Resources */,
 				4F47A55E1D3620E800702747 /* DefaultConfiguration.plist in Resources */,
 				4F47A5631D3620E800702747 /* DefaultConfiguration~ipad.plist in Resources */,
@@ -1745,7 +1748,7 @@
 			files = (
 				4F47A5B11D36214200702747 /* nuggad.manifest.json in Resources */,
 				4F47A5601D3620E800702747 /* DefaultConfiguration.plist in Resources */,
-				8E7AD14620D2C834000FDB08 /* TrackerBun.bundle in Resources */,
+				8E7AD14620D2C834000FDB08 /* TrackerBundle.bundle in Resources */,
 				4F47A5AC1D36214200702747 /* core.manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1756,7 +1759,7 @@
 			files = (
 				4F47A5B21D36214200702747 /* nuggad.manifest.json in Resources */,
 				4F47A5611D3620E800702747 /* DefaultConfiguration.plist in Resources */,
-				8E7AD14720D2C834000FDB08 /* TrackerBun.bundle in Resources */,
+				8E7AD14720D2C834000FDB08 /* TrackerBundle.bundle in Resources */,
 				4F47A5AD1D36214200702747 /* core.manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1765,7 +1768,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E7AD14520D2C834000FDB08 /* TrackerBun.bundle in Resources */,
+				8E7AD14520D2C834000FDB08 /* TrackerBundle.bundle in Resources */,
 				4F47A5AB1D36214200702747 /* core.manifest.json in Resources */,
 				4F47A5B01D36214200702747 /* nuggad.manifest.json in Resources */,
 				4F47A5641D3620E800702747 /* DefaultConfiguration~ipad.plist in Resources */,
@@ -1784,14 +1787,12 @@
 				4F47A5B31D36214200702747 /* nuggad.manifest.json in Resources */,
 				4FF28F901D95773500F4AFFB /* Localizable.strings in Resources */,
 				4F47A5711D3620E800702747 /* DefaultConfiguration~ipod.plist in Resources */,
-				4F47A5841D36210200702747 /* Images.xcassets in Resources */,
 				4F47A56C1D3620E800702747 /* DefaultConfiguration~iphone.plist in Resources */,
 				4F47A5671D3620E800702747 /* DefaultConfiguration~ipad.plist in Resources */,
-				8E7AD14820D2C834000FDB08 /* TrackerBun.bundle in Resources */,
+				8E7AD14820D2C834000FDB08 /* TrackerBundle.bundle in Resources */,
 				4F47A6511D36264300702747 /* Montserrat-Bold.ttf in Resources */,
 				4F47A6531D36264300702747 /* OpenSans-Regular.ttf in Resources */,
 				4F47A5621D3620E800702747 /* DefaultConfiguration.plist in Resources */,
-				4F47A6561D36264300702747 /* SmartSDK.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1822,7 +1823,6 @@
 				4F47A9731D3E2FE100702747 /* DefaultConfiguration~ipod.plist in Resources */,
 				4F47A9741D3E2FE100702747 /* DefaultConfiguration~iphone.plist in Resources */,
 				4F47A9751D3E2FE100702747 /* DefaultConfiguration~ipad.plist in Resources */,
-				4F47A9A31D3E318E00702747 /* SmartSDK.xcassets in Resources */,
 				4F47A9761D3E2FE100702747 /* DefaultConfiguration.plist in Resources */,
 				4F47A9A01D3E318900702747 /* OpenSans-Regular.ttf in Resources */,
 				4F47A99E1D3E318900702747 /* Montserrat-Bold.ttf in Resources */,
@@ -1886,6 +1886,7 @@
 				4F47A4F11D35446700702747 /* Location.swift in Sources */,
 				4F47A5011D35446700702747 /* OnAppAd.swift in Sources */,
 				4F47A4861D3542A400702747 /* Storage.swift in Sources */,
+				8E9497EA20D3F0890006872F /* ATBundle.swift in Sources */,
 				4F47A5BF1D36215D00702747 /* ATReachability.swift in Sources */,
 				4F47A4D91D35446700702747 /* Event.swift in Sources */,
 			);
@@ -1923,6 +1924,7 @@
 				4F47A4DB1D35446700702747 /* Event.swift in Sources */,
 				8E3061E220A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A4C71D35446700702747 /* Campaign.swift in Sources */,
+				8E9497EC20D3F1670006872F /* ATBundle.swift in Sources */,
 				4F47A48C1D3542A400702747 /* TechnicalContext.swift in Sources */,
 				4F47A53D1D35451A00702747 /* Hash.m in Sources */,
 				4F47A5C11D36215D00702747 /* ATReachability.swift in Sources */,
@@ -1969,6 +1971,7 @@
 				4F47A4E81D35446700702747 /* InternalSearch.swift in Sources */,
 				8E3061E320A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A4CC1D35446700702747 /* Cart.swift in Sources */,
+				8E9497ED20D3F1680006872F /* ATBundle.swift in Sources */,
 				4F47A5101D35446700702747 /* Publisher.swift in Sources */,
 				4F47A4851D3542A400702747 /* Sender.swift in Sources */,
 				4F47A4751D3542A400702747 /* Hit.swift in Sources */,
@@ -2037,6 +2040,7 @@
 				4F47A4671D3542A400702747 /* Configuration.swift in Sources */,
 				4F47A5121D35446700702747 /* RichMedia.swift in Sources */,
 				8E3061E120A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
+				8E9497EB20D3F1670006872F /* ATBundle.swift in Sources */,
 				4F47A4BE1D35446700702747 /* Aisle.swift in Sources */,
 				4F47A4FE1D35446700702747 /* Offline.swift in Sources */,
 				4F47A4481D3541C500702747 /* ATInternet.swift in Sources */,
@@ -2158,6 +2162,7 @@
 				8E6DD3551F4D83B000E81E79 /* SocketLogger.swift in Sources */,
 				8E3061E420A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A5751D3620FA00702747 /* Builder.swift in Sources */,
+				8E9497EE20D3F1680006872F /* ATBundle.swift in Sources */,
 				4F47A58F1D36210700702747 /* IdentifiedVisitor.swift in Sources */,
 				4F47A5F11D36230D00702747 /* View.swift in Sources */,
 				4F47A5A41D36210E00702747 /* Hash.m in Sources */,
@@ -2214,6 +2219,7 @@
 				4F47A7F41D3D137800702747 /* GPSTests.swift in Sources */,
 				4F47A8211D3D17FC00702747 /* Product.swift in Sources */,
 				4F47A8191D3D17FC00702747 /* LiveAudio.swift in Sources */,
+				8E9497EF20D3F1A80006872F /* ATBundle.swift in Sources */,
 				4F47A83A1D3D192500702747 /* BackgroundTask.swift in Sources */,
 				4F47A8451D3D192C00702747 /* Plugin.swift in Sources */,
 				4F47A8131D3D17D000702747 /* Event.swift in Sources */,
@@ -2293,6 +2299,7 @@
 				4FF5943B1D3F663B0004D336 /* Configuration.swift in Sources */,
 				4FF594511D3F66900004D336 /* CustomVar.swift in Sources */,
 				4FF5942A1D3F63670004D336 /* MediaPlayerTests.swift in Sources */,
+				8E9497F220D3F1AA0006872F /* ATBundle.swift in Sources */,
 				4FF594601D3F66B30004D336 /* RichMedia.swift in Sources */,
 				4FF594301D3F63800004D336 /* ScreenTests.swift in Sources */,
 				4FF5944C1D3F66830004D336 /* BusinessObject.swift in Sources */,
@@ -2359,6 +2366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E9497F120D3F1AA0006872F /* ATBundle.swift in Sources */,
 				4F47A98A1D3E316B00702747 /* RotationEvent.swift in Sources */,
 				4F47A9241D3E2FE100702747 /* PublisherTests.swift in Sources */,
 				4FFB609D1D3E7FD900586F9E /* ATInternet.swift in Sources */,

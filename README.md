@@ -19,12 +19,12 @@ Supported devices :
   - Install our library on your project (see below)
   - Check out the [documentation page] for an overview of the functionalities and code examples. _Note that this repository is refered as SDK 2.5+_
 
-# What's new in 2.9+
+# What's new
 * We reworked how RichMedia and the refresh cycle works. We improved the _sendPlay()_ method and added _resume()_.More info [here]
 * Static framework support added for Cocoapods. A known bug is when you checkout the Podfile from an ObjC project you may need an empty swift file in your project in order to compile
-* GDPR : _OptOut_ and _preventSyncWithICloud()_
+* GDPR : _ATInternet.OptOut_ , _ATInternet.preventICloudSync_ , _ATInternet.databasePath_
 
-# SmartTracker iOS (beta)
+# SmartTracker iOS
 SmartTracker makes it quick and easy to track your mobile app performance. Using a single line of code, tag your app just by navigating through its content in our simple tagging interface available at [livetagging.atinternet-solutions.com]. Update and correct your tags in just minutes, and your changes will be pushed to users’ phones in real time: You’ll no longer need to resubmit to app stores and hope users update each time you edit your tagging. The feature is still experimental, if you need any help don't hesitate to submit an issue.
 
 ### Integration
@@ -84,9 +84,9 @@ end
 
 Carthage is an alternative to **Cocoapods**. It’s a simple dependency manager for Mac and iOS, created by a group of developers from Github.
 
-### Cartfile
+### Carthage
 
-Available soon. 
+https://developers.atinternet-solutions.com/apple-universal-fr/bien-commencer-apple-universal-fr/integration-de-la-bibliotheque-swift-apple-universal-fr/#utilisation-de-carthage_7
 
 ## Integration samples
 ### Tracker

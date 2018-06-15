@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
   s.exclude_files          = ["ATInternetTracker/Sources/BackgroundTask.swift","ATInternetTracker/Sources/Debugger.swift","ATInternetTracker/Sources/TrackerTests-Bridging-Header.h"] + $smart_sdk + $external_dependencies
   s.frameworks             = "CoreData", "CoreFoundation", "WatchKit", "UIKit", "SystemConfiguration", "CoreTelephony"
   s.platform				  = :ios, '8.0'
-  s.resources = "ATInternetTracker/Sources/*.{plist,png,json}"
+  s.resources = "ATInternetTracker/Sources/*.{plist,json}", "ATInternetTracker/Sources/TrackerBundle.bundle"
   s.swift_version = '4.1'
 end
