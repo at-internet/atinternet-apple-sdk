@@ -3,7 +3,7 @@ $external_dependencies = File.readlines('dependencies.txt').map(&:strip)
 
 Pod::Spec.new do |s|
 	s.name = "ATInternet-Apple-SDK"
-	s.version = '2.9.3'
+	s.version = '2.9.4'
 	s.summary = "AT Internet mobile analytics solution for Apple devices"
 	s.homepage = "https://github.com/at-internet/atinternet-apple-sdk"
 	s.documentation_url	= 'http://developers.atinternet-solutions.com/apple-en/getting-started-apple-en/operating-principle-apple-en/'
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
 
 	s.subspec 'Tracker' do |tracker|
 		tracker.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
-		tracker.exclude_files = $smart_sdk + $external_dependencies
+		tracker.exclude_files = $smart_sdk + $external_dependencies + ["TrackerTests-Bridging-Header.h"]
 		tracker.resources = "ATInternetTracker/Sources/*.{plist,json}", "ATInternetTracker/Sources/TrackerBundle.bundle"
 		tracker.frameworks = "CoreData", "CoreFoundation", "UIKit", "CoreTelephony", "SystemConfiguration"
 		tracker.platform = :ios
@@ -37,7 +37,7 @@ Pod::Spec.new do |s|
 
 	s.subspec 'SmartTracker' do |st|
 		st.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
-		st.exclude_files = $external_dependencies
+		st.exclude_files = $external_dependencies + ["TrackerTests-Bridging-Header.h"]
 		st.resources = "ATInternetTracker/Sources/*.{plist,json,mp3,ttf}","ATInternetTracker/Sources/en.lproj", "ATInternetTracker/Sources/fr.lproj", "ATInternetTracker/Sources/TrackerBundle.bundle"
 		st.frameworks = "CoreData", "CoreFoundation", "UIKit", "CoreTelephony", "SystemConfiguration", "CFNetwork", "Security", "Foundation"
 		st.platform	= :ios
