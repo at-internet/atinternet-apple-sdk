@@ -8,14 +8,16 @@
 
 import Foundation
 
+/// Custom Timer
 class DynamicRefresher {
     private let configuration: DynamicRefreshConfiguration
-    private let sendRefresh: (() -> ())
+    private let sendRefresh: (() -> ()) // called when a refresh hit should be sent
     
-    private var elapsedTime: Int = 0
-    private var curr = 0
+    private var elapsedTime: Int = 0 // total time
+    private var curr = 0 // current index of DynamicRefreshConfiguration
     private var timer: Timer
-    private var lastTick = Date();
+    private var lastTick = Date(); // needed to handle pause
+    
     init(configuration: DynamicRefreshConfiguration, sendRefresh: @escaping (() -> ()) ) {
         self.configuration = configuration
         self.sendRefresh = sendRefresh
@@ -27,6 +29,7 @@ class DynamicRefresher {
         self.timer = Timer.scheduledTimer(timeInterval: Double(refresh), target: self, selector: #selector(DynamicRefresher.process), userInfo: nil, repeats: false)
     }
     
+    // called every tick
     @objc public func process() {
         let refresh = self.configuration.getRefreshDuration(i: self.curr)
         self.elapsedTime += refresh
@@ -37,7 +40,6 @@ class DynamicRefresher {
             let nextMinute = self.configuration.getTime(i: self.curr+1)
             let nextRefreshDuration = self.configuration.getRefreshDuration(i: self.curr+1)
             if self.elapsedTime >= nextMinute * 60 {
-                print("next minute")
                 self.curr += 1
                 self.timer = Timer.scheduledTimer(timeInterval: Double(nextRefreshDuration), target: self, selector: #selector(DynamicRefresher.process), userInfo: nil, repeats: false)
                 return
@@ -63,7 +65,15 @@ class DynamicRefresher {
     }
 }
 
+/// Base object - can be sorted by startTime
 class DynamicRefresh: Comparable, CustomStringConvertible {
+    public let startTime: Int
+    public let refreshDuration: Int
+    init(startTime: Int, refreshDuration: Int) {
+        self.startTime = startTime
+        self.refreshDuration = refreshDuration
+    }
+    
     var description: String {return "{\(startTime):\(refreshDuration)}"}
     
     static func < (lhs: DynamicRefresh, rhs: DynamicRefresh) -> Bool {
@@ -73,15 +83,9 @@ class DynamicRefresh: Comparable, CustomStringConvertible {
     static func == (lhs: DynamicRefresh, rhs: DynamicRefresh) -> Bool {
         return lhs.startTime == rhs.startTime
     }
-    
-    public let startTime: Int
-    public let refreshDuration: Int
-    init(startTime: Int, refreshDuration: Int) {
-        self.startTime = startTime
-        self.refreshDuration = refreshDuration
-    }
 }
 
+/// Collection of <DynamicRefresh> - Each entry is converted in DynamicRefresh, added and then sorted
 class DynamicRefreshConfiguration {
     private let dynamicRefreshes: Array<DynamicRefresh>
     init(configuration: Dictionary<Int, Int>) {
