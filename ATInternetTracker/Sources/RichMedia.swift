@@ -198,8 +198,6 @@ public class RichMedia : BusinessObject {
     
     /// Send a play action tracking. Refresh is enabled with default refresh configuration. See doc for more details
     @objc public func sendPlay() {
-        self.action = RichMediaAction.play
-        self.tracker.dispatcher.dispatch([self])
         self.sendPlay(dynamicRefreshConfiguration: self.DynamicRefreshDefaultConfiguration)
     }
     
@@ -209,8 +207,6 @@ public class RichMedia : BusinessObject {
     @objc @available(*, deprecated, message: "Static values are not recomanded anymore. Use sendPlay() or sendPlay(dynamicRefreshConfiguration)")
     public func sendPlay(_ refreshDuration: Int) {
         var refreshDuration = refreshDuration
-        self.action = RichMediaAction.play
-        self.tracker.dispatcher.dispatch([self])
         if (refreshDuration == 0) {
             return
         }
