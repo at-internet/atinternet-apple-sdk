@@ -128,7 +128,7 @@ class TechnicalContext: NSObject {
                 if let ASIdentifierManagerClass = NSClassFromString("ASIdentifierManager") {
                     let sharedManagerSelector = NSSelectorFromString("sharedManager")
                     if let sharedManagerIMP = ASIdentifierManagerClass.method(for: sharedManagerSelector) {
-                        typealias sharedManagerCType = @convention(c) (AnyObject, Selector) -> AnyObject!
+                        typealias sharedManagerCType = @convention(c) (AnyObject, Selector) -> AnyObject?
                         let getSharedManager = unsafeBitCast(sharedManagerIMP, to: sharedManagerCType.self)
                         if let sharedManager = getSharedManager(ASIdentifierManagerClass.self, sharedManagerSelector) {
                             let advertisingTrackingEnabledSelector = NSSelectorFromString("isAdvertisingTrackingEnabled")
