@@ -641,7 +641,7 @@ public class Tracker: NSObject {
         
         super.init()
         
-        if(!LifeCycle.isInitialized && !Tracker.doNotTrack) {
+        if(!LifeCycle.isInitialized && !ATInternet.optOut) {
             let notificationCenter = NotificationCenter.default
             
             notificationCenter.addObserver(self, selector: #selector(Tracker.applicationDidEnterBackground), name:NSNotification.Name(rawValue: "UIApplicationDidEnterBackgroundNotification"), object: nil)
