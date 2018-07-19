@@ -78,16 +78,38 @@ public class Videos: NSObject {
     ///   - name: video name
     ///   - duration: video duration in seconds
     /// - Returns: the new video instance
+    @available(*, deprecated, renamed: "add(mediaLabel:duration:)")
     @objc public func add(_ name:String, duration: Int) -> Video {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
             return video
         } else {
             let video = Video(player: player)
-            video.name = name
+            video.mediaLabel = name
             video.duration = duration
             
             self.list[name] = video
+            
+            return video
+        }
+    }
+    
+    /// Add a new video
+    ///
+    /// - Parameters:
+    ///   - mediaLabel: video name
+    ///   - duration: video duration in seconds
+    /// - Returns: the new video instance
+    @objc public func add(mediaLabel _mediaLabel:String, duration: Int) -> Video {
+        if let video = self.list[_mediaLabel] {
+            self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
+            return video
+        } else {
+            let video = Video(player: player)
+            video.mediaLabel = _mediaLabel
+            video.duration = duration
+            
+            self.list[_mediaLabel] = video
             
             return video
         }
@@ -100,17 +122,41 @@ public class Videos: NSObject {
     ///   - chapter1: chapter1 label
     ///   - duration: video duration in seconds
     /// - Returns: the new video instance
+    @available(*, deprecated, renamed: "add(mediaLabel:mediaTheme1:duration:)")
     @objc public func add(_ name: String, chapter1: String, duration: Int) -> Video {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
             return video
         } else {
             let video = Video(player: player)
-            video.name = name
+            video.mediaLabel = name
             video.duration = duration
-            video.chapter1 = chapter1
+            video.mediaTheme1 = chapter1
             
             self.list[name] = video
+            
+            return video
+        }
+    }
+    
+    /// Add a new video
+    ///
+    /// - Parameters:
+    ///   - mediaLabel: video name
+    ///   - mediaTheme1: chapter1 label
+    ///   - duration: video duration in seconds
+    /// - Returns: the new video instance
+    @objc public func add(_ mediaLabel: String, mediaTheme1: String, duration: Int) -> Video {
+        if let video = self.list[mediaLabel] {
+            self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
+            return video
+        } else {
+            let video = Video(player: player)
+            video.mediaLabel = mediaLabel
+            video.duration = duration
+            video.mediaTheme1 = mediaTheme1
+            
+            self.list[mediaLabel] = video
             
             return video
         }
@@ -124,18 +170,44 @@ public class Videos: NSObject {
     ///   - chapter2: chapter2 label
     ///   - duration: video duration in seconds
     /// - Returns: the new video instance
+    @available(*, deprecated, renamed: "add(mediaLabel:mediaTheme1:mediaTheme2:duration:)")
     @objc public func add(_ name: String, chapter1: String, chapter2: String, duration: Int) -> Video {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
             return video
         } else {
             let video = Video(player: player)
-            video.name = name
+            video.mediaLabel = name
             video.duration = duration
-            video.chapter1 = chapter1
-            video.chapter2 = chapter2
+            video.mediaTheme1 = chapter1
+            video.mediaTheme2 = chapter2
             
             self.list[name] = video
+            
+            return video
+        }
+    }
+    
+    /// Add a new video
+    ///
+    /// - Parameters:
+    ///   - mediaLabel: video name
+    ///   - mediaTheme1: chapter1 label
+    ///   - mediaTheme2: chapter2 label
+    ///   - duration: video duration in seconds
+    /// - Returns: the new video instance
+    @objc public func add(_ mediaLabel: String, mediaTheme1: String, mediaTheme2: String, duration: Int) -> Video {
+        if let video = self.list[mediaLabel] {
+            self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
+            return video
+        } else {
+            let video = Video(player: player)
+            video.mediaLabel = mediaLabel
+            video.duration = duration
+            video.mediaTheme1 = mediaTheme1
+            video.mediaTheme2 = mediaTheme2
+            
+            self.list[mediaLabel] = video
             
             return video
         }
@@ -150,19 +222,47 @@ public class Videos: NSObject {
     ///   - chapter3: chapter3 label
     ///   - duration: video duration in seconds
     /// - Returns: the new video instance
+    @available(*, deprecated, renamed: "add(mediaLabel:mediaTheme1:mediaTheme2:mediaTheme3:duration:)")
     @objc public func add(_ name: String, chapter1: String, chapter2: String, chapter3: String, duration: Int) -> Video {
         if let video = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
             return video
         } else {
             let video = Video(player: player)
-            video.name = name
+            video.mediaLabel = name
             video.duration = duration
-            video.chapter1 = chapter1
-            video.chapter2 = chapter2
-            video.chapter3 = chapter3
+            video.mediaTheme1 = chapter1
+            video.mediaTheme2 = chapter2
+            video.mediaTheme3 = chapter3
             
             self.list[name] = video
+            
+            return video
+        }
+    }
+    
+    /// Add a new video
+    ///
+    /// - Parameters:
+    ///   - mediaLabel: video name
+    ///   - mediaTheme1: chapter1 label
+    ///   - mediaTheme2: chapter2 label
+    ///   - mediaTheme3: chapter3 label
+    ///   - duration: video duration in seconds
+    /// - Returns: the new video instance
+    @objc public func add(_ mediaLabel: String, mediaTheme1: String, mediaTheme2: String, mediaTheme3: String, duration: Int) -> Video {
+        if let video = self.list[mediaLabel] {
+            self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
+            return video
+        } else {
+            let video = Video(player: player)
+            video.mediaLabel = mediaLabel
+            video.duration = duration
+            video.mediaTheme1 = mediaTheme1
+            video.mediaTheme2 = mediaTheme2
+            video.mediaTheme3 = mediaTheme3
+            
+            self.list[mediaLabel] = video
             
             return video
         }
@@ -171,6 +271,7 @@ public class Videos: NSObject {
     /// Remove a video
     ///
     /// - Parameter name: video name
+    @available(*, deprecated, renamed: "remove(mediaLabel:)")
     @objc public func remove(_ name: String) {
         if let timer = list[name]?.timer {
             if timer.isValid {
@@ -178,6 +279,18 @@ public class Videos: NSObject {
             }
         }
         self.list.removeValue(forKey: name)
+    }
+    
+    /// Remove a video
+    ///
+    /// - Parameter name: video name
+    @objc public func remove(mediaLabel _mediaLabel: String) {
+        if let timer = list[_mediaLabel]?.timer {
+            if timer.isValid {
+                list[_mediaLabel]!.sendStop()
+            }
+        }
+        self.list.removeValue(forKey: _mediaLabel)
     }
     
     /**
