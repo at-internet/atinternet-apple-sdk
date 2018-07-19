@@ -80,16 +80,38 @@ public class Audios: NSObject {
     ///   - name: audio name
     ///   - duration: duration of the track in second
     /// - Returns: the new Audio instance
+    @available(*, deprecated, renamed: "add(mediaLabel:duration:)")
     @objc public func add(_ name:String, duration: Int) -> Audio {
         if let audio = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
             return audio
         } else {
             let audio = Audio(player: player)
-            audio.name = name
+            audio.mediaLabel = name
             audio.duration = duration
             
             self.list[name] = audio
+            
+            return audio
+        }
+    }
+    
+    /// Add a new Audio
+    ///
+    /// - Parameters:
+    ///   - mediaLabel: audio name
+    ///   - duration: duration of the track in second
+    /// - Returns: the new Audio instance
+    @objc public func add(mediaLabel _mediaLabel:String, duration: Int) -> Audio {
+        if let audio = self.list[_mediaLabel] {
+            self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
+            return audio
+        } else {
+            let audio = Audio(player: player)
+            audio.mediaLabel = _mediaLabel
+            audio.duration = duration
+            
+            self.list[_mediaLabel] = audio
             
             return audio
         }
@@ -102,17 +124,41 @@ public class Audios: NSObject {
     ///   - chapter1: audio first chapter
     ///   - duration: duration of the track in second
     /// - Returns: the new Audio instance
+    @available(*, deprecated, renamed: "add(mediaLabel:mediaTheme1:duration:)")
     @objc public func add(_ name: String, chapter1: String, duration: Int) -> Audio {
         if let audio = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
             return audio
         } else {
             let audio = Audio(player: player)
-            audio.name = name
+            audio.mediaLabel = name
             audio.duration = duration
-            audio.chapter1 = chapter1
+            audio.mediaTheme1 = chapter1
             
             self.list[name] = audio
+            
+            return audio
+        }
+    }
+    
+    /// Add a new Audio
+    ///
+    /// - Parameters:
+    ///   - mediaLabel: audio name
+    ///   - mediaTheme1: audio first chapter
+    ///   - duration: duration of the track in second
+    /// - Returns: the new Audio instance
+    @objc public func add(_ mediaLabel: String, mediaTheme1: String, duration: Int) -> Audio {
+        if let audio = self.list[mediaLabel] {
+            self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
+            return audio
+        } else {
+            let audio = Audio(player: player)
+            audio.mediaLabel = mediaLabel
+            audio.duration = duration
+            audio.mediaTheme1 = mediaTheme1
+            
+            self.list[mediaLabel] = audio
             
             return audio
         }
@@ -126,18 +172,44 @@ public class Audios: NSObject {
     ///   - chapter2: audio second chapter
     ///   - duration: duration of the track in second
     /// - Returns: the new Audio instance
+    @available(*, deprecated, renamed: "add(mediaLabel:mediaTheme1:mediaTheme2:duration:)")
     @objc public func add(_ name: String, chapter1: String, chapter2: String, duration: Int) -> Audio {
         if let audio = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
             return audio
         } else {
             let audio = Audio(player: player)
-            audio.name = name
+            audio.mediaLabel = name
             audio.duration = duration
-            audio.chapter1 = chapter1
-            audio.chapter2 = chapter2
+            audio.mediaTheme1 = chapter1
+            audio.mediaTheme2 = chapter2
             
             self.list[name] = audio
+            
+            return audio
+        }
+    }
+    
+    /// Add a new Audio
+    ///
+    /// - Parameters:
+    ///   - mediaLabel: audio name
+    ///   - mediaTheme1: audio first chapter
+    ///   - mediaTheme2: audio second chapter
+    ///   - duration: duration of the track in second
+    /// - Returns: the new Audio instance
+    @objc public func add(_ mediaLabel: String, mediaTheme1: String, mediaTheme2: String, duration: Int) -> Audio {
+        if let audio = self.list[mediaLabel] {
+            self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
+            return audio
+        } else {
+            let audio = Audio(player: player)
+            audio.mediaLabel = mediaLabel
+            audio.duration = duration
+            audio.mediaTheme1 = mediaTheme1
+            audio.mediaTheme2 = mediaTheme2
+            
+            self.list[mediaLabel] = audio
             
             return audio
         }
@@ -152,19 +224,47 @@ public class Audios: NSObject {
     ///   - chapter3: audio third chapter
     ///   - duration: duration of the track in second
     /// - Returns: the new Audio instance
+    @available(*, deprecated, renamed: "add(mediaLabel:mediaTheme1:mediaTheme2:mediaTheme3:duration:)")
     @objc public func add(_ name: String, chapter1: String, chapter2: String, chapter3: String, duration: Int) -> Audio {
         if let audio = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
             return audio
         } else {
             let audio = Audio(player: player)
-            audio.name = name
+            audio.mediaLabel = name
             audio.duration = duration
-            audio.chapter1 = chapter1
-            audio.chapter2 = chapter2
-            audio.chapter3 = chapter3
+            audio.mediaTheme1 = chapter1
+            audio.mediaTheme2 = chapter2
+            audio.mediaTheme3 = chapter3
             
             self.list[name] = audio
+            
+            return audio
+        }
+    }
+    
+    /// Add a new Audio
+    ///
+    /// - Parameters:
+    ///   - mediaLabel: audio name
+    ///   - mediaTheme1: audio first chapter
+    ///   - mediaTheme2: audio second chapter
+    ///   - mediaTheme3: audio third chapter
+    ///   - duration: duration of the track in second
+    /// - Returns: the new Audio instance
+    @objc public func add(_ mediaLabel: String, mediaTheme1: String, mediaTheme2: String, mediaTheme3: String, duration: Int) -> Audio {
+        if let audio = self.list[mediaLabel] {
+            self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
+            return audio
+        } else {
+            let audio = Audio(player: player)
+            audio.mediaLabel = mediaLabel
+            audio.duration = duration
+            audio.mediaTheme1 = mediaTheme1
+            audio.mediaTheme2 = mediaTheme2
+            audio.mediaTheme3 = mediaTheme3
+            
+            self.list[mediaLabel] = audio
             
             return audio
         }
@@ -174,6 +274,7 @@ public class Audios: NSObject {
     /// Remove an audio by name
     ///
     /// - Parameter name: audio identified by name
+    @available(*, deprecated, renamed: "remove(mediaLabel:)")
     @objc public func remove(_ name: String) {
         if let timer = list[name]?.timer {
             if timer.isValid {
@@ -181,6 +282,18 @@ public class Audios: NSObject {
             }
         }
         self.list.removeValue(forKey: name)
+    }
+    
+    /// Remove an audio by name
+    ///
+    /// - Parameter name: audio identified by name
+    @objc public func remove(mediaLabel _mediaLabel: String) {
+        if let timer = list[_mediaLabel]?.timer {
+            if timer.isValid {
+                list[_mediaLabel]!.sendStop()
+            }
+        }
+        self.list.removeValue(forKey: _mediaLabel)
     }
     
     /// Remove all audios
