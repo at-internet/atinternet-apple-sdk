@@ -75,41 +75,19 @@ public class Videos: NSObject {
     /// Add a new video
     ///
     /// - Parameters:
-    ///   - name: video name
-    ///   - duration: video duration in seconds
-    /// - Returns: the new video instance
-    @available(*, deprecated, renamed: "add(mediaLabel:duration:)")
-    @objc public func add(_ name:String, duration: Int) -> Video {
-        if let video = self.list[name] {
-            self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
-            return video
-        } else {
-            let video = Video(player: player)
-            video.mediaLabel = name
-            video.duration = duration
-            
-            self.list[name] = video
-            
-            return video
-        }
-    }
-    
-    /// Add a new video
-    ///
-    /// - Parameters:
     ///   - mediaLabel: video name
     ///   - duration: video duration in seconds
     /// - Returns: the new video instance
-    @objc public func add(mediaLabel _mediaLabel:String, duration: Int) -> Video {
-        if let video = self.list[_mediaLabel] {
+    @objc public func add(_ mediaLabel:String, duration: Int) -> Video {
+        if let video = self.list[mediaLabel] {
             self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
             return video
         } else {
             let video = Video(player: player)
-            video.mediaLabel = _mediaLabel
+            video.mediaLabel = mediaLabel
             video.duration = duration
             
-            self.list[_mediaLabel] = video
+            self.list[mediaLabel] = video
             
             return video
         }
@@ -250,7 +228,7 @@ public class Videos: NSObject {
     ///   - mediaTheme3: chapter3 label
     ///   - duration: video duration in seconds
     /// - Returns: the new video instance
-    @objc public func add(_ mediaLabel: String, mediaTheme1: String, mediaTheme2: String, mediaTheme3: String, duration: Int) -> Video {
+    @objc public func add(mediaLabel: String, mediaTheme1: String, mediaTheme2: String, mediaTheme3: String, duration: Int) -> Video {
         if let video = self.list[mediaLabel] {
             self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
             return video
@@ -270,27 +248,15 @@ public class Videos: NSObject {
     
     /// Remove a video
     ///
-    /// - Parameter name: video name
+    /// - Parameter mediaLabel: video name
     @available(*, deprecated, renamed: "remove(mediaLabel:)")
-    @objc public func remove(_ name: String) {
-        if let timer = list[name]?.timer {
+    @objc public func remove(_ mediaLabel: String) {
+        if let timer = list[mediaLabel]?.timer {
             if timer.isValid {
-                list[name]!.sendStop()
+                list[mediaLabel]!.sendStop()
             }
         }
-        self.list.removeValue(forKey: name)
-    }
-    
-    /// Remove a video
-    ///
-    /// - Parameter name: video name
-    @objc public func remove(mediaLabel _mediaLabel: String) {
-        if let timer = list[_mediaLabel]?.timer {
-            if timer.isValid {
-                list[_mediaLabel]!.sendStop()
-            }
-        }
-        self.list.removeValue(forKey: _mediaLabel)
+        self.list.removeValue(forKey: mediaLabel)
     }
     
     /**
