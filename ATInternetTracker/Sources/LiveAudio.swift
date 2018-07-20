@@ -70,36 +70,17 @@ public class LiveAudios: NSObject {
     
     /// Add a new live audio
     ///
-    /// - Parameter name: audio name
-    /// - Returns: new live audio instance
-    @available(*, deprecated, renamed: "add(mediaLabel:)")
-    @objc public func add(_ name:String) -> LiveAudio {
-        if let audio = self.list[name] {
-            self.player.tracker.delegate?.warningDidOccur?("A LiveAudio with the same name already exists.")
-            return audio
-        } else {
-            let audio = LiveAudio(player: player)
-            audio.mediaLabel = name
-            
-            self.list[name] = audio
-            
-            return audio
-        }
-    }
-    
-    /// Add a new live audio
-    ///
     /// - Parameter mediaLabel: audio name
     /// - Returns: new live audio instance
-    @objc public func add(mediaLabel _mediaLabel:String) -> LiveAudio {
-        if let audio = self.list[_mediaLabel] {
+    @objc public func add(_ mediaLabel:String) -> LiveAudio {
+        if let audio = self.list[mediaLabel] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveAudio with the same name already exists.")
             return audio
         } else {
             let audio = LiveAudio(player: player)
-            audio.mediaLabel = _mediaLabel
+            audio.mediaLabel = mediaLabel
             
-            self.list[_mediaLabel] = audio
+            self.list[mediaLabel] = audio
             
             return audio
         }
@@ -249,27 +230,14 @@ public class LiveAudios: NSObject {
     
     /// Remove a live audio
     ///
-    /// - Parameter name: name
-    @available(*, deprecated, renamed: "remove(mediaLabel:)")
-    @objc public func remove(_ name: String) {
-        if let timer = list[name]?.timer {
+    /// - Parameter mediaLabel: name
+    @objc public func remove(_ mediaLabel: String) {
+        if let timer = list[mediaLabel]?.timer {
             if timer.isValid {
-                list[name]!.sendStop()
+                list[mediaLabel]!.sendStop()
             }
         }
-        self.list.removeValue(forKey: name)
-    }
-    
-    /// Remove a live audio
-    ///
-    /// - Parameter mediaLabel: mediaLabel
-    @objc public func remove(mediaLabel _mediaLabel: String) {
-        if let timer = list[_mediaLabel]?.timer {
-            if timer.isValid {
-                list[_mediaLabel]!.sendStop()
-            }
-        }
-        self.list.removeValue(forKey: _mediaLabel)
+        self.list.removeValue(forKey: mediaLabel)
     }
     
     /// Remove all live audios

@@ -69,36 +69,17 @@ public class LiveVideos: NSObject {
     
     /// Add a new live video
     ///
-    /// - Parameter name: live name
-    /// - Returns: the new live video instance
-    @available(*, deprecated, renamed: "add(mediaLabel:)")
-    @objc public func add(_ name:String) -> LiveVideo {
-        if let video = self.list[name] {
-            self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
-            return video
-        } else {
-            let video = LiveVideo(player: player)
-            video.mediaLabel = name
-            
-            self.list[name] = video
-            
-            return video
-        }
-    }
-    
-    /// Add a new live video
-    ///
     /// - Parameter mediaLabel: live name
     /// - Returns: the new live video instance
-    @objc public func add(mediaLabel _mediaLabel:String) -> LiveVideo {
-        if let video = self.list[_mediaLabel] {
+    @objc public func add(_ mediaLabel:String) -> LiveVideo {
+        if let video = self.list[mediaLabel] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
             return video
         } else {
             let video = LiveVideo(player: player)
-            video.mediaLabel = _mediaLabel
+            video.mediaLabel = mediaLabel
             
-            self.list[_mediaLabel] = video
+            self.list[mediaLabel] = video
             
             return video
         }
@@ -247,28 +228,15 @@ public class LiveVideos: NSObject {
     
     /**
     Remove a live video
-    - parameter name: video name
+    - parameter mediaLabel: video name
     */
-    @available(*, deprecated, renamed: "remove(mediaLabel:)")
-    @objc public func remove(_ name: String) {
-        if let timer = list[name]?.timer {
+    @objc public func remove(_ mediaLabel: String) {
+        if let timer = list[mediaLabel]?.timer {
             if timer.isValid {
-                list[name]!.sendStop()
+                list[mediaLabel]!.sendStop()
             }
         }
-        self.list.removeValue(forKey: name)
-    }
-    /**
-     Remove a live video
-     - parameter mediaLabel: video name
-     */
-    @objc public func remove(mediaLabel _mediaLabel: String) {
-        if let timer = list[_mediaLabel]?.timer {
-            if timer.isValid {
-                list[_mediaLabel]!.sendStop()
-            }
-        }
-        self.list.removeValue(forKey: _mediaLabel)
+        self.list.removeValue(forKey: mediaLabel)
     }
     
     /**
