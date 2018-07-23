@@ -259,6 +259,7 @@ public class RichMedia : BusinessObject {
     public func sendPlay(_ refreshDuration: Int) {
         var refreshDuration = refreshDuration
         if (refreshDuration == 0) {
+            self.sendPlayWithoutRefresh()
             return
         }
         if (refreshDuration < 5) {
