@@ -41,6 +41,20 @@ import UIKit
 
 /// Contextual information from user device
 class TechnicalContext: NSObject {
+    /// SDK Version
+    class var sdkVersion: String {
+        get {
+            #if os(watchOS)
+            return "1.6.7"
+            #elseif os(tvOS)
+            return "1.6.7"
+            #elseif os(iOS)
+            return "1.9.7"
+            #else
+            return "1.9.7"
+            #endif
+        }
+    }
     
     enum ConnexionType: String {
         case
@@ -179,21 +193,6 @@ class TechnicalContext: NSObject {
             
         }
         
-    }
-    
-    /// SmartSDK Version
-    class var sdkVersion: String {
-        get {
-            if let optInfoDic = Bundle(for: Tracker.self).infoDictionary {
-                #if os(iOS) && AT_SMART_TRACKER
-                    return (optInfoDic["CFBundleShortVersionString"] as! String)+"s"
-                #else
-                    return optInfoDic["CFBundleShortVersionString"] as! String
-                #endif
-            } else {
-                return ""
-            }
-        }
     }
     
     /// Device language (eg. en_US)
