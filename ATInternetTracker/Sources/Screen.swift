@@ -258,7 +258,7 @@ public class Screen: AbstractScreen {
         }
         set {
             _level2 = newValue
-            updateContext()
+            TechnicalContext.level2 = newValue
         }
     }
     #if os(iOS) && AT_SMART_TRACKER
