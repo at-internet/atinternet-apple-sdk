@@ -65,8 +65,7 @@ public class AbstractScreen: BusinessObject {
     /// Action
     @objc public var action: ScreenAction = ScreenAction.view
     
-    /// Level 2
-    @objc public var level2: Int = 0
+    var _level2: Int = 0
     
     /// true if the screen is a basket screen
     @objc public var isBasketScreen: Bool = false
@@ -117,8 +116,8 @@ public class AbstractScreen: BusinessObject {
 
     /// Set parameters in buffer
     override func setEvent() {
-        if level2 > 0 {
-            _ = self.tracker.setParam(HitParam.level2.rawValue, value: level2)
+        if _level2 > 0 {
+            _ = self.tracker.setParam(HitParam.level2.rawValue, value: _level2)
         }
         
         for (_, value) in _customObjects {
@@ -249,6 +248,16 @@ public class Screen: AbstractScreen {
         }
         set {
             _chapter3 = newValue
+            updateContext()
+        }
+    }
+    /// Level 2
+    @objc public var level2: Int {
+        get {
+            return _level2
+        }
+        set {
+            _level2 = newValue
             updateContext()
         }
     }
@@ -412,6 +421,15 @@ public class DynamicScreen: AbstractScreen {
         }
         set {
             _chapter3 = newValue
+        }
+    }
+    /// Level 2
+    @objc public var level2: Int {
+        get {
+            return _level2
+        }
+        set {
+            _level2 = newValue
         }
     }
     /// Dynamic screen identifier
