@@ -111,6 +111,7 @@ class ScreenTests: XCTestCase {
         XCTAssertEqual(dynamicScreen.tracker.buffer.volatileParameters.count, 7, "Le nombre de paramètres volatiles doit être égal à 7")
         
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["pchap"]!.key == "pchap", "Le paramètre doit être pchap")
+        print(dynamicScreen.tracker.buffer.volatileParameters["pchap"]!.values[0]())
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["pchap"]!.values[0]() == "chap1::chap2::chap3", "La valeur doit être chap1::chap2::chap3")
         
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["pid"]!.key == "pid", "Le paramètre doit être pid")

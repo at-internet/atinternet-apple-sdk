@@ -49,23 +49,18 @@ public class AbstractScreen: BusinessObject {
     var _publishers: [String: PublisherImpression] = [String: PublisherImpression]()
     var _selfPromotions: [String: SelfPromotionImpression] = [String: SelfPromotionImpression]()
     
+    var builtScreenName: String = ""
+    
     /// Actions
     @objc public enum ScreenAction: Int {
         /// view actions
         case view = 0
     }
     
-    /// Screen name
-    @objc public var name: String = ""
-    
-    /// First chapter
-    @objc public var chapter1: String?
-    
-    /// Second chapter
-    @objc public var chapter2: String?
-    
-    /// Third chapter
-    @objc public var chapter3: String?
+    var _name: String = ""
+    var _chapter1: String?
+    var _chapter2: String?
+    var _chapter3: String?
     
     /// Action
     @objc public var action: ScreenAction = ScreenAction.view
@@ -193,11 +188,70 @@ public class AbstractScreen: BusinessObject {
     @objc public func sendView() {
         self.tracker.dispatcher.dispatch([self])
     }
+    
+    //MARK: Screen name building
+    func buildScreenName() -> String {
+
+        return buildChapters() + _name
+    }
+    
+    //MARK: Chapters building
+    func buildChapters() -> String {
+        var chapters = _chapter1 == nil ? "" : _chapter1! + "::"
+        chapters = _chapter2 ==  nil ? chapters : chapters + _chapter2! + "::"
+        chapters = _chapter3 ==  nil ? chapters : chapters + _chapter3! + "::"
+        return chapters
+    }
+    
+    func updateContext() {
+        builtScreenName = buildScreenName()
+        TechnicalContext.screenName = builtScreenName
+        Crash.lastScreen(builtScreenName)
+    }
 }
 
 /// Wrapper class for screen tracking
 public class Screen: AbstractScreen {
-    
+    /// Screen name
+    @objc public var name: String {
+        get {
+            return _name
+        }
+        set {
+            _name = newValue
+            updateContext()
+        }
+    }
+    /// First chapter
+    @objc public var chapter1: String? {
+        get {
+            return _chapter1
+        }
+        set {
+            _chapter1 = newValue
+            updateContext()
+        }
+    }
+    /// Second chapter
+    @objc public var chapter2: String? {
+        get {
+            return _chapter2
+        }
+        set {
+            _chapter2 = newValue
+            updateContext()
+        }
+    }
+    /// Third chapter
+    @objc public var chapter3: String? {
+        get {
+            return _chapter3
+        }
+        set {
+            _chapter3 = newValue
+            updateContext()
+        }
+    }
     #if os(iOS) && AT_SMART_TRACKER
     
     @objc public var className: String = ""
@@ -317,24 +371,49 @@ public class Screen: AbstractScreen {
     override func setEvent() {
         super.setEvent()
         
-        _ = tracker.event.set("screen", action: getScreenActionRawValue(action.rawValue), label: buildScreenName())
-    }
-    
-    //MARK: Screen name building
-    func buildScreenName() -> String {
-        var screenName = chapter1 == nil ? "" : chapter1! + "::"
-        screenName = chapter2 ==  nil ? screenName : screenName + chapter2! + "::"
-        screenName = chapter3 ==  nil ? screenName : screenName + chapter3! + "::"
-        screenName += name
-        
-        return screenName
+        _ = tracker.event.set("screen", action: getScreenActionRawValue(action.rawValue), label: builtScreenName)
     }
 }
 
 
 /// Wrapper class for dynamic screen tracking
 public class DynamicScreen: AbstractScreen {
-    
+    /// Screen name
+    @objc public var name: String {
+        get {
+            return _name
+        }
+        set {
+            _name = newValue
+        }
+    }
+    /// First chapter
+    @objc public var chapter1: String? {
+        get {
+            return _chapter1
+        }
+        set {
+            _chapter1 = newValue
+        }
+    }
+    /// Second chapter
+    @objc public var chapter2: String? {
+        get {
+            return _chapter2
+        }
+        set {
+            _chapter2 = newValue
+        }
+    }
+    /// Third chapter
+    @objc public var chapter3: String? {
+        get {
+            return _chapter3
+        }
+        set {
+            _chapter3 = newValue
+        }
+    }
     /// Dynamic screen identifier
     @objc public var screenId: String = ""
     /// Dynamic screen update date
@@ -342,16 +421,21 @@ public class DynamicScreen: AbstractScreen {
     
     let dateFormatter: DateFormatter = DateFormatter()
     
+    //MARK: Chapters building
+    func buildDynamicScreenChapters() -> String {
+        var chapters = _chapter1 == nil ? "" : _chapter1! + "::"
+        chapters = _chapter2 ==  nil ? chapters : chapters + _chapter2! + "::"
+        chapters = _chapter3 ==  nil ? chapters : chapters + _chapter3!
+        return chapters
+    }
+    
     /// Set parameters in buffer
     override func setEvent() {
         super.setEvent()
-        
-        let chapters = buildChapters()
-        
         let encodingOption = ParamOption()
         encodingOption.encode = true
         
-        _ = tracker.setParam("pchap", value: chapters == nil ? "" : chapters!, options:encodingOption)
+        _ = tracker.setParam("pchap", value: buildDynamicScreenChapters(), options:encodingOption)
         
         if(screenId.count > 255){
             screenId = ""
@@ -365,33 +449,6 @@ public class DynamicScreen: AbstractScreen {
         
         _ = tracker.setParam("pidt", value: dateFormatter.string(from: update))
         _ = tracker.event.set("screen", action: getScreenActionRawValue(action.rawValue), label: name)
-    }
-    
-    //MARK: Chapters building
-    func buildChapters() -> String? {
-        var value: String?
-        
-        if let optChapter1 = chapter1 {
-            value = optChapter1
-        }
-        
-        if let optChapter2 = chapter2 {
-            if(value == nil) {
-                value = optChapter2
-            } else {
-                value! += "::" + optChapter2
-            }
-        }
-        
-        if let optChapter3 = chapter3 {
-            if(value == nil) {
-                value = optChapter3
-            } else {
-                value! += "::" + optChapter3
-            }
-        }
-        
-        return value
     }
 }
 
