@@ -21,7 +21,7 @@ Supported devices :
 
 # What's new
 * We reworked how RichMedia and the refresh cycle works. We improved the _sendPlay()_ method and added _resume()_.More info [here]
-* Static framework support added for Cocoapods. A known bug is when you checkout the Podfile from an ObjC project you may need an empty swift file in your project in order to compile
+* Static framework support added for Cocoapods. It works well for Swift Apps but the ObjC integration seems unstable.
 * GDPR : _ATInternet.OptOut_ , _ATInternet.preventICloudSync_ , _ATInternet.databasePath_
 
 # SmartTracker iOS
@@ -93,10 +93,13 @@ https://developers.atinternet-solutions.com/apple-universal-fr/bien-commencer-ap
 ```swift
 // AppDelegate.swift
 import Tracker
+let trackerDelegate = DefaultTrackerDelegate() // weak var !
 
 let tracker: Tracker = ATInternet.sharedInstance.defaultTracker
-tracker.setSiteId(410501, sync: true, completionHandler: nil)
-tracker.setLog("logp", sync: true, completionHandler: nil)
+tracker.setSiteId(410501, sync: true, completionHandler: nil) // required
+tracker.setLog("logp", sync: true, completionHandler: nil) // required
+// tracker.enableDebugger = true // track the hit sent
+// tracker.delegate = trackerDelegate // verbose mode
 tracker.screens.add().sendView() // send a screen hit
 ```
 ### SmartTracker / LiveTagging
