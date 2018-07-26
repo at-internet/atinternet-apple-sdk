@@ -33,6 +33,12 @@
 import XCTest
 
 class SelfPromotionTests: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        
+        TechnicalContext.level2 = 0
+        TechnicalContext.screenName = ""
+    }
     
     lazy var selfPromo: SelfPromotion = SelfPromotion(tracker: Tracker())
     lazy var selfPromo2: SelfPromotion = SelfPromotion(tracker: Tracker())
@@ -127,7 +133,7 @@ class SelfPromotionTests: XCTestCase {
         selfPromo.adId = 1
         selfPromo.action = OnAppAd.OnAppAdAction.touch
         selfPromo.setEvent()
-        
+        print(selfPromo.tracker.buffer.volatileParameters)
         XCTAssertEqual(selfPromo.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
         XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
         XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.values[0]() == "AT", "La valeur du premier paramètre doit être AT")
@@ -142,7 +148,6 @@ class SelfPromotionTests: XCTestCase {
         selfPromo.productId = "productId"
         selfPromo.format = "format"
         selfPromo.setEvent()
-        
         XCTAssertEqual(selfPromo.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
         XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
         XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.values[0]() == "AT", "La valeur du premier paramètre doit être AT")

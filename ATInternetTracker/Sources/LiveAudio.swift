@@ -70,17 +70,17 @@ public class LiveAudios: NSObject {
     
     /// Add a new live audio
     ///
-    /// - Parameter name: audio name
+    /// - Parameter mediaLabel: audio name
     /// - Returns: new live audio instance
-    @objc public func add(_ name:String) -> LiveAudio {
-        if let audio = self.list[name] {
+    @objc public func add(_ mediaLabel:String) -> LiveAudio {
+        if let audio = self.list[mediaLabel] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveAudio with the same name already exists.")
             return audio
         } else {
             let audio = LiveAudio(player: player)
-            audio.name = name
+            audio.mediaLabel = mediaLabel
             
-            self.list[name] = audio
+            self.list[mediaLabel] = audio
             
             return audio
         }
@@ -92,16 +92,38 @@ public class LiveAudios: NSObject {
     ///   - name: name
     ///   - chapter1: chapter1 label
     /// - Returns: new live audio instance
+    @available(*, deprecated, renamed: "add(mediaLabel:mediaTheme1:)")
     @objc public func add(_ name: String, chapter1: String) -> LiveAudio {
         if let audio = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveAudio with the same name already exists.")
             return audio
         } else {
             let audio = LiveAudio(player: player)
-            audio.name = name
-            audio.chapter1 = chapter1
+            audio.mediaLabel = name
+            audio.mediaTheme1 = chapter1
             
             self.list[name] = audio
+            
+            return audio
+        }
+    }
+    
+    /// Add a new live audio
+    ///
+    /// - Parameters:
+    ///   - mediaLabel: name
+    ///   - mediaTheme1: chapter1 label
+    /// - Returns: new live audio instance
+    @objc public func add(_ mediaLabel: String, mediaTheme1: String) -> LiveAudio {
+        if let audio = self.list[mediaLabel] {
+            self.player.tracker.delegate?.warningDidOccur?("A LiveAudio with the same name already exists.")
+            return audio
+        } else {
+            let audio = LiveAudio(player: player)
+            audio.mediaLabel = mediaLabel
+            audio.mediaTheme1 = mediaTheme1
+            
+            self.list[mediaLabel] = audio
             
             return audio
         }
@@ -115,17 +137,41 @@ public class LiveAudios: NSObject {
     ///   - chapter1: chapter1 label
     ///   - chapter2: chapter2 label
     /// - Returns: a new live audio instance
+    @available(*, deprecated, renamed: "add(mediaLabel:mediaTheme1:mediaTheme2:)")
     @objc public func add(_ name: String, chapter1: String, chapter2: String) -> LiveAudio {
         if let audio = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveAudio with the same name already exists.")
             return audio
         } else {
             let audio = LiveAudio(player: player)
-            audio.name = name
-            audio.chapter1 = chapter1
-            audio.chapter2 = chapter2
+            audio.mediaLabel = name
+            audio.mediaTheme1 = chapter1
+            audio.mediaTheme2 = chapter2
             
             self.list[name] = audio
+            
+            return audio
+        }
+    }
+    
+    /// Add a new live audio
+    ///
+    /// - Parameters:
+    ///   - mediaLabel: name
+    ///   - mediaTheme1: chapter1 label
+    ///   - mediaTheme2: chapter2 label
+    /// - Returns: a new live audio instance
+    @objc public func add(_ mediaLabel: String, mediaTheme1: String, mediaTheme2: String) -> LiveAudio {
+        if let audio = self.list[mediaLabel] {
+            self.player.tracker.delegate?.warningDidOccur?("A LiveAudio with the same name already exists.")
+            return audio
+        } else {
+            let audio = LiveAudio(player: player)
+            audio.mediaLabel = mediaLabel
+            audio.mediaTheme1 = mediaTheme1
+            audio.mediaTheme2 = mediaTheme2
+            
+            self.list[mediaLabel] = audio
             
             return audio
         }
@@ -139,16 +185,17 @@ public class LiveAudios: NSObject {
     ///   - chapter2: chapter2 label
     ///   - chapter3: chapter3 label
     /// - Returns: a new live audio instance
+    @available(*, deprecated, renamed: "add(mediaLabel:mediaTheme1:mediaTheme2:mediaTheme3:)")
     @objc public func add(_ name: String, chapter1: String, chapter2: String, chapter3: String) -> LiveAudio {
         if let audio = self.list[name] {
             self.player.tracker.delegate?.warningDidOccur?("A LiveAudio with the same name already exists.")
             return audio
         } else {
             let audio = LiveAudio(player: player)
-            audio.name = name
-            audio.chapter1 = chapter1
-            audio.chapter2 = chapter2
-            audio.chapter3 = chapter3
+            audio.mediaLabel = name
+            audio.mediaTheme1 = chapter1
+            audio.mediaTheme2 = chapter2
+            audio.mediaTheme3 = chapter3
             
             self.list[name] = audio
             
@@ -156,16 +203,41 @@ public class LiveAudios: NSObject {
         }
     }
     
+    /// Add a new live audio
+    ///
+    /// - Parameters:
+    ///   - mediaLabel: name
+    ///   - mediaTheme1: chapter1 label
+    ///   - mediaTheme2: chapter2 label
+    ///   - mediaTheme3: chapter3 label
+    /// - Returns: a new live audio instance
+    @objc public func add(_ mediaLabel: String, mediaTheme1: String, mediaTheme2: String, mediaTheme3: String) -> LiveAudio {
+        if let audio = self.list[mediaLabel] {
+            self.player.tracker.delegate?.warningDidOccur?("A LiveAudio with the same name already exists.")
+            return audio
+        } else {
+            let audio = LiveAudio(player: player)
+            audio.mediaLabel = mediaLabel
+            audio.mediaTheme1 = mediaTheme1
+            audio.mediaTheme2 = mediaTheme2
+            audio.mediaTheme3 = mediaTheme3
+            
+            self.list[mediaLabel] = audio
+            
+            return audio
+        }
+    }
+    
     /// Remove a live audio
     ///
-    /// - Parameter name: name
-    @objc public func remove(_ name: String) {
-        if let timer = list[name]?.timer {
+    /// - Parameter mediaLabel: name
+    @objc public func remove(_ mediaLabel: String) {
+        if let timer = list[mediaLabel]?.timer {
             if timer.isValid {
-                list[name]!.sendStop()
+                list[mediaLabel]!.sendStop()
             }
         }
-        self.list.removeValue(forKey: name)
+        self.list.removeValue(forKey: mediaLabel)
     }
     
     /// Remove all live audios

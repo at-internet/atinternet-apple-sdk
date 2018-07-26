@@ -94,19 +94,70 @@ public class RichMedia : BusinessObject {
     var broadcastMode: BroadcastMode = BroadcastMode.clip
     
     /// Media name
-    @objc public var name: String = ""
+    @available(*, deprecated, renamed: "mediaLabel")
+    @objc public var name: String {
+        get {
+            return mediaLabel;
+        }
+        set {
+            mediaLabel = newValue
+        }
+    }
+    /// Media name
+    @objc public var mediaLabel: String = ""
     
     /// First chapter
-    @objc public var chapter1: String?
+    @available(*, deprecated, renamed: "mediaTheme1")
+    @objc public var chapter1: String? {
+        get {
+            return mediaTheme1
+        }
+        set {
+            mediaTheme1 = newValue
+        }
+    }
+    /// First chapter
+    @objc public var mediaTheme1: String?
     
     /// Second chapter
-    @objc public var chapter2: String?
+    @available(*, deprecated, renamed: "mediaTheme2")
+    @objc public var chapter2: String? {
+        get {
+            return mediaTheme2
+        }
+        set {
+            mediaTheme2 = newValue
+        }
+    }
+    /// Second chapter
+    @objc public var mediaTheme2: String?
     
     /// Third chapter
-    @objc public var chapter3: String?
+    @available(*, deprecated, renamed: "mediaTheme3")
+    @objc public var chapter3: String? {
+        get {
+            return mediaTheme3
+        }
+        set {
+            mediaTheme3 = newValue
+        }
+    }
+    
+    /// Third chapter
+    @objc public var mediaTheme3: String?
     
     /// Level 2
-    @objc public var level2: Int = 0
+    @available(*, deprecated, renamed: "mediaLevel2")
+    @objc public var level2: Int {
+        get {
+            return mediaLevel2
+        }
+        set {
+            mediaLevel2 = newValue
+        }
+    }
+    /// Level 2
+    @objc public var mediaLevel2: Int = 0
     
     /// Refresh Duration
     var refreshDuration: Int = 5
@@ -161,8 +212,8 @@ public class RichMedia : BusinessObject {
             _ = self.tracker.setParam("m5", value: optIsEmbedded ? "ext" : "int")
         }
         
-        if self.level2 > 0 {
-            _ = self.tracker.setParam("s2", value: level2)
+        if self.mediaLevel2 > 0 {
+            _ = self.tracker.setParam("s2", value: mediaLevel2)
         }
         
         if(action == RichMediaAction.play) {
@@ -176,22 +227,22 @@ public class RichMedia : BusinessObject {
                         _ = self.tracker.setParam("m9", value: optWebDomain, options: encodingOption)
                     }
                 }
-                if TechnicalContext.screenName != "" {
-                    _ = self.tracker.setParam("prich", value: TechnicalContext.screenName, options: encodingOption)
-                }
-                if TechnicalContext.level2 > 0 {
-                    _ = self.tracker.setParam("s2rich", value: TechnicalContext.level2)
-                }
+            }
+            if TechnicalContext.screenName != "" {
+                _ = self.tracker.setParam("prich", value: TechnicalContext.screenName, options: encodingOption)
+            }
+            if TechnicalContext.level2 > 0 {
+                _ = self.tracker.setParam("s2rich", value: TechnicalContext.level2)
             }
         }
     }
     
     /// Media name building
     func buildMediaName() -> String {
-        var mediaName = chapter1 == nil ? "" : chapter1! + "::"
-        mediaName = chapter2 ==  nil ? mediaName : mediaName + chapter2! + "::"
-        mediaName = chapter3 ==  nil ? mediaName : mediaName + chapter3! + "::"
-        mediaName += name
+        var mediaName = mediaTheme1 == nil ? "" : mediaTheme1! + "::"
+        mediaName = mediaTheme2 ==  nil ? mediaName : mediaName + mediaTheme2! + "::"
+        mediaName = mediaTheme3 ==  nil ? mediaName : mediaName + mediaTheme3! + "::"
+        mediaName += mediaLabel
         
         return mediaName
     }
@@ -208,6 +259,7 @@ public class RichMedia : BusinessObject {
     public func sendPlay(_ refreshDuration: Int) {
         var refreshDuration = refreshDuration
         if (refreshDuration == 0) {
+            self.sendPlayWithoutRefresh()
             return
         }
         if (refreshDuration < 5) {
