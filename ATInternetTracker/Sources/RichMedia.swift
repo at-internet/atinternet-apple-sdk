@@ -227,12 +227,12 @@ public class RichMedia : BusinessObject {
                         _ = self.tracker.setParam("m9", value: optWebDomain, options: encodingOption)
                     }
                 }
-                if TechnicalContext.screenName != "" {
-                    _ = self.tracker.setParam("prich", value: TechnicalContext.screenName, options: encodingOption)
-                }
-                if TechnicalContext.level2 > 0 {
-                    _ = self.tracker.setParam("s2rich", value: TechnicalContext.level2)
-                }
+            }
+            if TechnicalContext.screenName != "" {
+                _ = self.tracker.setParam("prich", value: TechnicalContext.screenName, options: encodingOption)
+            }
+            if TechnicalContext.level2 > 0 {
+                _ = self.tracker.setParam("s2rich", value: TechnicalContext.level2)
             }
         }
     }
