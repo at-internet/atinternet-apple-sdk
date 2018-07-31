@@ -19,4 +19,5 @@ Pod::Spec.new do |s|
   s.resources = "ATInternetTracker/Sources/*.{plist,xcdatamodeld,png,json}", "ATInternetTracker/Sources/Images.xcassets"
   s.frameworks = "CoreData", "CoreFoundation", "UIKit", "CoreTelephony", "SystemConfiguration"
   s.platform = :ios, "8.0"
+  s.static_framework = true
 end
