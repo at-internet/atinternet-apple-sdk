@@ -95,7 +95,8 @@ class Sender: Operation {
     - parameter a: callback to indicate whether hit was sent successfully or not
     */
     func sendWithCompletionHandler(_ completionHandler: ((_ success: Bool) -> Void)?) {
-        if (TechnicalContext.doNotTrack) {
+        // Don't send hits if DNT is enabled or the app is not in the foreground
+        if TechnicalContext.doNotTrack || !TechnicalContext.applicationIsActive {
             completionHandler?(false)
             return
         }
