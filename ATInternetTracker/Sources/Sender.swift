@@ -96,7 +96,8 @@ class Sender: Operation {
     */
     func sendWithCompletionHandler(_ completionHandler: ((_ success: Bool) -> Void)?) {
         // Don't send hits if DNT is enabled or the app is not in the foreground
-        if TechnicalContext.doNotTrack || !TechnicalContext.applicationIsActive {
+        // and background tasks are not enabled
+        if TechnicalContext.doNotTrack || (TechnicalContext.applicationIsActive && !tracker.backgroundTaskEnabled) {
             completionHandler?(false)
             return
         }
@@ -293,7 +294,7 @@ class Sender: Operation {
                             
                             #if !AT_EXTENSION && !os(watchOS)
                             // Creates background task for offline hits
-                            if UIDevice.current.isMultitaskingSupported && tracker.configuration.parameters["enableBackgroundTask"]?.lowercased() == "true" {
+                            if UIDevice.current.isMultitaskingSupported && tracker.backgroundTaskEnabled {
                                 backgroundTaskIdentifier = BackgroundTask.sharedInstance.begin()
                             } else {
                                 backgroundTaskIdentifier = nil
@@ -336,5 +337,14 @@ class Sender: Operation {
                 }
                 
         }
+    }
+}
+
+extension Tracker {
+    var backgroundTaskEnabled: Bool {
+        guard let enableBackgroundTask = configuration.parameters["enableBackgroundTask"]
+            else { return false }
+        
+        return enableBackgroundTask.lowercased() == "true"
     }
 }
