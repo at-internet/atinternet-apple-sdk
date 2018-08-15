@@ -282,22 +282,32 @@ class Sender: Operation {
                     }
                     
                     // If there's no offline hit being sent
-                    if(offlineOperations.count == 0) {
+                    if offlineOperations.count == 0 {
                         let storage = Storage.sharedInstanceOf(tracker.configuration.parameters["storage"] ?? "never")
                         
                         // Check if offline hits exists in database
-                        if(storage.count() > 0) {
+                        if storage.count() > 0 {
+                            
+                            let backgroundTaskIdentifier: Int?
                             
                             #if !AT_EXTENSION && !os(watchOS)
                             // Creates background task for offline hits
-                            if(UIDevice.current.isMultitaskingSupported && tracker.configuration.parameters["enableBackgroundTask"]?.lowercased() == "true") {
-                                _ = BackgroundTask.sharedInstance.begin()
+                            if UIDevice.current.isMultitaskingSupported && tracker.configuration.parameters["enableBackgroundTask"]?.lowercased() == "true" {
+                                backgroundTaskIdentifier = BackgroundTask.sharedInstance.begin()
+                            } else {
+                                backgroundTaskIdentifier = nil
                             }
+                            #else
+                                backgroundTaskIdentifier = nil
                             #endif
                             
                             if(async) {
                                 for offlineHit in storage.get() {
                                     let sender = Sender(tracker: tracker, hit: offlineHit, forceSendOfflineHits: forceSendOfflineHits, mhOlt: nil)
+                                    sender.completionBlock = {
+                                        guard let backgroundTaskIdentifier = backgroundTaskIdentifier else { return }
+                                        BackgroundTask.sharedInstance.end(backgroundTaskIdentifier)
+                                    }
                                     TrackerQueue.sharedInstance.queue.addOperation(sender)
                                 }
                             } else {
@@ -315,6 +325,10 @@ class Sender: Operation {
                                 }
                                 
                                 OfflineHit.processing = false
+                                
+                                if let backgroundTaskIdentifier = backgroundTaskIdentifier {
+                                    BackgroundTask.sharedInstance.end(backgroundTaskIdentifier)
+                                }
                             }
                         }
                     }
