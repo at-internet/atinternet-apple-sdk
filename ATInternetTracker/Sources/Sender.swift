@@ -96,8 +96,9 @@ class Sender: Operation {
     */
     func sendWithCompletionHandler(_ completionHandler: ((_ success: Bool) -> Void)?) {
         // Don't send hits if DNT is enabled or the app is not in the foreground
-        // and background tasks are not enabled
-        if TechnicalContext.doNotTrack || (TechnicalContext.applicationIsActive && !tracker.backgroundTaskEnabled) {
+        // and background send is not enabled
+        
+        if TechnicalContext.doNotTrack || (!TechnicalContext.applicationIsActive && tracker.sendOnlyWhenAppActive) {
             completionHandler?(false)
             return
         }
@@ -346,5 +347,11 @@ extension Tracker {
             else { return false }
         
         return enableBackgroundTask.lowercased() == "true"
+    }
+    var sendOnlyWhenAppActive: Bool {
+        guard let enableSendOnlyWhenAppActive = configuration.parameters["sendOnlyWhenAppActive"]
+            else { return false }
+        
+        return enableSendOnlyWhenAppActive.lowercased() == "true"
     }
 }

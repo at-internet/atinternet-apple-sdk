@@ -102,9 +102,7 @@ class TechnicalContext: NSObject {
         }
     }
     
-    class var applicationIsActive: Bool {
-        return UIApplication.shared.applicationState == .active
-    }
+    static var applicationIsActive: Bool = false
     
     /// Unique user id
     class func userId(_ identifier: String?) -> String {
