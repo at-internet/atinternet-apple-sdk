@@ -101,6 +101,8 @@ public class TrackerConfigurationKeys: NSObject {
     public static let AutoTracking = "enableAutoTracking"
     /// autoTrackerToken
     public static let AutoTrackerToken = "autoTrackerToken"
+    /// send only when host App is in state "active" (foreground)
+    public static let SendOnlyWhenAppActive = "sendOnlyWhenAppActive"
 }
 
 /// Tracker configuraiton

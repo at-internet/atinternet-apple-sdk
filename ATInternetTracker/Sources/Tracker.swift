@@ -656,6 +656,7 @@ public class Tracker: NSObject {
      should save the timestamp to know if we have to start a new session on the next launch
      */
     @objc func applicationDidEnterBackground() {
+        TechnicalContext.applicationIsActive = false
         LifeCycle.applicationDidEnterBackground()
     }
     
@@ -664,6 +665,7 @@ public class Tracker: NSObject {
      Should create a new SessionId if necessary
      */
     @objc func applicationActive() {
+        TechnicalContext.applicationIsActive = true
         LifeCycle.applicationActive(self.configuration.parameters)
     }
     
@@ -857,6 +859,16 @@ public class Tracker: NSObject {
     ///   - completionHandler: called when the operation has been done
     @objc public func setBackgroundTaskEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.EnableBackgroundTask, value: String(enabled), sync: sync, completionHandler: completionHandler)
+    }
+    
+    /// Ensures that all hits are sent only in foreground if set to true. (default: false)
+    ///
+    /// - Parameters:
+    ///   - enabled: /
+    ///   - sync: perform the operation synchronously (optional, default: false)
+    ///   - completionHandler: called when the operation has been done
+    @objc public func setSendOnlyWhenAppActive(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+        setConfig(TrackerConfigurationKeys.SendOnlyWhenAppActive, value: String(enabled), sync: sync, completionHandler: completionHandler)
     }
     
     /// Set new pixel path
