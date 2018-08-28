@@ -729,6 +729,8 @@
 		8EC45F06206A471E00B0EC52 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
 		8EC97ED31D5A2CC1007360F3 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC97ED21D5A2CC1007360F3 /* APITests.swift */; };
 		8EDC3CF61D3E225100A14458 /* ApiS3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDC3CF51D3E225100A14458 /* ApiS3.swift */; };
+		8EF627C421357BD700EF6902 /* ATInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4461D3541C500702747 /* ATInternet.swift */; };
+		8EF627C521357BD700EF6902 /* ATInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4461D3541C500702747 /* ATInternet.swift */; };
 		8EFF4AF81D50D79C005DF2A7 /* DeviceRotationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFF4AF71D50D79C005DF2A7 /* DeviceRotationEvent.swift */; };
 		8EFF4AF91D50D79C005DF2A7 /* DeviceRotationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFF4AF71D50D79C005DF2A7 /* DeviceRotationEvent.swift */; };
 /* End PBXBuildFile section */
@@ -2244,6 +2246,7 @@
 				4F47A8221D3D17FC00702747 /* Publisher.swift in Sources */,
 				4F47A83F1D3D192C00702747 /* Context.swift in Sources */,
 				4F47A8421D3D192C00702747 /* Hit.swift in Sources */,
+				8EF627C421357BD700EF6902 /* ATInternet.swift in Sources */,
 				8E3061E520A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A8171D3D17FC00702747 /* IdentifiedVisitor.swift in Sources */,
 				4F47A8091D3D17C000702747 /* Campaign.swift in Sources */,
@@ -2302,6 +2305,7 @@
 				8E9497F220D3F1AA0006872F /* ATBundle.swift in Sources */,
 				4FF594601D3F66B30004D336 /* RichMedia.swift in Sources */,
 				4FF594301D3F63800004D336 /* ScreenTests.swift in Sources */,
+				8EF627C521357BD700EF6902 /* ATInternet.swift in Sources */,
 				4FF5944C1D3F66830004D336 /* BusinessObject.swift in Sources */,
 				4FF594281D3F61E50004D336 /* IdentifiedVisitorTests.swift in Sources */,
 				4FF594581D3F66A00004D336 /* Location.swift in Sources */,
