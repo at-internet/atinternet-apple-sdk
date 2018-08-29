@@ -656,6 +656,7 @@ public class Tracker: NSObject {
      should save the timestamp to know if we have to start a new session on the next launch
      */
     @objc func applicationDidEnterBackground() {
+        TechnicalContext.applicationIsActive = false
         LifeCycle.applicationDidEnterBackground()
     }
     
@@ -664,6 +665,7 @@ public class Tracker: NSObject {
      Should create a new SessionId if necessary
      */
     @objc func applicationActive() {
+        TechnicalContext.applicationIsActive = true
         LifeCycle.applicationActive(self.configuration.parameters)
     }
     
@@ -859,6 +861,16 @@ public class Tracker: NSObject {
         setConfig(TrackerConfigurationKeys.EnableBackgroundTask, value: String(enabled), sync: sync, completionHandler: completionHandler)
     }
     
+    /// Ensures that all hits are sent only in foreground if set to true. (default: false)
+    ///
+    /// - Parameters:
+    ///   - enabled: /
+    ///   - sync: perform the operation synchronously (optional, default: false)
+    ///   - completionHandler: called when the operation has been done
+    @objc public func setSendOnlyWhenAppActive(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+        setConfig(TrackerConfigurationKeys.SendOnlyWhenAppActive, value: String(enabled), sync: sync, completionHandler: completionHandler)
+    }
+    
     /// Set new pixel path
     ///
     /// - Parameters:
@@ -918,7 +930,12 @@ public class Tracker: NSObject {
      - parameter value: parameter value
      */
     fileprivate func processSetParam(_ key: String, value: @escaping ()->(String)) {
-        buffer.volatileParameters[key] = Param(key: key, value: value)
+        // Check whether the parameter is not in read only mode                 buffer.volatileParameters[key] = Param(key: key, value: value)
+        if(!ReadOnlyParam.list.contains(key)) {
+            buffer.volatileParameters[key] = Param(key: key, value: value)
+        } else {
+            delegate?.warningDidOccur?(String(format: "Parameter %@ is read only. Value will not be updated", key))
+        }
     }
     
     /**
@@ -929,6 +946,11 @@ public class Tracker: NSObject {
      - parameter options: parameter options
      */
     fileprivate func processSetParam(_ key: String, value: @escaping ()->(String), options: ParamOption) {
+        guard !ReadOnlyParam.list.contains(key) else {
+            delegate?.warningDidOccur?(String(format: "Parameter %@ is read only. Value will not be updated", key))
+            return
+        }
+        
         let param = Param(key: key, value: value, options: options)
         var newValues = [() -> String]()
         if param.isPersistent {

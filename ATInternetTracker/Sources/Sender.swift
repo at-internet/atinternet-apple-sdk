@@ -95,7 +95,9 @@ class Sender: Operation {
     - parameter a: callback to indicate whether hit was sent successfully or not
     */
     func sendWithCompletionHandler(_ completionHandler: ((_ success: Bool) -> Void)?) {
-        if (TechnicalContext.doNotTrack) {
+        // Don't send hits if the app is not in the foreground
+        // and background send is not enabled
+        if !TechnicalContext.applicationIsActive && tracker.sendOnlyWhenAppActive {
             completionHandler?(false)
             return
         }
@@ -282,22 +284,32 @@ class Sender: Operation {
                     }
                     
                     // If there's no offline hit being sent
-                    if(offlineOperations.count == 0) {
+                    if offlineOperations.count == 0 {
                         let storage = Storage.sharedInstanceOf(tracker.configuration.parameters["storage"] ?? "never")
                         
                         // Check if offline hits exists in database
-                        if(storage.count() > 0) {
+                        if storage.count() > 0 {
+                            
+                            let backgroundTaskIdentifier: Int?
                             
                             #if !AT_EXTENSION && !os(watchOS)
                             // Creates background task for offline hits
-                            if(UIDevice.current.isMultitaskingSupported && tracker.configuration.parameters["enableBackgroundTask"]?.lowercased() == "true") {
-                                _ = BackgroundTask.sharedInstance.begin()
+                            if UIDevice.current.isMultitaskingSupported && tracker.backgroundTaskEnabled {
+                                backgroundTaskIdentifier = BackgroundTask.sharedInstance.begin()
+                            } else {
+                                backgroundTaskIdentifier = nil
                             }
+                            #else
+                                backgroundTaskIdentifier = nil
                             #endif
                             
                             if(async) {
                                 for offlineHit in storage.get() {
                                     let sender = Sender(tracker: tracker, hit: offlineHit, forceSendOfflineHits: forceSendOfflineHits, mhOlt: nil)
+                                    sender.completionBlock = {
+                                        guard let backgroundTaskIdentifier = backgroundTaskIdentifier else { return }
+                                        BackgroundTask.sharedInstance.end(backgroundTaskIdentifier)
+                                    }
                                     TrackerQueue.sharedInstance.queue.addOperation(sender)
                                 }
                             } else {
@@ -315,11 +327,30 @@ class Sender: Operation {
                                 }
                                 
                                 OfflineHit.processing = false
+                                
+                                if let backgroundTaskIdentifier = backgroundTaskIdentifier {
+                                    BackgroundTask.sharedInstance.end(backgroundTaskIdentifier)
+                                }
                             }
                         }
                     }
                 }
                 
         }
+    }
+}
+
+extension Tracker {
+    var backgroundTaskEnabled: Bool {
+        guard let enableBackgroundTask = configuration.parameters["enableBackgroundTask"]
+            else { return false }
+        
+        return enableBackgroundTask.lowercased() == "true"
+    }
+    var sendOnlyWhenAppActive: Bool {
+        guard let enableSendOnlyWhenAppActive = configuration.parameters["sendOnlyWhenAppActive"]
+            else { return false }
+        
+        return enableSendOnlyWhenAppActive.lowercased() == "true"
     }
 }
