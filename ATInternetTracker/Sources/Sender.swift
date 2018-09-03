@@ -303,6 +303,7 @@ class Sender: Operation {
                                 backgroundTaskIdentifier = nil
                             #endif
                             
+                            #if !AT_EXTENSION && !os(watchOS)
                             if(async) {
                                 for offlineHit in storage.get() {
                                     let sender = Sender(tracker: tracker, hit: offlineHit, forceSendOfflineHits: forceSendOfflineHits, mhOlt: nil)
@@ -332,6 +333,7 @@ class Sender: Operation {
                                     BackgroundTask.sharedInstance.end(backgroundTaskIdentifier)
                                 }
                             }
+                            #endif
                         }
                     }
                 }
