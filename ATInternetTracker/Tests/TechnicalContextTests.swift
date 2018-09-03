@@ -51,6 +51,15 @@ class TechnicalContextTests: XCTestCase {
         XCTAssertEqual(ref, TechnicalContext.userId("idfv"), "Unique identifier shall be equal to IDFV")
     }
     
+    func testVersion() {
+        let testBundle = Bundle(for: Tracker.self)
+        if let url = testBundle.url(forResource: "Info", withExtension: "plist"),
+            let myDict = NSDictionary(contentsOf: url) as? [String:Any] {
+            let v = TechnicalContext.sdkVersion
+            XCTAssertEqual(v, myDict["CFBundleShortVersionString"] as! String, "version is incorrect")
+        }
+    }
+    
     func testExistingUUID() {
         let ref = UUID().uuidString
         UserDefaults.standard.set(ref, forKey: "ATApplicationUniqueIdentifier")

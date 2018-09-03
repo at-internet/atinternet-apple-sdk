@@ -39,7 +39,7 @@ class ConfigurationTests: XCTestCase {
     let myConf = ["log":"customlog", "logSSL":"customlogs", "domain":"customdomain", "pixelPath":"custompixelpath","site":"customsite", "secure":"customsecure", "identifier":"customidentifier", "plugins":"", "enableBackgroundTask":"false", "storage":"never", "hashUserId":"false", "persistIdentifiedVisitor":"true","sessionBackgroundDuration":"60", "campaignLastPersistence": "true", "campaignLifetime": "30","downloadSource":"ext", "autoTrackerToken": "", "enableAutoTracking": "false", "atEnv":"prod", "sendOnlyWhenAppActive":"false"]
     // Configuration par défaut
     let defaultConf = ["log":"", "logSSL":"", "domain":"xiti.com", "pixelPath":"/hit.xiti", "site":"", "secure":"false", "identifier":"uuid", "plugins":"", "enableBackgroundTask":"false", "storage":"never", "hashUserId":"false", "persistIdentifiedVisitor":"true","sessionBackgroundDuration":"60", "campaignLastPersistence": "true", "campaignLifetime": "30","downloadSource":"ext", "autoTrackerToken": "", "enableAutoTracking": "false","atEnv":"prod", "sendOnlyWhenAppActive":"false"]
-
+    
     override func setUp() {
         super.setUp()
     }
@@ -62,6 +62,7 @@ class ConfigurationTests: XCTestCase {
         
         for (key,value) in config {
             if (defaultConf[key] != value) {
+                print("\(key) : -> \(defaultConf[key]) !== ->\(value)")
                 testOK = false;
                 break;
             }
@@ -69,6 +70,7 @@ class ConfigurationTests: XCTestCase {
         
         if (testOK) {
             if (defaultConf.count != config.count) {
+                print("count failure")
                 testOK = false;
             }
         }
