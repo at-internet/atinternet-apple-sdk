@@ -348,34 +348,34 @@ class SmartToolbar: UIView {
         alreadyCalled = true
         window.addSubview(self)
         windowConstraintLeft = NSLayoutConstraint(item: self
-            , attribute: NSLayoutAttribute.left
-            , relatedBy: NSLayoutRelation.equal
+            , attribute: NSLayoutConstraint.Attribute.left
+            , relatedBy: NSLayoutConstraint.Relation.equal
             , toItem: window
-            , attribute: NSLayoutAttribute.left
+            , attribute: NSLayoutConstraint.Attribute.left
             , multiplier: 1
             , constant: window.frame.width/2 - WIDTH/2)
         
         windowConstraintTop = NSLayoutConstraint(item: self
-            , attribute: NSLayoutAttribute.top
-            , relatedBy: NSLayoutRelation.equal
+            , attribute: NSLayoutConstraint.Attribute.top
+            , relatedBy: NSLayoutConstraint.Relation.equal
             , toItem: window
-            , attribute: NSLayoutAttribute.top
+            , attribute: NSLayoutConstraint.Attribute.top
             , multiplier: 1
             , constant: window.frame.height - HEIGHT - HEIGHT/2)
         
         windowConstraintHeight = NSLayoutConstraint(item: self
-            , attribute: NSLayoutAttribute.height
-            , relatedBy: NSLayoutRelation.equal
+            , attribute: NSLayoutConstraint.Attribute.height
+            , relatedBy: NSLayoutConstraint.Relation.equal
             , toItem: window
-            , attribute: NSLayoutAttribute.height
+            , attribute: NSLayoutConstraint.Attribute.height
             , multiplier: 0
             , constant: HEIGHT)
         
         windowConstraintWidth = NSLayoutConstraint(item: self
-            , attribute: NSLayoutAttribute.width
-            , relatedBy: NSLayoutRelation.equal
+            , attribute: NSLayoutConstraint.Attribute.width
+            , relatedBy: NSLayoutConstraint.Relation.equal
             , toItem: window
-            , attribute: NSLayoutAttribute.width
+            , attribute: NSLayoutConstraint.Attribute.width
             , multiplier: 0
             , constant: WIDTH)
         
@@ -411,7 +411,7 @@ class SmartToolbar: UIView {
      */
     func startTimer() {
         nsTimer = Timer(timeInterval: 1.0, target: self, selector: #selector(SmartToolbar.start(_:)), userInfo: nil, repeats: true)
-        RunLoop.main.add(nsTimer, forMode: RunLoopMode.commonModes)
+        RunLoop.main.add(nsTimer, forMode: RunLoop.Mode.common)
     }
     
     /**
@@ -586,7 +586,7 @@ class SmartToolBarController {
         })
         
         let animation = CABasicAnimation(keyPath: "cornerRadius")
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         animation.fromValue = self.toolbar.recorder.layer.cornerRadius
         animation.toValue = 3.0
         animation.duration = ANIMATION_DURATION
@@ -612,7 +612,7 @@ class SmartToolBarController {
         })
         
         let animation = CABasicAnimation(keyPath: "cornerRadius")
-        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         animation.fromValue = self.toolbar.recorder.layer.cornerRadius
         animation.toValue = self.toolbar.RECORDER_SIZE/2 + self.toolbar.RECORDER_SIZE_MODIFIER/2
         animation.duration = ANIMATION_DURATION

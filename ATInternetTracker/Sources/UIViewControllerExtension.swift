@@ -248,7 +248,7 @@ extension UIViewController {
         }
         
         // User did tap on back button ?
-        if self.isMovingFromParentViewController {
+        if self.isMovingFromParent {
             if let operation = EventManager.sharedInstance.lastEvent() as? GestureOperation {
                 if operation.gestureEvent.view.className == "UINavigationBar" {
                     let pendingEvent = operation.gestureEvent
@@ -300,7 +300,7 @@ extension UIViewController {
         let currentScreen = Screen()
         for aView in controls {
             let v = View(view: aView)
-            var (text,methodName,className,position) = UIApplication.shared.getTouchedViewInfo(aView)
+            var (_ ,methodName,className,position) = UIApplication.shared.getTouchedViewInfo(aView)
             let info = ATGestureRecognizer.getInfoFrom(aView, withExpected: Gesture.getEventTypeRawValue(Gesture.GestureEventType.tap.rawValue))
             
             if methodName == nil || (methodName != nil && methodName!.isEmpty) {

@@ -53,7 +53,7 @@ class UIViewTests: XCTestCase {
     func testFindTextInButton() {
         let b = UIButton()
         b.frame = CGRect(x: 0,y: 0,width: 320,height: 568)
-        b.setTitle("hello world", for: UIControlState())
+        b.setTitle("hello world", for: UIControl.State())
         let window = UIWindow()
         window.addSubview(b)
         XCTAssertTrue(b.textValue == "hello world")
