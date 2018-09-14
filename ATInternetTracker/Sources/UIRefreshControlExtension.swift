@@ -94,7 +94,7 @@ extension UIRefreshControl {
     }
     
     @objc func at_init() -> Any {
-        self.addTarget(self, action: #selector(UIRefreshControl.at_refresh), for: UIControlEvents.valueChanged)
+        self.addTarget(self, action: #selector(UIRefreshControl.at_refresh), for: UIControl.Event.valueChanged)
         return self.at_init()
     }
     

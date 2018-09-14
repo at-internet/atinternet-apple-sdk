@@ -172,7 +172,7 @@ public class SocketSender {
         timer?.invalidate()
         timer = Timer(timeInterval: RECONNECT_INTERVAL, target: self, selector: #selector(SocketSender.sendAskingForLive), userInfo: nil, repeats: true)
         timer?.fire()
-        RunLoop.main.add(timer!, forMode: RunLoopMode.commonModes)
+        RunLoop.main.add(timer!, forMode: RunLoop.Mode.common)
     }
     
     /**

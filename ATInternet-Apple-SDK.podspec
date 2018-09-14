@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 	s.tvos.deployment_target = '9.0'
 	s.watchos.deployment_target = '2.0'
     s.static_framework = true
-    s.swift_version = '4.1'
+    s.swift_version = '4.2'
 
 	s.subspec 'Tracker' do |tracker|
 		tracker.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"

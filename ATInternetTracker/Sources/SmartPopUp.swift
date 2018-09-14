@@ -188,8 +188,8 @@ class SmartPopUp: UIView {
         cancel.addTarget(self, action: #selector(SmartPopUp.normal(_:)), for: .touchUpInside)
         cancel.addTarget(self, action: #selector(SmartPopUp.normal(_:)), for: .touchUpOutside)
         cancel.addTarget(self, action: #selector(SmartPopUp.hightlight(_:)), for: .touchDown)
-        cancel.setTitle(cancelText, for: UIControlState())
-        cancel.setTitleColor(customButtonTextColor(), for: UIControlState())
+        cancel.setTitle(cancelText, for: UIControl.State())
+        cancel.setTitleColor(customButtonTextColor(), for: UIControl.State())
         cancel.titleLabel?.font = UIFont(name: "Montserrat-Regular", size: 14)
         cancel.frame = CGRect(x: 0,
             y: selfRect.height-cancelRect.height,
@@ -236,8 +236,8 @@ class SmartPopUp: UIView {
         }
         let cancelRect = CGRect(x: 0, y: 0, width: selfRect.width/2, height: ButtonHeight)
         ok.backgroundColor = customBackgroundColor()
-        ok.setTitle(okText, for: UIControlState())
-        ok.setTitleColor(customButtonTextColor(), for: UIControlState())
+        ok.setTitle(okText, for: UIControl.State())
+        ok.setTitleColor(customButtonTextColor(), for: UIControl.State())
         ok.addTarget(self, action: #selector(SmartPopUp.normal(_:)), for: .touchUpInside)
         ok.addTarget(self, action: #selector(SmartPopUp.normal(_:)), for: .touchUpOutside)
         ok.addTarget(self, action: #selector(SmartPopUp.hightlight(_:)), for: .touchDown)
@@ -267,8 +267,8 @@ class SmartPopUp: UIView {
         }
         let cancelRect = CGRect(x: 0, y: 0, width: selfRect.width/2, height: ButtonHeight)
         ok.backgroundColor = customBackgroundColor()
-        ok.setTitle(okText, for: UIControlState())
-        ok.setTitleColor(customButtonTextColor(), for: UIControlState())
+        ok.setTitle(okText, for: UIControl.State())
+        ok.setTitleColor(customButtonTextColor(), for: UIControl.State())
         ok.addTarget(self, action: #selector(SmartPopUp.normal(_:)), for: .touchUpInside)
         ok.addTarget(self, action: #selector(SmartPopUp.normal(_:)), for: .touchUpOutside)
         ok.addTarget(self, action: #selector(SmartPopUp.hightlight(_:)), for: .touchDown)

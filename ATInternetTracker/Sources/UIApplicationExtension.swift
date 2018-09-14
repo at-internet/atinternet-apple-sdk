@@ -153,24 +153,24 @@ extension UIApplication {
             return nil
         }
         
-        if event.type == UIEventType.touches {
+        if event.type == UIEvent.EventType.touches {
             let appContext = UIApplicationContext.sharedInstance
             
             guard let touch = touches.first else {
                 return nil
             }
             
-            if touch.phase == UITouchPhase.began {
+            if touch.phase == UITouch.Phase.began {
                 initContext(touches)
                 if isDoubleTap(touches) {
                     EventManager.sharedInstance.cancelLastEvent()
                 }
             }
-            else if touch.phase == UITouchPhase.moved {
+            else if touch.phase == UITouch.Phase.moved {
                 if touches.count == 1 {
                     let currentPos = touch.location(in: nil)
-                    let xDelta = fabs(appContext.initialTouchPosition.x - currentPos.x)
-                    let yDelta = fabs(appContext.initialTouchPosition.y - currentPos.y)
+                    let xDelta = abs(appContext.initialTouchPosition.x - currentPos.x)
+                    let yDelta = abs(appContext.initialTouchPosition.y - currentPos.y)
                     
                     if  isSwipe(xDelta, yDelta: yDelta) {
                         appContext.eventType = Gesture.GestureEventType.swipe
@@ -198,7 +198,7 @@ extension UIApplication {
                     }
                 }
             }
-            else if touch.phase == UITouchPhase.ended {
+            else if touch.phase == UITouch.Phase.ended {
                 if appContext.currentTouchedView == nil {
                     return nil
                 }
@@ -378,7 +378,7 @@ extension UIApplication {
         let finalDist = Maths.CGPointDist(t[0].location(in: nil), b: t[1].location(in: nil))
         let initialDist = appContext.initialPinchDistance
         
-        if  Double(fabs(finalDist - initialDist)) > UIApplication.Static.PinchDragMin &&
+        if  Double(abs(finalDist - initialDist)) > UIApplication.Static.PinchDragMin &&
             initialDist > 0
         {
             if initialDist < finalDist {
@@ -548,7 +548,7 @@ extension UIApplication {
                     }
                     // default buttons methods
                     if method == nil {
-                        func getMethodFromControlEvents (target: Any?, controlEvent: UIControlEvents) -> String? {
+                        func getMethodFromControlEvents (target: Any?, controlEvent: UIControl.Event) -> String? {
                             if let action = control.actions(forTarget: target, forControlEvent: controlEvent) {
                                 if !action.isEmpty {
                                     return action[0]
@@ -556,7 +556,7 @@ extension UIApplication {
                             }
                             return nil
                         }
-                        method = getMethodFromControlEvents(target: target, controlEvent: UIControlEvents.touchUpInside) ?? getMethodFromControlEvents(target: target, controlEvent: UIControlEvents.touchDown)
+                        method = getMethodFromControlEvents(target: target, controlEvent: UIControl.Event.touchUpInside) ?? getMethodFromControlEvents(target: target, controlEvent: UIControl.Event.touchDown)
                         
                     }
                 }
