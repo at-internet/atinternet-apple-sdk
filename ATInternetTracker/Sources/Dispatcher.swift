@@ -107,22 +107,7 @@ class Dispatcher: NSObject {
                 }
             }
         }
-        
-        // Saves screen name and level 2 in context if hit type is Screen
-        if(Hit.getHitType(self.tracker.buffer.volatileParameters, self.tracker.buffer.persistentParameters) == Hit.HitType.screen) {
-            TechnicalContext.screenName = Tool.appendParameterValues(HitParam.screen.rawValue, volatileParameters: self.tracker.buffer.volatileParameters, persistentParameters: self.tracker.buffer.persistentParameters)
-            
-            let level2 = Int(Tool.appendParameterValues(HitParam.level2.rawValue, volatileParameters: self.tracker.buffer.volatileParameters, persistentParameters: self.tracker.buffer.persistentParameters))
-            
-            if let optLevel2 = level2 {
-                TechnicalContext.level2 = optLevel2
-            } else {
-                TechnicalContext.level2 = 0
-            }
-            
-            Crash.lastScreen(TechnicalContext.screenName)
-        }
-        
+                
         // Add life cycle metrics in stc variable
         let appendOptionWithEncoding = ParamOption()
         appendOptionWithEncoding.append = true

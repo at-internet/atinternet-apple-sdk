@@ -36,18 +36,17 @@ import Foundation
 /// Abstract class to manage rich media tracking
 public class RichMedia : BusinessObject {
     
-    fileprivate var _isBuffering: Bool?
     fileprivate var _isEmbedded: Bool?
     
     /// Rich media broadcast type
     ///
     /// - clip: clip
     /// - live: live
-    public enum BroadcastMode: String {
+    @objc public enum BroadcastMode: Int {
         /// clip
-        case clip = "clip"
+        case clip = 0
         /// live
-        case live = "live"
+        case live = 1
     }
     
     /// Actions types
@@ -68,6 +67,16 @@ public class RichMedia : BusinessObject {
         case move = 3
         /// refresh
         case refresh = 4
+        /// info
+        case info = 5
+        /// share
+        case share = 6
+        /// email
+        case email = 7
+        /// favor
+        case favor = 8
+        /// download
+        case download = 9
     }
     
     /// Player instance
@@ -77,9 +86,9 @@ public class RichMedia : BusinessObject {
     var timer: Timer?
     
     /// true if media is buffering
+    @available(*, deprecated,message: "useless, property set when send called")
     open var isBuffering: Bool = false {
         didSet {
-            _isBuffering = isBuffering
         }
     }
     
@@ -89,6 +98,9 @@ public class RichMedia : BusinessObject {
             _isEmbedded = isEmbedded
         }
     }
+    
+    /// Media type
+    @objc var type: String = ""
     
     /// Media type : live or clip
     var broadcastMode: BroadcastMode = BroadcastMode.clip
@@ -162,11 +174,18 @@ public class RichMedia : BusinessObject {
     /// Refresh Duration
     var refreshDuration: Int = 5
     
+    /// Duration
+    @objc public var duration: Int = 0
+    
     /// Action. see RichMediaAction
+    @available(*, deprecated,message: "useless, property set when send called")
     @objc public var action: RichMediaAction = RichMediaAction.play
     
     /// Web domain 
     @objc public var webdomain: String?
+    
+    /// Linked Content
+    @objc public var linkedContent: String?
    
     /// default config for dynamic refresh
     let DynamicRefreshDefaultConfiguration = [0:5, 1:15, 5:30, 10: 60]
@@ -174,25 +193,7 @@ public class RichMedia : BusinessObject {
     
     init(player: MediaPlayer) {
         self.player = player
-        
         super.init(tracker: player.tracker)
-    }
-    
-    fileprivate func getActionEnumRawValue(_ value: Int) -> String {
-        switch value {
-        case 0:
-            return "play"
-        case 1:
-            return "pause"
-        case 2:
-            return "stop"
-        case 3:
-            return "move"
-        case 4:
-            return "refresh"
-        default:
-            return "play"
-        }
     }
     
     /// Set parameters in buffer
@@ -204,9 +205,9 @@ public class RichMedia : BusinessObject {
         
         _ = self.tracker.setParam("plyr", value: player.playerId)
         
-        _ = self.tracker.setParam("m6", value: broadcastMode.rawValue)
+        _ = self.tracker.setParam("m6", value: broadcastMode == BroadcastMode.clip ? "clip" : "live")
         
-        _ = self.tracker.setParam("a", value: getActionEnumRawValue(action.rawValue))
+        _ = self.tracker.setParam("type", value: type)
         
         if let optIsEmbedded = self._isEmbedded {
             _ = self.tracker.setParam("m5", value: optIsEmbedded ? "ext" : "int")
@@ -214,26 +215,6 @@ public class RichMedia : BusinessObject {
         
         if self.mediaLevel2 > 0 {
             _ = self.tracker.setParam("s2", value: mediaLevel2)
-        }
-        
-        if(action == RichMediaAction.play) {
-            if let optIsBuffering = self._isBuffering {
-                _ = self.tracker.setParam("buf", value: optIsBuffering ? 1 : 0)
-            }
-            
-            if let optIsEmbedded = self._isEmbedded {
-                if (optIsEmbedded) {
-                    if let optWebDomain = self.webdomain {
-                        _ = self.tracker.setParam("m9", value: optWebDomain, options: encodingOption)
-                    }
-                }
-            }
-            if TechnicalContext.screenName != "" {
-                _ = self.tracker.setParam("prich", value: TechnicalContext.screenName, options: encodingOption)
-            }
-            if TechnicalContext.level2 > 0 {
-                _ = self.tracker.setParam("s2rich", value: TechnicalContext.level2)
-            }
         }
     }
     
@@ -247,9 +228,37 @@ public class RichMedia : BusinessObject {
         return mediaName
     }
     
+    func setPlayOrInfoParams(){
+        let encodingOption = ParamOption()
+        encodingOption.encode = true
+        
+        if let optIsEmbedded = self._isEmbedded {
+            if (optIsEmbedded) {
+                if let optWebDomain = self.webdomain {
+                    _ = self.tracker.setParam("m9", value: optWebDomain, options: encodingOption)
+                }
+            }
+        }
+        if TechnicalContext.screenName != "" {
+            _ = self.tracker.setParam("prich", value: TechnicalContext.screenName, options: encodingOption)
+        }
+        if TechnicalContext.level2 > 0 {
+            _ = self.tracker.setParam("s2rich", value: TechnicalContext.level2)
+        }
+        if let optLinkedContent = self.linkedContent {
+            _ = self.tracker.setParam("clnk", value: optLinkedContent, options: encodingOption)
+        }
+    }
+    
     /// Send a play action tracking. Refresh is enabled with default refresh configuration. See doc for more details
     @objc public func sendPlay() {
         self.sendPlay(dynamicRefreshConfiguration: self.DynamicRefreshDefaultConfiguration)
+    }
+    
+    /// Send a play action tracking. Refresh is enabled with default refresh configuration. See doc for more details
+    @objc public func sendPlay(isBuffering: Bool) {
+        _ = self.tracker.setParam("buf", value: isBuffering ? 1 : 0)
+        sendPlay()
     }
     
     /// Send a play action tracking. Refresh is enabled with custom duration
@@ -270,8 +279,15 @@ public class RichMedia : BusinessObject {
     
     /// Send a play action. No refresh hits will be sent after the action.
     @objc public func sendPlayWithoutRefresh() {
-        self.action = RichMediaAction.play
+        _ = self.tracker.setParam("a", value: "play")
+        setPlayOrInfoParams()
         self.tracker.dispatcher.dispatch([self])
+    }
+    
+    /// Send a play action. No refresh hits will be sent after the action.
+    @objc public func sendPlayWithoutRefresh(isBuffering: Bool) {
+        _ = self.tracker.setParam("buf", value: isBuffering ? 1 : 0)
+        sendPlayWithoutRefresh()
     }
     
     /// Send a Play action then send several Resfresh action based on the configuration provided
@@ -297,22 +313,51 @@ public class RichMedia : BusinessObject {
         self.chronoRefresh = DynamicRefresher(configuration: config) {
             self.sendRefresh()
         }
-        self.action = RichMediaAction.play
+        _ = self.tracker.setParam("a", value: "play")
+        setPlayOrInfoParams()
         self.tracker.dispatcher.dispatch([self])
         self.chronoRefresh?.start()
+    }
+    
+    /// Send a Play action then send several Resfresh action based on the configuration provided
+    ///
+    /// - Parameter dynamicRefreshConfiguration: Describe the refresh send rate: [0:5, 1:10] : from 0 to 1 minute, send one refresh every 5s, then refresh every 10s after 1min. See documentation for more details.
+    @objc public func sendPlay(dynamicRefreshConfiguration: [Int: Int], isBuffering: Bool) {
+        _ = self.tracker.setParam("buf", value: isBuffering ? 1 : 0)
+        sendPlay(dynamicRefreshConfiguration: dynamicRefreshConfiguration)
     }
     
     /// Resume a previous pause() call
     @objc public func sendResume() {
         self.chronoRefresh?.resume()
-        self.action = RichMediaAction.play
+        _ = self.tracker.setParam("a", value: "play")
+        setPlayOrInfoParams()
         self.tracker.dispatcher.dispatch([self])
+    }
+    
+    /// Resume a previous pause() call
+    @objc public func sendResume(isBuffering: Bool) {
+        _ = self.tracker.setParam("buf", value: isBuffering ? 1 : 0)
+        sendResume()
+    }
+    
+    /// Send a info action tracking
+    @objc public func sendInfo() {
+        _ = self.tracker.setParam("a", value: "info")
+        setPlayOrInfoParams()
+        self.tracker.dispatcher.dispatch([self])
+    }
+    
+    /// Send a info action tracking
+    @objc public func sendInfo(isBuffering: Bool) {
+        _ = self.tracker.setParam("buf", value: isBuffering ? 1 : 0)
+        sendInfo()
     }
     
     /// Send a pause action tracking
     @objc public func sendPause(){
         self.chronoRefresh?.pause()
-        self.action = RichMediaAction.pause
+        _ = self.tracker.setParam("a", value: "pause")
         self.tracker.dispatcher.dispatch([self])
     }
     
@@ -320,7 +365,7 @@ public class RichMedia : BusinessObject {
     /// Send a stop action tracking
     @objc public func sendStop() {
         self.chronoRefresh?.stop()
-        self.action = RichMediaAction.stop
+        _ = self.tracker.setParam("a", value: "stop")
         
         self.tracker.dispatcher.dispatch([self])
     }
@@ -328,16 +373,38 @@ public class RichMedia : BusinessObject {
     
     /// Send a move action tracking
     @objc public func sendMove() {
-        self.action  = RichMediaAction.move
-        
+        _ = self.tracker.setParam("a", value: "move")
+
+        self.tracker.dispatcher.dispatch([self])
+    }
+    
+    /// Send a share action tracking
+    @objc public func sendShare() {
+        _ = self.tracker.setParam("a", value: "share")
+        self.tracker.dispatcher.dispatch([self])
+    }
+    
+    /// Send a email action tracking
+    @objc public func sendEmail() {
+        _ = self.tracker.setParam("a", value: "email")
+        self.tracker.dispatcher.dispatch([self])
+    }
+    
+    /// Send a favor action tracking
+    @objc public func sendFavor() {
+        _ = self.tracker.setParam("a", value: "favor")
+        self.tracker.dispatcher.dispatch([self])
+    }
+    
+    /// Send a download action tracking
+    @objc public func sendDownload() {
+        _ = self.tracker.setParam("a", value: "download")
         self.tracker.dispatcher.dispatch([self])
     }
     
     /// Medthod called on the timer tick
     @objc func sendRefresh() {
-        self.action = RichMediaAction.refresh
-        
+        _ = self.tracker.setParam("a", value: "refresh")
         self.tracker.dispatcher.dispatch([self])
     }
-    
 }

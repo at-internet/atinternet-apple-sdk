@@ -12,10 +12,6 @@
 		4F3EAB801D3E772600013032 /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4591D3542A400702747 /* Tracker.swift */; };
 		4F3EAB811D3E789900013032 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5EC1D36230D00702747 /* App.swift */; };
 		4F47A3E21D351E8100702747 /* Tracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F47A3E11D351E8100702747 /* Tracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F47A43D1D353F3000702747 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47A43C1D353F3000702747 /* AVFoundation.framework */; };
-		4F47A43F1D353F3E00702747 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47A43E1D353F3E00702747 /* Security.framework */; };
-		4F47A4411D353F4300702747 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47A4401D353F4300702747 /* CFNetwork.framework */; };
-		4F47A4431D353F4A00702747 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47A4421D353F4A00702747 /* libicucore.tbd */; };
 		4F47A4471D3541C500702747 /* ATInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4461D3541C500702747 /* ATInternet.swift */; };
 		4F47A4481D3541C500702747 /* ATInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4461D3541C500702747 /* ATInternet.swift */; };
 		4F47A4491D3541C500702747 /* ATInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4461D3541C500702747 /* ATInternet.swift */; };
@@ -335,10 +331,6 @@
 		4F47A6541D36264300702747 /* SmartPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A64B1D36264300702747 /* SmartPopUp.swift */; };
 		4F47A6551D36264300702747 /* SmartToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A64C1D36264300702747 /* SmartToolbar.swift */; };
 		4F47A6591D362C1F00702747 /* DefaultConfiguration.plist in Headers */ = {isa = PBXBuildFile; fileRef = 4F47A55A1D3620E800702747 /* DefaultConfiguration.plist */; };
-		4F47A65A1D362C3900702747 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47A4401D353F4300702747 /* CFNetwork.framework */; };
-		4F47A65B1D362C4400702747 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47A43C1D353F3000702747 /* AVFoundation.framework */; };
-		4F47A65C1D362C4800702747 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47A43E1D353F3E00702747 /* Security.framework */; };
-		4F47A65D1D362C5000702747 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F47A4421D353F4A00702747 /* libicucore.tbd */; };
 		4F47A6631D36425A00702747 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6281D3624AF00702747 /* DictionaryExtension.swift */; };
 		4F47A6641D36425B00702747 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6281D3624AF00702747 /* DictionaryExtension.swift */; };
 		4F47A6651D36425B00702747 /* DictionaryExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6281D3624AF00702747 /* DictionaryExtension.swift */; };
@@ -733,6 +725,25 @@
 		8EF627C521357BD700EF6902 /* ATInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4461D3541C500702747 /* ATInternet.swift */; };
 		8EFF4AF81D50D79C005DF2A7 /* DeviceRotationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFF4AF71D50D79C005DF2A7 /* DeviceRotationEvent.swift */; };
 		8EFF4AF91D50D79C005DF2A7 /* DeviceRotationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EFF4AF71D50D79C005DF2A7 /* DeviceRotationEvent.swift */; };
+		CC1FE8A72159FE4D006FE401 /* Medium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8A62159FE4D006FE401 /* Medium.swift */; };
+		CC1FE8A82159FE4D006FE401 /* Medium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8A62159FE4D006FE401 /* Medium.swift */; };
+		CC1FE8A92159FE4D006FE401 /* Medium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8A62159FE4D006FE401 /* Medium.swift */; };
+		CC1FE8AA2159FE4D006FE401 /* Medium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8A62159FE4D006FE401 /* Medium.swift */; };
+		CC1FE8AB2159FE4D006FE401 /* Medium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8A62159FE4D006FE401 /* Medium.swift */; };
+		CC1FE8AC2159FE4D006FE401 /* Medium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8A62159FE4D006FE401 /* Medium.swift */; };
+		CC1FE8AD2159FE4D006FE401 /* Medium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8A62159FE4D006FE401 /* Medium.swift */; };
+		CC1FE8AE2159FE4D006FE401 /* Medium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8A62159FE4D006FE401 /* Medium.swift */; };
+		CC1FE8B0215A0DFC006FE401 /* LiveMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */; };
+		CC1FE8B1215A0DFC006FE401 /* LiveMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */; };
+		CC1FE8B2215A0DFC006FE401 /* LiveMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */; };
+		CC1FE8B3215A0DFC006FE401 /* LiveMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */; };
+		CC1FE8B4215A0DFC006FE401 /* LiveMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */; };
+		CC1FE8B5215A0DFC006FE401 /* LiveMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */; };
+		CC1FE8B6215A0DFC006FE401 /* LiveMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */; };
+		CC1FE8B7215A0DFC006FE401 /* LiveMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */; };
+		CCF9B3D5214F77BC00235A77 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF9B3D4214F77BC00235A77 /* CFNetwork.framework */; };
+		CCF9B3D7214F77C400235A77 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF9B3D6214F77C400235A77 /* Security.framework */; };
+		CCF9B3D9214F77CA00235A77 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF9B3D8214F77CA00235A77 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -770,10 +781,6 @@
 		4F47A4181D35200D00702747 /* Info-iOS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS.plist"; sourceTree = "<group>"; };
 		4F47A4321D3532A900702747 /* TrackerExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TrackerExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F47A43A1D3532FE00702747 /* Info-iOS-Extension.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-iOS-Extension.plist"; sourceTree = "<group>"; };
-		4F47A43C1D353F3000702747 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		4F47A43E1D353F3E00702747 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		4F47A4401D353F4300702747 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
-		4F47A4421D353F4A00702747 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libicucore.tbd; sourceTree = DEVELOPER_DIR; };
 		4F47A4461D3541C500702747 /* ATInternet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATInternet.swift; sourceTree = "<group>"; };
 		4F47A44B1D3542A400702747 /* BackgroundTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundTask.swift; sourceTree = "<group>"; };
 		4F47A44C1D3542A400702747 /* Buffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Buffer.swift; sourceTree = "<group>"; };
@@ -981,6 +988,11 @@
 		8EDC3CF51D3E225100A14458 /* ApiS3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiS3.swift; sourceTree = "<group>"; };
 		8EEBADC51DF5779200FD1CFD /* ATInternet-Apple-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = "ATInternet-Apple-SDK.podspec"; path = "../../ATInternet-Apple-SDK.podspec"; sourceTree = "<group>"; };
 		8EFF4AF71D50D79C005DF2A7 /* DeviceRotationEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceRotationEvent.swift; sourceTree = "<group>"; };
+		CC1FE8A62159FE4D006FE401 /* Medium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medium.swift; sourceTree = "<group>"; };
+		CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMedium.swift; sourceTree = "<group>"; };
+		CCF9B3D4214F77BC00235A77 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		CCF9B3D6214F77C400235A77 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		CCF9B3D8214F77CA00235A77 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -988,10 +1000,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F47A4431D353F4A00702747 /* libicucore.tbd in Frameworks */,
-				4F47A4411D353F4300702747 /* CFNetwork.framework in Frameworks */,
-				4F47A43F1D353F3E00702747 /* Security.framework in Frameworks */,
-				4F47A43D1D353F3000702747 /* AVFoundation.framework in Frameworks */,
+				CCF9B3D9214F77CA00235A77 /* AVFoundation.framework in Frameworks */,
+				CCF9B3D7214F77C400235A77 /* Security.framework in Frameworks */,
+				CCF9B3D5214F77BC00235A77 /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1020,10 +1031,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F47A65D1D362C5000702747 /* libicucore.tbd in Frameworks */,
-				4F47A65C1D362C4800702747 /* Security.framework in Frameworks */,
-				4F47A65B1D362C4400702747 /* AVFoundation.framework in Frameworks */,
-				4F47A65A1D362C3900702747 /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1058,7 +1065,6 @@
 			isa = PBXGroup;
 			children = (
 				8E7AD14320D2C834000FDB08 /* TrackerBundle.bundle */,
-				4F47A4441D353F5C00702747 /* Dependencies */,
 				4F47A4021D351F2800702747 /* Sources */,
 				4F47A3DF1D351E8100702747 /* Products */,
 				4F47A6E71D3D119A00702747 /* Tests */,
@@ -1095,17 +1101,6 @@
 				4F47A52A1D3544FA00702747 /* Tool */,
 			);
 			path = Sources;
-			sourceTree = "<group>";
-		};
-		4F47A4441D353F5C00702747 /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				4F47A4421D353F4A00702747 /* libicucore.tbd */,
-				4F47A4401D353F4300702747 /* CFNetwork.framework */,
-				4F47A43E1D353F3E00702747 /* Security.framework */,
-				4F47A43C1D353F3000702747 /* AVFoundation.framework */,
-			);
-			name = Dependencies;
 			sourceTree = "<group>";
 		};
 		4F47A4961D3542DF00702747 /* Core */ = {
@@ -1172,6 +1167,8 @@
 				4F47A4BA1D35446700702747 /* SelfPromotion.swift */,
 				4F47A4BC1D35446700702747 /* Video.swift */,
 				4F47A5EE1D36230D00702747 /* View.swift */,
+				CC1FE8A62159FE4D006FE401 /* Medium.swift */,
+				CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */,
 			);
 			name = Object;
 			sourceTree = "<group>";
@@ -1402,6 +1399,9 @@
 		8E2E9AB01DAF861D00ED4D98 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CCF9B3D8214F77CA00235A77 /* AVFoundation.framework */,
+				CCF9B3D6214F77C400235A77 /* Security.framework */,
+				CCF9B3D4214F77BC00235A77 /* CFNetwork.framework */,
 				8E2E9AB11DAF861D00ED4D98 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
@@ -1860,6 +1860,7 @@
 				4F47A4821D3542A400702747 /* Sender.swift in Sources */,
 				4F47A4D11D35446700702747 /* CustomTreeStructure.swift in Sources */,
 				4F47A5151D35446700702747 /* Screen.swift in Sources */,
+				CC1FE8B0215A0DFC006FE401 /* LiveMedium.swift in Sources */,
 				4F47A4721D3542A400702747 /* Hit.swift in Sources */,
 				4F47A50D1D35446700702747 /* Publisher.swift in Sources */,
 				4F47A5CC1D36223D00702747 /* StringExtension.swift in Sources */,
@@ -1880,6 +1881,7 @@
 				4F47A4F51D35446700702747 /* MediaPlayer.swift in Sources */,
 				4F47A5261D3544F400702747 /* BusinessObject.swift in Sources */,
 				4F47A45E1D3542A400702747 /* Buffer.swift in Sources */,
+				CC1FE8A72159FE4D006FE401 /* Medium.swift in Sources */,
 				4F47A4621D3542A400702747 /* Builder.swift in Sources */,
 				4F47A6631D36425A00702747 /* DictionaryExtension.swift in Sources */,
 				4F47A5211D35446700702747 /* Video.swift in Sources */,
@@ -1929,6 +1931,7 @@
 				8E9497EC20D3F1670006872F /* ATBundle.swift in Sources */,
 				4F47A48C1D3542A400702747 /* TechnicalContext.swift in Sources */,
 				4F47A53D1D35451A00702747 /* Hash.m in Sources */,
+				CC1FE8A92159FE4D006FE401 /* Medium.swift in Sources */,
 				4F47A5C11D36215D00702747 /* ATReachability.swift in Sources */,
 				4F47A4EB1D35446700702747 /* LiveAudio.swift in Sources */,
 				4F47A4F71D35446700702747 /* MediaPlayer.swift in Sources */,
@@ -1937,6 +1940,7 @@
 				4F47A5031D35446700702747 /* OnAppAd.swift in Sources */,
 				4F47A4601D3542A400702747 /* Buffer.swift in Sources */,
 				4F47A5071D35446700702747 /* Order.swift in Sources */,
+				CC1FE8B2215A0DFC006FE401 /* LiveMedium.swift in Sources */,
 				4F47A5171D35446700702747 /* Screen.swift in Sources */,
 				4F47A5281D3544F400702747 /* BusinessObject.swift in Sources */,
 				4F47A4641D3542A400702747 /* Builder.swift in Sources */,
@@ -1985,6 +1989,7 @@
 				4F47A4DC1D35446700702747 /* Event.swift in Sources */,
 				4F47A4C81D35446700702747 /* Campaign.swift in Sources */,
 				4F47A48D1D3542A400702747 /* TechnicalContext.swift in Sources */,
+				CC1FE8B3215A0DFC006FE401 /* LiveMedium.swift in Sources */,
 				4F47A53E1D35451A00702747 /* Hash.m in Sources */,
 				4F47A4EC1D35446700702747 /* LiveAudio.swift in Sources */,
 				4F47A4F81D35446700702747 /* MediaPlayer.swift in Sources */,
@@ -1999,6 +2004,7 @@
 				4F47A51C1D35446700702747 /* SelfPromotion.swift in Sources */,
 				4F47A50C1D35446700702747 /* Product.swift in Sources */,
 				4F47A4E01D35446700702747 /* Gesture.swift in Sources */,
+				CC1FE8AA2159FE4D006FE401 /* Medium.swift in Sources */,
 				4F47A5141D35446700702747 /* RichMedia.swift in Sources */,
 				4F47A4E41D35446700702747 /* IdentifiedVisitor.swift in Sources */,
 				4F47A4F01D35446700702747 /* LiveVideo.swift in Sources */,
@@ -2045,6 +2051,7 @@
 				8E9497EB20D3F1670006872F /* ATBundle.swift in Sources */,
 				4F47A4BE1D35446700702747 /* Aisle.swift in Sources */,
 				4F47A4FE1D35446700702747 /* Offline.swift in Sources */,
+				CC1FE8A82159FE4D006FE401 /* Medium.swift in Sources */,
 				4F47A4481D3541C500702747 /* ATInternet.swift in Sources */,
 				4F47A4E61D35446700702747 /* InternalSearch.swift in Sources */,
 				4F47A4C61D35446700702747 /* Campaign.swift in Sources */,
@@ -2053,6 +2060,7 @@
 				4F47A46F1D3542A400702747 /* Dispatcher.swift in Sources */,
 				4F47A4FA1D35446700702747 /* NuggAd.swift in Sources */,
 				4F47A50A1D35446700702747 /* Product.swift in Sources */,
+				CC1FE8B1215A0DFC006FE401 /* LiveMedium.swift in Sources */,
 				4F47A4F61D35446700702747 /* MediaPlayer.swift in Sources */,
 				4F47A5271D3544F400702747 /* BusinessObject.swift in Sources */,
 				4F47A45F1D3542A400702747 /* Buffer.swift in Sources */,
@@ -2093,6 +2101,7 @@
 				4F47A6391D3624AF00702747 /* UISwitchExtension.swift in Sources */,
 				4F47A5911D36210700702747 /* LiveAudio.swift in Sources */,
 				4F47A5801D3620FA00702747 /* TechnicalContext.swift in Sources */,
+				CC1FE8B4215A0DFC006FE401 /* LiveMedium.swift in Sources */,
 				4F47A59F1D36210700702747 /* Video.swift in Sources */,
 				4F47A63B1D3624AF00702747 /* UIViewExtension.swift in Sources */,
 				4F47A57E1D3620FA00702747 /* Sender.swift in Sources */,
@@ -2133,6 +2142,7 @@
 				8E5339831D3F82A80081445B /* SwiftyJSON.swift in Sources */,
 				8E9398B51D9583810065D58D /* SmartTrackerConfiguration.swift in Sources */,
 				8E6DD3501F4D83B000E81E79 /* SocketIOClient.swift in Sources */,
+				CC1FE8AB2159FE4D006FE401 /* Medium.swift in Sources */,
 				4F47A5781D3620FA00702747 /* DefaultTrackerDelegate.swift in Sources */,
 				4F47A5771D3620FA00702747 /* Context.swift in Sources */,
 				4F47A5921D36210700702747 /* LiveVideo.swift in Sources */,
@@ -2233,6 +2243,7 @@
 				4F47A8461D3D192C00702747 /* Sender.swift in Sources */,
 				4F47A7F21D3D136A00702747 /* EventTests.swift in Sources */,
 				4F47A7FD1D3D13B100702747 /* ScreenTests.swift in Sources */,
+				CC1FE8B5215A0DFC006FE401 /* LiveMedium.swift in Sources */,
 				4F47A83D1D3D192C00702747 /* Builder.swift in Sources */,
 				4F47A83C1D3D192C00702747 /* Buffer.swift in Sources */,
 				4F47A8431D3D192C00702747 /* LifeCycle.swift in Sources */,
@@ -2279,6 +2290,7 @@
 				4F47A7F51D3D137A00702747 /* IdentifiedVisitorTests.swift in Sources */,
 				4F47A8441D3D192C00702747 /* Param.swift in Sources */,
 				4F47A81C1D3D17FC00702747 /* MediaPlayer.swift in Sources */,
+				CC1FE8AC2159FE4D006FE401 /* Medium.swift in Sources */,
 				4F47A8201D3D17FC00702747 /* Order.swift in Sources */,
 				4F47A8251D3D17FC00702747 /* SelfPromotion.swift in Sources */,
 			);
@@ -2321,6 +2333,7 @@
 				4FF5943C1D3F663E0004D336 /* Context.swift in Sources */,
 				4FF5943F1D3F66440004D336 /* Hit.swift in Sources */,
 				4FF594501D3F668E0004D336 /* CustomTreeStructure.swift in Sources */,
+				CC1FE8B6215A0DFC006FE401 /* LiveMedium.swift in Sources */,
 				4FF594251D3F61D20004D336 /* EventTests.swift in Sources */,
 				4FF594411D3F66490004D336 /* Param.swift in Sources */,
 				4FF5944D1D3F66860004D336 /* Campaign.swift in Sources */,
@@ -2340,6 +2353,7 @@
 				4FF594521D3F66920004D336 /* Event.swift in Sources */,
 				4FF5942E1D3F63800004D336 /* PublisherTests.swift in Sources */,
 				4FF5942B1D3F63670004D336 /* NuggAdTests.swift in Sources */,
+				CC1FE8AD2159FE4D006FE401 /* Medium.swift in Sources */,
 				4FF5945F1D3F66B00004D336 /* Publisher.swift in Sources */,
 				4FF5945B1D3F66A70004D336 /* Offline.swift in Sources */,
 				8E3061E620A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
@@ -2385,6 +2399,7 @@
 				4F47A9AA1D3E319900702747 /* RecognizerTests.m in Sources */,
 				4F47A9291D3E2FE100702747 /* SelfPromotionTests.swift in Sources */,
 				8E6DD3671F4DA8AE00E81E79 /* SocketEventHandler.swift in Sources */,
+				CC1FE8AE2159FE4D006FE401 /* Medium.swift in Sources */,
 				8E6DD3701F4DA8AE00E81E79 /* SocketParsable.swift in Sources */,
 				8E6DD3601F4DA8AE00E81E79 /* SocketClientManager.swift in Sources */,
 				8E6DD3731F4DA8AE00E81E79 /* SSLSecurity.swift in Sources */,
@@ -2493,6 +2508,7 @@
 				4F47A95C1D3E2FE100702747 /* Dispatcher.swift in Sources */,
 				4F47A95D1D3E2FE100702747 /* ContextTests.swift in Sources */,
 				8E6DD3681F4DA8AE00E81E79 /* SocketExtensions.swift in Sources */,
+				CC1FE8B7215A0DFC006FE401 /* LiveMedium.swift in Sources */,
 				8E6DD3611F4DA8AE00E81E79 /* SocketEngine.swift in Sources */,
 				4F47A95F1D3E2FE100702747 /* Location.swift in Sources */,
 				4F47A9851D3E316B00702747 /* GestureEvent.swift in Sources */,
