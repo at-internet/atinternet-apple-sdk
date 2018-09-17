@@ -1,25 +1,22 @@
 /*
-This SDK is licensed under the MIT license (MIT)
-Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ This SDK is licensed under the MIT license (MIT)
+ Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
 
 
@@ -29,7 +26,6 @@ SOFTWARE.
 //  BackgroundTaskManager.swift
 //  Tracker
 //
-
 import Foundation
 import UIKit
 
@@ -41,8 +37,8 @@ public class BackgroundTask: NSObject {
     }
     
     fileprivate static var __once: () = {
-            Static.instance = BackgroundTask()
-        }()
+        Static.instance = BackgroundTask()
+    }()
     
     typealias completionBlock = () -> Void
     
@@ -54,8 +50,8 @@ public class BackgroundTask: NSObject {
     lazy var tasksCompletionBlocks = [Int: completionBlock]()
     
     /**
-    Private initializer (cannot instantiate BackgroundTaskManager)
-    */
+     Private initializer (cannot instantiate BackgroundTaskManager)
+     */
     fileprivate override init() {
         
     }
@@ -68,12 +64,12 @@ public class BackgroundTask: NSObject {
     }
     
     /**
-    Starts a background task
-    */
+     Starts a background task
+     */
     func begin() -> Int {
         return begin(nil)
     }
-
+    
     /// Starts a background and call the callback function when done
     ///
     /// - Parameter completion: completion block to call right before task ends
@@ -85,22 +81,21 @@ public class BackgroundTask: NSObject {
         taskKey = taskCounter
         taskCounter += 1
         objc_sync_exit(self)
-
+        
         #if !AT_EXTENSION
         let identifier = UIApplication.shared.beginBackgroundTask(expirationHandler: {
             self.end(taskKey)
         })
-        #else
-        let identifier = -1
-        #endif
-        
-        tasks[taskKey] = identifier
+        tasks[taskKey] = identifier.rawValue
         
         if(completion != nil) {
             tasksCompletionBlocks[taskKey] = completion
         }
         
         return taskKey
+        #else
+            return -1
+        #endif
     }
     
     /// Force task to end
@@ -123,13 +118,13 @@ public class BackgroundTask: NSObject {
                     }
                 }
             }
-
+            
             #if !AT_EXTENSION
             // On arrete la tache en arrière plan
-            UIApplication.shared.endBackgroundTask(taskId)
+            UIApplication.shared.endBackgroundTask(UIBackgroundTaskIdentifier(rawValue: taskId))
             #endif
-
-            tasks[key] = UIBackgroundTaskInvalid
+            
+            tasks[key] = UIBackgroundTaskIdentifier.invalid.rawValue
             tasks.removeValue(forKey: key)
         }
         

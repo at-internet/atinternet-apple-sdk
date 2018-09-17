@@ -129,7 +129,7 @@ extension UIView {
     var hasActiveGestureRecognizer: Bool {
         if let recognizers = self.gestureRecognizers {
             for recognizer in recognizers {
-                if(recognizer.state == UIGestureRecognizerState.changed || (recognizer is UITapGestureRecognizer && recognizer.state == UIGestureRecognizerState.possible))
+                if(recognizer.state == UIGestureRecognizer.State.changed || (recognizer is UITapGestureRecognizer && recognizer.state == UIGestureRecognizer.State.possible))
                 {
                     return true;
                 }

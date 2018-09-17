@@ -324,7 +324,7 @@ public enum HitParam: String {
                 // time consuming, so last call of the init
                 if enableLiveTagging {
                     if UIApplication.shared.keyWindow == nil {
-                        NotificationCenter.default.addObserver(self, selector: #selector(AutoTracker.addToolbar), name: NSNotification.Name.UIWindowDidBecomeKey, object: nil)
+                        NotificationCenter.default.addObserver(self, selector: #selector(AutoTracker.addToolbar), name: UIWindow.didBecomeKeyNotification, object: nil)
                     } else {
                         self.performSelector(onMainThread: #selector(addToolbar), with: nil, waitUntilDone: false)
                     }
@@ -375,11 +375,11 @@ public enum HitParam: String {
         private func addNotifications() {
             let notificationCenter = NotificationCenter.default
             UIDevice.current.beginGeneratingDeviceOrientationNotifications()
-            notificationCenter.addObserver(self, selector: #selector(AutoTracker.deviceOrientationDidChange(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-            notificationCenter.addObserver(self, selector: #selector(AutoTracker.applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(AutoTracker.deviceOrientationDidChange(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(AutoTracker.applicationDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
             
-            notificationCenter.addObserver(self, selector: #selector(AutoTracker.UIApplicationWillTerminate(_:)), name: NSNotification.Name.UIApplicationWillTerminate, object: nil)
-            notificationCenter.addObserver(self, selector: #selector(AutoTracker.appWillGoBg(_:)), name: NSNotification.Name.UIApplicationWillResignActive, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(AutoTracker.UIApplicationWillTerminate(_:)), name: UIApplication.willTerminateNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(AutoTracker.appWillGoBg(_:)), name: UIApplication.willResignActiveNotification, object: nil)
         }
         
         /**
@@ -504,7 +504,7 @@ public class Tracker: NSObject {
         didSet {
             if enableDebugger == true {
                 if (UIApplication.shared.windows.count == 0) {
-                    NotificationCenter.default.addObserver(self, selector: #selector(Tracker.displayDebuggerOnMainThread), name: NSNotification.Name.UIWindowDidBecomeKey, object: nil)
+                    NotificationCenter.default.addObserver(self, selector: #selector(Tracker.displayDebuggerOnMainThread), name: UIWindow.didBecomeKeyNotification, object: nil)
                 } else {
                     self.performSelector(onMainThread: #selector(self.displayDebugger), with: nil, waitUntilDone: false)
                 }
