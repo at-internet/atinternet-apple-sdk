@@ -53,7 +53,6 @@ class RichMediaSubclassTests: XCTestCase {
     func testSetVideo() {
         let video: Video = Video(player: mediaPlayer!)
         
-        video.isBuffering = false
         video.isEmbedded = false
         video.name = "Hey! Oh! Let's Go!"
         video.chapter1 = "The Ramones"
@@ -63,14 +62,11 @@ class RichMediaSubclassTests: XCTestCase {
         video.refreshDuration = 10
         video.duration = 7
         
-        TechnicalContext.screenName = "rock"
-        TechnicalContext.level2 = 13
-        
         video.setEvent()
         
         var i = 0;
         
-        XCTAssertEqual(video.player.tracker.buffer.volatileParameters.count, 11, "Le nombre de paramètres volatiles doit être égal à 11")
+        XCTAssertEqual(video.player.tracker.buffer.volatileParameters.count, 7, "Le nombre de paramètres volatiles doit être égal à 7")
         
         XCTAssert(video.tracker.buffer.volatileParameters["p"]!.key == "p", "Le paramètre doit être p")
         XCTAssert(video.tracker.buffer.volatileParameters["p"]!.values[0]() == "The Ramones::Blitzkrieg Bop::1976::Hey! Oh! Let's Go!", "La valeur du paramètre doit être The Ramones::Blitzkrieg Bop::1976::Hey! Oh! Let's Go!")
@@ -84,10 +80,6 @@ class RichMediaSubclassTests: XCTestCase {
         XCTAssert(video.tracker.buffer.volatileParameters["m6"]!.values[0]() == "clip", "La valeur du paramètre doit être clip")
         i += 1
         
-        XCTAssert(video.tracker.buffer.volatileParameters["a"]!.key == "a", "Le paramètre doit être a")
-        XCTAssert(video.tracker.buffer.volatileParameters["a"]!.values[0]() == "play", "La valeur du paramètre doit être play")
-        i += 1
-        
         XCTAssert(video.tracker.buffer.volatileParameters["m5"]!.key == "m5", "Le paramètre doit être m5")
         XCTAssert(video.tracker.buffer.volatileParameters["m5"]!.values[0]() == "int", "La valeur du paramètre doit être int")
         i += 1
@@ -95,18 +87,7 @@ class RichMediaSubclassTests: XCTestCase {
         XCTAssert(video.tracker.buffer.volatileParameters["s2"]!.key == "s2", "Le paramètre doit être s2")
         XCTAssert(video.tracker.buffer.volatileParameters["s2"]!.values[0]() == "666", "La valeur du paramètre doit être 666")
         i += 1
-        
-        XCTAssert(video.tracker.buffer.volatileParameters["buf"]!.key == "buf", "Le paramètre doit être buf")
-        XCTAssert(video.tracker.buffer.volatileParameters["buf"]!.values[0]() == "0", "La valeur du paramètre doit être 0")
-        i += 1
-        
-        XCTAssert(video.tracker.buffer.volatileParameters["prich"]!.key == "prich", "Le paramètre doit être prich")
-        XCTAssert(video.tracker.buffer.volatileParameters["prich"]!.values[0]() == "rock", "La valeur du paramètre doit être rock")
-        i += 1
-        
-        XCTAssert(video.tracker.buffer.volatileParameters["s2rich"]!.key == "s2rich", "Le paramètre doit être s2rich")
-        XCTAssert(video.tracker.buffer.volatileParameters["s2rich"]!.values[0]() == "13", "La valeur du paramètre doit être 13")
-        i += 1
+
         
         XCTAssert(video.tracker.buffer.volatileParameters["m1"]!.key == "m1", "Le paramètre doit être m1")
         XCTAssert(video.tracker.buffer.volatileParameters["m1"]!.values[0]() == "7", "La valeur du paramètre doit être 0")
@@ -119,7 +100,6 @@ class RichMediaSubclassTests: XCTestCase {
     func testSetLiveVideo() {
         let video: LiveVideo = LiveVideo(player: mediaPlayer!)
         
-        video.isBuffering = false
         video.isEmbedded = false
         video.name = "Hey! Oh! Let's Go!"
         video.chapter1 = "The Ramones"
@@ -132,7 +112,7 @@ class RichMediaSubclassTests: XCTestCase {
         
         var i = 0
         
-        XCTAssertEqual(video.player.tracker.buffer.volatileParameters.count, 8, "Le nombre de paramètres volatiles doit être égal à 8")
+        XCTAssertEqual(video.player.tracker.buffer.volatileParameters.count, 6, "Le nombre de paramètres volatiles doit être égal à 6")
         
         XCTAssert(video.tracker.buffer.volatileParameters["p"]!.key == "p", "Le paramètre doit être p")
         XCTAssert(video.tracker.buffer.volatileParameters["p"]!.values[0]() == "The Ramones::Blitzkrieg Bop::1976::Hey! Oh! Let's Go!", "La valeur du paramètre doit être The Ramones::Blitzkrieg Bop::1976::Hey! Oh! Let's Go!")
@@ -146,20 +126,12 @@ class RichMediaSubclassTests: XCTestCase {
         XCTAssert(video.tracker.buffer.volatileParameters["m6"]!.values[0]() == "live", "La valeur du paramètre doit être live")
         i += 1
         
-        XCTAssert(video.tracker.buffer.volatileParameters["a"]!.key == "a", "Le paramètre doit être a")
-        XCTAssert(video.tracker.buffer.volatileParameters["a"]!.values[0]() == "play", "La valeur du paramètre doit être play")
-        i += 1
-        
         XCTAssert(video.tracker.buffer.volatileParameters["m5"]!.key == "m5", "Le paramètre doit être m5")
         XCTAssert(video.tracker.buffer.volatileParameters["m5"]!.values[0]() == "int", "La valeur du paramètre doit être int")
         i += 1
         
         XCTAssert(video.tracker.buffer.volatileParameters["s2"]!.key == "s2", "Le paramètre doit être s2")
         XCTAssert(video.tracker.buffer.volatileParameters["s2"]!.values[0]() == "666", "La valeur du paramètre doit être 666")
-        i += 1
-        
-        XCTAssert(video.tracker.buffer.volatileParameters["buf"]!.key == "buf", "Le paramètre doit être buf")
-        XCTAssert(video.tracker.buffer.volatileParameters["buf"]!.values[0]() == "0", "La valeur du paramètre doit être 0")
         i += 1
         
         XCTAssert(video.tracker.buffer.volatileParameters["type"]!.key == "type", "Le paramètre doit être type")
@@ -170,7 +142,6 @@ class RichMediaSubclassTests: XCTestCase {
     func testSetAudio() {
         let audio: Audio = Audio(player: mediaPlayer!)
         
-        audio.isBuffering = false
         audio.isEmbedded = false
         audio.name = "Hey! Oh! Let's Go!"
         audio.chapter1 = "The Ramones"
@@ -180,14 +151,11 @@ class RichMediaSubclassTests: XCTestCase {
         audio.refreshDuration = 10
         audio.duration = 7
         
-        TechnicalContext.screenName = "rock"
-        TechnicalContext.level2 = 13
-        
         audio.setEvent()
         
         var i = 0;
         
-        XCTAssertEqual(audio.player.tracker.buffer.volatileParameters.count, 11, "Le nombre de paramètres volatiles doit être égal à 11")
+        XCTAssertEqual(audio.player.tracker.buffer.volatileParameters.count, 7, "Le nombre de paramètres volatiles doit être égal à 7")
         
         XCTAssert(audio.tracker.buffer.volatileParameters["p"]!.key == "p", "Le paramètre doit être p")
         XCTAssert(audio.tracker.buffer.volatileParameters["p"]!.values[0]() == "The Ramones::Blitzkrieg Bop::1976::Hey! Oh! Let's Go!", "La valeur du paramètre doit être The Ramones::Blitzkrieg Bop::1976::Hey! Oh! Let's Go!")
@@ -201,28 +169,12 @@ class RichMediaSubclassTests: XCTestCase {
         XCTAssert(audio.tracker.buffer.volatileParameters["m6"]!.values[0]() == "clip", "La valeur du paramètre doit être clip")
         i += 1
         
-        XCTAssert(audio.tracker.buffer.volatileParameters["a"]!.key == "a", "Le paramètre doit être a")
-        XCTAssert(audio.tracker.buffer.volatileParameters["a"]!.values[0]() == "play", "La valeur du paramètre doit être play")
-        i += 1
-        
         XCTAssert(audio.tracker.buffer.volatileParameters["m5"]!.key == "m5", "Le paramètre doit être m5")
         XCTAssert(audio.tracker.buffer.volatileParameters["m5"]!.values[0]() == "int", "La valeur du paramètre doit être int")
         i += 1
         
         XCTAssert(audio.tracker.buffer.volatileParameters["s2"]!.key == "s2", "Le paramètre doit être s2")
         XCTAssert(audio.tracker.buffer.volatileParameters["s2"]!.values[0]() == "666", "La valeur du paramètre doit être 666")
-        i += 1
-        
-        XCTAssert(audio.tracker.buffer.volatileParameters["buf"]!.key == "buf", "Le paramètre doit être buf")
-        XCTAssert(audio.tracker.buffer.volatileParameters["buf"]!.values[0]() == "0", "La valeur du paramètre doit être 0")
-        i += 1
-        
-        XCTAssert(audio.tracker.buffer.volatileParameters["prich"]!.key == "prich", "Le paramètre doit être prich")
-        XCTAssert(audio.tracker.buffer.volatileParameters["prich"]!.values[0]() == "rock", "La valeur du paramètre doit être rock")
-        i += 1
-        
-        XCTAssert(audio.tracker.buffer.volatileParameters["s2rich"]!.key == "s2rich", "Le paramètre doit être s2rich")
-        XCTAssert(audio.tracker.buffer.volatileParameters["s2rich"]!.values[0]() == "13", "La valeur du paramètre doit être 13")
         i += 1
         
         XCTAssert(audio.tracker.buffer.volatileParameters["m1"]!.key == "m1", "Le paramètre doit être m1")
@@ -236,7 +188,6 @@ class RichMediaSubclassTests: XCTestCase {
     func testSetLiveAudio() {
         let audio: LiveAudio = LiveAudio(player: mediaPlayer!)
         
-        audio.isBuffering = false
         audio.isEmbedded = false
         audio.name = "Hey! Oh! Let's Go!"
         audio.chapter1 = "The Ramones"
@@ -249,7 +200,7 @@ class RichMediaSubclassTests: XCTestCase {
         
         var i = 0
         
-        XCTAssertEqual(audio.player.tracker.buffer.volatileParameters.count, 8, "Le nombre de paramètres volatiles doit être égal à 8")
+        XCTAssertEqual(audio.player.tracker.buffer.volatileParameters.count, 6, "Le nombre de paramètres volatiles doit être égal à 6")
         
         XCTAssert(audio.tracker.buffer.volatileParameters["p"]!.key == "p", "Le paramètre doit être p")
         XCTAssert(audio.tracker.buffer.volatileParameters["p"]!.values[0]() == "The Ramones::Blitzkrieg Bop::1976::Hey! Oh! Let's Go!", "La valeur du paramètre doit être The Ramones::Blitzkrieg Bop::1976::Hey! Oh! Let's Go!")
@@ -263,10 +214,6 @@ class RichMediaSubclassTests: XCTestCase {
         XCTAssert(audio.tracker.buffer.volatileParameters["m6"]!.values[0]() == "live", "La valeur du paramètre doit être live")
         i += 1
         
-        XCTAssert(audio.tracker.buffer.volatileParameters["a"]!.key == "a", "Le paramètre doit être a")
-        XCTAssert(audio.tracker.buffer.volatileParameters["a"]!.values[0]() == "play", "La valeur du paramètre doit être play")
-        i += 1
-        
         XCTAssert(audio.tracker.buffer.volatileParameters["m5"]!.key == "m5", "Le paramètre doit être m5")
         XCTAssert(audio.tracker.buffer.volatileParameters["m5"]!.values[0]() == "int", "La valeur du paramètre doit être int")
         i += 1
@@ -275,11 +222,96 @@ class RichMediaSubclassTests: XCTestCase {
         XCTAssert(audio.tracker.buffer.volatileParameters["s2"]!.values[0]() == "666", "La valeur du paramètre doit être 666")
         i += 1
         
-        XCTAssert(audio.tracker.buffer.volatileParameters["buf"]!.key == "buf", "Le paramètre doit être buf")
-        XCTAssert(audio.tracker.buffer.volatileParameters["buf"]!.values[0]() == "0", "La valeur du paramètre doit être 0")
-        i += 1
-        
         XCTAssert(audio.tracker.buffer.volatileParameters["type"]!.key == "type", "Le paramètre doit être type")
         XCTAssert(audio.tracker.buffer.volatileParameters["type"]!.values[0]() == "audio", "La valeur du paramètre doit être audio")
+    }
+    
+    func testSetMedium() {
+        let medium: Medium = Medium(player: mediaPlayer!)
+        
+        medium.isEmbedded = false
+        medium.mediaLabel = "Hey! Oh! Let's Go!"
+        medium.mediaTheme1 = "The Ramones"
+        medium.mediaTheme2 = "Blitzkrieg Bop"
+        medium.mediaTheme3 = "1976"
+        medium.mediaLevel2 = 666
+        medium.refreshDuration = 10
+        medium.duration = 7
+        medium.type = "free"
+        
+        medium.setEvent()
+        
+        var i = 0;
+        
+        XCTAssertEqual(medium.player.tracker.buffer.volatileParameters.count, 7, "Le nombre de paramètres volatiles doit être égal à 7")
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["p"]!.key == "p", "Le paramètre doit être p")
+        XCTAssert(medium.tracker.buffer.volatileParameters["p"]!.values[0]() == "The Ramones::Blitzkrieg Bop::1976::Hey! Oh! Let's Go!", "La valeur du paramètre doit être The Ramones::Blitzkrieg Bop::1976::Hey! Oh! Let's Go!")
+        i += 1
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["plyr"]!.key == "plyr", "Le paramètre doit être plyr")
+        XCTAssert(medium.tracker.buffer.volatileParameters["plyr"]!.values[0]() == "1", "La valeur du paramètre doit être 1")
+        i += 1
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["m6"]!.key == "m6", "Le paramètre doit être m6")
+        XCTAssert(medium.tracker.buffer.volatileParameters["m6"]!.values[0]() == "clip", "La valeur du paramètre doit être clip")
+        i += 1
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["m5"]!.key == "m5", "Le paramètre doit être m5")
+        XCTAssert(medium.tracker.buffer.volatileParameters["m5"]!.values[0]() == "int", "La valeur du paramètre doit être int")
+        i += 1
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["s2"]!.key == "s2", "Le paramètre doit être s2")
+        XCTAssert(medium.tracker.buffer.volatileParameters["s2"]!.values[0]() == "666", "La valeur du paramètre doit être 666")
+        i += 1
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["m1"]!.key == "m1", "Le paramètre doit être m1")
+        XCTAssert(medium.tracker.buffer.volatileParameters["m1"]!.values[0]() == "7", "La valeur du paramètre doit être 0")
+        i += 1
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["type"]!.key == "type", "Le paramètre doit être type")
+        XCTAssert(medium.tracker.buffer.volatileParameters["type"]!.values[0]() == "free", "La valeur du paramètre doit être audio")
+    }
+    
+    func testSetLiveMedium() {
+        let medium: LiveMedium = LiveMedium(player: mediaPlayer!)
+        
+        medium.isEmbedded = false
+        medium.mediaLabel = "Hey! Oh! Let's Go!"
+        medium.mediaTheme1 = "The Ramones"
+        medium.mediaTheme2 = "Blitzkrieg Bop"
+        medium.mediaTheme3 = "1976"
+        medium.mediaLevel2 = 666
+        medium.refreshDuration = 10
+        medium.type = "free"
+        
+        medium.setEvent()
+        
+        var i = 0
+        
+        XCTAssertEqual(medium.player.tracker.buffer.volatileParameters.count, 6, "Le nombre de paramètres volatiles doit être égal à 6")
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["p"]!.key == "p", "Le paramètre doit être p")
+        XCTAssert(medium.tracker.buffer.volatileParameters["p"]!.values[0]() == "The Ramones::Blitzkrieg Bop::1976::Hey! Oh! Let's Go!", "La valeur du paramètre doit être The Ramones::Blitzkrieg Bop::1976::Hey! Oh! Let's Go!")
+        i += 1
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["plyr"]!.key == "plyr", "Le paramètre doit être plyr")
+        XCTAssert(medium.tracker.buffer.volatileParameters["plyr"]!.values[0]() == "1", "La valeur du paramètre doit être 1")
+        i += 1
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["m6"]!.key == "m6", "Le paramètre doit être m6")
+        XCTAssert(medium.tracker.buffer.volatileParameters["m6"]!.values[0]() == "live", "La valeur du paramètre doit être live")
+        i += 1
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["m5"]!.key == "m5", "Le paramètre doit être m5")
+        XCTAssert(medium.tracker.buffer.volatileParameters["m5"]!.values[0]() == "int", "La valeur du paramètre doit être int")
+        i += 1
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["s2"]!.key == "s2", "Le paramètre doit être s2")
+        XCTAssert(medium.tracker.buffer.volatileParameters["s2"]!.values[0]() == "666", "La valeur du paramètre doit être 666")
+        i += 1
+        
+        XCTAssert(medium.tracker.buffer.volatileParameters["type"]!.key == "type", "Le paramètre doit être type")
+        XCTAssert(medium.tracker.buffer.volatileParameters["type"]!.values[0]() == "free", "La valeur du paramètre doit être audio")
     }
 }

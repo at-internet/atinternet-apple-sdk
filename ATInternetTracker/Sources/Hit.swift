@@ -218,7 +218,9 @@ class ProcessedHitType: NSObject {
         }
         
         if let type = params["type"] {
-            hitType = ProcessedHitType.list[type.values[0]()]!
+            if let result = ProcessedHitType.list[type.values[0]()] {
+                hitType = result
+            }
         }
         
         return hitType
