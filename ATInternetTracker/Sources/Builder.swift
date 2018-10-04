@@ -464,9 +464,9 @@ class Builder: Operation {
             
             var separator = p.options?.separator ?? ","
             if let opts = p.options, opts.encode == true {
-                strValue = strValue.percentEncodedString
                 separator = opts.separator.percentEncodedString
             }
+            strValue = strValue.percentEncodedString
             
             formattedParameters.append( (p.key, (self.makeSubQuery(p.key, value: strValue), separator)) )
         }
