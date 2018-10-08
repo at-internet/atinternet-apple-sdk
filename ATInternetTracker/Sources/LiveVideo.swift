@@ -36,16 +36,10 @@ import Foundation
 /// Wrapper class for Live Video tracking
 public class LiveVideo: RichMedia {
    
-    /// Media type
-    let type: String = "video"
-    
-    /// Set parameters in buffer
-    override func setEvent() {
-        super.broadcastMode = .live
-        
-        super.setEvent()
-        
-        _ = self.tracker.setParam("type", value: type)
+    override init(player: MediaPlayer) {
+        super.init(player: player)
+        broadcastMode = BroadcastMode.live
+        type = "video"
     }
     
 }
@@ -93,18 +87,7 @@ public class LiveVideos: NSObject {
     /// - Returns: a new live video instance
     @available(*, deprecated, renamed: "add(mediaLabel:mediaTheme1:)")
     @objc public func add(_ name: String, chapter1: String) -> LiveVideo {
-        if let video = self.list[name] {
-            self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
-            return video
-        } else {
-            let video = LiveVideo(player: player)
-            video.mediaLabel = name
-            video.mediaTheme1 = chapter1
-            
-            self.list[name] = video
-            
-            return video
-        }
+        return add(name, mediaTheme1: chapter1)
     }
     
     /// Add a new live video
@@ -114,18 +97,9 @@ public class LiveVideos: NSObject {
     ///   - mediaTheme1: chapter1 label
     /// - Returns: a new live video instance
     @objc public func add(_ mediaLabel: String, mediaTheme1: String) -> LiveVideo {
-        if let video = self.list[mediaLabel] {
-            self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
-            return video
-        } else {
-            let video = LiveVideo(player: player)
-            video.mediaLabel = mediaLabel
-            video.mediaTheme1 = mediaTheme1
-            
-            self.list[mediaLabel] = video
-            
-            return video
-        }
+        let liveVideo = add(mediaLabel)
+        liveVideo.mediaTheme1 = mediaTheme1
+        return liveVideo
     }
     
     /// Add a new live video
@@ -137,19 +111,7 @@ public class LiveVideos: NSObject {
     /// - Returns: the new live video instance
     @available(*, deprecated, renamed: "add(mediaLabel:mediaTheme1:mediaTheme2:)")
     @objc public func add(_ name: String, chapter1: String, chapter2: String) -> LiveVideo {
-        if let video = self.list[name] {
-            self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
-            return video
-        } else {
-            let video = LiveVideo(player: player)
-            video.mediaLabel = name
-            video.mediaTheme1 = chapter1
-            video.mediaTheme2 = chapter2
-            
-            self.list[name] = video
-            
-            return video
-        }
+        return add(name, mediaTheme1: chapter1, mediaTheme2: chapter2)
     }
     
     /// Add a new live video
@@ -160,19 +122,9 @@ public class LiveVideos: NSObject {
     ///   - mediaTheme2: chapter2 label
     /// - Returns: the new live video instance
     @objc public func add(_ mediaLabel: String, mediaTheme1: String, mediaTheme2: String) -> LiveVideo {
-        if let video = self.list[mediaLabel] {
-            self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
-            return video
-        } else {
-            let video = LiveVideo(player: player)
-            video.mediaLabel = mediaLabel
-            video.mediaTheme1 = mediaTheme1
-            video.mediaTheme2 = mediaTheme2
-            
-            self.list[mediaLabel] = video
-            
-            return video
-        }
+        let liveVideo = add(mediaLabel, mediaTheme1: mediaTheme1)
+        liveVideo.mediaTheme2 = mediaTheme2
+        return liveVideo
     }
 
     /// Add a new live video
@@ -185,20 +137,7 @@ public class LiveVideos: NSObject {
     /// - Returns: a new live video instance
     @available(*, deprecated, renamed: "add(mediaLabel:mediaTheme1:mediaTheme2:mediaTheme3:)")
     @objc public func add(_ name: String, chapter1: String, chapter2: String, chapter3: String) -> LiveVideo {
-        if let video = self.list[name] {
-            self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
-            return video
-        } else {
-            let video = LiveVideo(player: player)
-            video.mediaLabel = name
-            video.mediaTheme1 = chapter1
-            video.mediaTheme2 = chapter2
-            video.mediaTheme3 = chapter3
-            
-            self.list[name] = video
-            
-            return video
-        }
+        return add(name, mediaTheme1: chapter1, mediaTheme2: chapter2, mediaTheme3: chapter3)
     }
     
     /// Add a new live video
@@ -210,20 +149,9 @@ public class LiveVideos: NSObject {
     ///   - mediaTheme3: chapter3 label
     /// - Returns: a new live video instance
     @objc public func add(_ mediaLabel: String, mediaTheme1: String, mediaTheme2: String, mediaTheme3: String) -> LiveVideo {
-        if let video = self.list[mediaLabel] {
-            self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
-            return video
-        } else {
-            let video = LiveVideo(player: player)
-            video.mediaLabel = mediaLabel
-            video.mediaTheme1 = mediaTheme1
-            video.mediaTheme2 = mediaTheme2
-            video.mediaTheme3 = mediaTheme3
-            
-            self.list[mediaLabel] = video
-            
-            return video
-        }
+        let liveVideo = add(mediaLabel, mediaTheme1: mediaTheme1, mediaTheme2: mediaTheme2)
+        liveVideo.mediaTheme3 = mediaTheme3
+        return liveVideo
     }
     
     /**

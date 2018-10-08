@@ -53,6 +53,12 @@ public class MediaPlayer: NSObject {
     /// List of live audios attached to this player
     @objc public lazy var liveAudios: LiveAudios = LiveAudios(player: self)
     
+    /// List of medias attached to this player
+    @objc public lazy var media: Media = Media(player: self)
+    
+    /// List of medias attached to this player
+    @objc public lazy var liveMedia: LiveMedia = LiveMedia(player: self)
+    
     /**
     Players initializer
     - parameter tracker: the tracker instance
@@ -172,6 +178,22 @@ public class MediaPlayers: NSObject {
             if let timer = liveAudio.timer {
                 if (timer.isValid) {
                     liveAudio.sendStop()
+                }
+            }
+        }
+        
+        for (media) in (player.media.list.values) {
+            if let timer = media.timer {
+                if (timer.isValid) {
+                    media.sendStop()
+                }
+            }
+        }
+        
+        for (liveMedia) in (player.liveMedia.list.values) {
+            if let timer = liveMedia.timer {
+                if (timer.isValid) {
+                    liveMedia.sendStop()
                 }
             }
         }
