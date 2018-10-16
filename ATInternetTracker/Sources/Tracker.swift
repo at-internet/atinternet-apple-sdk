@@ -1279,7 +1279,7 @@ public class Tracker: NSObject {
             
             // Order object by timestamp
             let sortedObjects = businessObjects.sorted {
-                a, b in return a.1.timeStamp  < b.1.timeStamp
+                a, b in return a.1.timeStamp < b.1.timeStamp
             }
             
             for(_, object) in sortedObjects {

@@ -41,7 +41,7 @@ public class Cart: BusinessObject {
     @objc public lazy var products: Products = Products(cart: self)
     
     /// Product list
-    lazy var productList: [String: Product] = [String: Product]()
+    lazy var productList: [Product] = [Product]()
     
     /// Set a cart
     ///
@@ -71,38 +71,35 @@ public class Cart: BusinessObject {
     /// Set parameters in buffer
     override func setEvent() {
         _ = tracker.setParam("idcart", value: cartId)
-                
-        var i = 1
+        
         let encodingOption = ParamOption()
         encodingOption.encode = true
-        for(_, product) in productList {
-            _ = tracker.setParam("pdt" + String(i), value: product.buildProductName(), options:encodingOption)
+        for(i, product) in productList.enumerated() {
+            _ = tracker.setParam("pdt" + String(i+1), value: product.buildProductName(), options:encodingOption)
             
             if product.quantity != -1 {
-                _ = tracker.setParam("qte" + String(i), value: product.quantity)
+                _ = tracker.setParam("qte" + String(i+1), value: product.quantity)
             }
             
             if product.unitPriceTaxFree != -1 {
-                _ = tracker.setParam("mtht" + String(i), value: product.unitPriceTaxFree)
+                _ = tracker.setParam("mtht" + String(i+1), value: product.unitPriceTaxFree)
             }
             
             if product.unitPriceTaxIncluded != -1 {
-                _ = tracker.setParam("mt" + String(i), value: product.unitPriceTaxIncluded)
+                _ = tracker.setParam("mt" + String(i+1), value: product.unitPriceTaxIncluded)
             }
             
             if product.discountTaxFree != -1 {
-                _ = tracker.setParam("dscht" + String(i), value: product.discountTaxFree)
+                _ = tracker.setParam("dscht" + String(i+1), value: product.discountTaxFree)
             }
             
             if product.discountTaxIncluded != -1 {
-                _ = tracker.setParam("dsc" + String(i), value: product.discountTaxIncluded)
+                _ = tracker.setParam("dsc" + String(i+1), value: product.discountTaxIncluded)
             }
             
             if let optPromotionalCode = product.promotionalCode {
-                _ = tracker.setParam("pcode" + String(i), value: optPromotionalCode, options:encodingOption)
+                _ = tracker.setParam("pcode" + String(i+1), value: optPromotionalCode, options:encodingOption)
             }
-            
-            i += 1
         }
     }
 }

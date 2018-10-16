@@ -359,11 +359,11 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         
         var strings = builder.prepareQuery()
         
-        XCTAssert(strings[0].value.0 == "&p=home", "le premier paramètre doit être égal à &p=home")
-        XCTAssert(lookupParam(key: "stc", params: strings).value.0 == "&stc=chou,patate,carotte", "le second paramètre doit être égal à &stc=chou,patate,carotte")
-        XCTAssert(lookupParam(key: "dslu", params: strings).value.0 == "&dslu=10", "le paramètre dslu doit être égal à &dslu=10")
-        XCTAssert(lookupParam(key: "crash", params: strings).value.0 == "&crash=false", "le paramètre crash doit être égal à &crash=false")
-        XCTAssert(strings.last?.value.0 == "&ref=www.atinternet.com?test1=1$test2=2$test3=script/script", "le paramètre ref doit être égal à &ref=www.atinternet.com et doit être le dernier paramètre")
+        XCTAssert(strings["p"]?.0 == "&p=home", "le premier paramètre doit être égal à &p=home")
+        XCTAssert(strings["stc"]?.0 == "&stc=chou,patate,carotte", "le second paramètre doit être égal à &stc=chou,patate,carotte")
+        XCTAssert(strings["dslu"]?.0 == "&dslu=10", "le paramètre dslu doit être égal à &dslu=10")
+        XCTAssert(strings["crash"]?.0 == "&crash=false", "le paramètre crash doit être égal à &crash=false")
+        XCTAssert(strings["ref"]?.0 == "&ref=www.atinternet.com?test1=1$test2=2$test3=script/script", "le paramètre ref doit être égal à &ref=www.atinternet.com et doit être le dernier paramètre")
     }
     
     // Teste le formattage de paramètres permanents
@@ -388,11 +388,11 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         
         var strings = builder.prepareQuery()
         
-        XCTAssert(lookupParam(key: "p", params: strings).value.0 == "&p=home", "le premier paramètre doit être égal à &p=home")
-        XCTAssert(lookupParam(key: "stc", params: strings).value.0 == "&stc=chou,patate,carotte", "le second paramètre doit être égal à &stc=chou,patate,carotte")
-        XCTAssert(lookupParam(key: "dslu", params: strings).value.0 == "&dslu=10", "le paramètre dslu doit être égal à &dslu=10")
-        XCTAssert(lookupParam(key: "crash", params: strings).value.0 == "&crash=false", "le paramètre crash doit être égal à &crash=false")
-        XCTAssert(strings.last?.value.0 == "&ref=www.atinternet.com?test1=1$test2=2$test3=script/script", "le paramètre ref doit être égal à &ref=www.atinternet.com et doit être le dernier paramètre")
+        XCTAssert(strings["p"]?.0 == "&p=home", "le premier paramètre doit être égal à &p=home")
+        XCTAssert(strings["stc"]?.0 == "&stc=chou,patate,carotte", "le second paramètre doit être égal à &stc=chou,patate,carotte")
+        XCTAssert(strings["dslu"]?.0 == "&dslu=10", "le paramètre dslu doit être égal à &dslu=10")
+        XCTAssert(strings["crash"]?.0 == "&crash=false", "le paramètre crash doit être égal à &crash=false")
+        XCTAssert(strings["ref"]?.0 == "&ref=www.atinternet.com?test1=1$test2=2$test3=script/script", "le paramètre ref doit être égal à &ref=www.atinternet.com et doit être le dernier paramètre")
     }
     
     // Teste le formattage de paramètres volatiles et persistents
@@ -417,11 +417,11 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         
         var strings = builder.prepareQuery()
         
-        XCTAssert(lookupParam(key: "p", params: strings).value.0 == "&p=home", "le premier paramètre doit être égal à &p=home")
-        XCTAssert(lookupParam(key: "stc", params: strings).value.0 == "&stc=chou,patate,carotte", "le second paramètre doit être égal à &stc=chou,patate,carotte")
-        XCTAssert(lookupParam(key: "dslu", params: strings).value.0 == "&dslu=10", "le paramètre dslu doit être égal à &dslu=10")
-        XCTAssert(lookupParam(key: "crash", params: strings).value.0 == "&crash=false", "le paramètre crash doit être égal à &crash=false")
-        XCTAssert(strings.last?.value.0 == "&ref=www.atinternet.com?test1=1$test2=2$test3=script/script", "le paramètre ref doit être égal à &ref=www.atinternet.com et doit être le dernier paramètre")
+        XCTAssert(strings["p"]?.0 == "&p=home", "le premier paramètre doit être égal à &p=home")
+        XCTAssert(strings["stc"]?.0 == "&stc=chou,patate,carotte", "le second paramètre doit être égal à &stc=chou,patate,carotte")
+        XCTAssert(strings["dslu"]?.0 == "&dslu=10", "le paramètre dslu doit être égal à &dslu=10")
+        XCTAssert(strings["crash"]?.0 == "&crash=false", "le paramètre crash doit être égal à &crash=false")
+        XCTAssert(strings["ref"]?.0 == "&ref=www.atinternet.com?test1=1$test2=2$test3=script/script", "le paramètre ref doit être égal à &ref=www.atinternet.com et doit être le dernier paramètre")
     }
     
     func testOrganizeParameters() {

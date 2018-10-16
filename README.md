@@ -25,9 +25,6 @@ Supported devices :
 * Static framework support added for Cocoapods. It works well for Swift Apps but the ObjC integration seems unstable.
 * GDPR : _ATInternet.OptOut_ , _ATInternet.preventICloudSync_ , _ATInternet.databasePath_
 
-# SmartTracker iOS
-SmartTracker makes it quick and easy to track your mobile app performance. Using a single line of code, tag your app just by navigating through its content in our simple tagging interface available at [livetagging.atinternet-solutions.com]. Update and correct your tags in just minutes, and your changes will be pushed to users’ phones in real time: You’ll no longer need to resubmit to app stores and hope users update each time you edit your tagging. The feature is still experimental, if you need any help don't hesitate to submit an issue.
-
 ### Integration
 Find the integration information by following [this link]
 
@@ -61,14 +58,7 @@ pod "ATInternet-Apple-SDK/watchOSTracker",">=2.0"
 use_frameworks!
 end
 ```
-  - SmartTracker (iOS only) : 
 
-```ruby
-target 'MyProject' do
-pod "ATInternet-Apple-SDK/SmartTracker",">=2.0"
-use_frameworks!
-end
-```
 
   - App Extension : 
 
@@ -103,34 +93,9 @@ tracker.setLog("logp", sync: true, completionHandler: nil) // required
 // tracker.delegate = trackerDelegate // verbose mode
 tracker.screens.add().sendView() // send a screen hit
 ```
-### SmartTracker / LiveTagging
-```swift
-// AppDelegate.swift
-import Tracker
-
-let tracker: AutoTracker = ATInternet.sharedInstance.defaultTracker
-tracker.setSiteId(410501, sync: true, completionHandler: nil)
-tracker.setLog("logp", sync: true, completionHandler: nil)
-tracker.token = "xxx-xxx-xxx"
-tracker.enableLiveTagging = true // Allow you to pair with the LiveTagging interface
-    
-```
-### SmartTracker / AutoTracker
-```swift
-// AppDelegate.swift
-import Tracker
-
-let tracker: AutoTracker = ATInternet.sharedInstance.defaultTracker
-tracker.setSiteId(410501, sync: true, completionHandler: nil)
-tracker.setLog("logp", sync: true, completionHandler: nil)
-tracker.token = "xxx-xxx-xxx"
-tracker.enableAutoTracking = true // start sending hit automatically
-```
 
 ### License
 MIT
 
-   [this link]: <https://developers.atinternet-solutions.com/apple-universal-en/enabling-and-using-automatic-tracking-apple-universal-en/>
    [documentation page]: <https://developers.atinternet-solutions.com/apple-universal-en/getting-started-apple-universal-en/integration-of-the-swift-library-apple-universal-en/>
-   [livetagging.atinternet-solutions.com]: <https://livetagging.atinternet-solutions.com/>
    [here]: <https://developers.atinternet-solutions.com/apple-universal-fr/contenus-de-lapplication-apple-universal-fr/rich-media-apple-universal-fr/#refresh-dynamique-2-9_3/>

@@ -104,9 +104,9 @@ class PublisherTests: XCTestCase {
         XCTAssert(publisher.tracker.buffer.volatileParameters["ati"]?.values[1]() == "PUB-2-creation-variante-format-quelquePart-enBasAGauche-advId-atinternet", "La valeur du 3ème paramètre doit être PUB-2-creation-variante-format-quelquePart-enBasAGauche-advId-atinternet")
         
         let builder = Builder(tracker: publisher.tracker)
-        let param: [ (key: String, value: (String, String)) ] = builder.prepareQuery()
+        let params: [String : (String, String)] = builder.prepareQuery()
         
-        XCTAssertTrue(lookupParam(key: "ati", params: param).value.0 == "&ati=" + "PUB%2D1%2D%2D%2D%2D%2D%2D%2D%2CPUB%2D2%2Dcreation%2Dvariante%2Dformat%2DquelquePart%2DenBasAGauche%2DadvId%2Datinternet")
+        XCTAssertTrue(params["ati"]?.0 == "&ati=" + "PUB%2D1%2D%2D%2D%2D%2D%2D%2D%2CPUB%2D2%2Dcreation%2Dvariante%2Dformat%2DquelquePart%2DenBasAGauche%2DadvId%2Datinternet")
     }
     
     func testSetScreenWithPublisherView() {
