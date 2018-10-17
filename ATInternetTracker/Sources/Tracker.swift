@@ -1429,6 +1429,13 @@ public class Tracker: NSObject {
         handleNotStringParameterSetting(HitParam.userID.rawValue, value: userId, options: param)
     }
     
+    /// Get lifecycle metrics
+    ///
+    /// - Returns: the map which contains lifecycle metrics computed by the SDK
+    @objc public func getLifecycleMetrics() -> [String : Any] {
+        return LifeCycle.getMetricsMap()
+    }
+    
     // MARK: - Do not track
     
     
