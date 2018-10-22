@@ -121,9 +121,24 @@ class Dispatcher: NSObject {
             _ = self.tracker.setParam(HitParam.json.rawValue, value: optReport, options: appendOptionWithEncoding)
         }
         
-        // Add persistent identified visitor data if required
         let userDefaults = UserDefaults.standard
         
+        if Hit.getHitType(tracker.buffer.volatileParameters, tracker.buffer.persistentParameters) == Hit.HitType.screen {
+            if let campaignAdded = userDefaults.value(forKey: CampaignKeys.ATCampaignAdded.rawValue) as? Bool {
+                if !campaignAdded{
+                    if let remanentCampaign = userDefaults.value(forKey: CampaignKeys.ATCampaign.rawValue) as? String {
+                        let encodingOption = ParamOption()
+                        encodingOption.encode = true
+                        _ = self.tracker.setParam("xtor", value: remanentCampaign, options:encodingOption)
+                        
+                        userDefaults.setValue(true, forKey: CampaignKeys.ATCampaignAdded.rawValue)
+                        userDefaults.synchronize()
+                    }
+                }
+            }
+        }
+        
+        // Add persistent identified visitor data if required
         if let conf = self.tracker.configuration.parameters[IdentifiedVisitorHelperKey.configuration.rawValue] {
             if conf == "true" {
                 if let num = userDefaults.object(forKey: IdentifiedVisitorHelperKey.numeric.rawValue) as? String {

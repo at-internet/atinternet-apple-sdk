@@ -649,6 +649,10 @@ public class Tracker: NSObject {
             
             LifeCycle.applicationActive(self.configuration.parameters)
         }
+        
+        let ud = UserDefaults.standard
+        ud.setValue(false, forKey: CampaignKeys.ATCampaignAdded.rawValue)
+        ud.synchronize()
     }
     
     /**
