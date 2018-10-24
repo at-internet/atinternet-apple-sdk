@@ -39,7 +39,7 @@ class InternalSearchTests: XCTestCase {
     lazy var internalSearches: InternalSearches = InternalSearches(tracker: Tracker())
     
     func testSetInternalSearch() {
-        internalSearch.keyword = "watch"
+        internalSearch.keyword = "veryGoodSearch"
         internalSearch.resultScreenNumber = 3
         internalSearch.resultPosition = 1
         internalSearch.setEvent()
@@ -47,7 +47,7 @@ class InternalSearchTests: XCTestCase {
         XCTAssertEqual(internalSearch.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
         
         XCTAssert(internalSearch.tracker.buffer.volatileParameters["mc"]?.key == "mc", "Le premier paramètre doit être mc")
-        XCTAssert(internalSearch.tracker.buffer.volatileParameters["mc"]?.values[0]() == "watch", "La valeur du premier paramètre doit être watch")
+        XCTAssert(internalSearch.tracker.buffer.volatileParameters["mc"]?.values[0]() == "veryGoodSearch", "La valeur du premier paramètre doit être veryGoodSearch")
         
         XCTAssert(internalSearch.tracker.buffer.volatileParameters["np"]?.key == "np", "Le premier paramètre doit être np")
         XCTAssert(internalSearch.tracker.buffer.volatileParameters["np"]?.values[0]() == "3", "La valeur du deuxième paramètre doit être 3")

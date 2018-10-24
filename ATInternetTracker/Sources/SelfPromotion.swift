@@ -239,8 +239,12 @@ public class SelfPromotions: NSObject {
             }
         }
         
-        if(impressions.count > 0) {
-            self.tracker.dispatcher.dispatch(impressions)
+        let sortedImpressions = impressions.sorted {
+            a, b in return a.timeStamp < b.timeStamp
+        }
+        
+        if(sortedImpressions.count > 0) {
+            self.tracker.dispatcher.dispatch(sortedImpressions)
         }
     }
 }

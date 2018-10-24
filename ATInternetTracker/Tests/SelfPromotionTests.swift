@@ -100,9 +100,9 @@ class SelfPromotionTests: XCTestCase {
         XCTAssert(selfPromo.tracker.buffer.volatileParameters["ati"]?.values[1]() == "INT-2-format||productId", "La valeur du 3ème paramètre doit être INT-2-format||productId")
         
         let builder = Builder(tracker: selfPromo.tracker)
-        let param: [ (key: String, value: (String, String)) ] = builder.prepareQuery()
+        let params: [String : (String, String)] = builder.prepareQuery()
         
-        XCTAssertTrue(lookupParam(key: "ati", params: param).value.0 == "&ati=" + "INT%2D1%2D%7C%7C%2CINT%2D2%2Dformat%7C%7CproductId")
+        XCTAssertTrue(params["ati"]?.0 == "&ati=" + "INT%2D1%2D%7C%7C%2CINT%2D2%2Dformat%7C%7CproductId")
     }
     
     func testSetScreenWithPublisherView() {

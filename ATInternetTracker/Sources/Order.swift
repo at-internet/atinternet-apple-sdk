@@ -101,7 +101,7 @@ public class Order: BusinessObject {
     @objc public convenience init(orderId: String, turnover: Double, status: Int) {
         self.init(orderId: orderId, turnover: turnover)
         
-        self.status = status
+        self._status = status
     }
     
     /// Set parameters in buffer
@@ -157,7 +157,7 @@ public class Order: BusinessObject {
         }
         
         for(_, customVar) in customVariables.list.enumerated() {
-            _ = tracker.setParam("O" + String(customVar.varId), value: customVar.value)
+            _ = tracker.setParam("o" + String(customVar.varId), value: customVar.value)
         }
         
         if let optPaymentMethod = _paymentMethod {

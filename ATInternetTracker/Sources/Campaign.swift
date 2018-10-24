@@ -35,6 +35,7 @@ import Foundation
 enum CampaignKeys: String, EnumCollection {
     case ATCampaign = "ATCampaign"
     case ATCampaignDate = "ATCampaignDate"
+    case ATCampaignAdded = "ATCampaignAdded"
 }
 
 /// Wrapper class for marketing campaign tracking
@@ -66,7 +67,6 @@ public class Campaign: ScreenInfo {
             
             if(nbDays > Int(tracker.configuration.parameters["campaignLifetime"]!)!) {
                 userDefaults.removeObject(forKey: CampaignKeys.ATCampaign.rawValue)
-                userDefaults.synchronize()
             } else {
                 let remanent = remanentCampaign
                 
@@ -75,16 +75,16 @@ public class Campaign: ScreenInfo {
         } else {
             userDefaults.set(Date(), forKey: CampaignKeys.ATCampaignDate.rawValue)
             userDefaults.setValue(campaignId, forKey: CampaignKeys.ATCampaign.rawValue)
-            userDefaults.synchronize()
         }
         
         _ = tracker.setParam("xto", value: campaignId, options: encodeOption)
+        userDefaults.setValue(true, forKey: CampaignKeys.ATCampaignAdded.rawValue)
         
         if(tracker.configuration.parameters["campaignLastPersistence"]?.lowercased() == "true") {
             userDefaults.set(Date(), forKey: CampaignKeys.ATCampaignDate.rawValue)
             userDefaults.setValue(campaignId, forKey: CampaignKeys.ATCampaign.rawValue)
-            userDefaults.synchronize()
         }
+        userDefaults.synchronize()
     }
 }
 
