@@ -52,9 +52,9 @@ class GestureTests: XCTestCase {
     
     func testSetGesture() {
         gesture.name = "Back"
-        gesture.setEvent()
+        gesture.setParams()
         
-        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 5, "Le nombre de paramètres volatiles doit être égal à 5")
+        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["click"]!.key == "click", "Le premier paramètre doit être click")
         XCTAssert(gesture.tracker.buffer.volatileParameters["click"]!.values[0]() == "A", "La valeur du premier paramètre doit être A")
@@ -62,16 +62,13 @@ class GestureTests: XCTestCase {
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.key == "type", "Le second paramètre doit être type")
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.values[0]() == "click", "La valeur du second paramètre doit être click")
         
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.key == "action", "Le troisième paramètre doit être action")
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.values[0]() == "A", "La valeur du troisième paramètre doit être A")
-        
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.key == "p", "Le 4ème paramètre doit être p")
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.values[0]() == "Back", "La valeur du 4ème paramètre doit être Back")
     }
     
     func testSetGestureWithNameAndChapter() {
         gesture = gestures.add("Back", chapter1: "Sport")
-        gesture.setEvent()
+        gesture.setParams()
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.key == "p", "Le 4ème paramètre doit être p")
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.values[0]() == "Sport::Back", "La valeur du 4ème paramètre doit être Sport::Basket")
@@ -80,18 +77,16 @@ class GestureTests: XCTestCase {
     func testSetNavigation() {
         gesture.name = "Back"
         gesture.action = Gesture.GestureAction.navigate
-        gesture.setEvent()
+        gesture.setParams()
         
-        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 5, "Le nombre de paramètres volatiles doit être égal à 5")
+        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["click"]!.key == "click", "Le premier paramètre doit être click")
         XCTAssert(gesture.tracker.buffer.volatileParameters["click"]!.values[0]() == "N", "La valeur du premier paramètre doit être N")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.key == "type", "Le second paramètre doit être type")
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.values[0]() == "click", "La valeur du second paramètre doit être click")
-        
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.key == "action", "Le troisième paramètre doit être action")
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.values[0]() == "N", "La valeur du troisième paramètre doit être N")
+
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.key == "p", "Le 4ème paramètre doit être p")
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.values[0]() == "Back", "La valeur du 4ème paramètre doit être Back")
@@ -100,18 +95,15 @@ class GestureTests: XCTestCase {
     func testSetDownload() {
         gesture.name = "Download"
         gesture.action = Gesture.GestureAction.download
-        gesture.setEvent()
+        gesture.setParams()
         
-        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 5, "Le nombre de paramètres volatiles doit être égal à 5")
+        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["click"]!.key == "click", "Le premier paramètre doit être click")
         XCTAssert(gesture.tracker.buffer.volatileParameters["click"]!.values[0]() == "T", "La valeur du premier paramètre doit être T")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.key == "type", "Le second paramètre doit être type")
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.values[0]() == "click", "La valeur du second paramètre doit être click")
-        
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.key == "action", "Le troisième paramètre doit être action")
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.values[0]() == "T", "La valeur du troisième paramètre doit être T")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.key == "p", "Le 4ème paramètre doit être p")
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.values[0]() == "Download", "La valeur du 4ème paramètre doit être Download")
@@ -120,18 +112,15 @@ class GestureTests: XCTestCase {
     func testSetTouch() {
         gesture.name = "Touch"
         gesture.action = Gesture.GestureAction.touch
-        gesture.setEvent()
+        gesture.setParams()
         
-        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 5, "Le nombre de paramètres volatiles doit être égal à 5")
+        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["click"]!.key == "click", "Le premier paramètre doit être click")
         XCTAssert(gesture.tracker.buffer.volatileParameters["click"]!.values[0]() == "A", "La valeur du premier paramètre doit être A")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.key == "type", "Le second paramètre doit être type")
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.values[0]() == "click", "La valeur du second paramètre doit être click")
-        
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.key == "action", "Le troisième paramètre doit être action")
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.values[0]() == "A", "La valeur du troisième paramètre doit être A")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.key == "p", "Le 4ème paramètre doit être p")
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.values[0]() == "Touch", "La valeur du 4ème paramètre doit être Touch")
@@ -142,9 +131,9 @@ class GestureTests: XCTestCase {
         gesture.action = Gesture.GestureAction.search
         gesture.internalSearch = InternalSearch(keyword: "test", resultScreenNumber: 1)
         gesture.internalSearch?.resultPosition = 4
-        gesture.setEvent()
+        gesture.setParams()
         
-        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 8, "Le nombre de paramètres volatiles doit être égal à 8")
+        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 6, "Le nombre de paramètres volatiles doit être égal à 6")
         print(gesture.tracker.buffer.volatileParameters)
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["mc"]!.key == "mc", "Le premier paramètre doit être mc (mot clef)")
@@ -162,9 +151,6 @@ class GestureTests: XCTestCase {
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.key == "type", "Le second paramètre doit être type")
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.values[0]() == "click", "La valeur du second paramètre doit être click")
         
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.key == "action", "Le troisième paramètre doit être action")
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.values[0]() == "IS", "La valeur du troisième paramètre doit être IS")
-        
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.key == "p", "Le 4ème paramètre doit être p")
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.values[0]() == "Search", "La valeur du 4ème paramètre doit être Search")
     }
@@ -173,18 +159,15 @@ class GestureTests: XCTestCase {
     func testSetExit() {
         gesture.name = "Exit"
         gesture.action = Gesture.GestureAction.exit
-        gesture.setEvent()
+        gesture.setParams()
         
-        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 5, "Le nombre de paramètres volatiles doit être égal à 5")
+        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["click"]!.key == "click", "Le premier paramètre doit être click")
         XCTAssert(gesture.tracker.buffer.volatileParameters["click"]!.values[0]() == "S", "La valeur du premier paramètre doit être S")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.key == "type", "Le second paramètre doit être type")
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.values[0]() == "click", "La valeur du second paramètre doit être click")
-        
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.key == "action", "Le troisième paramètre doit être action")
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.values[0]() == "S", "La valeur du troisième paramètre doit être S")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.key == "p", "Le 4ème paramètre doit être p")
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.values[0]() == "Exit", "La valeur du 4ème paramètre doit être Exit")
@@ -214,9 +197,9 @@ class GestureTests: XCTestCase {
         
         gesture.name = "Touch"
         gesture.action = Gesture.GestureAction.touch
-        gesture.setEvent()
+        gesture.setParams()
         
-        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 7, "Le nombre de paramètres volatiles doit être égal à 7")
+        XCTAssertEqual(gesture.tracker.buffer.volatileParameters.count, 5, "Le nombre de paramètres volatiles doit être égal à 5")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["pclick"]!.key == "pclick", "Le premier paramètre doit être pclick")
         XCTAssert(gesture.tracker.buffer.volatileParameters["pclick"]!.values[0]() == "Home", "La valeur du premier paramètre doit être Home")
@@ -229,9 +212,6 @@ class GestureTests: XCTestCase {
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.key == "type", "Le 4ème paramètre doit être type")
         XCTAssert(gesture.tracker.buffer.volatileParameters["type"]!.values[0]() == "click", "La valeur du 4ème paramètre doit être click")
-        
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.key == "action", "Le 5ème paramètre doit être action")
-        XCTAssert(gesture.tracker.buffer.volatileParameters["action"]!.values[0]() == "A", "La valeur du 5ème paramètre doit être A")
         
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.key == "p", "Le 6ème paramètre doit être p")
         XCTAssert(gesture.tracker.buffer.volatileParameters["p"]!.values[0]() == "Touch", "La valeur du 6ème paramètre doit être Touch")

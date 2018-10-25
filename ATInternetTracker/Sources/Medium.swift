@@ -40,8 +40,8 @@ public class Medium: RichMedia {
         broadcastMode = BroadcastMode.clip
     }
     
-    override func setEvent() {
-        super.setEvent()
+    override func setParams() {
+        super.setParams()
         
         if (self.duration > 86400) {
             self.duration = 86400

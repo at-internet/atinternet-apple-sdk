@@ -32,56 +32,113 @@ SOFTWARE.
 
 import Foundation
 
-class Event: NSObject {
-    /// Tracker instance
-    var tracker: Tracker
+public class Event: NSObject {
     
-    /**
-    Event initializer
-    - parameter tracker: the tracker instance
-    - returns: Event instance
-    */
-    init(tracker: Tracker) {
-        self.tracker = tracker;
+    var dataObjectList = [[String : Any]]()
+    
+    @objc public var action: String
+    
+    init(action: String) {
+        self.action = action
     }
+    
+    public func setDataObject(dataObject: [String : Any]) -> Event {
+        self.dataObjectList.removeAll()
+        self.dataObjectList.append(dataObject)
+        
+        return self
+    }
+}
 
+public class Events: BusinessObject {
+    var singleEvent: Event? = nil
+    var eventLists: [Event] = [Event]()
     
-    //MARK: Generic event tracking
-    
-    /**
-    Set a generic event
-    
-    - parameter a: category of event
-    - parameter type: of action
-    - parameter label: of the event
-    */
-    func set(_ category: String, action: String, label: String) -> Tracker {
-        _ = self.set(category, action: action, label: label, value: "{}")
+    func sendSingle(event: Event){
+        self.singleEvent = event
+        self.tracker.dispatcher.dispatch([self])
         
-        return self.tracker
+        /// Reinsertion de l'instance dans les business objects si la liste des events a envoyer n'est pas vide pour le dispatch
+        if self.eventLists.count > 0 {
+            self.tracker.businessObjects[id] = self
+        }
     }
     
     /**
-    Set a generic event
+     Add an event
+     - parameter action: event action label
+     - parameter data: event data content
+     - returns: a new Event
+     */
+    public func add(action: String, data: [String : Any]) -> Event {
+        var array = [[String : Any]]()
+        array.append(data)
+        return add(action: action, dataObjectsList: array)
+    }
     
-    - parameter a: category of event
-    - parameter type: of action
-    - parameter label: of the event
-    - parameter an: optional json value
-    */
-    func set(_ category: String, action: String, label: String, value: String) -> Tracker {
-        let encodingOption = ParamOption()
-        encodingOption.encode = true
+    /**
+     Add an event
+     - parameter action: event action label
+     - parameter dataObjectsList: event data content list
+     - returns: a new Event
+     */
+    public func add(action: String, dataObjectsList: [[String : Any]]) -> Event {
+        let e = Event(action: action)
+        e.dataObjectList = dataObjectsList
+        return add(event: e)
+    }
+    
+    /**
+     Add an event
+     - parameter event: event instance
+     - returns: the event instance added
+     */
+    public func add(event: Event) -> Event {
+        self.eventLists.append(event)
+        self.tracker.businessObjects[id] = self
+        return event
+    }
+    
+    /**
+     Send all stored events
+     */
+    public func send() {
+        self.tracker.dispatcher.dispatch([self])
+    }
+    
+    override func setParams() {
+        _ = self.tracker.setParam("col", value: "2")
         
-        _ = self.tracker.setParam(HitParam.hitType.rawValue, value: category)
-        _ = self.tracker.setParam(HitParam.action.rawValue, value: action)
-        _ = self.tracker.setParam(HitParam.screen.rawValue, value: label, options:encodingOption)
+        var eventsArr = [[String : Any]]()
         
-        let appendOptionWithEncoding = ParamOption()
-        appendOptionWithEncoding.append = true
-        appendOptionWithEncoding.encode = true
-        _ = self.tracker.setParam(HitParam.json.rawValue, value: value, options: appendOptionWithEncoding)
+        /// Single event
+        if let optSingleEvent = self.singleEvent {
+            if optSingleEvent.dataObjectList.count == 0 {
+                eventsArr.append(["action" : optSingleEvent.action, "data" : [String : Any]()])
+            } else {
+                for data in optSingleEvent.dataObjectList {
+                    eventsArr.append(["action" : optSingleEvent.action, "data" : data])
+                }
+            }
+            self.eventLists = self.eventLists.filter{
+                $0 != self.singleEvent
+            }
+            self.singleEvent = nil
+        } else {
+            for e in self.eventLists {
+                if e.dataObjectList.count == 0 {
+                    eventsArr.append(["action" : e.action, "data" : [String : Any]()])
+                } else {
+                    for data in e.dataObjectList {
+                        eventsArr.append(["action" : e.action, "data" : data])
+                    }
+                }
+            }
+            self.eventLists.removeAll()
+        }
         
-        return self.tracker
+        let optEncode = ParamOption()
+        optEncode.encode = true
+        _ = self.tracker.setParam("events", value: Tool.JSONStringify(eventsArr, prettyPrinted: false), options: optEncode)
     }
 }

@@ -42,7 +42,7 @@ class CustomTreeStructureTests: XCTestCase {
         cts.category1 = 1
         cts.category2 = 2
         cts.category3 = 3
-        cts.setEvent()
+        cts.setParams()
         
         XCTAssertEqual(cts.tracker.buffer.volatileParameters.count, 1, "Le nombre de paramètres volatiles doit être égal à 1")
         XCTAssert(cts.tracker.buffer.volatileParameters["ptype"]!.values[0]() == "1-2-3", "La valeur du premier paramètre doit être 1-2-3")

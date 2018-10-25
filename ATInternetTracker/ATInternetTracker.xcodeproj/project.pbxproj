@@ -351,7 +351,6 @@
 		4F47A7EF1D3D135C00702747 /* CustomObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F31D3D126500702747 /* CustomObjectTests.swift */; };
 		4F47A7F01D3D135C00702747 /* CustomTreeStructureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F41D3D126500702747 /* CustomTreeStructureTests.swift */; };
 		4F47A7F11D3D135C00702747 /* CustomVarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F51D3D126500702747 /* CustomVarTests.swift */; };
-		4F47A7F21D3D136A00702747 /* EventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F71D3D126500702747 /* EventTests.swift */; };
 		4F47A7F31D3D137600702747 /* GestureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F81D3D126500702747 /* GestureTests.swift */; };
 		4F47A7F41D3D137800702747 /* GPSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F91D3D126500702747 /* GPSTests.swift */; };
 		4F47A7F51D3D137A00702747 /* IdentifiedVisitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6FA1D3D126500702747 /* IdentifiedVisitorTests.swift */; };
@@ -441,7 +440,6 @@
 		4F47A9391D3E2FE100702747 /* CustomTreeStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4A81D35446700702747 /* CustomTreeStructure.swift */; };
 		4F47A93A1D3E2FE100702747 /* TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7171D3D126500702747 /* TrackerTests.swift */; };
 		4F47A93B1D3E2FE100702747 /* Sender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4551D3542A400702747 /* Sender.swift */; };
-		4F47A93C1D3E2FE100702747 /* EventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F71D3D126500702747 /* EventTests.swift */; };
 		4F47A93D1D3E2FE100702747 /* ScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A70F1D3D126500702747 /* ScreenTests.swift */; };
 		4F47A9401D3E2FE100702747 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A44D1D3542A400702747 /* Builder.swift */; };
 		4F47A9411D3E2FE100702747 /* Buffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A44C1D3542A400702747 /* Buffer.swift */; };
@@ -565,7 +563,6 @@
 		4FF594221D3F61D20004D336 /* CustomObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F31D3D126500702747 /* CustomObjectTests.swift */; };
 		4FF594231D3F61D20004D336 /* CustomTreeStructureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F41D3D126500702747 /* CustomTreeStructureTests.swift */; };
 		4FF594241D3F61D20004D336 /* CustomVarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F51D3D126500702747 /* CustomVarTests.swift */; };
-		4FF594251D3F61D20004D336 /* EventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F71D3D126500702747 /* EventTests.swift */; };
 		4FF594261D3F61E50004D336 /* GestureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F81D3D126500702747 /* GestureTests.swift */; };
 		4FF594271D3F61E50004D336 /* GPSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6F91D3D126500702747 /* GPSTests.swift */; };
 		4FF594281D3F61E50004D336 /* IdentifiedVisitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6FA1D3D126500702747 /* IdentifiedVisitorTests.swift */; };
@@ -741,6 +738,7 @@
 		CC1FE8B5215A0DFC006FE401 /* LiveMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */; };
 		CC1FE8B6215A0DFC006FE401 /* LiveMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */; };
 		CC1FE8B7215A0DFC006FE401 /* LiveMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */; };
+		CCE8902E2182F7CF000BBC4F /* EventsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE8902D2182F7CF000BBC4F /* EventsTests.swift */; };
 		CCF9B3D5214F77BC00235A77 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF9B3D4214F77BC00235A77 /* CFNetwork.framework */; };
 		CCF9B3D7214F77C400235A77 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF9B3D6214F77C400235A77 /* Security.framework */; };
 		CCF9B3D9214F77CA00235A77 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF9B3D8214F77CA00235A77 /* AVFoundation.framework */; };
@@ -905,7 +903,6 @@
 		4F47A6F41D3D126500702747 /* CustomTreeStructureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomTreeStructureTests.swift; path = Tests/CustomTreeStructureTests.swift; sourceTree = "<group>"; };
 		4F47A6F51D3D126500702747 /* CustomVarTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomVarTests.swift; path = Tests/CustomVarTests.swift; sourceTree = "<group>"; };
 		4F47A6F61D3D126500702747 /* EventManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventManagerTests.swift; path = Tests/EventManagerTests.swift; sourceTree = "<group>"; };
-		4F47A6F71D3D126500702747 /* EventTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventTests.swift; path = Tests/EventTests.swift; sourceTree = "<group>"; };
 		4F47A6F81D3D126500702747 /* GestureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GestureTests.swift; path = Tests/GestureTests.swift; sourceTree = "<group>"; };
 		4F47A6F91D3D126500702747 /* GPSTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GPSTests.swift; path = Tests/GPSTests.swift; sourceTree = "<group>"; };
 		4F47A6FA1D3D126500702747 /* IdentifiedVisitorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IdentifiedVisitorTests.swift; path = Tests/IdentifiedVisitorTests.swift; sourceTree = "<group>"; };
@@ -990,6 +987,7 @@
 		8EFF4AF71D50D79C005DF2A7 /* DeviceRotationEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceRotationEvent.swift; sourceTree = "<group>"; };
 		CC1FE8A62159FE4D006FE401 /* Medium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medium.swift; sourceTree = "<group>"; };
 		CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMedium.swift; sourceTree = "<group>"; };
+		CCE8902D2182F7CF000BBC4F /* EventsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventsTests.swift; path = Tests/EventsTests.swift; sourceTree = "<group>"; };
 		CCF9B3D4214F77BC00235A77 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CCF9B3D6214F77C400235A77 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		CCF9B3D8214F77CA00235A77 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1335,7 +1333,6 @@
 				4F47A6F31D3D126500702747 /* CustomObjectTests.swift */,
 				4F47A6F41D3D126500702747 /* CustomTreeStructureTests.swift */,
 				4F47A6F51D3D126500702747 /* CustomVarTests.swift */,
-				4F47A6F71D3D126500702747 /* EventTests.swift */,
 				4F47A6F81D3D126500702747 /* GestureTests.swift */,
 				4F47A6F91D3D126500702747 /* GPSTests.swift */,
 				4F47A6FA1D3D126500702747 /* IdentifiedVisitorTests.swift */,
@@ -1351,6 +1348,7 @@
 				4F47A7111D3D126500702747 /* SelfPromotionTests.swift */,
 				4F47A7151D3D126500702747 /* TechnicalContextTests.swift */,
 				4F47A7171D3D126500702747 /* TrackerTests.swift */,
+				CCE8902D2182F7CF000BBC4F /* EventsTests.swift */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -2241,7 +2239,6 @@
 				4F47A80F1D3D17CB00702747 /* CustomTreeStructure.swift in Sources */,
 				4F47A8011D3D141500702747 /* TrackerTests.swift in Sources */,
 				4F47A8461D3D192C00702747 /* Sender.swift in Sources */,
-				4F47A7F21D3D136A00702747 /* EventTests.swift in Sources */,
 				4F47A7FD1D3D13B100702747 /* ScreenTests.swift in Sources */,
 				CC1FE8B5215A0DFC006FE401 /* LiveMedium.swift in Sources */,
 				4F47A83D1D3D192C00702747 /* Builder.swift in Sources */,
@@ -2268,6 +2265,7 @@
 				4F47A81E1D3D17FC00702747 /* Offline.swift in Sources */,
 				4F47A8231D3D17FC00702747 /* RichMedia.swift in Sources */,
 				4F47A8051D3D179600702747 /* Audio.swift in Sources */,
+				CCE8902E2182F7CF000BBC4F /* EventsTests.swift in Sources */,
 				4F47A8661D3D23D700702747 /* UIImageExtension.swift in Sources */,
 				4F47A7E81D3D134F00702747 /* BufferTests.swift in Sources */,
 				4F47A7FA1D3D139900702747 /* ParameterTests.swift in Sources */,
@@ -2334,7 +2332,6 @@
 				4FF5943F1D3F66440004D336 /* Hit.swift in Sources */,
 				4FF594501D3F668E0004D336 /* CustomTreeStructure.swift in Sources */,
 				CC1FE8B6215A0DFC006FE401 /* LiveMedium.swift in Sources */,
-				4FF594251D3F61D20004D336 /* EventTests.swift in Sources */,
 				4FF594411D3F66490004D336 /* Param.swift in Sources */,
 				4FF5944D1D3F66860004D336 /* Campaign.swift in Sources */,
 				4FF5943D1D3F66400004D336 /* DefaultTrackerDelegate.swift in Sources */,
@@ -2432,7 +2429,6 @@
 				4F47A9A11D3E318E00702747 /* SmartPopUp.swift in Sources */,
 				4F47A93B1D3E2FE100702747 /* Sender.swift in Sources */,
 				8E6DD3691F4DA8AE00E81E79 /* SocketIOClient.swift in Sources */,
-				4F47A93C1D3E2FE100702747 /* EventTests.swift in Sources */,
 				4F47A93D1D3E2FE100702747 /* ScreenTests.swift in Sources */,
 				4F47A98E1D3E316B00702747 /* ScreenRotationOperation.swift in Sources */,
 				4F47A98D1D3E316B00702747 /* ScreenRotationEvent.swift in Sources */,

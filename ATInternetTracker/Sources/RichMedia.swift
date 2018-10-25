@@ -197,7 +197,7 @@ public class RichMedia : BusinessObject {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         let encodingOption = ParamOption()
         encodingOption.encode = true
         

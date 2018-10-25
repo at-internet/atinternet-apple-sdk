@@ -64,7 +64,7 @@ public class SelfPromotion : OnAppAd {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         let prefix = "INT"
         let simpleSeparator = "-"
         let doubleSeparator = "||"
@@ -101,7 +101,7 @@ public class SelfPromotion : OnAppAd {
         
         for (_, value) in _customObjects {
             value.tracker = self.tracker
-            value.setEvent()
+            value.setParams()
         }
         
         if(action == OnAppAdAction.touch) {
@@ -141,7 +141,7 @@ public class SelfPromotionImpression: ScreenInfo {
         super.init(tracker: tracker)
     }
     
-    override func setEvent() {
+    override func setParams() {
         let prefix = "INT"
         let simpleSeparator = "-"
         let doubleSeparator = "||"

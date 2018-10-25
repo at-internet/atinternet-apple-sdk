@@ -128,7 +128,7 @@ import UIKit
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         var value: String?
         
         if let optLevel1 = level1 {

@@ -78,7 +78,7 @@ public class Publisher : OnAppAd {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         let prefix = "PUB"
         let separator = "-"
         let defaultType = "AT"
@@ -144,7 +144,7 @@ public class Publisher : OnAppAd {
         
         for (_, value) in _customObjects {
             value.tracker = self.tracker
-            value.setEvent()
+            value.setParams()
         }
         
         if(action == OnAppAdAction.touch) {
@@ -201,7 +201,7 @@ public class PublisherImpression: ScreenInfo {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         let prefix = "PUB"
         let separator = "-"
         

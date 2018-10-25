@@ -59,7 +59,7 @@ public class CustomObject: BusinessObject {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         let option = ParamOption()
         option.append = true
         option.encode = true

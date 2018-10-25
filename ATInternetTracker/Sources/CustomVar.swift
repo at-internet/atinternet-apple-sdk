@@ -83,7 +83,7 @@ public class CustomVar: ScreenInfo {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         if (varId < 1) {
             varId = 1
         }

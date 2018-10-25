@@ -63,7 +63,7 @@ class CustomObjectTests: XCTestCase {
     
     func testSendCustomObject() {
         stc.json = "{\"legume\":\"carotte\"}"
-        stc.setEvent()
+        stc.setParams()
         
         XCTAssertEqual(stc.tracker.buffer.volatileParameters.count, 1, "Le nombre de paramètres volatiles doit être égal à 1")
         XCTAssert(stc.tracker.buffer.volatileParameters["stc"]?.key == "stc", "Le premier paramètre doit être stc")
