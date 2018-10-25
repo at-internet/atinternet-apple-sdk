@@ -304,4 +304,49 @@ class LifeCycle: NSObject {
             return json
         }
     }
+    
+    static func getMetricsMap() -> [String : Any] {
+        var map = [String : Any]()
+        let userDefaults = UserDefaults.standard
+        
+        let firstSessionDate = userDefaults.object(forKey: LifeCycleKey.FirstSessionDate.rawValue) as? Date ?? Date()
+        let now = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = locale
+        dateFormatter.dateFormat = "yyyyMMdd"
+        
+        // First session: fs
+        map["fs"] = (self.firstSession ? 1 : 0)
+        
+        // First session after update: fsau
+        map["fsau"] = (self.appVersionChanged ? 1 : 0)
+        
+        // session count since update: scsu
+        if let sessionCountSinceUpdate = userDefaults.object(forKey: LifeCycleKey.SessionCountSinceUpdate.rawValue) as? Int {
+            map["scsu"] = sessionCountSinceUpdate
+        }
+        
+        // session count: sc
+        map["sc"] = userDefaults.integer(forKey: LifeCycleKey.SessionCount.rawValue)
+        
+        // First session date: fsd
+        map["fsd"] = Int(dateFormatter.string(from: firstSessionDate))
+        
+        // Days since first session: dsfs
+        map["dsfs"] = Tool.daysBetweenDates(firstSessionDate, toDate: now)
+        
+        // first session date after update & days since update: usd / dsu
+        if let applicationUpdate = userDefaults.object(forKey: LifeCycleKey.ApplicationUpdate.rawValue) as? Date {
+            map["fsdau"] = Int(dateFormatter.string(from: applicationUpdate))
+            map["dsu"] = Tool.daysBetweenDates(applicationUpdate, toDate: now)
+        }
+        
+        // Days sinces last session: dsls
+        map["dsls"] = self.daysSinceLastSession
+        
+        // SessionId
+        map["sessionId"] = LifeCycle.sessionId
+        
+        return map
+    }
 }

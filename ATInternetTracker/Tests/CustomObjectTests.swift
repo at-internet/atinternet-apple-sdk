@@ -80,13 +80,13 @@ class CustomObjectTests: XCTestCase {
         stc.tracker.setParam("stc", value: "{\"fruits\":[\"pomme\",\"poire\",\"cerise\"]}", options: option)
         
         let builder = Builder(tracker: stc.tracker)
-        let param: [ (key: String, value: (String, String)) ] = builder.prepareQuery()
+        let params: [String : (String, String)] = builder.prepareQuery()
         
-        XCTAssertTrue(lookupParam(key: HitParam.json.rawValue, params: param).key == "stc", "Le paramètre doit être stc")
+        XCTAssertTrue(params["stc"] != nil, "Le paramètre doit être stc")
         
-        let stcQuery = lookupParam(key: HitParam.json.rawValue, params: param).value.0
-        let index = stcQuery.index(stcQuery.startIndex, offsetBy: 5)
-        let stcEncoded = stcQuery.substring(from: index)
+        let stcQuery = params["stc"]?.0
+        let index = stcQuery!.index(stcQuery!.startIndex, offsetBy: 5)
+        let stcEncoded = stcQuery!.substring(from: index)
         let obj = stcEncoded.percentDecodedString.toJSONObject() as! Dictionary<String, Any>
         XCTAssertTrue(obj["legumes"] != nil, "le stc doit contenir les clefs inserees")
         XCTAssertTrue(obj["fruits"] != nil, "le stc doit contenir les clefs inserees")
@@ -114,11 +114,11 @@ class CustomObjectTests: XCTestCase {
         
         
         let builder = Builder(tracker: stc.tracker)
-        let param: [ (key: String, value: (String, String)) ] = builder.prepareQuery()
+        let params: [String : (String, String)] = builder.prepareQuery()
         
-        let stcQuery = lookupParam(key: HitParam.json.rawValue, params: param).value.0
-        let index = stcQuery.index(stcQuery.startIndex, offsetBy: 5)
-        let stcEncoded = stcQuery.substring(from: index)
+        let stcQuery = params["stc"]?.0
+        let index = stcQuery!.index(stcQuery!.startIndex, offsetBy: 5)
+        let stcEncoded = stcQuery!.substring(from: index)
         let obj = stcEncoded.percentDecodedString.toJSONObject() as! Dictionary<String, Any>
         XCTAssertTrue(obj["legumes"] != nil, "le stc doit contenir les clefs inserees")
         XCTAssertTrue(obj["fruits"] != nil, "le stc doit contenir les clefs inserees")

@@ -171,8 +171,10 @@ class ProcessedHitType: NSObject {
                     let pairComponents = component.components(separatedBy: "=")
                     
                     if(pairComponents[0] == "type") {
-                        hitType = ProcessedHitType.list[pairComponents[1]]!
-                        break
+                        if let result = ProcessedHitType.list[pairComponents[1]] {
+                            hitType = result
+                            break
+                        }
                     }
                     
                     if(pairComponents[0] == "clic" || pairComponents[0] == "click") {

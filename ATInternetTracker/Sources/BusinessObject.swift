@@ -38,9 +38,9 @@ open class BusinessObject: NSObject {
     /// Tracker instance
     var tracker: Tracker!
     /// Screen ID
-    var id: String = UUID().uuidString
+    let id: String = UUID().uuidString
     /// Creation date
-    var timeStamp: TimeInterval =  Date().timeIntervalSince1970
+    var timeStamp : UInt64 = UInt64(0)
     
     /**
     Default initializer
@@ -56,6 +56,9 @@ open class BusinessObject: NSObject {
     */
     init(tracker: Tracker) {
         self.tracker = tracker
+        var info = mach_timebase_info()
+        mach_timebase_info(&info)
+        self.timeStamp = mach_absolute_time() * UInt64(info.numer) / UInt64(info.denom)
     }
     
     /// Set parameters in buffer

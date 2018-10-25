@@ -175,13 +175,13 @@ class Builder: Operation {
         let errQuery = self.makeSubQuery("mherr", value: "1")
         
         // Idclient added to slices
-        let idclient = TechnicalContext.userId(tracker.configuration.parameters["identifier"])
+        let idclient = formattedParams[HitParam.userID.rawValue] != nil ? formattedParams[HitParam.userID.rawValue]!.0 : ""
         
         // For each prebuilt queryString, we check the length
-        for tupleKey_ValueSeparator in formattedParams {
-            let parameterKey = tupleKey_ValueSeparator.key
-            let value = tupleKey_ValueSeparator.value.0
-            let separator = tupleKey_ValueSeparator.value.1
+        for (key , tupleValue_Separator) in formattedParams {
+            let parameterKey = key
+            let value = tupleValue_Separator.0
+            let separator = tupleValue_Separator.1
             
             // If the queryString length is too long
             if (value.count > refMaxSize) {
@@ -278,8 +278,7 @@ class Builder: Operation {
                     hits[index] = config+errQuery
                 } else {
                     // Add the configuration, the mh variable and the idclient
-                    let idToAdd = (index > 0) ? self.makeSubQuery("idclient", value: idclient) : ""
-                    hits[index] = "\(config)&mh=\(index+1)\(mhidSuffix)\(idToAdd)\(hits[index])"
+                    hits[index] = "\(config)&mh=\(index+1)\(mhidSuffix)\(idclient)\(hits[index])"
                 }
                 
             }
@@ -378,23 +377,14 @@ class Builder: Operation {
     /**
     Prepares parameters (organize, stringify, encode) stored in the buffer to be used in the hit
     
-    - returns: An array of prepared parameters
+    - returns: A map of prepared parameters
     */
-    func prepareQuery() -> [ (key: String, value: (String, String)) ] {
-        var formattedParameters = [ (key: String, value: (String, String)) ]()
+    func prepareQuery() -> [String : (String, String)] {
+        var formattedParameters = [String : (String, String)]()
         
         var buffer = [String:Param]()
         persistentParameters.forEach { (k,v) in buffer[k] = v }
         volatileParameters.forEach { (k,v) in buffer[k] = v }
-        
-        // Plugin management
-        /*if buffer["tvt"] != nil {
-            if let optPlugin = PluginParam.list(tracker)["tvt"] {
-                let plugin = optPlugin.init(tracker: tracker)
-                plugin.execute()
-                buffer["stc"]?.values.append({plugin.response})
-            }
-        }*/
         
         let bufferParams = organizeParameters(buffer)
         
@@ -468,7 +458,7 @@ class Builder: Operation {
                 separator = opts.separator.percentEncodedString
             }
             
-            formattedParameters.append( (p.key, (self.makeSubQuery(p.key, value: strValue), separator)) )
+            formattedParameters[p.key] = (self.makeSubQuery(p.key, value: strValue), separator)
         }
         return formattedParameters
     }

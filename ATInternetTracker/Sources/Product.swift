@@ -166,7 +166,7 @@ public class Products: NSObject {
     */
     @objc public func add(_ product: Product) -> Product {
         if(cart != nil) {
-            cart.productList[product.productId] = product
+            cart.productList.append(product)
         } else {
             tracker.businessObjects[product.id] = product
         }
@@ -185,7 +185,7 @@ public class Products: NSObject {
         product.productId = productId
         
         if(cart != nil) {
-            cart.productList[productId] = product
+            cart.productList.append(product)
         } else {
             tracker.businessObjects[product.id] = product
         }
@@ -300,7 +300,16 @@ public class Products: NSObject {
     /// - Parameter productId: the product identifier
     @objc public func remove(_ productId: String) {
         if(cart != nil) {
-            cart.productList.removeValue(forKey: productId)
+            var index = -1
+            for (i, p) in cart.productList.enumerated() {
+                if p.productId == productId {
+                    index = i
+                    break
+                }
+            }
+            if index != -1 {
+                cart.productList.remove(at: index)
+            }
         } else {
             for(_,value) in self.tracker.businessObjects {
                 if (value is Product && (value as! Product).productId == productId) {
@@ -334,8 +343,12 @@ public class Products: NSObject {
             }
         }
         
-        if(impressions.count > 0) {
-            self.tracker.dispatcher.dispatch(impressions)
+        let sortedImpressions = impressions.sorted {
+            a, b in return a.timeStamp < b.timeStamp
+        }
+        
+        if(sortedImpressions.count > 0) {
+            self.tracker.dispatcher.dispatch(sortedImpressions)
         }
     }
 }

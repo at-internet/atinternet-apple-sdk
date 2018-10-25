@@ -547,7 +547,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
         XCTAssertTrue(volatile_cle == "valeurModifiee", "La valeur du paramètre dans la collection persistante pour la même clé doit changer")
     }
     
-    func testsetParamReadOnly() {
+    /*func testsetParamReadOnly() {
         
         let refKey = tracker.buffer.persistentParameters.keys.first!
         
@@ -562,7 +562,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
         XCTAssertEqual(refCount, newCount, "Le nombre de paramètres dans la collection persistante doit être identique")
         XCTAssertTrue(refValue != newValue, "La valeur du paramètre dans la collection persistante pour la même clé doit etre ecrasee")
         XCTAssertTrue(refKey == newKey, "la clé pour l'index donnée de la collection persistante ne doit pas changer")
-    }
+    }*/
     
     func testDefaultDoNotTrack() {
         let builder = Builder(tracker: self.tracker)

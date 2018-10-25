@@ -140,12 +140,20 @@ public class AbstractScreen: BusinessObject {
             treeStructure.setEvent()
         }
         
-        for (_, value) in _publishers {
+        let sortedPublishers = _publishers.sorted {
+            a, b in return a.value.timeStamp < b.value.timeStamp
+        }
+        
+        for (_, value) in sortedPublishers {
             value.tracker = self.tracker
             value.setEvent()
         }
 
-        for (_, value) in _selfPromotions {
+        let sortedSelfPromotions = _selfPromotions.sorted {
+            a, b in return a.value.timeStamp < b.value.timeStamp
+        }
+        
+        for (_, value) in sortedSelfPromotions {
             value.tracker = self.tracker
             value.setEvent()
         }
@@ -190,16 +198,12 @@ public class AbstractScreen: BusinessObject {
     
     //MARK: Screen name building
     func buildScreenName() -> String {
-
-        return buildChapters() + _name
-    }
-    
-    //MARK: Chapters building
-    func buildChapters() -> String {
-        var chapters = _chapter1 == nil ? "" : _chapter1! + "::"
-        chapters = _chapter2 ==  nil ? chapters : chapters + _chapter2! + "::"
-        chapters = _chapter3 ==  nil ? chapters : chapters + _chapter3! + "::"
-        return chapters
+        var screenName = _chapter1 == nil ? "" : _chapter1! + "::"
+        screenName = _chapter2 ==  nil ? screenName : screenName + _chapter2! + "::"
+        screenName = _chapter3 ==  nil ? screenName : screenName + _chapter3! + "::"
+        screenName += _name
+        
+        return screenName
     }
     
     func updateContext() {
@@ -441,10 +445,10 @@ public class DynamicScreen: AbstractScreen {
     
     //MARK: Chapters building
     func buildDynamicScreenChapters() -> String {
-        var chapters = _chapter1 == nil ? "" : _chapter1! + "::"
-        chapters = _chapter2 ==  nil ? chapters : chapters + _chapter2! + "::"
-        chapters = _chapter3 ==  nil ? chapters : chapters + _chapter3!
-        return chapters
+        var chapters = _chapter1
+        chapters = chapters == nil ? _chapter2 : chapters! + (_chapter2 == nil ? "" : "::" + _chapter2!)
+        chapters = chapters == nil ? _chapter3 : chapters! + (_chapter3 == nil ? "" : "::" + _chapter3!)
+        return chapters ?? ""
     }
     
     /// Set parameters in buffer

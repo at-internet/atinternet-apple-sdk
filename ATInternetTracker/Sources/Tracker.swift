@@ -649,6 +649,10 @@ public class Tracker: NSObject {
             
             LifeCycle.applicationActive(self.configuration.parameters)
         }
+        
+        let ud = UserDefaults.standard
+        ud.setValue(false, forKey: CampaignKeys.ATCampaignAdded.rawValue)
+        ud.synchronize()
     }
     
     /**
@@ -1279,7 +1283,7 @@ public class Tracker: NSObject {
             
             // Order object by timestamp
             let sortedObjects = businessObjects.sorted {
-                a, b in return a.1.timeStamp  < b.1.timeStamp
+                a, b in return a.1.timeStamp < b.1.timeStamp
             }
             
             for(_, object) in sortedObjects {
@@ -1427,6 +1431,13 @@ public class Tracker: NSObject {
         let param = ParamOption()
         param.persistent = true
         handleNotStringParameterSetting(HitParam.userID.rawValue, value: userId, options: param)
+    }
+    
+    /// Get lifecycle metrics
+    ///
+    /// - Returns: the map which contains lifecycle metrics computed by the SDK
+    @objc public func getLifecycleMetrics() -> [String : Any] {
+        return LifeCycle.getMetricsMap()
     }
     
     // MARK: - Do not track
