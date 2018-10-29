@@ -46,7 +46,7 @@ class ScreenTests: XCTestCase {
     
     func testInitScreen() {
         XCTAssertTrue(screen.name == "", "Le nom de l'écran doit être vide")
-        XCTAssertTrue(screen.level2 == 0, "Le niveau 2 de l'écran doit etre égal à 0")
+        XCTAssertTrue(screen.level2 == -1, "Le niveau 2 de l'écran doit etre égal à -1")
     }
     
     func testSetScreen() {

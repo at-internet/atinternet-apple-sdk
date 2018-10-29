@@ -41,13 +41,13 @@ class GestureTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        TechnicalContext.level2 = 0
+        TechnicalContext.level2 = -1
         TechnicalContext.screenName = ""
     }
     
     func testInitGesture() {
         XCTAssertTrue(gesture.name == "", "Le nom du geste doit être vide")
-        XCTAssertTrue(gesture.level2 == 0, "Le niveau 2 du geste doit etre égal à 0")
+        XCTAssertTrue(gesture.level2 == -1, "Le niveau 2 du geste doit etre égal à 0")
     }
     
     func testSetGesture() {

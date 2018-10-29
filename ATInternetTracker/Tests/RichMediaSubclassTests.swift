@@ -46,7 +46,7 @@ class RichMediaSubclassTests: XCTestCase {
     override func tearDown() {
         tracker.mediaPlayers.removeAll()
         TechnicalContext.screenName = ""
-        TechnicalContext.level2 = 0
+        TechnicalContext.level2 = -1
         tracker.buffer.volatileParameters.removeAll(keepingCapacity: false)
     }
     

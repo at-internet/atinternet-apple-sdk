@@ -56,14 +56,14 @@ class ContextTests: XCTestCase {
     }
     
     func testLevel2() {
-        if (tracker.context.level2 != 0) {
-            XCTAssertTrue(false, "Par défaut le level2 doit être à 0")
+        if (tracker.context.level2 != -1) {
+            XCTAssertTrue(false, "Par défaut le level2 doit être à -1")
         }
         tracker.context.level2 = 123
         var p = tracker.buffer.persistentParameters[HitParam.level2.rawValue] as Param!
         XCTAssertTrue(p!.key == HitParam.level2.rawValue, "Le dernier paramètre persistent doit être le level 2")
         XCTAssertTrue(p?.values[0]() == "123", "Le dernier paramètre persistent doit avoir la valeur 123")
-        tracker.context.level2 = 0
+        tracker.context.level2 = -1
         p = tracker.buffer.persistentParameters[HitParam.level2.rawValue] as Param!
         XCTAssertTrue(p == nil, "Le paramètre ne doit plus etre present dans le buffer")
     }

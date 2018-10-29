@@ -65,7 +65,7 @@ public class AbstractScreen: BusinessObject {
     /// Action
     @objc public var action: ScreenAction = ScreenAction.view
     
-    var _level2: Int = 0
+    var _level2: Int = -1
     
     /// true if the screen is a basket screen
     @objc public var isBasketScreen: Bool = false
@@ -116,7 +116,7 @@ public class AbstractScreen: BusinessObject {
 
     /// Set parameters in buffer
     override func setEvent() {
-        if _level2 > 0 {
+        if _level2 >= 0 {
             _ = self.tracker.setParam(HitParam.level2.rawValue, value: _level2)
         }
         
