@@ -97,7 +97,7 @@ public class Gesture: BusinessObject {
     /// Third chapter
     @objc public var chapter3: String?
     /// Level 2
-    @objc public var level2: Int = 0
+    @objc public var level2: Int = -1
     /// Action - See GestureAction
     @objc public var action: GestureAction = GestureAction.touch
     /// Type of touch - See GestureEventType
@@ -185,11 +185,11 @@ public class Gesture: BusinessObject {
             _ = tracker.setParam(HitParam.touchScreen.rawValue, value: TechnicalContext.screenName, options: encodingOption)
         }
         
-        if(TechnicalContext.level2 > 0) {
+        if(TechnicalContext.level2 >= 0) {
             _ = tracker.setParam(HitParam.touchLevel2.rawValue, value: TechnicalContext.level2)
         }
         
-        if level2 > 0 {
+        if level2 >= 0 {
             _ = self.tracker.setParam("s2", value: level2)
         }
         

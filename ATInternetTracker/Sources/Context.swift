@@ -44,7 +44,7 @@ public class Context: NSObject {
     
     // MARK: - Level 2
     
-    internal var _level2: Int = 0
+    internal var _level2: Int = -1
     
     /// Global level 2
     @objc public var level2: Int {
@@ -54,7 +54,7 @@ public class Context: NSObject {
         set {
             _level2 = newValue
             
-            if _level2 > 0 {
+            if _level2 >= 0 {
                 let option = ParamOption()
                 option.persistent = true;
                 

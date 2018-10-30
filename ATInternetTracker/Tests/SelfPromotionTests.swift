@@ -36,7 +36,7 @@ class SelfPromotionTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        TechnicalContext.level2 = 0
+        TechnicalContext.level2 = -1
         TechnicalContext.screenName = ""
     }
     

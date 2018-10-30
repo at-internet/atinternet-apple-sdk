@@ -169,7 +169,7 @@ public class RichMedia : BusinessObject {
         }
     }
     /// Level 2
-    @objc public var mediaLevel2: Int = 0
+    @objc public var mediaLevel2: Int = -1
     
     /// Refresh Duration
     var refreshDuration: Int = 5
@@ -213,7 +213,7 @@ public class RichMedia : BusinessObject {
             _ = self.tracker.setParam("m5", value: optIsEmbedded ? "ext" : "int")
         }
         
-        if self.mediaLevel2 > 0 {
+        if self.mediaLevel2 >= 0 {
             _ = self.tracker.setParam("s2", value: mediaLevel2)
         }
     }
@@ -242,7 +242,7 @@ public class RichMedia : BusinessObject {
         if TechnicalContext.screenName != "" {
             _ = self.tracker.setParam("prich", value: TechnicalContext.screenName, options: encodingOption)
         }
-        if TechnicalContext.level2 > 0 {
+        if TechnicalContext.level2 >= 0 {
             _ = self.tracker.setParam("s2rich", value: TechnicalContext.level2)
         }
         if let optLinkedContent = self.linkedContent {

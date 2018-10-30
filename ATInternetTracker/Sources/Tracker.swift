@@ -1264,7 +1264,7 @@ public class Tracker: NSObject {
     /// Remove the screen context: Use only for specific issue mark screenA, mark touchA, dont mark screenB, mark touchB. touchB will be no longer attached to screenA
     @objc public func resetScreenContext() {
         TechnicalContext.screenName = ""
-        TechnicalContext.level2 = 0
+        TechnicalContext.level2 = -1
     }
     
     // MARK: - Dispatch
@@ -1378,15 +1378,17 @@ public class Tracker: NSObject {
             // S'il reste des produits vus à envoyer
             dispatchObjects(&products, customObjects: &customObjects)
             
-            if(customObjects.count > 0 || internalSearchObjects.count > 0 || screenObjects.count > 0) {
+            if(customObjects.count > 0 || internalSearchObjects.count > 0 || screenObjects.count > 0 || salesTrackerObjects.count > 0) {
                 customObjects += internalSearchObjects
                 customObjects += screenObjects
+                customObjects += salesTrackerObjects
                 
                 dispatcher.dispatch(customObjects)
                 
                 customObjects.removeAll(keepingCapacity: false)
                 internalSearchObjects.removeAll(keepingCapacity: false)
                 screenObjects.removeAll(keepingCapacity: false)
+                salesTrackerObjects.removeAll(keepingCapacity: false)
             }
             
         } else {
