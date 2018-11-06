@@ -35,6 +35,7 @@
 #import <UIKit/UIKit.h>
 
 #define CRASH_STATE_FILE @"%@/ATCrashState.txt"
+#define CRASH_RECOVERY_FILE @"%@/ATCrashRecovery.txt"
 #define CRASH_DATA_FILE @"%@/ATCrashData.txt"
 
 @implementation Crash
@@ -49,21 +50,44 @@ static NSString *lastScreen = nil;
  */
 + (NSDictionary *)compute {
     NSArray *content = [Crash crashFilesContent];
-    if ([content count] == 2) {
-        if ([content[0] isEqualToString:@"1"]) {
-            [Crash writeToCrashFiles:@"0"];
-            return [NSJSONSerialization JSONObjectWithData:[content[1] dataUsingEncoding:NSUTF8StringEncoding]
-                                                                 options:NSJSONReadingMutableContainers
-                                                                   error:nil];
-        } else {
-            if (!content[0]) {
-                [Crash writeToCrashFiles:@"0"];
-            }
-            return nil;
-        }
-    } else {
+    if ([content count] != 3) {
         return nil;
     }
+    NSString *state = content[0];
+    NSString *recovery = content[1];
+    NSString *data = content[2];
+    
+    if ([state isEqualToString:@"1"]) {
+        [Crash writeToCrashFiles:@"0" withRecovery:recovery];
+        return [NSJSONSerialization JSONObjectWithData:[data dataUsingEncoding:NSUTF8StringEncoding]
+                                                             options:NSJSONReadingMutableContainers
+                                                               error:nil];
+    }
+    if (!state) {
+        [Crash writeToCrashFiles:@"0" withRecovery:recovery];
+    }
+    return nil;
+}
+
++ (NSDictionary *)recover {
+    NSArray *content = [Crash crashFilesContent];
+    if ([content count] != 3) {
+        return nil;
+    }
+    NSString *state = content[0];
+    NSString *recovery = content[1];
+    NSString *data = content[2];
+    
+    if ([recovery isEqualToString:@"0"]) {
+        [Crash writeToCrashFiles:state withRecovery:@"1"];
+        return [NSJSONSerialization JSONObjectWithData:[data dataUsingEncoding:NSUTF8StringEncoding]
+                                               options:NSJSONReadingMutableContainers
+                                                 error:nil];
+    }
+    if (!recovery) {
+        [Crash writeToCrashFiles:state withRecovery:@"0"];
+    }
+    return nil;
 }
 
 /**
@@ -71,36 +95,35 @@ static NSString *lastScreen = nil;
  
  :param: crash data to store
  */
-+ (void)writeToCrashFiles:(NSString *)text {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains
-    (NSDocumentDirectory, NSUserDomainMask, YES);
++ (void)writeToCrashFiles:(NSString *)state withRecovery:(NSString *)recovery {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    NSString *fileNameEvent = [NSString stringWithFormat:CRASH_STATE_FILE, documentsDirectory];
-    [text writeToFile:fileNameEvent
+    [state writeToFile:[NSString stringWithFormat:CRASH_STATE_FILE, documentsDirectory]
            atomically:NO
              encoding:NSStringEncodingConversionAllowLossy
                 error:nil];
     
-    NSString *fileNameView = [NSString stringWithFormat:CRASH_DATA_FILE, documentsDirectory];
-    NSString *crashInfo;
+    [recovery writeToFile:[NSString stringWithFormat:CRASH_RECOVERY_FILE, documentsDirectory]
+            atomically:NO
+              encoding:NSStringEncodingConversionAllowLossy
+                 error:nil];
     
-    if ([text isEqualToString:@"1"]) {
+    if ([state isEqualToString:@"1"]) {
         NSString *view = [Crash lastScreen];
         NSDictionary *crashDico = [[NSDictionary alloc] initWithObjectsAndKeys:view, @"lastscreen", nil];
         NSDictionary *globalDico = [[NSDictionary alloc] initWithObjectsAndKeys:crashDico, @"crash", nil];
         NSData *data = [NSJSONSerialization dataWithJSONObject:globalDico
                                                            options:NSJSONWritingPrettyPrinted
                                                              error:nil];
-        crashInfo = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    } else {
-        crashInfo = @"";
+        
+        NSString *crashInfo = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        [crashInfo writeToFile:[NSString stringWithFormat:CRASH_DATA_FILE, documentsDirectory]
+                    atomically:NO
+                      encoding:NSStringEncodingConversionAllowLossy
+                         error:nil];
     }
-    
-    [crashInfo writeToFile:fileNameView
-           atomically:NO
-             encoding:NSStringEncodingConversionAllowLossy
-                error:nil];
 }
 
 /**
@@ -109,23 +132,22 @@ static NSString *lastScreen = nil;
  :returns: an array with the crash state [0] and the crash data [1]
  */
 + (NSArray *)crashFilesContent {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains
-    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     
-    NSString *fileNameEvent = [NSString stringWithFormat:CRASH_STATE_FILE, documentsDirectory];
-    NSString *contentEvent = [[NSString alloc] initWithContentsOfFile:fileNameEvent
+    NSString *state = [[NSString alloc] initWithContentsOfFile:[NSString stringWithFormat:CRASH_STATE_FILE, documentsDirectory]
                                                     usedEncoding:nil
                                                            error:nil];
     
-    NSString *fileNameView = [NSString stringWithFormat:CRASH_DATA_FILE, documentsDirectory];
-    NSString *contentView = [[NSString alloc] initWithContentsOfFile:fileNameView
+    NSString *recovery = [[NSString alloc] initWithContentsOfFile:[NSString stringWithFormat:CRASH_RECOVERY_FILE, documentsDirectory]
+                                                 usedEncoding:nil
+                                                        error:nil];
+    
+    NSString *data = [[NSString alloc] initWithContentsOfFile:[NSString stringWithFormat:CRASH_DATA_FILE, documentsDirectory]
                                                     usedEncoding:nil
                                                            error:nil];
     
-    NSArray *content = [[NSArray alloc] initWithObjects:contentEvent, contentView, nil];
-    
-    return content;
+    return [[NSArray alloc] initWithObjects:state, recovery, data, nil];
 }
 
 /**
@@ -155,7 +177,7 @@ static NSString *lastScreen = nil;
  :param: raised exception
  */
 void handleException(NSException *exception) {
-    [Crash writeToCrashFiles:@"1"];
+    [Crash writeToCrashFiles:@"1" withRecovery:@"0"];
     exit(EXIT_FAILURE);
 }
 
@@ -165,7 +187,7 @@ void handleException(NSException *exception) {
  :param raised signal
  */
 void handleSignal(int signal) {
-    [Crash writeToCrashFiles:@"1"];
+    [Crash writeToCrashFiles:@"1" withRecovery:@"0"];
     exit(signal);
 }
 

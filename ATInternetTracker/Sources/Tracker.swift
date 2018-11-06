@@ -1461,6 +1461,18 @@ public class Tracker: NSObject {
         return LifeCycle.getMetricsMap()
     }
     
+    /// Get last crash informations
+    ///
+    /// - Returns: the map which contains lifecycle metrics computed by the SDK
+    @objc public func getCrashInformations() -> [String : Any] {
+        if let map = Crash.recover() as? [String : Any] {
+            if let crashMap = map["crash"] as? [String : Any] {
+                return crashMap
+            }
+        }
+        return [:]
+    }
+    
     // MARK: - Do not track
     
     

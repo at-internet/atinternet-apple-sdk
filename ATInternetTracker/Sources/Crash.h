@@ -41,6 +41,8 @@
  */
 + (NSDictionary *)compute;
 
++ (NSDictionary *)recover;
+
 /**
  PRIVATE - Enable crash handler
  */
@@ -48,5 +50,7 @@
 
 /// PRIVATE - Last tracked screen
 + (void)lastScreen:(NSString *)screenName;
+
++ (NSArray *)crashFilesContent;
 
 @end
