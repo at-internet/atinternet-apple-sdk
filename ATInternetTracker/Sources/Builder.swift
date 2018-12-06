@@ -177,16 +177,16 @@ class Builder: Operation {
             - separatorMaxLength
         
         // Common content added to slices
-        var mhCommonQueryContent : String = "";
+        var commonQueryContent : String = "";
         for paramKey in mhParamsAllParts {
             if let value = formattedParams.removeValue(forKey: paramKey)?.0 {
-                mhCommonQueryContent += value
+                commonQueryContent += value
             }
         }
-        refMaxSize -= mhCommonQueryContent.count
+        refMaxSize -= commonQueryContent.count
         
         // Hit construction holder
-        var hit = mhCommonQueryContent
+        var hit = ""
         
         // For each prebuilt queryString, we check the length
         for (key , tupleValue_Separator) in formattedParams {
@@ -289,14 +289,14 @@ class Builder: Operation {
                     hits[index] = config+errQuery
                 } else {
                     // Add the configuration, the mh variable and the mh common parts
-                    hits[index] = "\(config)&mh=\(index+1)\(mhidSuffix)\(mhCommonQueryContent)\(hits[index])"
+                    hits[index] = "\(config)&mh=\(index+1)\(mhidSuffix)\(commonQueryContent)\(hits[index])"
                 }
                 
             }
             
         // Only one hit
         } else {
-            hits[0] = config + hits[0]
+            hits[0] = config + commonQueryContent + hits[0]
         }
 
         if let delegate = tracker.delegate {
@@ -437,7 +437,11 @@ class Builder: Operation {
                             }
                         }
                     }
-                    strValue = Tool.JSONStringify(result)
+                    if json is Array<Dictionary<String, Any>> {
+                        strValue = Tool.JSONStringify(result)
+                    } else {
+                        strValue = result.description
+                    }
                 }
             }
             else {

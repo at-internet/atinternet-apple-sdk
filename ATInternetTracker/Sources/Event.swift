@@ -34,7 +34,12 @@ import Foundation
 
 public class Event: NSObject {
     
-    var dataObjectList = [[String : Any]]()
+    var _data = [String : Any]()
+    var data : [String : Any] {
+        get {
+            return self._data
+        }
+    }
     
     @objc public var action: String
     
@@ -42,27 +47,14 @@ public class Event: NSObject {
         self.action = action
     }
     
-    public func setDataObject(dataObject: [String : Any]) -> Event {
-        self.dataObjectList.removeAll()
-        self.dataObjectList.append(dataObject)
-        
-        return self
+    func getAdditionalEvents() -> [Event] {
+        return [Event]()
     }
 }
 
 public class Events: BusinessObject {
-    var singleEvent: Event? = nil
-    var eventLists: [Event] = [Event]()
     
-    func sendSingle(event: Event){
-        self.singleEvent = event
-        self.tracker.dispatcher.dispatch([self])
-        
-        /// Reinsertion de l'instance dans les business objects si la liste des events a envoyer n'est pas vide pour le dispatch
-        if self.eventLists.count > 0 {
-            self.tracker.businessObjects[id] = self
-        }
-    }
+    var eventLists: [Event] = [Event]()
     
     /**
      Add an event
@@ -71,21 +63,9 @@ public class Events: BusinessObject {
      - returns: a new Event
      */
     public func add(action: String, data: [String : Any]) -> Event {
-        var array = [[String : Any]]()
-        array.append(data)
-        return add(action: action, dataObjectsList: array)
-    }
-    
-    /**
-     Add an event
-     - parameter action: event action label
-     - parameter dataObjectsList: event data content list
-     - returns: a new Event
-     */
-    public func add(action: String, dataObjectsList: [[String : Any]]) -> Event {
-        let e = Event(action: action)
-        e.dataObjectList = dataObjectsList
-        return add(event: e)
+        let ev = Event(action: action)
+        ev._data = data
+        return add(event: ev)
     }
     
     /**
@@ -107,38 +87,26 @@ public class Events: BusinessObject {
     }
     
     override func setParams() {
-        _ = self.tracker.setParam("col", value: "2")
-        
         var eventsArr = [[String : Any]]()
         
-        /// Single event
-        if let optSingleEvent = self.singleEvent {
-            if optSingleEvent.dataObjectList.count == 0 {
-                eventsArr.append(["action" : optSingleEvent.action, "data" : [String : Any]()])
-            } else {
-                for data in optSingleEvent.dataObjectList {
-                    eventsArr.append(["action" : optSingleEvent.action, "data" : data])
-                }
+        for e in self.eventLists {
+            
+            if e.data.count != 0 {
+                eventsArr.append(["action" : e.action, "data" : e.data])
             }
-            self.eventLists = self.eventLists.filter{
-                $0 != self.singleEvent
+            
+            let additionalEvents = e.getAdditionalEvents()
+            
+            for ev in additionalEvents {
+                eventsArr.append(["action" : ev.action, "data" : ev.data])
             }
-            self.singleEvent = nil
-        } else {
-            for e in self.eventLists {
-                if e.dataObjectList.count == 0 {
-                    eventsArr.append(["action" : e.action, "data" : [String : Any]()])
-                } else {
-                    for data in e.dataObjectList {
-                        eventsArr.append(["action" : e.action, "data" : data])
-                    }
-                }
-            }
-            self.eventLists.removeAll()
+
         }
+        self.eventLists.removeAll()
         
         let optEncode = ParamOption()
         optEncode.encode = true
         _ = self.tracker.setParam("events", value: Tool.JSONStringify(eventsArr, prettyPrinted: false), options: optEncode)
+                        .setParam("col", value: "2")
     }
 }

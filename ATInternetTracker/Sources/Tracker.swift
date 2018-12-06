@@ -574,6 +574,10 @@ public class Tracker: NSObject {
     /// Return CustomObjects instance
     @objc fileprivate(set) public lazy var customObjects: CustomObjects = CustomObjects(tracker: self)
     
+    //MARK: Ecommerce Tracking
+    /// Return Ecommerce instance
+    @objc fileprivate(set) public lazy var ecommerce: Ecommerce = Ecommerce(tracker: self)
+    
     //MARK: Events Tracking
     /// Return Events instance
     @objc fileprivate(set) public lazy var events: Events = Events(tracker: self)

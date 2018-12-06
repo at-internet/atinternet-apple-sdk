@@ -117,6 +117,8 @@ public class TrackerConfigurationKeys: NSObject {
     public static let SendOnlyWhenAppActive = "sendOnlyWhenAppActive"
     /// Allowed states to send hits
     public static let SendOnApplicationState = "sendOnApplicationState"
+    /// send only when host App is in state "active" (foreground)
+    public static let AutoSalesTracker = "autoSalesTracker"
 }
 
 /// Tracker configuraiton
