@@ -172,11 +172,11 @@
             "public": false,
             "global": true
         },
-        "sendOnlyWhenAppActive": {
-            "title" : "Geode_Tag_SDK_Config_Title_sendOnlyWhenAppActive",
-            "description": "Geode_Tag_SDK_Config_Description_sendOnlyWhenAppActive",
-            "defaultValue": "false",
-            "type": "bool",
+        "sendOnApplicationState": {
+            "title" : "Geode_Tag_SDK_Config_Title_sendOnApplicationState",
+            "description": "Geode_Tag_SDK_Config_Description_sendOnApplicationState",
+            "defaultValue": "all",
+            "type": "string",
             "public": false,
             "global": true
         }

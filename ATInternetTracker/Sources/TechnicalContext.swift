@@ -77,6 +77,12 @@ class TechnicalContext: NSObject {
         case UserID = "ATApplicationUniqueIdentifier"
     }
     
+    enum ApplicationState: EnumCollection {
+        case active
+        case inactive
+        case background
+    }
+    
     /// Name of the last tracked screen
     static var screenName: String = ""
     /// ID of the last level2 id set in parameters
@@ -116,7 +122,7 @@ class TechnicalContext: NSObject {
         }
     }
     
-    static var applicationIsActive: Bool = false
+    static var applicationState: ApplicationState = ApplicationState.inactive
     
     /// Unique user id
     class func userId(_ identifier: String?) -> String {

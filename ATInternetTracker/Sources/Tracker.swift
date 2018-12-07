@@ -645,6 +645,7 @@ public class Tracker: NSObject {
             let notificationCenter = NotificationCenter.default
             
             notificationCenter.addObserver(self, selector: #selector(Tracker.applicationDidEnterBackground), name:NSNotification.Name(rawValue: "UIApplicationDidEnterBackgroundNotification"), object: nil)
+            notificationCenter.addObserver(self, selector: #selector(Tracker.applicationWillResignActive), name:NSNotification.Name(rawValue: "UIApplicationWillResignActiveNotification"), object: nil)
             notificationCenter.addObserver(self, selector: #selector(Tracker.applicationActive), name:NSNotification.Name(rawValue: "UIApplicationDidBecomeActiveNotification"), object: nil)
             
             LifeCycle.applicationActive(self.configuration.parameters)
@@ -660,8 +661,15 @@ public class Tracker: NSObject {
      should save the timestamp to know if we have to start a new session on the next launch
      */
     @objc func applicationDidEnterBackground() {
-        TechnicalContext.applicationIsActive = false
+        TechnicalContext.applicationState = TechnicalContext.ApplicationState.background
         LifeCycle.applicationDidEnterBackground()
+    }
+    
+    /**
+     Called when application goes to inactive
+     */
+    @objc func applicationWillResignActive() {
+        TechnicalContext.applicationState = TechnicalContext.ApplicationState.inactive
     }
     
     /**
@@ -669,7 +677,7 @@ public class Tracker: NSObject {
      Should create a new SessionId if necessary
      */
     @objc func applicationActive() {
-        TechnicalContext.applicationIsActive = true
+        TechnicalContext.applicationState = TechnicalContext.ApplicationState.active
         LifeCycle.applicationActive(self.configuration.parameters)
     }
     
@@ -871,8 +879,19 @@ public class Tracker: NSObject {
     ///   - enabled: /
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
+    @available(*, deprecated, message: "use setSendOnApplicationState instead")
     @objc public func setSendOnlyWhenAppActive(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.SendOnlyWhenAppActive, value: String(enabled), sync: sync, completionHandler: completionHandler)
+    }
+    
+    /// Ensures that all hits are sent only in allowed states
+    ///
+    /// - Parameters:
+    ///   - state: allowed state to send hit
+    ///   - sync: perform the operation synchronously (optional, default: false)
+    ///   - completionHandler: called when the operation has been done
+    public func setSendOnApplicationState(_ state: SendApplicationState, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+        setConfig(TrackerConfigurationKeys.SendOnApplicationState, value: String(state.rawValue), sync: sync, completionHandler: completionHandler)
     }
     
     /// Set new pixel path

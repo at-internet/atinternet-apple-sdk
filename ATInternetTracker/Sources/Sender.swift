@@ -95,9 +95,16 @@ class Sender: Operation {
     - parameter a: callback to indicate whether hit was sent successfully or not
     */
     func sendWithCompletionHandler(_ completionHandler: ((_ success: Bool) -> Void)?) {
-        // Don't send hits if the app is not in the foreground
-        // and background send is not enabled
-        if !TechnicalContext.applicationIsActive && tracker.sendOnlyWhenAppActive {
+        // Don't send hits if the app is in state not allowed to send
+
+        /// app is in inactive state
+        if TechnicalContext.applicationState == .inactive && tracker.sendOnApplicationState == SendApplicationState.activeOnly {
+            completionHandler?(false)
+            return
+        }
+        
+        /// app is in background state
+        if TechnicalContext.applicationState == .background && tracker.sendOnApplicationState != SendApplicationState.all {
             completionHandler?(false)
             return
         }
@@ -349,10 +356,17 @@ extension Tracker {
         
         return enableBackgroundTask.lowercased() == "true"
     }
-    var sendOnlyWhenAppActive: Bool {
-        guard let enableSendOnlyWhenAppActive = configuration.parameters["sendOnlyWhenAppActive"]
-            else { return false }
+    var sendOnApplicationState: SendApplicationState {
+        guard let sendOnApplicationState = configuration.parameters["sendOnApplicationState"]
+            else { return SendApplicationState.all }
         
-        return enableSendOnlyWhenAppActive.lowercased() == "true"
+        switch sendOnApplicationState {
+            case "activeOnly":
+                return SendApplicationState.activeOnly
+            case "activeOrInactive":
+                return SendApplicationState.activeOrInactive
+            default:
+                return SendApplicationState.all
+        }
     }
 }
