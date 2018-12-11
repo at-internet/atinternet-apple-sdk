@@ -45,13 +45,13 @@ class TechnicalContext: NSObject {
     class var sdkVersion: String {
         get {
             #if os(watchOS)
-            return "1.8.2"
+            return "1.8.3"
             #elseif os(tvOS)
-            return "1.8.2"
+            return "1.8.3"
             #elseif os(iOS)
-            return "2.11.2"
+            return "2.11.3"
             #else
-            return "2.11.2"
+            return "2.11.3"
             #endif
         }
     }
@@ -75,6 +75,12 @@ class TechnicalContext: NSObject {
         case UserIDV1 = "ATIdclient"
         case UserIDV2 = "ApplicationUniqueIdentifier"
         case UserID = "ATApplicationUniqueIdentifier"
+    }
+    
+    enum ApplicationState: EnumCollection {
+        case active
+        case inactive
+        case background
     }
     
     /// Name of the last tracked screen
@@ -116,7 +122,7 @@ class TechnicalContext: NSObject {
         }
     }
     
-    static var applicationIsActive: Bool = false
+    static var applicationState: ApplicationState = ApplicationState.inactive
     
     /// Unique user id
     class func userId(_ identifier: String?) -> String {

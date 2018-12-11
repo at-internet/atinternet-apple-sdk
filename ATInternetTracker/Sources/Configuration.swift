@@ -62,6 +62,17 @@ public enum IdentifierTypeKey: String {
     case idfv = "idfv"
 }
 
+/// States
+///
+/// - active: hits are send only when the application is active
+/// - activeOrInactive: hits are send when the application is active or inactive
+/// - all: hits are send when the application is in every state
+public enum SendApplicationState: String {
+    case activeOnly = "activeOnly"
+    case activeOrInactive = "activeOrInactive"
+    case all = "all"
+}
+
 /// Tracker configuration keys helper - used to make easier Tracker creation by providing few static parameters
 @objcMembers
 public class TrackerConfigurationKeys: NSObject {
@@ -102,7 +113,10 @@ public class TrackerConfigurationKeys: NSObject {
     /// autoTrackerToken
     public static let AutoTrackerToken = "autoTrackerToken"
     /// send only when host App is in state "active" (foreground)
+    @available(*, deprecated, message: "Use 'sendOnApplicationState' property instead")
     public static let SendOnlyWhenAppActive = "sendOnlyWhenAppActive"
+    /// Allowed states to send hits
+    public static let SendOnApplicationState = "sendOnApplicationState"
 }
 
 /// Tracker configuraiton
