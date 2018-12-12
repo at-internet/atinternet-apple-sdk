@@ -28,7 +28,7 @@ import Foundation
 public class DisplayProduct: EcommerceEvent {
     
     /// Product property
-    @objc public var product = EProduct()
+    @objc public var product = ECommerceProduct()
     
     override var data: [String : Any] {
         get {
@@ -37,7 +37,7 @@ public class DisplayProduct: EcommerceEvent {
         }
     }
     
-    init(screen: Screen) {
+    init(screen: Screen?) {
         super.init(action: "product.display", screen: screen)
     }
 }
@@ -49,7 +49,7 @@ public class DisplayProducts : EventsHelper {
     ///
     /// - Parameter screen: a screen instance
     /// - Returns: DisplayProduct instance
-    @objc public func add(screen: Screen) -> DisplayProduct {
+    @objc public func add(screen: Screen?) -> DisplayProduct {
         let dp = DisplayProduct(screen: screen)
         _ = events.add(event: dp)
         return dp

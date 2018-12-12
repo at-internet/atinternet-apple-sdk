@@ -113,12 +113,10 @@ class PublisherTests: XCTestCase {
         let screen = publisher.tracker.screens.add("Home")
         screen.setParams()
         
-        publisher.campaignId = "1"
-        publisher.setParams()
+        let p = screen.publishers.add("1")
+        p.setParams()
         
-        XCTAssertEqual(publisher.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
-        XCTAssert(publisher.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
-        XCTAssert(publisher.tracker.buffer.volatileParameters["type"]?.values[0]() == "screen", "La valeur du premier paramètre doit être screen")
+        XCTAssertEqual(publisher.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
         
         XCTAssert(publisher.tracker.buffer.volatileParameters["p"]?.key == "p", "Le troisième paramètre doit être p")
         XCTAssert(publisher.tracker.buffer.volatileParameters["p"]?.values[0]() == "Home", "La valeur du troisième paramètre doit être Home")

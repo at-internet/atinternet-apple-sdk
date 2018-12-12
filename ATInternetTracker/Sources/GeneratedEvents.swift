@@ -27,7 +27,7 @@
 class CartCreation: EcommerceEvent {
     
     /// Cart property
-    var cart = ECart()
+    var cart = ECommerceCart()
     
     override var data: [String : Any] {
         get {
@@ -36,7 +36,7 @@ class CartCreation: EcommerceEvent {
         }
     }
     
-    init(screen: Screen) {
+    init(screen: Screen?) {
         super.init(action: "cart.creation", screen: screen)
     }
 }
@@ -45,12 +45,12 @@ class CartCreation: EcommerceEvent {
 class CartConfirmation: EcommerceEvent {
     
     /// Cart property
-    var cart = ECart()
+    var cart = ECommerceCart()
     
     /// Transaction property
-    var transaction = Transaction()
+    var transaction = ECommerceTransaction()
     
-    init(screen: Screen) {
+    init(screen: Screen?) {
         super.init(action: "cart.confirmation", screen: screen)
     }
     
@@ -66,13 +66,13 @@ class CartConfirmation: EcommerceEvent {
 class ProductPurchased: EcommerceEvent {
     
     /// Product property
-    var product = EProduct()
+    var product = ECommerceProduct()
     
     /// Transaction property
-    var transaction = Transaction()
+    var transaction = ECommerceTransaction()
     
     /// Cart property
-    var cart = ECart()
+    var cart = ECommerceCart()
     
     override var data: [String : Any] {
         get {
@@ -83,7 +83,7 @@ class ProductPurchased: EcommerceEvent {
         }
     }
     
-    init(screen: Screen) {
+    init(screen: Screen?) {
         super.init(action: "product.purchased", screen: screen)
     }
 }

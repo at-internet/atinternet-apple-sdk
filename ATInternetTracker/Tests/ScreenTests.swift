@@ -53,9 +53,7 @@ class ScreenTests: XCTestCase {
         screen.name = "Home"
         screen.setParams()
         
-        XCTAssertEqual(screen.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
-        XCTAssert(screen.tracker.buffer.volatileParameters["type"]!.key == "type", "Le premier paramètre doit être type")
-        XCTAssert(screen.tracker.buffer.volatileParameters["type"]!.values[0]() == "screen", "La valeur du premier paramètre doit être screen")
+        XCTAssertEqual(screen.tracker.buffer.volatileParameters.count, 1, "Le nombre de paramètres volatiles doit être égal à 1")
         
         XCTAssert(screen.tracker.buffer.volatileParameters["p"]!.key == "p", "Le troisième paramètre doit être p")
         XCTAssert(screen.tracker.buffer.volatileParameters["p"]!.values[0]() == "Home", "La valeur du troisième paramètre doit être Home")
@@ -105,7 +103,7 @@ class ScreenTests: XCTestCase {
         
         dynamicScreen.setParams()
         
-        XCTAssertEqual(dynamicScreen.tracker.buffer.volatileParameters.count, 5, "Le nombre de paramètres volatiles doit être égal à 5")
+        XCTAssertEqual(dynamicScreen.tracker.buffer.volatileParameters.count, 4, "Le nombre de paramètres volatiles doit être égal à 4")
         
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["pchap"]!.key == "pchap", "Le paramètre doit être pchap")
         print(dynamicScreen.tracker.buffer.volatileParameters["pchap"]!.values[0]())
@@ -116,9 +114,6 @@ class ScreenTests: XCTestCase {
         
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["pidt"]!.key == "pidt", "Le paramètre doit être pidt")
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["pidt"]!.values[0]() == dateFormatter.string(from: curDate), "La valeur doit être curDate")
-        
-        XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["type"]!.key == "type", "Le premier paramètre doit être type")
-        XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["type"]!.values[0]() == "screen", "La valeur du premier paramètre doit être screen")
         
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["p"]!.key == "p", "Le troisième paramètre doit être p")
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["p"]!.values[0]() == "HomeDyn", "La valeur du troisième paramètre doit être HomeDyn")
@@ -141,7 +136,7 @@ class ScreenTests: XCTestCase {
         
         dynamicScreen.setParams()
         
-        XCTAssertEqual(dynamicScreen.tracker.buffer.volatileParameters.count, 5, "Le nombre de paramètres volatiles doit être égal à 5")
+        XCTAssertEqual(dynamicScreen.tracker.buffer.volatileParameters.count, 4, "Le nombre de paramètres volatiles doit être égal à 4")
         
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["pchap"]!.key == "pchap", "Le paramètre doit être pchap")
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["pchap"]!.values[0]() == "chap1::chap2::chap3", "La valeur doit être chap1::chap2::chap3")
@@ -151,9 +146,6 @@ class ScreenTests: XCTestCase {
         
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["pidt"]!.key == "pidt", "Le paramètre doit être pidt")
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["pidt"]!.values[0]() == dateFormatter.string(from: curDate), "La valeur doit être curDate")
-        
-        XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["type"]!.key == "type", "Le premier paramètre doit être type")
-        XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["type"]!.values[0]() == "screen", "La valeur du premier paramètre doit être screen")
         
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["p"]!.key == "p", "Le troisième paramètre doit être p")
         XCTAssert(dynamicScreen.tracker.buffer.volatileParameters["p"]!.values[0]() == "HomeDyn", "La valeur du troisième paramètre doit être HomeDyn")

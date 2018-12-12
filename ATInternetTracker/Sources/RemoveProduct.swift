@@ -28,10 +28,10 @@ import Foundation
 public class RemoveProduct: EcommerceEvent {
     
     /// Product property
-    @objc public var product = EProduct()
+    @objc public var product = ECommerceProduct()
     
     /// Cart property
-    @objc public var cart = ECart()
+    @objc public var cart = ECommerceCart()
     
     override var data: [String : Any] {
         get {
@@ -41,7 +41,7 @@ public class RemoveProduct: EcommerceEvent {
         }
     }
     
-    init(screen: Screen) {
+    init(screen: Screen?) {
         super.init(action: "product.remove_from_cart", screen: screen)
     }
 }
@@ -53,7 +53,7 @@ public class RemoveProducts : EventsHelper {
     ///
     /// - Parameter screen: a screen instance
     /// - Returns: RemoveProduct instance
-    @objc public func add(screen: Screen) -> RemoveProduct {
+    @objc public func add(screen: Screen?) -> RemoveProduct {
         let rp = RemoveProduct(screen: screen)
         _ = events.add(event: rp)
         return rp

@@ -23,7 +23,9 @@
 //  Tracker
 //
 
-public class ECart: RequiredPropertiesDataObject {
+import Foundation
+
+public class ECommerceCart: RequiredPropertiesDataObject {
     override init() {
         super.init()
         propertiesPrefixMap["id"] = "s"
@@ -39,21 +41,21 @@ public class ECart: RequiredPropertiesDataObject {
     }
 }
 
-public class Customer: RequiredPropertiesDataObject {
+public class ECommerceCustomer: RequiredPropertiesDataObject {
     override init() {
         super.init()
         propertiesPrefixMap["new"] = "b"
     }
 }
 
-public class Payment: RequiredPropertiesDataObject {
+public class ECommercePayment: RequiredPropertiesDataObject {
     override init() {
         super.init()
         propertiesPrefixMap["mode"] = "s"
     }
 }
 
-public class EProduct: RequiredPropertiesDataObject {
+public class ECommerceProduct: RequiredPropertiesDataObject {
     override init() {
         super.init()
         propertiesPrefixMap["id"] = "s"
@@ -88,7 +90,7 @@ public class EProduct: RequiredPropertiesDataObject {
     }
 }
 
-public class Shipping: RequiredPropertiesDataObject {
+public class ECommerceShipping: RequiredPropertiesDataObject {
     override init() {
         super.init()
         propertiesPrefixMap["delivery"] = "s"
@@ -98,7 +100,7 @@ public class Shipping: RequiredPropertiesDataObject {
     }
 }
 
-public class Transaction: RequiredPropertiesDataObject {
+public class ECommerceTransaction: RequiredPropertiesDataObject {
     override init() {
         super.init()
         propertiesPrefixMap["id"] = "s"

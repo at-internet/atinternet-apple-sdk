@@ -28,10 +28,10 @@ import Foundation
 public class PaymentCheckout: EcommerceEvent {
     
     /// Cart property
-    @objc public var cart = ECart()
+    @objc public var cart = ECommerceCart()
     
     /// Shipping property
-    @objc public var shipping = Shipping()
+    @objc public var shipping = ECommerceShipping()
     
     override var data: [String : Any] {
         get {
@@ -41,7 +41,7 @@ public class PaymentCheckout: EcommerceEvent {
         }
     }
     
-    init(screen: Screen) {
+    init(screen: Screen?) {
         super.init(action: "cart.payment", screen: screen)
     }
 }
@@ -53,7 +53,7 @@ public class PaymentCheckouts : EventsHelper {
     ///
     /// - Parameter screen: a screen instance
     /// - Returns: PaymentCheckout instance
-    @objc public func add(screen: Screen) -> PaymentCheckout {
+    @objc public func add(screen: Screen?) -> PaymentCheckout {
         let pc = PaymentCheckout(screen: screen)
         _ = events.add(event: pc)
         return pc

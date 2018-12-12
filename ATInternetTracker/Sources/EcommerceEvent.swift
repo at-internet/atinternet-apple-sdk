@@ -25,7 +25,7 @@
 
 public class EcommerceEvent: Event {
     
-    var screen : Screen
+    var screen : Screen?
     
     override var data: [String : Any] {
         get {
@@ -42,36 +42,38 @@ public class EcommerceEvent: Event {
         }
     }
     
-    init(action: String, screen: Screen) {
+    init(action: String, screen: Screen?) {
         self.screen = screen
         super.init(action: action)
     }
     
-    func parseScreenNameForEvent(screen: Screen) -> [String: Any] {
+    func parseScreenNameForEvent(screen: Screen?) -> [String: Any] {
         var result  = [String: Any]()
+        guard screen != nil else { return result }
         
-        result["s:name"] = screen.name
+        result["s:name"] = screen!.name
         
-        if let chap1 = screen.chapter1 {
+        if let chap1 = screen!.chapter1 {
             result["s:chapter1"] = chap1
         }
         
-        if let chap2 = screen.chapter2 {
+        if let chap2 = screen!.chapter2 {
             result["s:chapter2"] = chap2
         }
         
-        if let chap3 = screen.chapter3 {
+        if let chap3 = screen!.chapter3 {
             result["s:chapter3"] = chap3
         }
         
         return result
     }
     
-    func parseLevel2ForEvent(screen: Screen) -> [String: Any] {
+    func parseLevel2ForEvent(screen: Screen?) -> [String: Any] {
         var result  = [String: Any]()
+        guard screen != nil else { return result }
     
-        if screen.level2 > 0 {
-            result["s:name"] = String(screen.level2)
+        if screen!.level2 > 0 {
+            result["s:name"] = String(screen!.level2)
         }
         return result
     }

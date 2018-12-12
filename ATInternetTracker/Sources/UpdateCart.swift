@@ -28,7 +28,7 @@ import Foundation
 public class UpdateCart: EcommerceEvent {
     
     /// Cart property
-    @objc public var cart = ECart()
+    @objc public var cart = ECommerceCart()
     
     override var data: [String : Any] {
         get {
@@ -37,7 +37,7 @@ public class UpdateCart: EcommerceEvent {
         }
     }
     
-    init(screen: Screen) {
+    init(screen: Screen?) {
         super.init(action: "cart.update", screen: screen)
     }    
 }
@@ -49,7 +49,7 @@ public class UpdateCarts : EventsHelper {
     ///
     /// - Parameter screen: a screen instance
     /// - Returns: DisplayCart instance
-    @objc public func add(screen: Screen) -> UpdateCart {
+    @objc public func add(screen: Screen?) -> UpdateCart {
         let uc = UpdateCart(screen: screen)
         _ = events.add(event: uc)
         return uc

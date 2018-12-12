@@ -30,22 +30,22 @@ public class TransactionConfirmation: EcommerceEvent {
     private var tracker : Tracker
     
     /// Products list
-    @objc public var products = [EProduct]()
+    @objc public var products = [ECommerceProduct]()
     
     /// Cart property
-    @objc public var cart = ECart()
+    @objc public var cart = ECommerceCart()
     
     /// Transaction property
-    @objc public var transaction = Transaction()
+    @objc public var transaction = ECommerceTransaction()
     
     /// Shipping property
-    @objc public var shipping = Shipping()
+    @objc public var shipping = ECommerceShipping()
     
     /// Payment property
-    @objc public var payment = Payment()
+    @objc public var payment = ECommercePayment()
     
     /// Customer property
-    @objc public var customer = Customer()
+    @objc public var customer = ECommerceCustomer()
     
     /// Promotional codes
     @objc public var promotionalCodes = [String]()
@@ -62,7 +62,7 @@ public class TransactionConfirmation: EcommerceEvent {
         }
     }
     
-    init(tracker: Tracker, screen: Screen) {
+    init(tracker: Tracker, screen: Screen?) {
         self.tracker = tracker
         super.init(action: "transaction.confirmation", screen: screen)
     }
@@ -84,7 +84,7 @@ public class TransactionConfirmation: EcommerceEvent {
         }
         
         /// SALES TRACKER
-        if let autoSalesTrackerStr = tracker.configuration.parameters[TrackerConfigurationKeys.AutoSalesTracker], autoSalesTrackerStr.toBool() {
+        if let autoSalesTrackerStr = tracker.configuration.parameters[TrackerConfigurationKeys.AutoSalesTracker], autoSalesTrackerStr.toBool() && screen != nil {
             
             let turnoverTaxIncluded = Double(String(describing: cart.get(key: "f:turnoverTaxIncluded") ?? 0)) ?? 0
             let turnoverTaxFree = Double(String(describing: cart.get(key: "f:turnoverTaxFree") ?? 0)) ?? 0
@@ -141,12 +141,12 @@ public class TransactionConfirmation: EcommerceEvent {
             
             var info = mach_timebase_info()
             mach_timebase_info(&info)
-            screen.timeStamp = mach_absolute_time() * UInt64(info.numer) / UInt64(info.denom)
-            screen.cart = stCart
-            screen.isBasketScreen = false
+            screen!.timeStamp = mach_absolute_time() * UInt64(info.numer) / UInt64(info.denom)
+            screen!.cart = stCart
+            screen!.isBasketScreen = false
             
-            screen.sendView()
-            screen.cart = nil
+            screen!.sendView()
+            screen!.cart = nil
             stCart.unset()
         }
         return generatedEvents
@@ -167,7 +167,7 @@ public class TransactionConfirmations : EventsHelper {
     ///
     /// - Parameter screen: a screen instance
     /// - Returns: TransactionConfirmation instance
-    @objc public func add(screen: Screen) -> TransactionConfirmation {
+    @objc public func add(screen: Screen?) -> TransactionConfirmation {
         let tc = TransactionConfirmation(tracker: tracker, screen: screen)
         _ = events.add(event: tc)
         return tc

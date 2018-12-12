@@ -109,12 +109,10 @@ class SelfPromotionTests: XCTestCase {
         let screen = selfPromo.tracker.screens.add("Home")
         screen.setParams()
         
-        selfPromo.adId = 1
-        selfPromo.setParams()
+        let s = screen.selfPromotions.add(1)
+        s.setParams()
         
-        XCTAssertEqual(selfPromo.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
-        XCTAssert(selfPromo.tracker.buffer.volatileParameters["type"]?.values[0]() == "screen", "La valeur du premier paramètre doit être screen")
+        XCTAssertEqual(selfPromo.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
         
         XCTAssert(selfPromo.tracker.buffer.volatileParameters["p"]?.key == "p", "Le troisième paramètre doit être p")
         XCTAssert(selfPromo.tracker.buffer.volatileParameters["p"]?.values[0]() == "Home", "La valeur du troisième paramètre doit être Home")

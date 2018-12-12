@@ -34,6 +34,9 @@ import Foundation
 
 /// Wrapper class for Publisher (ads) tracking
 public class Publisher : OnAppAd {
+    
+    var fromScreen = false
+    
     lazy var _customObjects: [String: CustomObject] = [String: CustomObject]()
     
     /// Campaign identifier
@@ -81,8 +84,6 @@ public class Publisher : OnAppAd {
     override func setParams() {
         let prefix = "PUB"
         let separator = "-"
-        let defaultType = "AT"
-        var currentType = ""
         
         var spot = prefix + separator + campaignId + separator
         
@@ -126,15 +127,8 @@ public class Publisher : OnAppAd {
             spot += url
         }
         
-        if let parameter = tracker.buffer.volatileParameters[HitParam.hitType.rawValue] {
-            currentType = parameter.values[0]()
-        }
-        if let parameter = tracker.buffer.persistentParameters[HitParam.hitType.rawValue] {
-            currentType = parameter.values[0]()
-        }
-        
-        if (currentType != "screen" && currentType != defaultType) {
-            self.tracker.setParam(HitParam.hitType.rawValue, value: defaultType)
+        if (!self.fromScreen) {
+            self.tracker.setParam(HitParam.hitType.rawValue, value: "AT")
         }
         
         let option = ParamOption()
@@ -162,95 +156,29 @@ public class Publisher : OnAppAd {
 }
 
 /// Wrapper class for publisher impression tracking. They are attached to a Screen
-public class PublisherImpression: ScreenInfo {
-    /// Campaign identifier
-    @objc public var campaignId: String = ""
-    
-    /// Creation
-    @objc public var creation: String?
-    
-    /// Variant
-    @objc public var variant: String?
-    
-    /// Format
-    @objc public var format: String?
-    
-    /// General placement
-    @objc public var generalPlacement: String?
-    
-    /// Detailed placement
-    @objc public var detailedPlacement: String?
-    
-    /// Advertiser identifier
-    @objc public var advertiserId: String?
-    
-    /// URL
-    @objc public var url: String?
-    
+public class PublisherImpression: Publisher {
     /// Create a PublisherImpression with a campaignId
     ///
     /// - Parameter campaignId: campaign identifier
+    @available(*, deprecated, message: "useless constructor")
     @objc public init(campaignId: String) {
         super.init()
-        
-        self.campaignId = campaignId
     }
     
     override init(tracker: Tracker) {
         super.init(tracker: tracker)
+        self.action = OnAppAdAction.view
+        self.fromScreen = true
     }
     
-    /// Set parameters in buffer
-    override func setParams() {
-        let prefix = "PUB"
-        let separator = "-"
-        
-        var spot = prefix + separator + campaignId + separator
-        
-        if let creation = creation {
-            spot += creation + separator
-        } else {
-            spot += separator
-        }
-        
-        if let variant = variant {
-            spot += variant + separator
-        } else {
-            spot += separator
-        }
-        
-        if let format = format {
-            spot += format + separator
-        } else {
-            spot += separator
-        }
-        
-        if let generalPlacement = generalPlacement {
-            spot += generalPlacement + separator
-        } else {
-            spot += separator
-        }
-        
-        if let detailedPlacement = detailedPlacement {
-            spot += detailedPlacement + separator
-        } else {
-            spot += separator
-        }
-        
-        if let advertiserId = advertiserId {
-            spot += advertiserId + separator
-        } else {
-            spot += separator
-        }
-        
-        if let url = url {
-            spot += url
-        }
-        
-        let option = ParamOption()
-        option.append = true
-        option.encode = true
-        _ = self.tracker.setParam(OnAppAd.getOnAppAddActionRawValue(OnAppAd.OnAppAdAction.view.rawValue), value: spot, options: option)
+    @objc public override func sendImpression() {
+        /// Do nothing
+        self.tracker?.delegate?.warningDidOccur?("This method is overrided to do nothing")
+    }
+    
+    @objc public override func sendTouch() {
+        /// Do nothing
+        self.tracker?.delegate?.warningDidOccur?("This method is overrided to do nothing")
     }
 }
 

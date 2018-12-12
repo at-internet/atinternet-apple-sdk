@@ -28,10 +28,10 @@ import Foundation
 public class DisplayCart: EcommerceEvent {
     
     /// Products list
-    @objc public var products = [EProduct]()
+    @objc public var products = [ECommerceProduct]()
     
     /// Cart property
-    @objc public var cart = ECart()
+    @objc public var cart = ECommerceCart()
     
     private var tracker : Tracker
     
@@ -42,14 +42,14 @@ public class DisplayCart: EcommerceEvent {
         }
     }
     
-    init(tracker: Tracker, screen: Screen) {
+    init(tracker: Tracker, screen: Screen?) {
         self.tracker = tracker
         super.init(action: "cart.display", screen: screen)
     }
     
     override func getAdditionalEvents() -> [Event] {
         /// SALES TRACKER
-        if let autoSalesTrackerStr = tracker.configuration.parameters[TrackerConfigurationKeys.AutoSalesTracker], autoSalesTrackerStr.toBool() {
+        if let autoSalesTrackerStr = tracker.configuration.parameters[TrackerConfigurationKeys.AutoSalesTracker], autoSalesTrackerStr.toBool() && screen != nil {
             let stCart = tracker.cart.set(String(describing: cart.get(key: "s:id") ?? ""))
             
             for p in products {
@@ -90,9 +90,9 @@ public class DisplayCart: EcommerceEvent {
                 }
             }
             
-            screen.cart = stCart
-            screen.sendView()
-            screen.cart = nil
+            screen!.cart = stCart
+            screen!.sendView()
+            screen!.cart = nil
             stCart.unset()
         }
         return super.getAdditionalEvents()
@@ -113,7 +113,7 @@ public class DisplayCarts : EventsHelper {
     ///
     /// - Parameter screen: a screen instance
     /// - Returns: DisplayCart instance
-    @objc public func add(screen: Screen) -> DisplayCart {
+    @objc public func add(screen: Screen?) -> DisplayCart {
         let dp = DisplayCart(tracker: tracker, screen: screen)
         _ = events.add(event: dp)
         return dp

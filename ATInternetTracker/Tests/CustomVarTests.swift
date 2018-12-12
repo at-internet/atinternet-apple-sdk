@@ -44,9 +44,7 @@ class CustomVarTests: XCTestCase {
         customVar = customVars.add(123, value: "coucou", type: .app)
         customVar.setParams()
         
-        XCTAssertEqual(customVars.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
-        XCTAssert(customVars.tracker.buffer.volatileParameters["type"]!.key == "type", "Le premier paramètre doit être type")
-        XCTAssert(customVars.tracker.buffer.volatileParameters["type"]!.values[0]() == "screen", "La valeur du premier paramètre doit être screen")
+        XCTAssertEqual(customVars.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
         
         XCTAssert(customVars.tracker.buffer.volatileParameters["p"]!.key == "p", "Le troisième paramètre doit être p")
         XCTAssert(customVars.tracker.buffer.volatileParameters["p"]!.values[0]() == "Home", "La valeur du troisième paramètre doit être Home")
@@ -61,9 +59,7 @@ class CustomVarTests: XCTestCase {
         customVar = customVars.add(123, value: "coucou", type: .screen)
         customVar.setParams()
         
-        XCTAssertEqual(customVars.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
-        XCTAssert(customVars.tracker.buffer.volatileParameters["type"]!.key == "type", "Le premier paramètre doit être type")
-        XCTAssert(customVars.tracker.buffer.volatileParameters["type"]!.values[0]() == "screen", "La valeur du premier paramètre doit être screen")
+        XCTAssertEqual(customVars.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
         
         XCTAssert(customVars.tracker.buffer.volatileParameters["p"]!.key == "p", "Le troisième paramètre doit être p")
         XCTAssert(customVars.tracker.buffer.volatileParameters["p"]!.values[0]() == "Home", "La valeur du troisième paramètre doit être Home")

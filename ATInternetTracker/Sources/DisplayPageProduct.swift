@@ -28,7 +28,7 @@ import Foundation
 public class DisplayPageProduct: EcommerceEvent {
     
     /// List property
-    @objc public var products = [EProduct]()
+    @objc public var products = [ECommerceProduct]()
     
     private var tracker : Tracker
     
@@ -38,7 +38,7 @@ public class DisplayPageProduct: EcommerceEvent {
         }
     }
     
-    init(tracker: Tracker, screen: Screen) {
+    init(tracker: Tracker, screen: Screen?) {
         self.tracker = tracker
         super.init(action: "product.page_display", screen: screen)
     }
@@ -120,7 +120,7 @@ public class DisplayPageProducts : EventsHelper {
     ///
     /// - Parameter screen: a screen instance
     /// - Returns: DisplayPageProduct instance
-    @objc public func add(screen: Screen) -> DisplayPageProduct {
+    @objc public func add(screen: Screen?) -> DisplayPageProduct {
         let dpp = DisplayPageProduct(tracker: tracker, screen: screen)
         _ = events.add(event: dpp)
         return dpp

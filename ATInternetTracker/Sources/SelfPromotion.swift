@@ -35,6 +35,8 @@ import Foundation
 
 /// manage self promotion tracking
 public class SelfPromotion : OnAppAd {
+    var fromScreen = false
+    
     lazy var _customObjects: [String: CustomObject] = [String: CustomObject]()
     
     /// Advertising identifier
@@ -68,8 +70,6 @@ public class SelfPromotion : OnAppAd {
         let prefix = "INT"
         let simpleSeparator = "-"
         let doubleSeparator = "||"
-        let defaultType = "AT"
-        var currentType = ""
         
         var spot = prefix + simpleSeparator + String(adId) + simpleSeparator
         
@@ -83,15 +83,8 @@ public class SelfPromotion : OnAppAd {
             spot += productId
         }
         
-        if let parameter = tracker.buffer.volatileParameters[HitParam.hitType.rawValue] {
-            currentType = parameter.values[0]()
-        }
-        if let parameter = tracker.buffer.persistentParameters[HitParam.hitType.rawValue] {
-            currentType = parameter.values[0]()
-        }
-        
-        if (currentType != "screen" && currentType != defaultType) {
-            _ = tracker.setParam(HitParam.hitType.rawValue, value: defaultType)
+        if (!self.fromScreen) {
+            _ = tracker.setParam(HitParam.hitType.rawValue, value: "AT")
         }
         
         let option = ParamOption()
@@ -120,48 +113,29 @@ public class SelfPromotion : OnAppAd {
 
 
 /// self promotion impression tracking
-public class SelfPromotionImpression: ScreenInfo {
-    /// Advertising identifier
-    @objc public var adId: Int = 0
-    /// Advertising format
-    @objc public var format: String?
-    /// Product identifier
-    @objc public var productId: String?
-    
+public class SelfPromotionImpression: SelfPromotion {
     /// Constructor
     ///
     /// - Parameter adId: Advertising identifier
+    @available(*, deprecated, message: "useless constructor")
     @objc public init(adId: Int) {
         super.init()
-        
-        self.adId = adId
     }
     
     override init(tracker: Tracker) {
         super.init(tracker: tracker)
+        self.action = OnAppAdAction.view
+        self.fromScreen = true
     }
     
-    override func setParams() {
-        let prefix = "INT"
-        let simpleSeparator = "-"
-        let doubleSeparator = "||"
-        
-        var spot = prefix + simpleSeparator + String(adId) + simpleSeparator
-        
-        if let format = format {
-            spot += format + doubleSeparator
-        } else {
-            spot += doubleSeparator
-        }
-        
-        if let productId = productId {
-            spot += productId
-        }
-        
-        let option = ParamOption()
-        option.append = true
-        option.encode = true
-        _ = self.tracker.setParam(OnAppAd.getOnAppAddActionRawValue(OnAppAd.OnAppAdAction.view.rawValue), value: spot, options: option)
+    @objc public override func sendImpression() {
+        /// Do nothing
+        self.tracker?.delegate?.warningDidOccur?("This method is overrided to do nothing")
+    }
+    
+    @objc public override func sendTouch() {
+        /// Do nothing
+        self.tracker?.delegate?.warningDidOccur?("This method is overrided to do nothing")
     }
 }
 

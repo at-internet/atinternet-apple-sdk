@@ -198,6 +198,7 @@ public enum HitParam: String {
     }
     
     ///  /!\ SmartSDK only - Class for tracking screen and touch automatically
+    @available(*, deprecated, message: "Since v2.12.0, SmartTracker is discontinued. Please use standard tagging methods")
     public class AutoTracker: Tracker {
         
         /// Private variables
@@ -217,6 +218,7 @@ public enum HitParam: String {
         private var toolbar: SmartToolBarController?
         
         /// /!\ SmartSDK only -  Token for authentication
+        @available(*, deprecated, message: "Since v2.12.0, SmartTracker is discontinued. Please use standard tagging methods")
         @objc public var token: String? {
             get {
                 return _token
@@ -235,6 +237,7 @@ public enum HitParam: String {
         ///  /!\ SmartSDK only
         /// Enable LiveTagging. See http://livetagging.atinternet-solutions.com/
         /// You need to provide a token before enabling live tagging
+        @available(*, deprecated, message: "Since v2.12.0, SmartTracker is discontinued. Please use standard tagging methods")
         @objc public var enableLiveTagging: Bool {
             get {
                 return _enableLiveTagging
@@ -267,6 +270,7 @@ public enum HitParam: String {
         /// /!\ SmartSDK only -
         /// Enables AutoTracking. Will send automatically click and screens hits.
         /// You can custom those hits by implementing IAutoTracker protocol in your ViewControllers
+        @available(*, deprecated, message: "Since v2.12.0, SmartTracker is discontinued. Please use standard tagging methods")
         @objc public var enableAutoTracking: Bool {
             get {
                 return _enableAutoTracking
