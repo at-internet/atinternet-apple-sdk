@@ -178,10 +178,10 @@ public class Gesture: BusinessObject {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
+        let encodingOption = ParamOption()
+        encodingOption.encode = true
         if(TechnicalContext.screenName != "") {
-            let encodingOption = ParamOption()
-            encodingOption.encode = true
             _ = tracker.setParam(HitParam.touchScreen.rawValue, value: TechnicalContext.screenName, options: encodingOption)
         }
         
@@ -195,16 +195,18 @@ public class Gesture: BusinessObject {
         
         if let search = self.internalSearch {
             search.tracker = self.tracker
-            search.setEvent()
+            search.setParams()
         }
         
         for (_, value) in _customObjects {
             value.tracker = self.tracker
-            value.setEvent()
+            value.setParams()
         }
         
+        
         _ = tracker.setParam("click", value: getActionRawValue(action.rawValue))
-        _ = tracker.event.set("click", action: getActionRawValue(action.rawValue), label: buildGestureName())
+            .setParam(HitParam.hitType.rawValue, value: "click")
+            .setParam(HitParam.screen.rawValue, value: buildGestureName(), options: encodingOption)
     }
     
     /// Send navigation gesture event

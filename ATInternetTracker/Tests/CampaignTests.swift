@@ -49,7 +49,7 @@ class CampaignTests: XCTestCase {
     
     func testSetCampaign() {
         campaign.campaignId = "AD-1"
-        campaign.setEvent()
+        campaign.setParams()
         
         XCTAssert(campaign.tracker.buffer.volatileParameters.count == 1, "Le nombre de paramètres volatiles doit être égal à 1")
         
@@ -62,10 +62,10 @@ class CampaignTests: XCTestCase {
         
         campaign.tracker.setConfig("campaignLastPersistence", value: "false") { (isSet) -> Void in
             self.campaign.campaignId = "AD-1"
-            self.campaign.setEvent()
+            self.campaign.setParams()
             
             self.campaign.campaignId = "AD-2"
-            self.campaign.setEvent()
+            self.campaign.setParams()
             
             XCTAssert(self.campaign.tracker.buffer.volatileParameters.count == 2, "Le nombre de paramètres volatiles doit être égal à 2")
             
@@ -87,13 +87,13 @@ class CampaignTests: XCTestCase {
         
         campaign.tracker.setConfig("campaignLastPersistence", value: "true") { (isSet) -> Void in
             self.campaign.campaignId = "AD-1"
-            self.campaign.setEvent()
+            self.campaign.setParams()
             
             self.campaign.campaignId = "AD-2"
-            self.campaign.setEvent()
+            self.campaign.setParams()
             
             self.campaign.campaignId = "AD-3"
-            self.campaign.setEvent()
+            self.campaign.setParams()
             
             XCTAssert(self.campaign.tracker.buffer.volatileParameters.count == 2, "Le nombre de paramètres volatiles doit être égal à 2")
             
@@ -114,13 +114,13 @@ class CampaignTests: XCTestCase {
         
         campaign.tracker.setConfig("campaignLastPersistence", value: "false") { (isSet) -> Void in
             self.campaign.campaignId = "AD-1"
-            self.campaign.setEvent()
+            self.campaign.setParams()
             
             self.campaign.campaignId = "AD-2"
-            self.campaign.setEvent()
+            self.campaign.setParams()
             
             self.campaign.campaignId = "AD-3"
-            self.campaign.setEvent()
+            self.campaign.setParams()
             
             XCTAssert(self.campaign.tracker.buffer.volatileParameters.count == 2, "Le nombre de paramètres volatiles doit être égal à 2")
             

@@ -45,7 +45,7 @@ class CartTests: XCTestCase {
     
     func testSetCart() {
         _ = cart.set("1")
-        cart.setEvent()
+        cart.setParams()
 
         XCTAssert(cart.tracker.buffer.volatileParameters.count == 1, "Le nombre de paramètres volatiles doit être égal à 1")
         
@@ -77,7 +77,7 @@ class CartTests: XCTestCase {
         product1.discountTaxFree = 5
         product1.discountTaxIncluded = 10
         
-        cart.setEvent()
+        cart.setParams()
         
         XCTAssert(cart.tracker.buffer.volatileParameters.count == 8, "Le nombre de paramètres volatiles doit être égal à 8")
         

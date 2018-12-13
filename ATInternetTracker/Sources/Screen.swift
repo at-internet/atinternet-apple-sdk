@@ -115,29 +115,29 @@ public class AbstractScreen: BusinessObject {
     }
 
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         if _level2 >= 0 {
             _ = self.tracker.setParam(HitParam.level2.rawValue, value: _level2)
         }
         
         for (_, value) in _customObjects {
             value.tracker = self.tracker
-            value.setEvent()
+            value.setParams()
         }
         
         for (_, value) in _customVars {
             value.tracker = self.tracker
-            value.setEvent()
+            value.setParams()
         }
         
         if let aisle = self.aisle {
             aisle.tracker = self.tracker
-            aisle.setEvent()
+            aisle.setParams()
         }
         
         if let treeStructure = self.customTreeStructure {
             treeStructure.tracker = self.tracker
-            treeStructure.setEvent()
+            treeStructure.setParams()
         }
         
         let sortedPublishers = _publishers.sorted {
@@ -146,7 +146,7 @@ public class AbstractScreen: BusinessObject {
         
         for (_, value) in sortedPublishers {
             value.tracker = self.tracker
-            value.setEvent()
+            value.setParams()
         }
 
         let sortedSelfPromotions = _selfPromotions.sorted {
@@ -155,33 +155,33 @@ public class AbstractScreen: BusinessObject {
         
         for (_, value) in sortedSelfPromotions {
             value.tracker = self.tracker
-            value.setEvent()
+            value.setParams()
         }
         
         if let loc = self.location {
             loc.tracker = self.tracker
-            loc.setEvent()
+            loc.setParams()
         }
         
         if let campaign = self.campaign {
             campaign.tracker = self.tracker
-            campaign.setEvent()
+            campaign.setParams()
         }
         
         if let search = self.internalSearch {
             search.tracker = self.tracker
-            search.setEvent()
+            search.setParams()
         }
         
         if let order = self.order {
             order.tracker = self.tracker
-            order.setEvent()
+            order.setParams()
         }
         
         if let cart = self.cart {
             if cart.cartId != "" || order != nil {
                 cart.tracker = self.tracker
-                cart.setEvent()
+                cart.setParams()
             }
         }
         
@@ -381,10 +381,11 @@ public class Screen: AbstractScreen {
     
     //MARK: Screen
     /// Set parameters in buffer
-    override func setEvent() {
-        super.setEvent()
-        
-        _ = tracker.event.set("screen", action: getScreenActionRawValue(action.rawValue), label: builtScreenName)
+    override func setParams() {
+        super.setParams()
+        let encodingOption = ParamOption()
+        encodingOption.encode = true
+        _ = self.tracker.setParam(HitParam.screen.rawValue, value: builtScreenName, options: encodingOption)
     }
 }
 
@@ -452,25 +453,23 @@ public class DynamicScreen: AbstractScreen {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
-        super.setEvent()
+    override func setParams() {
+        super.setParams()
         let encodingOption = ParamOption()
         encodingOption.encode = true
-        
-        _ = tracker.setParam("pchap", value: buildDynamicScreenChapters(), options:encodingOption)
         
         if(screenId.count > 255){
             screenId = ""
             tracker.delegate?.warningDidOccur?("screenId too long, replaced by empty value")
         }
         
-        _ = tracker.setParam("pid", value: screenId)
-        
         dateFormatter.dateFormat = "YYYYMMddHHmm"
         dateFormatter.locale = LifeCycle.locale
         
-        _ = tracker.setParam("pidt", value: dateFormatter.string(from: update))
-        _ = tracker.event.set("screen", action: getScreenActionRawValue(action.rawValue), label: name)
+        _ = tracker.setParam("pid", value: screenId)
+            .setParam("pchap", value: buildDynamicScreenChapters(), options:encodingOption)
+            .setParam("pidt", value: dateFormatter.string(from: update))
+            .setParam(HitParam.screen.rawValue, value: _name, options:encodingOption)
     }
 }
 

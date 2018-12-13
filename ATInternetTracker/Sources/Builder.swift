@@ -143,8 +143,6 @@ class Builder: Operation {
         let mhidMaxLength = 30
         // Added to slices olt maximum length
         let oltMaxLength = 20
-        // Added to slices idclient maximum length
-        let idclientMaxLength = 40
         // Added to slices separator maximum length
         let separatorMaxLength = 5
 
@@ -155,27 +153,40 @@ class Builder: Operation {
         // Hit max chunks
         let hitMaxChunks = 999
         
-        // Hit construction holder
-        var hit = ""
+        let mhParamsAllParts = ["idclient", "col"]
+        
         // Get the first part of the hit
         let config = buildConfiguration()
-        // Get the parameters from the buffer (formatted as &p=v)
-        let formattedParams = prepareQuery()
+        if config == "" {
+            return hits
+        }
         
-        // Reference maximum size
-        let refMaxSize = hitMaxLength
-            - mhidMaxLength
-            - config.count
-            - oltMaxLength
-            - idclientMaxLength
-            - separatorMaxLength
+
+        // Get the parameters from the buffer (formatted as &p=v)
+        var formattedParams = prepareQuery()
         
         // Hit slicing error
         var err = false
         let errQuery = self.makeSubQuery("mherr", value: "1")
         
-        // Idclient added to slices
-        let idclient = formattedParams[HitParam.userID.rawValue] != nil ? formattedParams[HitParam.userID.rawValue]!.0 : ""
+        // Reference maximum size
+        var refMaxSize = hitMaxLength
+            - mhidMaxLength
+            - config.count
+            - oltMaxLength
+            - separatorMaxLength
+        
+        // Common content added to slices
+        var commonQueryContent : String = "";
+        for paramKey in mhParamsAllParts {
+            if let value = formattedParams.removeValue(forKey: paramKey)?.0 {
+                commonQueryContent += value
+            }
+        }
+        refMaxSize -= commonQueryContent.count
+        
+        // Hit construction holder
+        var hit = ""
         
         // For each prebuilt queryString, we check the length
         for (key , tupleValue_Separator) in formattedParams {
@@ -277,15 +288,15 @@ class Builder: Operation {
                     self.tracker.delegate?.warningDidOccur?("Multihits: too much hit parts")
                     hits[index] = config+errQuery
                 } else {
-                    // Add the configuration, the mh variable and the idclient
-                    hits[index] = "\(config)&mh=\(index+1)\(mhidSuffix)\(idclient)\(hits[index])"
+                    // Add the configuration, the mh variable and the mh common parts
+                    hits[index] = "\(config)&mh=\(index+1)\(mhidSuffix)\(commonQueryContent)\(hits[index])"
                 }
                 
             }
             
         // Only one hit
         } else {
-            hits[0] = config + hits[0]
+            hits[0] = config + commonQueryContent + hits[0]
         }
 
         if let delegate = tracker.delegate {
@@ -426,7 +437,11 @@ class Builder: Operation {
                             }
                         }
                     }
-                    strValue = result.description
+                    if json is Array<Dictionary<String, Any>> {
+                        strValue = Tool.JSONStringify(result)
+                    } else {
+                        strValue = result.description
+                    }
                 }
             }
             else {

@@ -42,7 +42,7 @@ class InternalSearchTests: XCTestCase {
         internalSearch.keyword = "veryGoodSearch"
         internalSearch.resultScreenNumber = 3
         internalSearch.resultPosition = 1
-        internalSearch.setEvent()
+        internalSearch.setParams()
         
         XCTAssertEqual(internalSearch.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
         

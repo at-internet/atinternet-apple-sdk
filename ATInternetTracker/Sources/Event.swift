@@ -32,56 +32,81 @@ SOFTWARE.
 
 import Foundation
 
-class Event: NSObject {
-    /// Tracker instance
-    var tracker: Tracker
+public class Event: NSObject {
     
-    /**
-    Event initializer
-    - parameter tracker: the tracker instance
-    - returns: Event instance
-    */
-    init(tracker: Tracker) {
-        self.tracker = tracker;
+    var _data = [String : Any]()
+    var data : [String : Any] {
+        get {
+            return self._data
+        }
     }
+    
+    @objc public var action: String
+    
+    init(action: String) {
+        self.action = action
+    }
+    
+    func getAdditionalEvents() -> [Event] {
+        return [Event]()
+    }
+}
 
+public class Events: BusinessObject {
     
-    //MARK: Generic event tracking
+    var eventLists: [Event] = [Event]()
     
     /**
-    Set a generic event
-    
-    - parameter a: category of event
-    - parameter type: of action
-    - parameter label: of the event
-    */
-    func set(_ category: String, action: String, label: String) -> Tracker {
-        _ = self.set(category, action: action, label: label, value: "{}")
-        
-        return self.tracker
+     Add an event
+     - parameter action: event action label
+     - parameter data: event data content
+     - returns: a new Event
+     */
+    public func add(action: String, data: [String : Any]) -> Event {
+        let ev = Event(action: action)
+        ev._data = data
+        return add(event: ev)
     }
     
     /**
-    Set a generic event
+     Add an event
+     - parameter event: event instance
+     - returns: the event instance added
+     */
+    public func add(event: Event) -> Event {
+        self.eventLists.append(event)
+        self.tracker.businessObjects[id] = self
+        return event
+    }
     
-    - parameter a: category of event
-    - parameter type: of action
-    - parameter label: of the event
-    - parameter an: optional json value
-    */
-    func set(_ category: String, action: String, label: String, value: String) -> Tracker {
-        let encodingOption = ParamOption()
-        encodingOption.encode = true
+    /**
+     Send all stored events
+     */
+    public func send() {
+        self.tracker.dispatcher.dispatch([self])
+    }
+    
+    override func setParams() {
+        var eventsArr = [[String : Any]]()
         
-        _ = self.tracker.setParam(HitParam.hitType.rawValue, value: category)
-        _ = self.tracker.setParam(HitParam.action.rawValue, value: action)
-        _ = self.tracker.setParam(HitParam.screen.rawValue, value: label, options:encodingOption)
+        for e in self.eventLists {
+            
+            if e.data.count != 0 {
+                eventsArr.append(["action" : e.action, "data" : e.data])
+            }
+            
+            let additionalEvents = e.getAdditionalEvents()
+            
+            for ev in additionalEvents {
+                eventsArr.append(["action" : ev.action, "data" : ev.data])
+            }
+
+        }
+        self.eventLists.removeAll()
         
-        let appendOptionWithEncoding = ParamOption()
-        appendOptionWithEncoding.append = true
-        appendOptionWithEncoding.encode = true
-        _ = self.tracker.setParam(HitParam.json.rawValue, value: value, options: appendOptionWithEncoding)
-        
-        return self.tracker
+        let optEncode = ParamOption()
+        optEncode.encode = true
+        _ = self.tracker.setParam("events", value: Tool.JSONStringify(eventsArr, prettyPrinted: false), options: optEncode)
+                        .setParam("col", value: "2")
     }
 }

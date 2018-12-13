@@ -42,7 +42,7 @@ class AisleTests: XCTestCase {
         aisle.level1 = "Vêtement"
         aisle.level2 = "Chaussures"
         aisle.level3 = "Basket"
-        aisle.setEvent()
+        aisle.setParams()
         
         XCTAssertEqual(aisle.tracker.buffer.volatileParameters.count, 1, "Le nombre de paramètres volatiles doit être égal à 1")
         XCTAssert(aisle.tracker.buffer.volatileParameters["aisl"]?.key == "aisl", "Le premier paramètre doit être aisle")

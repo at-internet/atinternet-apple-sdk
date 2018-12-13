@@ -69,7 +69,7 @@ public class Cart: BusinessObject {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         _ = tracker.setParam("idcart", value: cartId)
         
         let encodingOption = ParamOption()

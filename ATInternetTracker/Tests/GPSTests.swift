@@ -45,16 +45,11 @@ class GPSTests: XCTestCase {
     
     func testSetLocation() {
         let screen = locations.tracker.screens.add("Home")
-        screen.setEvent()
+        screen.setParams()
         location = locations.add(40.0, longitude: 50.0)
-        location.setEvent()
+        location.setParams()
         
-        XCTAssertEqual(locations.tracker.buffer.volatileParameters.count, 6, "Le nombre de paramètres volatiles doit être égal à 6")
-        XCTAssert(locations.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
-        XCTAssert(locations.tracker.buffer.volatileParameters["type"]?.values[0]() == "screen", "La valeur du premier paramètre doit être screen")
-        
-        XCTAssert(locations.tracker.buffer.volatileParameters["action"]?.key == "action", "Le second paramètre doit être action")
-        XCTAssert(location.tracker.buffer.volatileParameters["action"]?.values[0]() == "view", "La valeur du second paramètre doit être view")
+        XCTAssertEqual(locations.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
         
         XCTAssert(locations.tracker.buffer.volatileParameters["p"]?.key == "p", "Le troisième paramètre doit être p")
         XCTAssert(locations.tracker.buffer.volatileParameters["p"]?.values[0]() == "Home", "La valeur du troisième paramètre doit être Home")
@@ -68,17 +63,11 @@ class GPSTests: XCTestCase {
     
     func testSetLongLocation() {
         let screen = locations.tracker.screens.add("Home")
-        screen.setEvent()
+        screen.setParams()
         location = locations.add(40.12345, longitude: 50.6789)
-        location.setEvent()
+        location.setParams()
         
-        XCTAssertEqual(locations.tracker.buffer.volatileParameters.count, 6, "Le nombre de paramètres volatiles doit être égal à 6")
-        XCTAssert(locations.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
-        XCTAssert(locations.tracker.buffer.volatileParameters["type"]?.values[0]() == "screen", "La valeur du premier paramètre doit être screen")
-        
-        XCTAssert(locations.tracker.buffer.volatileParameters["action"]?.key == "action", "Le second paramètre doit être action")
-        XCTAssert(locations.tracker.buffer.volatileParameters["action"]?.values[0]() == "view", "La valeur du second paramètre doit être view")
-        
+        XCTAssertEqual(locations.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
         XCTAssert(locations.tracker.buffer.volatileParameters["p"]?.key == "p", "Le troisième paramètre doit être p")
         XCTAssert(locations.tracker.buffer.volatileParameters["p"]?.values[0]() == "Home", "La valeur du troisième paramètre doit être Home")
         

@@ -81,7 +81,8 @@ class SliceReadyParam: NSObject {
                 "stc",
                 "ati",
                 "atc",
-                "pdtl"
+                "pdtl",
+                "events"
             ]
         }
     }

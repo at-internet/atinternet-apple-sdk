@@ -51,7 +51,7 @@ public class Location: ScreenInfo {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         _ = tracker.setParam(HitParam.gpsLatitude.rawValue, value: String(format: "%.2f", latitude))
         _ = tracker.setParam(HitParam.gpsLongitude.rawValue, value: String(format: "%.2f", longitude))
     }

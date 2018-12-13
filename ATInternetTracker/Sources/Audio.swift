@@ -42,8 +42,8 @@ public class Audio: RichMedia {
         type = "audio"
     }
     
-    override func setEvent() {
-        super.setEvent()
+    override func setParams() {
+        super.setParams()
         
         if (self.duration > 86400) {
             self.duration = 86400

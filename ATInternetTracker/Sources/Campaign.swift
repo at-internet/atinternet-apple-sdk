@@ -57,7 +57,7 @@ public class Campaign: ScreenInfo {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         let userDefaults = UserDefaults.standard
         let encodeOption = ParamOption()
         encodeOption.encode = true

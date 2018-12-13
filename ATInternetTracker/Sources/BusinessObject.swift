@@ -62,7 +62,7 @@ open class BusinessObject: NSObject {
     }
     
     /// Set parameters in buffer
-    func setEvent() {
+    func setParams() {
         
     }
 }
