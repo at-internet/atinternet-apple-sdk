@@ -25,7 +25,7 @@
 import Foundation
 
 /// Wrapper class for PaymentCheckout event tracking (SalesInsight)
-public class PaymentCheckout: EcommerceEvent {
+public class PaymentCheckout: Event {
     
     /// Cart property
     @objc public var cart = ECommerceCart()
@@ -41,8 +41,8 @@ public class PaymentCheckout: EcommerceEvent {
         }
     }
     
-    init(screen: Screen?) {
-        super.init(action: "cart.payment", screen: screen)
+    init() {
+        super.init(type: "cart.payment")
     }
 }
 
@@ -51,10 +51,9 @@ public class PaymentCheckouts : EventsHelper {
     
     /// Add payment checkout event tracking
     ///
-    /// - Parameter screen: a screen instance
     /// - Returns: PaymentCheckout instance
-    @objc public func add(screen: Screen?) -> PaymentCheckout {
-        let pc = PaymentCheckout(screen: screen)
+    @objc public func add() -> PaymentCheckout {
+        let pc = PaymentCheckout()
         _ = events.add(event: pc)
         return pc
     }

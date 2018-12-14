@@ -25,7 +25,7 @@
 import Foundation
 
 /// Wrapper class for DisplayPageProduct event tracking (SalesInsight)
-public class DisplayPageProduct: EcommerceEvent {
+public class DisplayPageProduct: Event {
     
     /// List property
     @objc public var products = [ECommerceProduct]()
@@ -38,26 +38,17 @@ public class DisplayPageProduct: EcommerceEvent {
         }
     }
     
-    init(tracker: Tracker, screen: Screen?) {
+    init(tracker: Tracker) {
         self.tracker = tracker
-        super.init(action: "product.page_display", screen: screen)
+        super.init(type: "product.page_display")
     }
     
     override func getAdditionalEvents() -> [Event] {
         var generatedEvents = super.getAdditionalEvents()
         
-        let screenObj = parseScreenNameForEvent(screen: screen)
-        let level2Obj = parseLevel2ForEvent(screen: screen)
-        
         for p in products {
             /// SALES INSIGHTS
-            let dpp = DisplayPageProduct(tracker: tracker, screen: screen)
-            if screenObj.count > 0 {
-                dpp._data["page"] = screenObj
-            }
-            if level2Obj.count > 0 {
-                dpp._data["level2"] = level2Obj
-            }
+            let dpp = DisplayPageProduct(tracker: tracker)
             dpp._data["product"] = p.properties
             generatedEvents.append(dpp)
         }
@@ -118,10 +109,9 @@ public class DisplayPageProducts : EventsHelper {
     
     /// Add display page products event tracking
     ///
-    /// - Parameter screen: a screen instance
     /// - Returns: DisplayPageProduct instance
-    @objc public func add(screen: Screen?) -> DisplayPageProduct {
-        let dpp = DisplayPageProduct(tracker: tracker, screen: screen)
+    @objc public func add() -> DisplayPageProduct {
+        let dpp = DisplayPageProduct(tracker: tracker)
         _ = events.add(event: dpp)
         return dpp
     }

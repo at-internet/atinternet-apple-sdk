@@ -628,6 +628,8 @@ public class Tracker: NSObject {
     //MARK: Richmedia Tracking
     /// Return MediaPlayers instance
     @objc fileprivate(set) public lazy var mediaPlayers: MediaPlayers = MediaPlayers(tracker: self)
+    /// Campaign Tracking. Campaign is now available as a screen object property but you may use this method for notification tracking
+    @objc fileprivate(set) public lazy var mvTestings: MvTestings = MvTestings(tracker: self)
     
     
     //MARK: - Initializer

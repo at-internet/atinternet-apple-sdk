@@ -25,7 +25,7 @@
 import Foundation
 
 /// Wrapper class for RemoveProduct event tracking (SalesInsight)
-public class RemoveProduct: EcommerceEvent {
+public class RemoveProduct: Event {
     
     /// Product property
     @objc public var product = ECommerceProduct()
@@ -41,8 +41,8 @@ public class RemoveProduct: EcommerceEvent {
         }
     }
     
-    init(screen: Screen?) {
-        super.init(action: "product.remove_from_cart", screen: screen)
+    init() {
+        super.init(type: "product.remove_from_cart")
     }
 }
 
@@ -51,10 +51,9 @@ public class RemoveProducts : EventsHelper {
     
     /// Add remove product event tracking
     ///
-    /// - Parameter screen: a screen instance
     /// - Returns: RemoveProduct instance
-    @objc public func add(screen: Screen?) -> RemoveProduct {
-        let rp = RemoveProduct(screen: screen)
+    @objc public func add() -> RemoveProduct {
+        let rp = RemoveProduct()
         _ = events.add(event: rp)
         return rp
     }

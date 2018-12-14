@@ -25,7 +25,7 @@
 import Foundation
 
 /// Wrapper class for DisplayCart event tracking (SalesInsight)
-public class DisplayCart: EcommerceEvent {
+public class DisplayCart: Event {
     
     /// Products list
     @objc public var products = [ECommerceProduct]()
@@ -34,6 +34,7 @@ public class DisplayCart: EcommerceEvent {
     @objc public var cart = ECommerceCart()
     
     private var tracker : Tracker
+    private var screen : Screen?
     
     override var data: [String : Any] {
         get {
@@ -44,7 +45,8 @@ public class DisplayCart: EcommerceEvent {
     
     init(tracker: Tracker, screen: Screen?) {
         self.tracker = tracker
-        super.init(action: "cart.display", screen: screen)
+        self.screen = screen
+        super.init(type: "cart.display")
     }
     
     override func getAdditionalEvents() -> [Event] {
@@ -111,7 +113,6 @@ public class DisplayCarts : EventsHelper {
     
     /// Add display cart event tracking
     ///
-    /// - Parameter screen: a screen instance
     /// - Returns: DisplayCart instance
     @objc public func add(screen: Screen?) -> DisplayCart {
         let dp = DisplayCart(tracker: tracker, screen: screen)

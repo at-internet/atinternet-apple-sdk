@@ -25,7 +25,7 @@
 import Foundation
 
 /// Wrapper class for DeliveryCheckout event tracking (SalesInsight)
-public class DeliveryCheckout: EcommerceEvent {
+public class DeliveryCheckout: Event {
     
     /// Cart property
     @objc public var cart = ECommerceCart()
@@ -41,8 +41,8 @@ public class DeliveryCheckout: EcommerceEvent {
         }
     }
     
-    init(screen: Screen?) {
-        super.init(action: "cart.delivery", screen: screen)
+    init() {
+        super.init(type: "cart.delivery")
     }
 }
 
@@ -51,10 +51,9 @@ public class DeliveryCheckouts : EventsHelper {
     
     /// Add click product event tracking
     ///
-    /// - Parameter screen: a screen instance
     /// - Returns: DeliveryCheckout instance
-    @objc public func add(screen: Screen?) -> DeliveryCheckout {
-        let dc = DeliveryCheckout(screen: screen)
+    @objc public func add() -> DeliveryCheckout {
+        let dc = DeliveryCheckout()
         _ = events.add(event: dc)
         return dc
     }

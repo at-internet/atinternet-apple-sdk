@@ -24,7 +24,7 @@
 //
 
 /// Wrapper class for CartCreation event tracking (SalesInsight)
-class CartCreation: EcommerceEvent {
+class CartCreation: Event {
     
     /// Cart property
     var cart = ECommerceCart()
@@ -36,13 +36,13 @@ class CartCreation: EcommerceEvent {
         }
     }
     
-    init(screen: Screen?) {
-        super.init(action: "cart.creation", screen: screen)
+    init() {
+        super.init(type: "cart.creation")
     }
 }
 
 /// Wrapper class for CartConfirmation event tracking (SalesInsight)
-class CartConfirmation: EcommerceEvent {
+class CartConfirmation: Event {
     
     /// Cart property
     var cart = ECommerceCart()
@@ -50,8 +50,8 @@ class CartConfirmation: EcommerceEvent {
     /// Transaction property
     var transaction = ECommerceTransaction()
     
-    init(screen: Screen?) {
-        super.init(action: "cart.confirmation", screen: screen)
+    init() {
+        super.init(type: "cart.confirmation")
     }
     
     override var data: [String : Any] {
@@ -63,7 +63,7 @@ class CartConfirmation: EcommerceEvent {
     }
 }
 
-class ProductPurchased: EcommerceEvent {
+class ProductPurchased: Event {
     
     /// Product property
     var product = ECommerceProduct()
@@ -83,7 +83,7 @@ class ProductPurchased: EcommerceEvent {
         }
     }
     
-    init(screen: Screen?) {
-        super.init(action: "product.purchased", screen: screen)
+    init() {
+        super.init(type: "product.purchased")
     }
 }

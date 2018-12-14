@@ -41,10 +41,10 @@ public class Event: NSObject {
         }
     }
     
-    @objc public var action: String
+    @objc public var type: String
     
-    init(action: String) {
-        self.action = action
+    init(type: String) {
+        self.type = type
     }
     
     func getAdditionalEvents() -> [Event] {
@@ -58,12 +58,12 @@ public class Events: BusinessObject {
     
     /**
      Add an event
-     - parameter action: event action label
+     - parameter type: event type label
      - parameter data: event data content
      - returns: a new Event
      */
-    public func add(action: String, data: [String : Any]) -> Event {
-        let ev = Event(action: action)
+    public func add(type: String, data: [String : Any]) -> Event {
+        let ev = Event(type: type)
         ev._data = data
         return add(event: ev)
     }
@@ -92,13 +92,13 @@ public class Events: BusinessObject {
         for e in self.eventLists {
             
             if e.data.count != 0 {
-                eventsArr.append(["action" : e.action, "data" : e.data])
+                eventsArr.append(["type" : e.type, "data" : e.data])
             }
             
             let additionalEvents = e.getAdditionalEvents()
             
             for ev in additionalEvents {
-                eventsArr.append(["action" : ev.action, "data" : ev.data])
+                eventsArr.append(["type" : ev.type, "data" : ev.data])
             }
 
         }
