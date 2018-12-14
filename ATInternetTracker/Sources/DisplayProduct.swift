@@ -25,7 +25,7 @@
 import Foundation
 
 /// Wrapper class for DisplayProduct event tracking (SalesInsight)
-public class DisplayProduct: EcommerceEvent {
+public class DisplayProduct: Event {
     
     /// Product property
     @objc public var product = ECommerceProduct()
@@ -37,8 +37,8 @@ public class DisplayProduct: EcommerceEvent {
         }
     }
     
-    init(screen: Screen?) {
-        super.init(action: "product.display", screen: screen)
+    init() {
+        super.init(type: "product.display")
     }
 }
 
@@ -47,10 +47,9 @@ public class DisplayProducts : EventsHelper {
     
     /// Add display product event tracking
     ///
-    /// - Parameter screen: a screen instance
     /// - Returns: DisplayProduct instance
-    @objc public func add(screen: Screen?) -> DisplayProduct {
-        let dp = DisplayProduct(screen: screen)
+    @objc public func add() -> DisplayProduct {
+        let dp = DisplayProduct()
         _ = events.add(event: dp)
         return dp
     }

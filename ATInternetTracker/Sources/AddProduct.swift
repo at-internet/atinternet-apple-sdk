@@ -25,7 +25,7 @@
 import Foundation
 
 /// Wrapper class for AddProduct event tracking (SalesInsight)
-public class AddProduct: EcommerceEvent {
+public class AddProduct: Event {
     
     /// Product property
     @objc public var product = ECommerceProduct()
@@ -41,15 +41,15 @@ public class AddProduct: EcommerceEvent {
         }
     }
     
-    init(screen: Screen?) {
-        super.init(action: "product.add_to_cart", screen: screen)
+    init() {
+        super.init(type: "product.add_to_cart")
     }
     
     override func getAdditionalEvents() -> [Event] {
         var generatedEvents = super.getAdditionalEvents()
         
         if String(describing: product.get(key: "b:cartcreation") ?? false).toBool() {
-            let cc = CartCreation(screen: screen)
+            let cc = CartCreation()
             let quantity = Int(String(describing: product.get(key: "n:quantity") ?? 0)) ?? 0
             
             _ = cc.cart.set(key: "id", value: String(describing: cart.get(key: "s:id") ?? ""))
@@ -71,10 +71,9 @@ public class AddProducts : EventsHelper {
     
     /// Add add product event tracking
     ///
-    /// - Parameter screen: a screen instance
     /// - Returns: AddProduct instance
-    @objc public func add(screen: Screen?) -> AddProduct {
-        let ap = AddProduct(screen: screen)
+    @objc public func add() -> AddProduct {
+        let ap = AddProduct()
         _ = events.add(event: ap)
         return ap
     }

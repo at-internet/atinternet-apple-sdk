@@ -25,9 +25,11 @@
 import Foundation
 
 /// Wrapper class for TransactionConfirmation event tracking (SalesInsight)
-public class TransactionConfirmation: EcommerceEvent {
+public class TransactionConfirmation: Event {
     
     private var tracker : Tracker
+    
+    private var screen : Screen?
     
     /// Products list
     @objc public var products = [ECommerceProduct]()
@@ -64,19 +66,20 @@ public class TransactionConfirmation: EcommerceEvent {
     
     init(tracker: Tracker, screen: Screen?) {
         self.tracker = tracker
-        super.init(action: "transaction.confirmation", screen: screen)
+        self.screen = screen
+        super.init(type: "transaction.confirmation")
     }
     
     override func getAdditionalEvents() -> [Event] {
         /// SALES INSIGHTS
         var generatedEvents = super.getAdditionalEvents()
-        let cc = CartConfirmation(screen: screen)
+        let cc = CartConfirmation()
         _ = cc.transaction.setAll(obj: transaction.properties)
         _ = cc.cart.setAll(obj: cart.properties)
         generatedEvents.append(cc)
         
         for p in products {
-            let pp = ProductPurchased(screen: screen)
+            let pp = ProductPurchased()
             _ = pp.cart.set(key: "id", value: String(describing: cart.get(key: "s:id") ?? ""))
             _ = pp.transaction.set(key: "id", value: String(describing: transaction.get(key: "s:id") ?? ""))
             _ = pp.product.setAll(obj: p.properties)

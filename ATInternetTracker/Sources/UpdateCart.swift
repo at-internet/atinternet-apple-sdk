@@ -25,7 +25,7 @@
 import Foundation
 
 /// Wrapper class for UpdateCart event tracking (SalesInsight)
-public class UpdateCart: EcommerceEvent {
+public class UpdateCart: Event {
     
     /// Cart property
     @objc public var cart = ECommerceCart()
@@ -37,8 +37,8 @@ public class UpdateCart: EcommerceEvent {
         }
     }
     
-    init(screen: Screen?) {
-        super.init(action: "cart.update", screen: screen)
+    init() {
+        super.init(type: "cart.update")
     }    
 }
 
@@ -47,10 +47,9 @@ public class UpdateCarts : EventsHelper {
     
     /// Add update cart event tracking
     ///
-    /// - Parameter screen: a screen instance
     /// - Returns: DisplayCart instance
-    @objc public func add(screen: Screen?) -> UpdateCart {
-        let uc = UpdateCart(screen: screen)
+    @objc public func add() -> UpdateCart {
+        let uc = UpdateCart()
         _ = events.add(event: uc)
         return uc
     }
