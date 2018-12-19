@@ -27,7 +27,7 @@
 class CartCreation: Event {
     
     /// Cart property
-    var cart = ECommerceCart()
+    var cart : ECommerceCart = ECommerceCart()
     
     override var data: [String : Any] {
         get {
@@ -45,10 +45,10 @@ class CartCreation: Event {
 class CartConfirmation: Event {
     
     /// Cart property
-    var cart = ECommerceCart()
+    lazy var cart : ECommerceCart = ECommerceCart()
     
     /// Transaction property
-    var transaction = ECommerceTransaction()
+    var transaction : ECommerceTransaction = ECommerceTransaction()
     
     init() {
         super.init(type: "cart.confirmation")
@@ -66,10 +66,10 @@ class CartConfirmation: Event {
 class ProductPurchased: Event {
     
     /// Product property
-    var product = ECommerceProduct()
+    lazy var product : ECommerceProduct = ECommerceProduct()
     
     /// Transaction property
-    var transaction = ECommerceTransaction()
+    lazy var transaction : ECommerceTransaction = ECommerceTransaction()
     
     /// Cart property
     var cart = ECommerceCart()

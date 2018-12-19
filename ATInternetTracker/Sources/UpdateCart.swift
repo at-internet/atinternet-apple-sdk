@@ -28,7 +28,7 @@ import Foundation
 public class UpdateCart: Event {
     
     /// Cart property
-    @objc public var cart = ECommerceCart()
+    @objc public lazy var cart : ECommerceCart = ECommerceCart()
     
     override var data: [String : Any] {
         get {

@@ -179,6 +179,14 @@
             "type": "string",
             "public": false,
             "global": true
+        },
+        "collectDomain": {
+            "title" : "Geode_Tag_SDK_Config_Title_collectDomain",
+            "description": "Geode_Tag_SDK_Config_Description_collectDomain",
+            "defaultValue": "",
+            "type": "string",
+            "public": false,
+            "global": true
         }
     }
 }

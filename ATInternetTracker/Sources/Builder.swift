@@ -156,7 +156,7 @@ class Builder: Operation {
         let mhParamsAllParts = ["idclient", "col"]
         
         // Get the first part of the hit
-        let config = buildConfiguration()
+        var config = buildConfiguration()
         if config == "" {
             return hits
         }
@@ -164,6 +164,26 @@ class Builder: Operation {
 
         // Get the parameters from the buffer (formatted as &p=v)
         var formattedParams = prepareQuery()
+        if formattedParams["col"] != nil {
+            let collectDomain = self.tracker.configuration.parameters[TrackerConfigurationKeys.CollectDomain]
+            guard collectDomain != nil && collectDomain != "" else { return hits }
+            
+            if let secure = self.tracker.configuration.parameters[TrackerConfigurationKeys.Secure] {
+                if secure.toBool() {
+                    let logSSL = self.tracker.configuration.parameters[TrackerConfigurationKeys.LogSSL]
+                    guard logSSL != nil && logSSL != "" else { return hits }
+                    config = config.replacingOccurrences(of: logSSL!, with: collectDomain!)
+                } else {
+                    let log = self.tracker.configuration.parameters[TrackerConfigurationKeys.Log]
+                    guard log != nil && log != "" else { return hits }
+                    config = config.replacingOccurrences(of: log!, with: collectDomain!)
+                }
+            } else {
+                let log = self.tracker.configuration.parameters[TrackerConfigurationKeys.Log]
+                guard log != nil && log != "" else { return hits }
+                config = config.replacingOccurrences(of: log!, with: collectDomain!)
+            }
+        }
         
         // Hit slicing error
         var err = false

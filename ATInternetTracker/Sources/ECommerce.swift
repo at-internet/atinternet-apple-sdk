@@ -26,18 +26,18 @@
 
 
 //
-//  Ecommerce.swift
+//  ECommerce.swift
 //  Tracker
 //
 import Foundation
 
-public class Ecommerce: NSObject {
+public class ECommerce: NSObject {
     private var tracker : Tracker
     private var events : Events
     
-    @objc public lazy var displayProducts: DisplayProducts = DisplayProducts(events: self.events)
+    @objc public lazy var displayPageProducts: DisplayPageProducts = DisplayPageProducts(events: self.events)
     
-    @objc public lazy var displayPageProducts: DisplayPageProducts = DisplayPageProducts(events: self.events, tracker: self.tracker)
+    @objc public lazy var displayProducts: DisplayProducts = DisplayProducts(events: self.events, tracker: self.tracker)
     
     @objc public lazy var addProducts: AddProducts = AddProducts(events: self.events)
     
@@ -66,5 +66,15 @@ public class Ecommerce: NSObject {
     ///   - completionHandler: called when the operation has been done
     @objc public func setAutoSalesTrackerEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         tracker.setConfig(TrackerConfigurationKeys.AutoSalesTracker, value: String(enabled), sync: sync, completionHandler: completionHandler)
+    }
+    
+    /// Set a new collect domain
+    ///
+    /// - Parameters:
+    ///   - domain: the new domain
+    ///   - sync: perform the operation synchronously (optional, default: false)
+    ///   - completionHandler: called when the operation has been done
+    @objc public func setCollectDomain(_ domain: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+        tracker.setConfig(TrackerConfigurationKeys.CollectDomain, value: domain, sync: sync, completionHandler: completionHandler)
     }
 }

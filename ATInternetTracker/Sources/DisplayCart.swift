@@ -28,13 +28,12 @@ import Foundation
 public class DisplayCart: Event {
     
     /// Products list
-    @objc public var products = [ECommerceProduct]()
+    @objc public lazy var products : [ECommerceProduct] = [ECommerceProduct]()
     
     /// Cart property
-    @objc public var cart = ECommerceCart()
+    @objc public lazy var cart : ECommerceCart = ECommerceCart()
     
     private var tracker : Tracker
-    private var screen : Screen?
     
     override var data: [String : Any] {
         get {
@@ -43,15 +42,19 @@ public class DisplayCart: Event {
         }
     }
     
-    init(tracker: Tracker, screen: Screen?) {
+    @objc public func setProducts(products: [ECommerceProduct]) {
+        self.products = products
+    }
+    
+    init(tracker: Tracker) {
         self.tracker = tracker
-        self.screen = screen
+        
         super.init(type: "cart.display")
     }
     
     override func getAdditionalEvents() -> [Event] {
         /// SALES TRACKER
-        if let autoSalesTrackerStr = tracker.configuration.parameters[TrackerConfigurationKeys.AutoSalesTracker], autoSalesTrackerStr.toBool() && screen != nil {
+        if let autoSalesTrackerStr = tracker.configuration.parameters[TrackerConfigurationKeys.AutoSalesTracker], autoSalesTrackerStr.toBool() {
             let stCart = tracker.cart.set(String(describing: cart.get(key: "s:id") ?? ""))
             
             for p in products {
@@ -92,10 +95,7 @@ public class DisplayCart: Event {
                 }
             }
             
-            screen!.cart = stCart
-            screen!.sendView()
-            screen!.cart = nil
-            stCart.unset()
+            stCart.send()
         }
         return super.getAdditionalEvents()
     }
@@ -114,8 +114,8 @@ public class DisplayCarts : EventsHelper {
     /// Add display cart event tracking
     ///
     /// - Returns: DisplayCart instance
-    @objc public func add(screen: Screen?) -> DisplayCart {
-        let dp = DisplayCart(tracker: tracker, screen: screen)
+    @objc public func add() -> DisplayCart {
+        let dp = DisplayCart(tracker: tracker)
         _ = events.add(event: dp)
         return dp
     }

@@ -816,12 +816,12 @@
 		CC704BA221B6D2AE00114A86 /* TransactionConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B9E21B6D2AE00114A86 /* TransactionConfirmation.swift */; };
 		CC704BA321B6D2AE00114A86 /* TransactionConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B9E21B6D2AE00114A86 /* TransactionConfirmation.swift */; };
 		CC704BA421B6D2AE00114A86 /* TransactionConfirmation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B9E21B6D2AE00114A86 /* TransactionConfirmation.swift */; };
-		CC704BA621B6D9D400114A86 /* Ecommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704BA521B6D9D400114A86 /* Ecommerce.swift */; };
-		CC704BA721B6D9D400114A86 /* Ecommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704BA521B6D9D400114A86 /* Ecommerce.swift */; };
-		CC704BA821B6D9D400114A86 /* Ecommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704BA521B6D9D400114A86 /* Ecommerce.swift */; };
-		CC704BA921B6D9D400114A86 /* Ecommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704BA521B6D9D400114A86 /* Ecommerce.swift */; };
-		CC704BAA21B6D9D400114A86 /* Ecommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704BA521B6D9D400114A86 /* Ecommerce.swift */; };
-		CC704BAB21B6D9D400114A86 /* Ecommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704BA521B6D9D400114A86 /* Ecommerce.swift */; };
+		CC9A55A621CA23A900A78AB3 /* ECommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A55A521CA23A900A78AB3 /* ECommerce.swift */; };
+		CC9A55A721CA23A900A78AB3 /* ECommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A55A521CA23A900A78AB3 /* ECommerce.swift */; };
+		CC9A55A821CA23A900A78AB3 /* ECommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A55A521CA23A900A78AB3 /* ECommerce.swift */; };
+		CC9A55A921CA23A900A78AB3 /* ECommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A55A521CA23A900A78AB3 /* ECommerce.swift */; };
+		CC9A55AA21CA23A900A78AB3 /* ECommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A55A521CA23A900A78AB3 /* ECommerce.swift */; };
+		CC9A55AB21CA23A900A78AB3 /* ECommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A55A521CA23A900A78AB3 /* ECommerce.swift */; };
 		CCE8902E2182F7CF000BBC4F /* EventsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE8902D2182F7CF000BBC4F /* EventsTests.swift */; };
 		CCEDDA6C21C384F9006E1848 /* MvTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEDDA6B21C384F9006E1848 /* MvTesting.swift */; };
 		CCEDDA6D21C384F9006E1848 /* MvTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEDDA6B21C384F9006E1848 /* MvTesting.swift */; };
@@ -1092,7 +1092,7 @@
 		CC704B9021B6D16700114A86 /* RemoveProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveProduct.swift; sourceTree = "<group>"; };
 		CC704B9721B6D21000114A86 /* UpdateCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCart.swift; sourceTree = "<group>"; };
 		CC704B9E21B6D2AE00114A86 /* TransactionConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfirmation.swift; sourceTree = "<group>"; };
-		CC704BA521B6D9D400114A86 /* Ecommerce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ecommerce.swift; sourceTree = "<group>"; };
+		CC9A55A521CA23A900A78AB3 /* ECommerce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECommerce.swift; sourceTree = "<group>"; };
 		CCE8902D2182F7CF000BBC4F /* EventsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventsTests.swift; path = Tests/EventsTests.swift; sourceTree = "<group>"; };
 		CCEDDA6B21C384F9006E1848 /* MvTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvTesting.swift; sourceTree = "<group>"; };
 		CCEDDA7221C38E5B006E1848 /* MvTestingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvTestingTests.swift; sourceTree = "<group>"; };
@@ -1277,8 +1277,8 @@
 				4F47A5EE1D36230D00702747 /* View.swift */,
 				CC1FE8A62159FE4D006FE401 /* Medium.swift */,
 				CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */,
-				CC704BA521B6D9D400114A86 /* Ecommerce.swift */,
 				CCEDDA6B21C384F9006E1848 /* MvTesting.swift */,
+				CC9A55A521CA23A900A78AB3 /* ECommerce.swift */,
 			);
 			name = Object;
 			sourceTree = "<group>";
@@ -2010,7 +2010,6 @@
 				4F47A5111D35446700702747 /* RichMedia.swift in Sources */,
 				CC704B7521B6C48200114A86 /* DisplayPageProduct.swift in Sources */,
 				4F47A4BD1D35446700702747 /* Aisle.swift in Sources */,
-				CC704BA621B6D9D400114A86 /* Ecommerce.swift in Sources */,
 				4F47A4FD1D35446700702747 /* Offline.swift in Sources */,
 				CC704B3D21B65B5E00114A86 /* ObjectProperties.swift in Sources */,
 				8E3061E020A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
@@ -2023,6 +2022,7 @@
 				4F47A46E1D3542A400702747 /* Dispatcher.swift in Sources */,
 				4F47A4F91D35446700702747 /* NuggAd.swift in Sources */,
 				4F47A5091D35446700702747 /* Product.swift in Sources */,
+				CC9A55A621CA23A900A78AB3 /* ECommerce.swift in Sources */,
 				4F47A4F51D35446700702747 /* MediaPlayer.swift in Sources */,
 				4F47A5261D3544F400702747 /* BusinessObject.swift in Sources */,
 				4F47A45E1D3542A400702747 /* Buffer.swift in Sources */,
@@ -2075,12 +2075,12 @@
 				4F47A6B81D3CD75600702747 /* UIImageExtension.swift in Sources */,
 				4F47A4681D3542A400702747 /* Configuration.swift in Sources */,
 				CC704B9A21B6D21000114A86 /* UpdateCart.swift in Sources */,
+				CC9A55A821CA23A900A78AB3 /* ECommerce.swift in Sources */,
 				4F47A4491D3541C500702747 /* ATInternet.swift in Sources */,
 				CCEDDA6E21C384F9006E1848 /* MvTesting.swift in Sources */,
 				CC704B6221B6BD9E00114A86 /* DeliveryCheckout.swift in Sources */,
 				4F47A46C1D3542A400702747 /* Context.swift in Sources */,
 				4F47A5231D35446700702747 /* Video.swift in Sources */,
-				CC704BA821B6D9D400114A86 /* Ecommerce.swift in Sources */,
 				4F47A4DB1D35446700702747 /* Event.swift in Sources */,
 				8E3061E220A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A4C71D35446700702747 /* Campaign.swift in Sources */,
@@ -2121,6 +2121,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC9A55A921CA23A900A78AB3 /* ECommerce.swift in Sources */,
 				4F47A4C41D35446700702747 /* Audio.swift in Sources */,
 				4F47A4D01D35446700702747 /* CustomObject.swift in Sources */,
 				CC704B6A21B6BE3A00114A86 /* DisplayCart.swift in Sources */,
@@ -2174,7 +2175,6 @@
 				4F47A50C1D35446700702747 /* Product.swift in Sources */,
 				4F47A4E01D35446700702747 /* Gesture.swift in Sources */,
 				CC1FE8AA2159FE4D006FE401 /* Medium.swift in Sources */,
-				CC704BA921B6D9D400114A86 /* Ecommerce.swift in Sources */,
 				CC704B5521B6AFF500114A86 /* GeneratedEvents.swift in Sources */,
 				4F47A5141D35446700702747 /* RichMedia.swift in Sources */,
 				4F47A4E41D35446700702747 /* IdentifiedVisitor.swift in Sources */,
@@ -2225,12 +2225,12 @@
 				4F47A5161D35446700702747 /* Screen.swift in Sources */,
 				4F47A4731D3542A400702747 /* Hit.swift in Sources */,
 				CC704B9921B6D21000114A86 /* UpdateCart.swift in Sources */,
+				CC9A55A721CA23A900A78AB3 /* ECommerce.swift in Sources */,
 				4F47A50E1D35446700702747 /* Publisher.swift in Sources */,
 				CCEDDA6D21C384F9006E1848 /* MvTesting.swift in Sources */,
 				CC704B6121B6BD9E00114A86 /* DeliveryCheckout.swift in Sources */,
 				4F47A5CD1D36223D00702747 /* StringExtension.swift in Sources */,
 				4F47A4CA1D35446700702747 /* Cart.swift in Sources */,
-				CC704BA721B6D9D400114A86 /* Ecommerce.swift in Sources */,
 				4F47A4671D3542A400702747 /* Configuration.swift in Sources */,
 				4F47A5121D35446700702747 /* RichMedia.swift in Sources */,
 				8E3061E120A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
@@ -2411,6 +2411,7 @@
 				4F47A7F61D3D138400702747 /* InternalSearchTests.swift in Sources */,
 				4F47A8491D3D192C00702747 /* Tool.swift in Sources */,
 				4F47A7EF1D3D135C00702747 /* CustomObjectTests.swift in Sources */,
+				CC9A55AA21CA23A900A78AB3 /* ECommerce.swift in Sources */,
 				4F47A7FE1D3D13B500702747 /* SelfPromotionTests.swift in Sources */,
 				CC704B8721B6C90300114A86 /* PaymentCheckout.swift in Sources */,
 				4F47A8401D3D192C00702747 /* DefaultTrackerDelegate.swift in Sources */,
@@ -2473,7 +2474,6 @@
 				4F47A7FA1D3D139900702747 /* ParameterTests.swift in Sources */,
 				4F47A7F71D3D138B00702747 /* MediaPlayerTests.swift in Sources */,
 				4F47A8471D3D192C00702747 /* Storage.swift in Sources */,
-				CC704BAA21B6D9D400114A86 /* Ecommerce.swift in Sources */,
 				CCEDDA7721C38E5B006E1848 /* MvTestingTests.swift in Sources */,
 				4F47A7FC1D3D13A400702747 /* RichMediaSubclassTests.swift in Sources */,
 				4F47A8411D3D192C00702747 /* Dispatcher.swift in Sources */,
@@ -2518,7 +2518,6 @@
 				CC704B4921B6649B00114A86 /* RequiredPropertiesDataObject.swift in Sources */,
 				4FF594531D3F66940004D336 /* Gesture.swift in Sources */,
 				4FF5941A1D3F614C0004D336 /* AisleTests.swift in Sources */,
-				CC704BAB21B6D9D400114A86 /* Ecommerce.swift in Sources */,
 				4FF594381D3F66330004D336 /* BackgroundTask.swift in Sources */,
 				4FF5943B1D3F663B0004D336 /* Configuration.swift in Sources */,
 				4FF594511D3F66900004D336 /* CustomVar.swift in Sources */,
@@ -2537,6 +2536,7 @@
 				4FF5941B1D3F61A60004D336 /* BufferTests.swift in Sources */,
 				4FF5942D1D3F63800004D336 /* ParameterTests.swift in Sources */,
 				4FF129841D7D73D6009FFECB /* ATReachability.swift in Sources */,
+				CC9A55AB21CA23A900A78AB3 /* ECommerce.swift in Sources */,
 				4FF594591D3F66A30004D336 /* MediaPlayer.swift in Sources */,
 				4FF5945A1D3F66A50004D336 /* NuggAd.swift in Sources */,
 				4FF594291D3F61E50004D336 /* InternalSearchTests.swift in Sources */,
