@@ -28,10 +28,10 @@ import Foundation
 public class AddProduct: Event {
     
     /// Product property
-    @objc public var product = ECommerceProduct()
+    @objc public lazy var product : ECommerceProduct = ECommerceProduct()
     
     /// Cart property
-    @objc public var cart = ECommerceCart()
+    @objc public lazy var cart : ECommerceCart = ECommerceCart()
     
     override var data: [String : Any] {
         get {

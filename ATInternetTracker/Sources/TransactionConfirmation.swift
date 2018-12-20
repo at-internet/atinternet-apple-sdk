@@ -32,22 +32,22 @@ public class TransactionConfirmation: Event {
     private var screen : Screen?
     
     /// Products list
-    @objc public var products = [ECommerceProduct]()
+    @objc public lazy var products : [ECommerceProduct] = [ECommerceProduct]()
     
     /// Cart property
-    @objc public var cart = ECommerceCart()
+    @objc public lazy var cart : ECommerceCart = ECommerceCart()
     
     /// Transaction property
-    @objc public var transaction = ECommerceTransaction()
+    @objc public lazy var transaction : ECommerceTransaction = ECommerceTransaction()
     
     /// Shipping property
-    @objc public var shipping = ECommerceShipping()
+    @objc public lazy var shipping : ECommerceShipping = ECommerceShipping()
     
     /// Payment property
-    @objc public var payment = ECommercePayment()
+    @objc public lazy var payment : ECommercePayment = ECommercePayment()
     
     /// Customer property
-    @objc public var customer = ECommerceCustomer()
+    @objc public lazy var customer : ECommerceCustomer = ECommerceCustomer()
     
     /// Promotional codes
     @objc public var promotionalCodes = [String]()
@@ -68,6 +68,14 @@ public class TransactionConfirmation: Event {
         self.tracker = tracker
         self.screen = screen
         super.init(type: "transaction.confirmation")
+    }
+    
+    @objc public func setProducts(products: [ECommerceProduct]) {
+        self.products = products
+    }
+    
+    @objc public func setPromotionalCodes(codes: [String]) {
+        self.promotionalCodes = codes
     }
     
     override func getAdditionalEvents() -> [Event] {
@@ -106,7 +114,7 @@ public class TransactionConfirmation: Event {
             
             for p in products {
                 var stProductId : String
-                if let name = p.get(key: "s:name") {
+                if let name = (p as RequiredPropertiesDataObject).get(key: "s:name") {
                     stProductId = String(format: "%@[%@]", String(describing: p.get(key: "s:id") ?? ""), String(describing: name))
                 } else {
                     stProductId = String(describing: p.get(key: "s:id") ?? "")

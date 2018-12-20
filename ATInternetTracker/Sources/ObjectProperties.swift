@@ -69,7 +69,6 @@ public class ECommerceProduct: RequiredPropertiesDataObject {
         propertiesPrefixMap["category4"] = "s"
         propertiesPrefixMap["category5"] = "s"
         propertiesPrefixMap["category6"] = "s"
-        propertiesPrefixMap["list"] = "s"
         
         propertiesPrefixMap["discount"] = "b"
         propertiesPrefixMap["stock"] = "b"
@@ -78,11 +77,10 @@ public class ECommerceProduct: RequiredPropertiesDataObject {
         propertiesPrefixMap["priceTaxIncluded"] = "f"
         propertiesPrefixMap["priceTaxFree"] = "f"
         
-        propertiesPrefixMap["position"] = "n"
         propertiesPrefixMap["quantity"] = "n"
     }
     
-    public convenience init(obj: [String : Any]) {
+    @objc public convenience init(obj: [String : Any]) {
         self.init()
         for (k,v) in obj {
             _ = self.set(key: k, value: v)

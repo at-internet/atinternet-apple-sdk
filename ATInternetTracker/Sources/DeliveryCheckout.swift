@@ -28,10 +28,10 @@ import Foundation
 public class DeliveryCheckout: Event {
     
     /// Cart property
-    @objc public var cart = ECommerceCart()
+    @objc public lazy var cart : ECommerceCart = ECommerceCart()
     
     /// Shipping property
-    @objc public var shipping = ECommerceShipping()
+    @objc public var shipping : ECommerceShipping = ECommerceShipping()
     
     override var data: [String : Any] {
         get {
