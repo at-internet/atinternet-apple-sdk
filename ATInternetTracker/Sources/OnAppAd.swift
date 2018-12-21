@@ -59,7 +59,7 @@ public class OnAppAd: BusinessObject {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         
     }
 }

@@ -40,7 +40,7 @@ public class NuggAd: BusinessObject {
     lazy open var data: [String: Any] = [String: Any]()
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         if let optPlugin = self.tracker.configuration.parameters["plugins"] {
             if (optPlugin.range(of: "nuggad") != nil) {
                 let option = ParamOption()

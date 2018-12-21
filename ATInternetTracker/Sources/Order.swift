@@ -56,7 +56,7 @@ public class Order: BusinessObject {
     /// Delivery info
     @objc public lazy var delivery: OrderDelivery = OrderDelivery(order: self)
     /// Custom variables
-    @objc public lazy var customVariables: OrderCustomVars = OrderCustomVars(order: self)
+    @objc public lazy var customVariables: OrderCustomVars = OrderCustomVars()
     /// New Customer
     @objc public var isNewCustomer: Bool = false {
         didSet {
@@ -105,7 +105,7 @@ public class Order: BusinessObject {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         let encodingOption = ParamOption()
         encodingOption.encode = true
         
@@ -351,20 +351,8 @@ public class OrderCustomVar: NSObject {
 /// Wrapper class to manage OrderCustomVar instances
 public class OrderCustomVars: NSObject {
     
-    /// Order instance
-    var order: Order
-    
     /// Custom var list
     lazy var list: [OrderCustomVar] = []
-    
-    /**
-    OrderCustomVars initializer
-    - parameter order: the order instance
-    - returns: OrderCustomVars instance
-    */
-    init(order: Order) {
-        self.order = order
-    }
 
     /// Add a custom var
     ///

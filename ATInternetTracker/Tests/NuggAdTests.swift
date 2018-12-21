@@ -41,7 +41,7 @@ class NuggAdTests: XCTestCase {
         let tracker = Tracker(configuration: ["log":"logp", "logSSL":"logs", "domain":"xiti.com", "pixelPath":"/hit.xiti", "site":"549808", "secure":"false", "identifier":"uuid", "plugins": "", "storage":"required","enableBackgroundTask":"true", "hashUserId": "false","persistIdentifiedVisitor":"true"])
 
         let nuggAd = tracker.nuggAds.add(["k0": "v0", "k1": "v1"])
-        nuggAd.setEvent()
+        nuggAd.setParams()
         
         let configurationOperation = BlockOperation(block: {
             XCTAssertTrue(tracker.buffer.volatileParameters.count == 0, "Le paramètre NuggAd ne doit pas être ajouté")
@@ -58,7 +58,7 @@ class NuggAdTests: XCTestCase {
         
         let tracker = Tracker(configuration: ["log":"logp", "logSSL":"logs", "domain":"xiti.com", "pixelPath":"/hit.xiti", "site":"549808", "secure":"false", "identifier":"uuid", "plugins": "nuggad", "storage":"required","enableBackgroundTask":"true", "hashUserId": "false","persistIdentifiedVisitor":"true", "sessionBackgroundDuration":"60"])
         let nuggAd = tracker.nuggAds.add(["k0": "v0"])
-        nuggAd.setEvent()
+        nuggAd.setParams()
         
         let configurationOperation = BlockOperation(block: {
             let p0 = tracker.buffer.volatileParameters["stc"] as Param!

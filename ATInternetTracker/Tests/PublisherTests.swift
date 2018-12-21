@@ -49,7 +49,7 @@ class PublisherTests: XCTestCase {
     
     func testSetPublisherView() {
         publisher.campaignId = "1"
-        publisher.setEvent()
+        publisher.setParams()
         
         XCTAssertEqual(publisher.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
         XCTAssert(publisher.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
@@ -68,7 +68,7 @@ class PublisherTests: XCTestCase {
         publisher.url = "atinternet"
         publisher.variant = "variante"
         publisher.format = "format"
-        publisher.setEvent()
+        publisher.setParams()
         
         XCTAssertEqual(publisher.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
         XCTAssert(publisher.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
@@ -80,7 +80,7 @@ class PublisherTests: XCTestCase {
     
     func testMultiplePublisherViews() {
         publisher.campaignId = "1"
-        publisher.setEvent()
+        publisher.setParams()
         
         publisher2.tracker = publisher.tracker
         publisher2.campaignId = "2"
@@ -91,7 +91,7 @@ class PublisherTests: XCTestCase {
         publisher2.url = "atinternet"
         publisher2.variant = "variante"
         publisher2.format = "format"
-        publisher2.setEvent()
+        publisher2.setParams()
         
         XCTAssertEqual(publisher.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 3")
         XCTAssert(publisher.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
@@ -111,23 +111,16 @@ class PublisherTests: XCTestCase {
     
     func testSetScreenWithPublisherView() {
         let screen = publisher.tracker.screens.add("Home")
-        screen.setEvent()
+        screen.setParams()
         
-        publisher.campaignId = "1"
-        publisher.setEvent()
+        let p = screen.publishers.add("1")
+        p.setParams()
         
-        XCTAssertEqual(publisher.tracker.buffer.volatileParameters.count, 5, "Le nombre de paramètres volatiles doit être égal à 5")
-        XCTAssert(publisher.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
-        XCTAssert(publisher.tracker.buffer.volatileParameters["type"]?.values[0]() == "screen", "La valeur du premier paramètre doit être screen")
-        
-        XCTAssert(publisher.tracker.buffer.volatileParameters["action"]?.key == "action", "Le second paramètre doit être action")
-        XCTAssert(publisher.tracker.buffer.volatileParameters["action"]?.values[0]() == "view", "La valeur du second paramètre doit être view")
+        XCTAssertEqual(publisher.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
         
         XCTAssert(publisher.tracker.buffer.volatileParameters["p"]?.key == "p", "Le troisième paramètre doit être p")
         XCTAssert(publisher.tracker.buffer.volatileParameters["p"]?.values[0]() == "Home", "La valeur du troisième paramètre doit être Home")
-        
-        XCTAssert(publisher.tracker.buffer.volatileParameters["stc"]?.key == "stc", "Le 4ème paramètre doit être stc")
-        XCTAssert(publisher.tracker.buffer.volatileParameters["stc"]?.values[0]() == "{}", "La valeur du 4ème paramètre doit être {}")
+
         
         XCTAssert(publisher.tracker.buffer.volatileParameters["ati"]?.key == "ati", "Le 5ème paramètre doit être action")
         XCTAssert(publisher.tracker.buffer.volatileParameters["ati"]?.values[0]() == "PUB-1-------", "La valeur du 5ème paramètre doit être PUB-1-------")
@@ -136,7 +129,7 @@ class PublisherTests: XCTestCase {
     func testSetPublisherTouch() {
         publisher.campaignId = "1"
         publisher.action = OnAppAd.OnAppAdAction.touch
-        publisher.setEvent()
+        publisher.setParams()
         
         XCTAssertEqual(publisher.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
         XCTAssert(publisher.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")
@@ -156,7 +149,7 @@ class PublisherTests: XCTestCase {
         publisher.url = "atinternet"
         publisher.variant = "variante"
         publisher.format = "format"
-        publisher.setEvent()
+        publisher.setParams()
         
         XCTAssertEqual(publisher.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 2")
         XCTAssert(publisher.tracker.buffer.volatileParameters["type"]?.key == "type", "Le premier paramètre doit être type")

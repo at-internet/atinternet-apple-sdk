@@ -59,7 +59,7 @@ public class InternalSearch: BusinessObject {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         _ = tracker.setParam("mc", value: keyword)
         _ = tracker.setParam("np", value: resultScreenNumber)
         

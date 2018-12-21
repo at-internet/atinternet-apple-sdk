@@ -68,8 +68,16 @@ public class Cart: BusinessObject {
         self.tracker.businessObjects.removeValue(forKey: self.id)
     }
     
+    /**
+     Send the cart
+     */
+    @objc public func send() {
+        self.tracker.dispatcher.dispatch([self])
+        self.unset()
+    }
+    
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         _ = tracker.setParam("idcart", value: cartId)
         
         let encodingOption = ParamOption()

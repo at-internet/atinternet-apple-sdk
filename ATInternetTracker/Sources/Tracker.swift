@@ -198,6 +198,7 @@ public enum HitParam: String {
     }
     
     ///  /!\ SmartSDK only - Class for tracking screen and touch automatically
+    @available(*, deprecated, message: "Since v2.12.0, SmartTracker is discontinued. Please use standard tagging methods")
     public class AutoTracker: Tracker {
         
         /// Private variables
@@ -217,6 +218,7 @@ public enum HitParam: String {
         private var toolbar: SmartToolBarController?
         
         /// /!\ SmartSDK only -  Token for authentication
+        @available(*, deprecated, message: "Since v2.12.0, SmartTracker is discontinued. Please use standard tagging methods")
         @objc public var token: String? {
             get {
                 return _token
@@ -235,6 +237,7 @@ public enum HitParam: String {
         ///  /!\ SmartSDK only
         /// Enable LiveTagging. See http://livetagging.atinternet-solutions.com/
         /// You need to provide a token before enabling live tagging
+        @available(*, deprecated, message: "Since v2.12.0, SmartTracker is discontinued. Please use standard tagging methods")
         @objc public var enableLiveTagging: Bool {
             get {
                 return _enableLiveTagging
@@ -267,6 +270,7 @@ public enum HitParam: String {
         /// /!\ SmartSDK only -
         /// Enables AutoTracking. Will send automatically click and screens hits.
         /// You can custom those hits by implementing IAutoTracker protocol in your ViewControllers
+        @available(*, deprecated, message: "Since v2.12.0, SmartTracker is discontinued. Please use standard tagging methods")
         @objc public var enableAutoTracking: Bool {
             get {
                 return _enableAutoTracking
@@ -574,9 +578,13 @@ public class Tracker: NSObject {
     /// Return CustomObjects instance
     @objc fileprivate(set) public lazy var customObjects: CustomObjects = CustomObjects(tracker: self)
     
-    //MARK: Event Tracking
-    /// Return Event instance
-    @objc fileprivate(set) lazy var event: Event = Event(tracker: self)
+    //MARK: ECommerce Tracking
+    /// Return ECommerce instance
+    @objc fileprivate(set) public lazy var ecommerce: ECommerce = ECommerce(tracker: self)
+    
+    //MARK: Events Tracking
+    /// Return Events instance
+    @objc fileprivate(set) public lazy var events: Events = Events(tracker: self)
     
     //MARK: CustomVar Tracking
     /// Return CustomVar instance
@@ -620,6 +628,8 @@ public class Tracker: NSObject {
     //MARK: Richmedia Tracking
     /// Return MediaPlayers instance
     @objc fileprivate(set) public lazy var mediaPlayers: MediaPlayers = MediaPlayers(tracker: self)
+    /// Campaign Tracking. Campaign is now available as a screen object property but you may use this method for notification tracking
+    @objc fileprivate(set) public lazy var mvTestings: MvTestings = MvTestings(tracker: self)
     
     
     //MARK: - Initializer
@@ -1459,6 +1469,18 @@ public class Tracker: NSObject {
     /// - Returns: the map which contains lifecycle metrics computed by the SDK
     @objc public func getLifecycleMetrics() -> [String : Any] {
         return LifeCycle.getMetricsMap()
+    }
+    
+    /// Get last crash informations
+    ///
+    /// - Returns: the map which contains lifecycle metrics computed by the SDK
+    @objc public func getCrashInformation() -> [String : Any] {
+        if let map = Crash.recover() as? [String : Any] {
+            if let crashMap = map["crash"] as? [String : Any] {
+                return crashMap
+            }
+        }
+        return [:]
     }
     
     // MARK: - Do not track

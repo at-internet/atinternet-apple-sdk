@@ -159,16 +159,6 @@ class Tool: NSObject {
         return calendar.dateComponents([.second], from: fromDate, to: toDate).second ?? 0
     }
     
-    /*class func findParametersWithPosition(key: String, parameters: [String:Param]) -> [(Param, Int)]{
-        var params = [(Param, Int)]()
-        for (index, p) in parameters.enumerated() {
-            if key == p.key {
-                params.append( (p, index) )
-            }
-        }
-        return params
-    }*/
-    
     /**
     Append parameter values from buffer
     
@@ -197,47 +187,4 @@ class Tool: NSObject {
         
         return value
     }
-    /*class func appendParameterValues(_ parameterKey: String, volatileParameters: [String:Param], persistentParameters: [String:Param]) -> String {
-        let paramPositions = Tool.findParameterPosition(parameterKey, arrays: volatileParameters, persistentParameters)
-        var value = ""
-        
-        if(paramPositions.count > 0) {
-            for(index, tuple) in paramPositions.enumerated() {
-                let param = tuple.arrayIndex == 0 ? volatileParameters[tuple.index] : persistentParameters[tuple.index]
-                
-                if(index > 0) {
-                    if let optOption = param.options {
-                        value += optOption.separator
-                    } else {
-                        value += ","
-                    }
-                }
-                
-                value += param.value();
-            }
-        }
-        
-        return value;
-    }*/
-    
-    
-    
-    /**
-    Copy an array of parameter into a new one
-    
-    - parameter array: to copy
-    :returned: copy of array
-    */
-    /*class func copyParamArray(_ array: [Param]) -> [Param] {
-        var newArray: [Param] = []
-        
-        for(_, param) in array.enumerated() {
-            let copyParam = Param(key: param.key, value: param.value, options: param.options)
-            newArray.append(copyParam)
-        }
-        
-        return newArray
-    }*/
 }
-
-

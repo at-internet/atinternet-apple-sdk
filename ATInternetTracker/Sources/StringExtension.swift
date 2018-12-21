@@ -69,6 +69,12 @@ extension String {
         }
     }
     
+    func toBool() -> Bool {
+        return self == "True"
+        || self == "true"
+        || self == "yes"
+        || self == "1"
+    }
     
     /**
     Removes white spaces inside of a string

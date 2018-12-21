@@ -62,7 +62,7 @@ class RichMediaSubclassTests: XCTestCase {
         video.refreshDuration = 10
         video.duration = 7
         
-        video.setEvent()
+        video.setParams()
         
         var i = 0;
         
@@ -108,7 +108,7 @@ class RichMediaSubclassTests: XCTestCase {
         video.level2 = 666
         video.refreshDuration = 10
         
-        video.setEvent()
+        video.setParams()
         
         var i = 0
         
@@ -151,7 +151,7 @@ class RichMediaSubclassTests: XCTestCase {
         audio.refreshDuration = 10
         audio.duration = 7
         
-        audio.setEvent()
+        audio.setParams()
         
         var i = 0;
         
@@ -196,7 +196,7 @@ class RichMediaSubclassTests: XCTestCase {
         audio.level2 = 666
         audio.refreshDuration = 10
         
-        audio.setEvent()
+        audio.setParams()
         
         var i = 0
         
@@ -239,7 +239,7 @@ class RichMediaSubclassTests: XCTestCase {
         medium.duration = 7
         medium.type = "free"
         
-        medium.setEvent()
+        medium.setParams()
         
         var i = 0;
         
@@ -285,7 +285,7 @@ class RichMediaSubclassTests: XCTestCase {
         medium.refreshDuration = 10
         medium.type = "free"
         
-        medium.setEvent()
+        medium.setParams()
         
         var i = 0
         

@@ -55,7 +55,7 @@ class Dispatcher: NSObject {
             for(_, businessObject) in (businessObjects!).enumerated() {
                 switch(businessObject) {
                 case let screen as AbstractScreen:
-                    screen.setEvent()
+                    screen.setParams()
                 
                     var hasOrder: Bool = false
                     
@@ -66,23 +66,23 @@ class Dispatcher: NSObject {
                                 hasOrder = true
                             }
                             
-                            value.setEvent()
+                            value.setParams()
                             self.tracker.businessObjects.removeValue(forKey: value.id)
                         }
                     }
                     
                     if(tracker.cart.cartId != "" && ((screen.isBasketScreen) || hasOrder)) {
-                        tracker.cart.setEvent()
+                        tracker.cart.setParams()
                     }
                     
                     self.tracker.businessObjects.removeValue(forKey: businessObject.id)
                 case let gesture as Gesture:
-                    businessObject.setEvent()
+                    businessObject.setParams()
                     
                     if(gesture.action == Gesture.GestureAction.search) {
                         for(_, value) in self.tracker.businessObjects {
                             if (value is InternalSearch && value.timeStamp <= businessObject.timeStamp) {
-                                value.setEvent()
+                                value.setParams()
                                 self.tracker.businessObjects.removeValue(forKey: value.id)
                             }
                         }
@@ -90,7 +90,7 @@ class Dispatcher: NSObject {
                     
                     self.tracker.businessObjects.removeValue(forKey: businessObject.id)
                 default:
-                    businessObject.setEvent()
+                    businessObject.setParams()
                     self.tracker.businessObjects.removeValue(forKey: businessObject.id)
                     break
                 }
@@ -99,7 +99,7 @@ class Dispatcher: NSObject {
                 for(_, value) in self.tracker.businessObjects {
                     if(value is CustomObject || value is NuggAd) {
                         if(value.timeStamp <= businessObject.timeStamp) {
-                            value.setEvent()
+                            value.setParams()
                             self.tracker.businessObjects.removeValue(forKey: value.id)
 
                         }

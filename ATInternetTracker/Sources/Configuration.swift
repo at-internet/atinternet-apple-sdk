@@ -117,6 +117,10 @@ public class TrackerConfigurationKeys: NSObject {
     public static let SendOnlyWhenAppActive = "sendOnlyWhenAppActive"
     /// Allowed states to send hits
     public static let SendOnApplicationState = "sendOnApplicationState"
+    /// Automatic send sales tracker hits from sales insights data (Sales Insights)
+    public static let AutoSalesTracker = "autoSalesTracker"
+    /// collect domain (events only)
+    public static let CollectDomain = "collectDomain"
 }
 
 /// Tracker configuraiton

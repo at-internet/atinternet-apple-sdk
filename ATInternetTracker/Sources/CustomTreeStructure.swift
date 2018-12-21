@@ -80,7 +80,7 @@ public class CustomTreeStructure: ScreenInfo {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         _ = tracker.setParam("ptype", value: String(format: "%d-%d-%d", category1, category2, category3))
     }
 }

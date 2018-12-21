@@ -96,12 +96,12 @@ public class Product : BusinessObject {
     }
     
     /// Set parameters in buffer
-    override func setEvent() {
+    override func setParams() {
         _ = tracker.setParam(HitParam.hitType.rawValue, value: "pdt")
         
         for (_, value) in _customObjects {
             value.tracker = self.tracker
-            value.setEvent()
+            value.setParams()
         }
         
         let option = ParamOption()

@@ -58,7 +58,7 @@ class OrderTests: XCTestCase {
         _ = order.customVariables.add(1, value: "test")
         _ = order.customVariables.add(2, value: "test2")
         
-        order.setEvent()
+        order.setParams()
         
         XCTAssert(order.tracker.buffer.volatileParameters.count == 17, "Le nombre de paramètres volatiles doit être égal à 17")
         
