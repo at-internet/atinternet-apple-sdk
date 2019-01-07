@@ -45,7 +45,7 @@ public class MvTesting: BusinessObject {
     @objc public var creation: String = ""
     
     /// Custom variables
-    @objc public lazy var customVariables: MvTestingCustomVars = MvTestingCustomVars()
+    @objc public lazy var variables: MvTestingVars = MvTestingVars()
     
     /// Send
     @objc public func send() {
@@ -60,8 +60,8 @@ public class MvTesting: BusinessObject {
         _ = tracker.setParam("type", value: "mvt")
             .setParam("abmvc", value: String(format: "%@-%d-%@", self.test, self.waveId, self.creation), options: encodingOption)
         
-        for(i, customVar) in customVariables.list.enumerated() {
-            _ = tracker.setParam("abmv" + String(i + 1), value: String(format: "%@-%@", customVar.variable, customVar.version), options: encodingOption)
+        for(i, mvtVar) in variables.list.enumerated() {
+            _ = tracker.setParam("abmv" + String(i + 1), value: String(format: "%@-%@", mvtVar.variable, mvtVar.version), options: encodingOption)
         }
         
     }
@@ -99,8 +99,8 @@ public class MvTestings: NSObject {
     }
 }
 
-/// Wrapper class for tracking mvtesting custom variables
-public class MvTestingCustomVar: NSObject {
+/// Wrapper class for tracking mvtesting variables
+public class MvTestingVar: NSObject {
     
     /// Custom var variable
     @objc public var variable: String = ""
@@ -110,28 +110,28 @@ public class MvTestingCustomVar: NSObject {
     /// initializer
     ///
     /// - Parameters:
-    ///   - variable: custom var variable
-    ///   - version: custom var version
+    ///   - variable: var variable
+    ///   - version: var version
     init(variable: String, version: String) {
         self.variable = variable
         self.version = version
     }
 }
 
-/// Wrapper class to manage MvTestingCustomVar instances
-public class MvTestingCustomVars: NSObject {
+/// Wrapper class to manage MvTestingVar instances
+public class MvTestingVars: NSObject {
     
     /// Custom var list
-    lazy var list: [MvTestingCustomVar] = []
+    lazy var list: [MvTestingVar] = []
     
     /// Add a custom var
     ///
     /// - Parameters:
-    ///   - variable: custom var variable
-    ///   - version: custom var version
-    /// - Returns: the MvTestingCustomVar instance
-    @objc public func add(_ variable: String, version: String) ->  MvTestingCustomVar {
-        let customVar = MvTestingCustomVar(variable: variable, version: version)
+    ///   - variable: var variable
+    ///   - version: var version
+    /// - Returns: the MvTestingVar instance
+    @objc public func add(_ variable: String, version: String) ->  MvTestingVar {
+        let customVar = MvTestingVar(variable: variable, version: version)
         
         list.append(customVar)
         

@@ -44,7 +44,7 @@ class MvTestingTests: XCTestCase {
     
     func testSetMvTesting() {
         let mvt1 = Tracker().mvTestings.add("test", waveId: 1, creation: "crea")
-        _ = mvt1.customVariables.add("var", version: "vers")
+        _ = mvt1.variables.add("var", version: "vers")
         mvt1.setParams()
         
         XCTAssertEqual(mvt1.tracker.buffer.volatileParameters.count, 3, "Le nombre de paramètres volatiles doit être égal à 3")
