@@ -56,6 +56,14 @@ class Buffer: NSObject {
         addContextVariables()
     }
     
+    func recomputeUserId(){
+        self.volatileParameters.removeValue(forKey: HitParam.userID.rawValue)
+        let persistentOpt = ParamOption()
+        persistentOpt.persistent = true
+        let ignoreLimitedAdTracking = self.tracker.configuration.parameters["ignoreLimitedAdTracking"]?.toBool() ?? false
+        self.persistentParameters[HitParam.userID.rawValue] = Param(key: HitParam.userID.rawValue, value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking)}, options: persistentOpt)
+    }
+    
     /**
     Add context variables to the hit
     */
@@ -116,7 +124,8 @@ class Buffer: NSObject {
         // Add download SDK source
         self.persistentParameters["dls"] = Param(key: "dls", value: {TechnicalContext.downloadSource(self.tracker)}, options: persistentOption)
         // Add unique user id
-        self.persistentParameters["idclient"] = Param(key: "idclient", value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"])}, options: persistentOption)
+        let ignoreLimitedAdTracking = self.tracker.configuration.parameters["ignoreLimitedAdTracking"]?.toBool() ?? false
+        self.persistentParameters["idclient"] = Param(key: "idclient", value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking)}, options: persistentOption)
     }
 
     #if os(iOS) && AT_SMART_TRACKER

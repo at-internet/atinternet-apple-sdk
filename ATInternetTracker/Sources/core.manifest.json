@@ -187,6 +187,14 @@
             "type": "string",
             "public": false,
             "global": true
+        },
+        "ignoreLimitedAdTracking": {
+            "title" : "Geode_Tag_SDK_Config_Title_ignoreLimitedAdTracking",
+            "description": "Geode_Tag_SDK_Config_Description_ignoreLimitedAdTracking",
+            "defaultValue": "false",
+            "type": "bool",
+            "public": false,
+            "global": true
         }
     }
 }

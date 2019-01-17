@@ -60,6 +60,8 @@ public enum IdentifierTypeKey: String {
     case uuid = "uuid"
     /// The tracker will use the identifier for vendor
     case idfv = "idfv"
+    /// The tracker will use the identifier for advertiser
+    case idfa = "idfa"
 }
 
 /// States
@@ -121,6 +123,8 @@ public class TrackerConfigurationKeys: NSObject {
     public static let AutoSalesTracker = "autoSalesTracker"
     /// collect domain (events only)
     public static let CollectDomain = "collectDomain"
+    /// ignore limited ad tracking
+    public static let IgnoreLimitedAdTracking = "ignoreLimitedAdTracking"
 }
 
 /// Tracker configuraiton

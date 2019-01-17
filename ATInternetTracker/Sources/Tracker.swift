@@ -720,6 +720,9 @@ public class Tracker: NSObject {
             if (sync) {
                 if (!Configuration.ReadOnlyConfiguration.list.contains(key)) {
                     self.configuration.parameters[key] = value
+                    if let identifier = self.configuration.parameters["identifier"], identifier != "" {
+                        self.buffer.recomputeUserId()
+                    }
                 } else {
                     delegate?.warningDidOccur?(String(format: "Configuration %@ is read only. Value will not be updated", key))
                 }
@@ -727,6 +730,9 @@ public class Tracker: NSObject {
                 if (!Configuration.ReadOnlyConfiguration.list.contains(key)) {
                     let configurationOperation = BlockOperation(block: {
                         self.configuration.parameters[key] = value
+                        if let identifier = self.configuration.parameters["identifier"], identifier != "" {
+                            self.buffer.recomputeUserId()
+                        }
                     })
                     
                     if(completionHandler != nil && keyCount == configuration.count) {
@@ -757,6 +763,9 @@ public class Tracker: NSObject {
         if (sync) {
             if (!Configuration.ReadOnlyConfiguration.list.contains(key)) {
                 self.configuration.parameters[key] = value
+                if let identifier = self.configuration.parameters["identifier"], identifier != "" {
+                    self.buffer.recomputeUserId()
+                }
             } else {
                 delegate?.warningDidOccur?(String(format: "Configuration %@ is read only. Value will not be updated", key))
             }
@@ -764,6 +773,9 @@ public class Tracker: NSObject {
             if (!Configuration.ReadOnlyConfiguration.list.contains(key)) {
                 let configurationOperation = BlockOperation(block: {
                     self.configuration.parameters[key] = value
+                    if let identifier = self.configuration.parameters["identifier"], identifier != "" {
+                        self.buffer.recomputeUserId()
+                    }
                 })
                 
                 if(completionHandler != nil) {
@@ -860,6 +872,16 @@ public class Tracker: NSObject {
     ///   - completionHandler: called when the operation has been done
     @objc public func setHashUserIdEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
         setConfig(TrackerConfigurationKeys.HashUserId, value: String(enabled), sync: sync, completionHandler: completionHandler)
+    }
+    
+    /// Enable ignore limited ad tracking
+    ///
+    /// - Parameters:
+    ///   - enabled: /
+    ///   - sync: perform the operation synchronously (optional, default: false)
+    ///   - completionHandler: called when the operation has been done
+    @objc public func setIgnoreLimitedAdTrackingEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+        setConfig(TrackerConfigurationKeys.IgnoreLimitedAdTracking, value: String(enabled), sync: sync, completionHandler: completionHandler)
     }
     
     /// Set a new Plugin
@@ -1443,14 +1465,16 @@ public class Tracker: NSObject {
     ///
     /// - Returns: the user id depending on configuration (uuid, idfv)
     @objc public func getUserId() -> String {
+        let ignoreLimitedAdTracking = self.configuration.parameters["ignoreLimitedAdTracking"]?.toBool() ?? false
+        
         if let hash = self.configuration.parameters["hashUserId"] {
             if (hash == "true") {
-                return TechnicalContext.userId(self.configuration.parameters["identifier"]).sha256Value
+                return TechnicalContext.userId(self.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking).sha256Value
             } else {
-                return TechnicalContext.userId(self.configuration.parameters["identifier"])
+                return TechnicalContext.userId(self.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking)
             }
         } else {
-            return TechnicalContext.userId(self.configuration.parameters["identifier"])
+            return TechnicalContext.userId(self.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking)
         }
     }
     

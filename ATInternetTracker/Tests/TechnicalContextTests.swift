@@ -48,7 +48,7 @@ class TechnicalContextTests: XCTestCase {
     func testIDFV() {
         let ref = UIDevice.current.identifierForVendor!.uuidString
         XCTAssertNotNil(ref, "IDFV shall not be nil")
-        XCTAssertEqual(ref, TechnicalContext.userId("idfv"), "Unique identifier shall be equal to IDFV")
+        XCTAssertEqual(ref, TechnicalContext.userId("idfv", ignoreLimitedAdTracking: false), "Unique identifier shall be equal to IDFV")
     }
     
     func testVersion() {
@@ -65,19 +65,19 @@ class TechnicalContextTests: XCTestCase {
         UserDefaults.standard.set(ref, forKey: "ATApplicationUniqueIdentifier")
         UserDefaults.standard.synchronize()
         XCTAssertNotNil(ref, "UUID shall not be nil")
-        XCTAssertEqual(ref, TechnicalContext.userId("whatever"), "Unique identifier shall be equal to existing UUID")
+        XCTAssertEqual(ref, TechnicalContext.userId("whatever", ignoreLimitedAdTracking: false), "Unique identifier shall be equal to existing UUID")
     }
     
     func testNonExistingUUID() {
         UserDefaults.standard.removeObject(forKey: "ATApplicationUniqueIdentifier")
         UserDefaults.standard.synchronize()
-        XCTAssertEqual(36, TechnicalContext.userId("whatever").characters.count, "Unique identifier shall be a new valid UUID")
+        XCTAssertEqual(36, TechnicalContext.userId("whatever", ignoreLimitedAdTracking: false).characters.count, "Unique identifier shall be a new valid UUID")
     }
     
     func testUserIdWithNilConfiguration() {
         UserDefaults.standard.removeObject(forKey: "ATApplicationUniqueIdentifier")
         UserDefaults.standard.synchronize()
-        XCTAssertEqual(36, TechnicalContext.userId(nil).characters.count, "Unique identifier shall be a new valid UUID")
+        XCTAssertEqual(36, TechnicalContext.userId(nil, ignoreLimitedAdTracking: false).characters.count, "Unique identifier shall be a new valid UUID")
     }
     
     func testSDKVersion() {
