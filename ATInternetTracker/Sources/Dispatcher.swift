@@ -121,6 +121,9 @@ class Dispatcher: NSObject {
             _ = self.tracker.setParam(HitParam.json.rawValue, value: optReport, options: appendOptionWithEncoding)
         }
         
+        let identification = self.tracker.configuration.parameters["identifier"] ?? ""
+        _ = self.tracker.setParam(HitParam.json.rawValue, value: ["idType": identification], options: appendOptionWithEncoding)
+        
         let userDefaults = UserDefaults.standard
         
         if Hit.getHitType(tracker.buffer.volatileParameters, tracker.buffer.persistentParameters) == Hit.HitType.screen {
