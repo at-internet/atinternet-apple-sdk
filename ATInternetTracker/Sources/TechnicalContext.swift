@@ -45,13 +45,13 @@ class TechnicalContext: NSObject {
     class var sdkVersion: String {
         get {
             #if os(watchOS)
-            return "1.9.1"
+            return "1.9.2"
             #elseif os(tvOS)
-            return "1.9.1"
+            return "1.9.2"
             #elseif os(iOS)
-            return "2.12.1"
+            return "2.12.2"
             #else
-            return "2.12.1"
+            return "2.12.2"
             #endif
         }
     }
@@ -125,7 +125,7 @@ class TechnicalContext: NSObject {
     static var applicationState: ApplicationState = ApplicationState.inactive
     
     /// Unique user id
-    class func userId(_ identifier: String?) -> String {
+    class func userId(_ identifier: String?, ignoreLimitedAdTracking: Bool) -> String {
         
         if(!self.doNotTrack) {
             
@@ -145,8 +145,6 @@ class TechnicalContext: NSObject {
             }
             
             let idfa: () -> String = {
-                var idfa: String = ""
-                
                 if let ASIdentifierManagerClass = NSClassFromString("ASIdentifierManager") {
                     let sharedManagerSelector = NSSelectorFromString("sharedManager")
                     if let sharedManagerIMP = ASIdentifierManagerClass.method(for: sharedManagerSelector) {
@@ -163,16 +161,19 @@ class TechnicalContext: NSObject {
                                     if let advertisingIdentifierIMP = sharedManager.method(for: advertisingIdentifierSelector) {
                                         typealias adIdentifierCType = @convention(c) (AnyObject, Selector) -> NSUUID
                                         let getIdfa = unsafeBitCast(advertisingIdentifierIMP, to: adIdentifierCType.self)
-                                        idfa = getIdfa(self, advertisingIdentifierSelector).uuidString
+                                        return getIdfa(self, advertisingIdentifierSelector).uuidString
                                     }
                                 } else {
+                                    if ignoreLimitedAdTracking {
+                                        return uuid()
+                                    }
                                     return "opt-out"
                                 }
                             }
                         }
                     }
                 }
-                return idfa
+                return ""
             }
             
             if let optIdentifier = identifier {

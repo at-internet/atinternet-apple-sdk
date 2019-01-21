@@ -36,9 +36,9 @@ import XCTest
 class ConfigurationTests: XCTestCase {
     
     // Configuration définie
-    let myConf = ["log":"customlog", "logSSL":"customlogs", "domain":"customdomain", "pixelPath":"custompixelpath","site":"customsite", "secure":"customsecure", "identifier":"customidentifier", "plugins":"", "enableBackgroundTask":"false", "storage":"never", "hashUserId":"false", "persistIdentifiedVisitor":"true","sessionBackgroundDuration":"60", "campaignLastPersistence": "true", "campaignLifetime": "30","downloadSource":"ext", "autoTrackerToken": "", "enableAutoTracking": "false", "atEnv":"prod", "sendOnApplicationState":"all", "collectDomain":""]
+    let myConf = ["log":"customlog", "logSSL":"customlogs", "domain":"customdomain", "pixelPath":"custompixelpath","site":"customsite", "secure":"customsecure", "identifier":"customidentifier", "plugins":"", "enableBackgroundTask":"false", "storage":"never", "hashUserId":"false", "persistIdentifiedVisitor":"true","sessionBackgroundDuration":"60", "campaignLastPersistence": "true", "campaignLifetime": "30","downloadSource":"ext", "autoTrackerToken": "", "enableAutoTracking": "false", "atEnv":"prod", "sendOnApplicationState":"all", "collectDomain":"", "ignoreLimitedAdTracking":"false"]
     // Configuration par défaut
-    let defaultConf = ["log":"", "logSSL":"", "domain":"xiti.com", "pixelPath":"/hit.xiti", "site":"", "secure":"false", "identifier":"uuid", "plugins":"", "enableBackgroundTask":"false", "storage":"never", "hashUserId":"false", "persistIdentifiedVisitor":"true","sessionBackgroundDuration":"60", "campaignLastPersistence": "true", "campaignLifetime": "30","downloadSource":"ext", "autoTrackerToken": "", "enableAutoTracking": "false","atEnv":"prod", "sendOnApplicationState":"all", "collectDomain":""]
+    let defaultConf = ["log":"", "logSSL":"", "domain":"xiti.com", "pixelPath":"/hit.xiti", "site":"", "secure":"false", "identifier":"uuid", "plugins":"", "enableBackgroundTask":"false", "storage":"never", "hashUserId":"false", "persistIdentifiedVisitor":"true","sessionBackgroundDuration":"60", "campaignLastPersistence": "true", "campaignLifetime": "30","downloadSource":"ext", "autoTrackerToken": "", "enableAutoTracking": "false","atEnv":"prod", "sendOnApplicationState":"all", "collectDomain":"","ignoreLimitedAdTracking":"false"]
     
     override func setUp() {
         super.setUp()

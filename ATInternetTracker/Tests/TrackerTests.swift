@@ -610,7 +610,7 @@ class TrackerTests: XCTestCase, TrackerDelegate {
     func testHashUserId() {
         let expectation = self.expectation(description: "test")
         
-        self.tracker.setConfig("hashUserId", value: "true", completionHandler:nil)
+        self.tracker.setHashUserIdEnabled(true, sync: true, completionHandler: nil)
         _ = self.tracker.setParam(HitParam.userID.rawValue, value: "coucou")
         
         let configurationOperation = BlockOperation(block: {
