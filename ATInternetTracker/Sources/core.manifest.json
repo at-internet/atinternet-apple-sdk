@@ -195,6 +195,14 @@
             "type": "bool",
             "public": false,
             "global": true
-        }
+        },
+        "sendHitWhenOptOut": {
+            "title": "Geode_Tag_Js_Config_Title_sendHitWhenOptOut",
+            "description": "Geode_Tag_Js_Config_Description_sendHitWhenOptOut",
+            "defaultValue": true,
+            "type": "bool",
+            "public": true,
+            "global": true
+        }
     }
 }

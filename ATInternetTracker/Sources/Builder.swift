@@ -347,6 +347,15 @@ class Builder: Operation {
                 mhOlt = nil
             }
             
+            if TechnicalContext.optOut {
+                if let sendHitWhenOptOut = self.tracker.configuration.parameters[TrackerConfigurationKeys.SendHitWhenOptOut]?.toBool() {
+                    if !sendHitWhenOptOut {
+                        tracker.delegate?.warningDidOccur?("'sendHitWhenOptOut' configuration disabled, hit(s) not sent")
+                        return
+                    }
+                }
+            }
+            
             for hit in hits {
                 // Wrap a hit to a sender object
                 let sender = Sender(tracker: self.tracker, hit: Hit(url: hit), forceSendOfflineHits:false, mhOlt: mhOlt)

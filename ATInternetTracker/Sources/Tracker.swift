@@ -884,6 +884,16 @@ public class Tracker: NSObject {
         setConfig(TrackerConfigurationKeys.IgnoreLimitedAdTracking, value: String(enabled), sync: sync, completionHandler: completionHandler)
     }
     
+    /// Enable send hits when opt out
+    ///
+    /// - Parameters:
+    ///   - enabled: /
+    ///   - sync: perform the operation synchronously (optional, default: false)
+    ///   - completionHandler: called when the operation has been done
+    @objc public func setSendHitWhenOptOutEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+        setConfig(TrackerConfigurationKeys.SendHitWhenOptOut, value: String(enabled), sync: sync, completionHandler: completionHandler)
+    }
+    
     /// Set a new Plugin
     ///
     /// - Parameters:
