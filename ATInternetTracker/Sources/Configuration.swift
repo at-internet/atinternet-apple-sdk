@@ -125,6 +125,8 @@ public class TrackerConfigurationKeys: NSObject {
     public static let CollectDomain = "collectDomain"
     /// ignore limited ad tracking
     public static let IgnoreLimitedAdTracking = "ignoreLimitedAdTracking"
+    /// send hits when opt out
+    public static let SendHitWhenOptOut = "sendHitWhenOptOut"
 }
 
 /// Tracker configuraiton
