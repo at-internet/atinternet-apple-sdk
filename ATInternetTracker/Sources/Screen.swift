@@ -32,10 +32,6 @@ SOFTWARE.
 
 import Foundation
 
-#if os(iOS) && AT_SMART_TRACKER
-import UIKit
-#endif
-
 
 /// Business object type for screen tracking. Used only for specific case.
 public class ScreenInfo: BusinessObject {
@@ -265,119 +261,6 @@ public class Screen: AbstractScreen {
             TechnicalContext.level2 = newValue
         }
     }
-    #if os(iOS) && AT_SMART_TRACKER
-    
-    @objc public var className: String = ""
-    fileprivate(set) var title: String = ""
-    
-    /// Scale value
-    @objc public var scale: Float = 1
-    
-    /// Screen width
-    var width: Int = 0
-    
-    /// Screen height
-    var height: Int = 0
-    
-    /// JSON description
-    public override var description: String {
-        return toJSONObject.toJSON()
-    }
-    
-    /// Device width orientation dependent
-    public var currentWidth: Int {
-        if self.orientation == 1 {
-            return min(self.width, self.height)
-        }
-        else {
-            return max(self.height, self.width)
-        }
-    }
-    
-    /// Device height orientation dependent
-    public var currentHeight: Int {
-        if self.orientation == 1 {
-            return max(self.width, self.height)
-        }
-        else {
-            return min(self.height, self.width)
-        }
-    }
-    
-    /// Device orientation
-    var orientation: Int
-
-    var toJSONObject: [String: Any] {
-        let jsonObj: [String: Any] = [
-            "screen":[
-                "title": self.title,
-                "className": self.className,
-                "scale": self.scale,
-                "width" : self.currentWidth,
-                "height" : self.currentHeight,
-                "app":[
-                    "version": TechnicalContext.applicationVersion.isEmpty ? "" : TechnicalContext.applicationVersion,
-                    "device" : TechnicalContext.device.isEmpty ? "" : TechnicalContext.device,
-                    "token" : App.token ?? "",
-                    "package": TechnicalContext.applicationIdentifier,
-                    "platform":"ios"
-                ],
-                "orientation" : self.orientation
-            ]
-        ]
-        return jsonObj
-    }
-    
-    /**
-     Screen init
-     
-     - returns: Screen
-     */
-    override init() {
-        
-        let uiScreen = UIScreen.main
-        let size = uiScreen.bounds.size
-        
-        self.className = UIViewControllerContext.sharedInstance.currentViewController?.classLabel ?? ""
-        self.title = self.className
-        self.scale = Float(uiScreen.scale)
-        self.width = Int(size.width)
-        //self.orientation = UIViewControllerContext.sharedInstance.currentOrientation.rawValue
-        self.height = Int(size.height)
-        
-        self.orientation = (self.height > self.width) ? 1 : 2
-        super.init()
-        self.name = UIViewControllerContext.sharedInstance.currentViewController?.screenTitle ?? ""
-       
-    }
-    
-    /**
-     Screen init
-     
-     - returns: Screen
-     */
-    init(fromViewController: UIViewController) {
-        let uiScreen = UIScreen.main
-        let size = uiScreen.bounds.size
-        
-        self.className = fromViewController.classLabel
-        self.title = self.className
-        self.scale = Float(uiScreen.scale)
-        self.width = Int(size.width)
-        self.orientation = UIViewControllerContext.sharedInstance.currentOrientation.rawValue
-        
-        self.height = Int(size.height)
-        super.init()
-        self.name = fromViewController.screenTitle 
-    }
-    
-    override init(tracker: Tracker) {
-        self.orientation = UIDeviceOrientation.portrait.rawValue;
-        
-        super.init(tracker: tracker)
-    }
-    
-    #endif
     
     //MARK: Screen
     /// Set parameters in buffer

@@ -311,7 +311,7 @@ public class RichMedia : BusinessObject {
         }
         let config = DynamicRefreshConfiguration(configuration: conf)
         self.chronoRefresh = DynamicRefresher(configuration: config) {
-            self.sendRefresh()
+            [unowned self] in self.sendRefresh()
         }
         _ = self.tracker.setParam("a", value: "play")
         setPlayOrInfoParams()

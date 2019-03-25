@@ -48,32 +48,12 @@ public class ATInternet: NSObject {
             Static.instance = ATInternet()
         }()
     
-    #if os(iOS) && AT_SMART_TRACKER
-    /// /!\ SmartSDK only - Get an AutoTracker with "defaultTracker" name
-    @objc public var defaultTracker: AutoTracker {
-        get {
-            if(self.trackers == nil) {
-                self.trackers = [String: Tracker]()
-            }
-            
-            if(self.trackers.index(forKey: "defaultTracker") != nil) {
-                return self.trackers["defaultTracker"]! as! AutoTracker
-            } else {
-                let tracker = AutoTracker()
-                self.trackers["defaultTracker"] = tracker
-                
-                return tracker
-            }
-        }
-    }
-    #else
     /// Get a Tracker with "defaultTracker" name
     @objc public var defaultTracker: Tracker {
         get {
             return self.tracker("defaultTracker")
         }
     }
-    #endif
     
     /// List of all initialized trackers
     fileprivate var trackers: [String: Tracker]!

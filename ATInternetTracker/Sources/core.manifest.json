@@ -83,14 +83,6 @@
             "public": true,
             "global": true
         },
-        "enableSmartSDK": {
-            "title": "Geode_Tag_SDK_Config_Title_enableSmartSDK",
-            "description": "Geode_Tag_SDK_Config_Description_enableSmartSDK",
-            "defaultValue": "false",
-            "type": "bool",
-            "public": true,
-            "global": true
-        },
         "hashUserId": {
             "title": "Geode_Tag_SDK_Config_Title_hashUserId",
             "description": "Geode_Tag_SDK_Config_Description_hashUserId",
@@ -129,30 +121,6 @@
             "defaultValue": "60",
             "type": "int",
             "public": true,
-            "global": true
-        },
-        "enableAutoTracking": {
-            "title": "Geode_Tag_SDK_Config_Title_enableAutoTracking",
-            "description": "Geode_Tag_SDK_Config_Description_enableAutoTracking",
-            "defaultValue": "false",
-            "type": "bool",
-            "public": true,
-            "global": true
-        },
-        "autoTrackerToken": {
-            "title": "Geode_Tag_SDK_Config_Title_autoTrackerToken",
-            "description": "Geode_Tag_SDK_Config_Description_autoTrackerToken",
-            "defaultValue": "",
-            "type": "string",
-            "public": true,
-            "global": true
-        },
-        "atEnv": {
-            "title": "Geode_Tag_SDK_Config_Title_atEnv",
-            "description": "Geode_Tag_SDK_Config_Description_atEnv",
-            "defaultValue": "prod",
-            "type": "string",
-            "public": false,
             "global": true
         },
         "downloadSource": {

@@ -110,10 +110,6 @@ public class TrackerConfigurationKeys: NSObject {
     public static let DownloadSource = "downloadSource"
     /// plugins
     public static let Plugins = "plugins"
-    /// enableAutoTracking
-    public static let AutoTracking = "enableAutoTracking"
-    /// autoTrackerToken
-    public static let AutoTrackerToken = "autoTrackerToken"
     /// send only when host App is in state "active" (foreground)
     @available(*, deprecated, message: "Use 'sendOnApplicationState' property instead")
     public static let SendOnlyWhenAppActive = "sendOnlyWhenAppActive"
@@ -134,8 +130,6 @@ class Configuration: NSObject {
 
     /// Dictionary of configuration parameters
     var parameters = [String: String]()
-    
-    static var smartSDKMapping: ATJSON?
 
     /// Read only configuration
     class ReadOnlyConfiguration {

@@ -127,14 +127,4 @@ class Buffer: NSObject {
         let ignoreLimitedAdTracking = self.tracker.configuration.parameters["ignoreLimitedAdTracking"]?.toBool() ?? false
         self.persistentParameters["idclient"] = Param(key: "idclient", value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking)}, options: persistentOption)
     }
-
-    #if os(iOS) && AT_SMART_TRACKER
-    // Add AutoTracker
-    func addAutoTrackingContextVariable() {
-        if self.tracker is AutoTracker && (self.tracker as! AutoTracker).enableAutoTracking {
-            let persistentOption = ParamOption()
-            self.volatileParameters["auto"] = Param(key: "auto", value: {"1"}, options: persistentOption)
-        }
-    }
-    #endif
 }

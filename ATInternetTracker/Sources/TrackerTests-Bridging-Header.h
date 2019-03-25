@@ -31,11 +31,3 @@
 
 #import "Crash.h"
 #import "Hash.h"
-
-#if TARGET_OS_IPHONE && defined(AT_SMART_TRACKER)
-
-#import "JRSwizzle.h"
-#import "ATGestureRecognizer.h"
-#import "KLCPopup.h"
-
-#endif

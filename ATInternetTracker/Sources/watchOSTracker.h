@@ -21,7 +21,6 @@
  SOFTWARE.
  */
 
-
 #import <WatchKit/WatchKit.h>
 
 //! Project version number for Tracker.
