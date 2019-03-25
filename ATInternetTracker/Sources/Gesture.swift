@@ -109,11 +109,6 @@ public class Gesture: BusinessObject {
     /// Internal Search
     @objc public var internalSearch: InternalSearch?
     
-    #if os(iOS) && AT_SMART_TRACKER
-    // View information which was touched by the user
-    @objc internal(set) public weak var view: View?
-    #endif
-    
     internal class func getEventTypeRawValue(_ value: Int) -> String {
         switch value {
         case 1:

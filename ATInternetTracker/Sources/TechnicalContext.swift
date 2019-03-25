@@ -45,13 +45,13 @@ class TechnicalContext: NSObject {
     class var sdkVersion: String {
         get {
             #if os(watchOS)
-            return "1.10.0"
+            return "1.11.0"
             #elseif os(tvOS)
-            return "1.10.0"
+            return "1.11.0"
             #elseif os(iOS)
-            return "2.13.0"
+            return "2.14.0"
             #else
-            return "2.13.0"
+            return "2.14.0"
             #endif
         }
     }
@@ -254,14 +254,6 @@ class TechnicalContext: NSObject {
         
         return defaultAppName
     }
-    
-    #if os(iOS) && AT_SMART_TRACKER
-    /// Application icon
-    class var applicationIcon: String? {
-        let iconImg = UIImage(named: "AppIcon60x60")
-        return iconImg?.toBase64()?.replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "\r", with: "")
-    }
-    #endif
     
     /// Application identifier (eg. com.atinternet.testapp)
      class var applicationIdentifier: String {
