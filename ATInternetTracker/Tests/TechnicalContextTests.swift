@@ -71,13 +71,13 @@ class TechnicalContextTests: XCTestCase {
     func testNonExistingUUID() {
         UserDefaults.standard.removeObject(forKey: "ATApplicationUniqueIdentifier")
         UserDefaults.standard.synchronize()
-        XCTAssertEqual(36, TechnicalContext.userId("whatever", ignoreLimitedAdTracking: false).characters.count, "Unique identifier shall be a new valid UUID")
+        XCTAssertEqual(36, TechnicalContext.userId("whatever", ignoreLimitedAdTracking: false).count, "Unique identifier shall be a new valid UUID")
     }
     
     func testUserIdWithNilConfiguration() {
         UserDefaults.standard.removeObject(forKey: "ATApplicationUniqueIdentifier")
         UserDefaults.standard.synchronize()
-        XCTAssertEqual(36, TechnicalContext.userId(nil, ignoreLimitedAdTracking: false).characters.count, "Unique identifier shall be a new valid UUID")
+        XCTAssertEqual(36, TechnicalContext.userId(nil, ignoreLimitedAdTracking: false).count, "Unique identifier shall be a new valid UUID")
     }
     
     func testSDKVersion() {

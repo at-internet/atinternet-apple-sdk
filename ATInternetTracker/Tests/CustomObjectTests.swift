@@ -86,7 +86,7 @@ class CustomObjectTests: XCTestCase {
         
         let stcQuery = params["stc"]?.0
         let index = stcQuery!.index(stcQuery!.startIndex, offsetBy: 5)
-        let stcEncoded = stcQuery!.substring(from: index)
+        let stcEncoded = String(stcQuery![index...])
         let obj = stcEncoded.percentDecodedString.toJSONObject() as! Dictionary<String, Any>
         XCTAssertTrue(obj["legumes"] != nil, "le stc doit contenir les clefs inserees")
         XCTAssertTrue(obj["fruits"] != nil, "le stc doit contenir les clefs inserees")
@@ -118,7 +118,7 @@ class CustomObjectTests: XCTestCase {
         
         let stcQuery = params["stc"]?.0
         let index = stcQuery!.index(stcQuery!.startIndex, offsetBy: 5)
-        let stcEncoded = stcQuery!.substring(from: index)
+        let stcEncoded = String(stcQuery![index...])
         let obj = stcEncoded.percentDecodedString.toJSONObject() as! Dictionary<String, Any>
         XCTAssertTrue(obj["legumes"] != nil, "le stc doit contenir les clefs inserees")
         XCTAssertTrue(obj["fruits"] != nil, "le stc doit contenir les clefs inserees")
