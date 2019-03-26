@@ -62,7 +62,7 @@ class ConfigurationTests: XCTestCase {
         
         for (key,value) in config {
             if (defaultConf[key] != value) {
-                print("\(key) : -> \(defaultConf[key]) !== ->\(value)")
+                print("\(key) : -> \(String(describing: defaultConf[key])) !== ->\(value)")
                 testOK = false;
                 break;
             }

@@ -61,7 +61,7 @@ class NuggAdTests: XCTestCase {
         nuggAd.setParams()
         
         let configurationOperation = BlockOperation(block: {
-            let p0 = tracker.buffer.volatileParameters["stc"] as Param!
+            let p0 = tracker.buffer.volatileParameters["stc"] as Param?
             XCTAssertTrue(p0?.key == "stc", "Le paramètre doit être la clé du plugin NuggAd")
             XCTAssertTrue(p0?.values[0]() == "{\"nuggad\":{\"k0\":\"v0\"}}", "La valeur doit être la data nuggad serialisée")
             expectation.fulfill()

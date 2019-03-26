@@ -202,31 +202,6 @@ class BuilderTests: XCTestCase, TrackerDelegate {
         }
     }
     
-    // Teste que le hit construit avec une paramètre dont la valeur est un dictionnaire contient bien le résultat attendu
-    func testBuildHitWithDictionnaryParam() {
-        
-        let dictParam = Param(key: "json", value: {Tool.convertToString(["légume":["chou","patate","tomate","carotte"], "fruits": ["pomme", "abricot", "poire"]]).value})
-        
-        tracker.buffer.volatileParameters["json"] = dictParam
-        
-        let builder = Builder(tracker: self.tracker)
-        
-        let hits = builder.build()
-        
-        let urlComponentsTmp = hits[0].components(separatedBy: "?")[1]
-        let urlComponents = urlComponentsTmp.components(separatedBy: "&")
-        
-        for component in urlComponents as [String] {
-            let pairComponents = component.components(separatedBy: "=")
-            
-            if(pairComponents[0] == "json"){
-                XCTAssert(pairComponents[1] == dictParam.values[0](), "le paramètre json doit être égal à {\"fruits\":[\"pomme\",\"abricot\",\"poire\"],\"légume\":[\"chou\",\"patate\",\"tomate\",\"carotte\"]}")
-                
-                break
-            }
-        }
-    }
-    
     // Teste que le hit construit avec une paramètre dont la valeur est un tableau contient bien le résultat attendu
     func testBuildHitWithArrayParam() {
         

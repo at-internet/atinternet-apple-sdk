@@ -41,7 +41,7 @@ class EventsTests: XCTestCase {
     }
     
     func testSetParamsOne() {
-        events.add(type: "act", data: ["test1" : "value1"])
+        _ = events.add(type: "act", data: ["test1" : "value1"])
         events.setParams()
         
         XCTAssertEqual(events.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 5")
