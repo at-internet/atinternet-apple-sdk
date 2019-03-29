@@ -219,7 +219,7 @@ public class Orders: NSObject {
 public class OrderDiscount: NSObject {
     
     /// Order instance
-    var order: Order
+    weak var order: Order!
     
     /// Discount with tax
     @objc public var discountTaxIncluded: Double = -1
@@ -257,7 +257,7 @@ public class OrderDiscount: NSObject {
 public class OrderAmount: NSObject {
     
     /// Order instance
-    var order: Order
+    weak var order: Order!
     
     /// Amount without tax
     @objc public var amountTaxFree: Double = -1
@@ -297,7 +297,7 @@ public class OrderAmount: NSObject {
 public class OrderDelivery: NSObject {
     
     /// Order instance
-    var order: Order
+    weak var order: Order!
     
     /// Shipping fees with tax
     @objc public var shippingFeesTaxIncluded: Double = -1

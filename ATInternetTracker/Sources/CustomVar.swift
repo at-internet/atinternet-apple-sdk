@@ -104,7 +104,7 @@ public class CustomVars: NSObject {
     var tracker: Tracker!
     
     /// Screen instance
-    var screen: AbstractScreen!
+    weak var screen: AbstractScreen!
     
     /**
     CustomVars initializer

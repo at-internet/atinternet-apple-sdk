@@ -75,19 +75,19 @@ public class CustomObjects: NSObject {
     var tracker: Tracker!
     
     /// Screen instance
-    var screen: AbstractScreen!
+    weak var screen: AbstractScreen!
     
     /// Gesture instance
-    var gesture: Gesture!
+    weak var gesture: Gesture!
     
     /// Publisher instance
-    var publisher: Publisher!
+    weak var publisher: Publisher!
     
     /// Self Promotion instance
-    var selfPromotion: SelfPromotion!
+    weak var selfPromotion: SelfPromotion!
     
     /// Product instance
-    var product: Product!
+    weak var product: Product!
     
     /**
     CustomObjects initializer
