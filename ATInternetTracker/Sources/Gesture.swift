@@ -102,8 +102,6 @@ public class Gesture: BusinessObject {
     @objc public var action: GestureAction = GestureAction.touch
     /// Type of touch - See GestureEventType
     @objc internal(set) public lazy var type: GestureEventType = GestureEventType.unknown
-    /// Screen information on which the gesture has been done
-    @objc internal(set) public weak var screen: Screen?
     /// Custom objects to add to gesture hit
     @objc public lazy var customObjects: CustomObjects = CustomObjects(gesture: self)
     /// Internal Search

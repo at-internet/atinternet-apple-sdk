@@ -188,7 +188,7 @@ public class PublisherImpression: Publisher {
     var tracker: Tracker!
     
     /// Screen instance
-    var screen: AbstractScreen
+    weak var screen: AbstractScreen!
     
     init(screen: AbstractScreen) {
         self.screen = screen
