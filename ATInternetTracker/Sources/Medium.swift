@@ -59,7 +59,7 @@ public class Media: NSObject {
     @objc var list: [String: Medium] = [String: Medium]()
     
     /// MediaPlayer instance
-    @objc var player: MediaPlayer
+    @objc weak var player: MediaPlayer!
     
     /**
      Media initializer

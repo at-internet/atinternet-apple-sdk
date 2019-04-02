@@ -60,7 +60,7 @@ public class Videos: NSObject {
     @objc var list: [String: Video] = [String: Video]()
     
     /// MediaPlayer instance
-    @objc var player: MediaPlayer
+    @objc weak var player: MediaPlayer!
     
     /**
     Videos initializer
