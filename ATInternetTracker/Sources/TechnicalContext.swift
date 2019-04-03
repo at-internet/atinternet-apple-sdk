@@ -45,13 +45,13 @@ class TechnicalContext: NSObject {
     class var sdkVersion: String {
         get {
             #if os(watchOS)
-            return "1.11.2"
+            return "1.11.3"
             #elseif os(tvOS)
-            return "1.11.2"
+            return "1.11.3"
             #elseif os(iOS)
-            return "2.14.2"
+            return "2.14.3"
             #else
-            return "2.14.2"
+            return "2.14.3"
             #endif
         }
     }

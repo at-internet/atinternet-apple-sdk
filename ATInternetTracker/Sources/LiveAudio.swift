@@ -50,7 +50,7 @@ public class LiveAudios: NSObject {
     @objc var list: [String: LiveAudio] = [String: LiveAudio]()
     
     /// MediaPlayer instance
-    @objc var player: MediaPlayer
+    @objc weak var player: MediaPlayer!
     
     /**
     LiveAudios initializer
