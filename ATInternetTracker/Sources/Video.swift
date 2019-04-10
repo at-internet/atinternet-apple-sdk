@@ -1,25 +1,25 @@
 /*
-This SDK is licensed under the MIT license (MIT)
-Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ This SDK is licensed under the MIT license (MIT)
+ Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
 
 
@@ -35,8 +35,8 @@ import Foundation
 /// Wrapper class for Video tracking
 public class Video: RichMedia {
     
-    override init(player: MediaPlayer) {
-        super.init(player: player)
+    override init(tracker: Tracker, playerId: Int) {
+        super.init(tracker: tracker, playerId: playerId)
         broadcastMode = BroadcastMode.clip
         type = "video"
     }
@@ -48,7 +48,7 @@ public class Video: RichMedia {
             self.duration = 86400
         }
         
-        if (self.duration > 0){
+        if (self.duration >= 0){
             _ = self.tracker.setParam("m1", value: duration)
         }
     }
@@ -63,14 +63,14 @@ public class Videos: NSObject {
     @objc weak var player: MediaPlayer!
     
     /**
-    Videos initializer
-    - parameter player: the player instance
-    - returns: Videos instance
-    */
+     Videos initializer
+     - parameter player: the player instance
+     - returns: Videos instance
+     */
     @objc init(player: MediaPlayer) {
         self.player = player
     }
-
+    
     /// Add a new video
     ///
     /// - Parameters:
@@ -82,7 +82,7 @@ public class Videos: NSObject {
             self.player.tracker.delegate?.warningDidOccur?("A Video with the same name already exists.")
             return video
         } else {
-            let video = Video(player: player)
+            let video = Video(tracker: self.player.tracker, playerId: self.player.playerId)
             video.mediaLabel = mediaLabel
             video.duration = duration
             
@@ -91,7 +91,7 @@ public class Videos: NSObject {
             return video
         }
     }
-
+    
     /// Add a new video
     ///
     /// - Parameters:
@@ -203,8 +203,8 @@ public class Videos: NSObject {
     }
     
     /**
-    Remove all videos
-    */
+     Remove all videos
+     */
     @objc public func removeAll() {
         for (_, value) in self.list {
             if let timer = value.timer {

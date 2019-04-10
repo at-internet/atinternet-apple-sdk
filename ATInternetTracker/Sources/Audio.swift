@@ -1,25 +1,22 @@
 /*
-This SDK is licensed under the MIT license (MIT)
-Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ This SDK is licensed under the MIT license (MIT)
+ Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
 
 
@@ -29,15 +26,14 @@ SOFTWARE.
 //  Audio.swift
 //  Tracker
 //
-
 import Foundation
 
 
 /// Wrap class for audio media tracking
 public class Audio: RichMedia {
     
-    override init(player: MediaPlayer) {
-        super.init(player: player)
+    override init(tracker: Tracker, playerId: Int) {
+        super.init(tracker: tracker, playerId: playerId)
         broadcastMode = BroadcastMode.clip
         type = "audio"
     }
@@ -49,7 +45,7 @@ public class Audio: RichMedia {
             self.duration = 86400
         }
         
-        if (self.duration > 0){
+        if (self.duration >= 0){
             _ = self.tracker.setParam("m1", value: duration)
         }
     }
@@ -65,14 +61,14 @@ public class Audios: NSObject {
     @objc weak var player: MediaPlayer!
     
     /**
-    Audios initializer
-    - parameter player: the player instance
-    - returns: Audios instance
-    */
+     Audios initializer
+     - parameter player: the player instance
+     - returns: Audios instance
+     */
     @objc init(player: MediaPlayer) {
         self.player = player
     }
-
+    
     /// Add a new Audio
     ///
     /// - Parameters:
@@ -84,7 +80,7 @@ public class Audios: NSObject {
             self.player.tracker.delegate?.warningDidOccur?("An Audio with the same name already exists.")
             return audio
         } else {
-            let audio = Audio(player: player)
+            let audio = Audio(tracker: self.player.tracker, playerId: self.player.playerId)
             audio.mediaLabel = mediaLabel
             audio.duration = duration
             
@@ -93,7 +89,7 @@ public class Audios: NSObject {
             return audio
         }
     }
-
+    
     /// Add a new Audio
     ///
     /// - Parameters:

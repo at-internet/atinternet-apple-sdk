@@ -1,25 +1,25 @@
 /*
-This SDK is licensed under the MIT license (MIT)
-Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ This SDK is licensed under the MIT license (MIT)
+ Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ 
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
+ 
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
 
 
@@ -35,9 +35,9 @@ import Foundation
 
 /// Wrapper class for Live Video tracking
 public class LiveVideo: RichMedia {
-   
-    override init(player: MediaPlayer) {
-        super.init(player: player)
+    
+    override init(tracker: Tracker, playerId: Int) {
+        super.init(tracker: tracker, playerId: playerId)
         broadcastMode = BroadcastMode.live
         type = "video"
     }
@@ -53,10 +53,10 @@ public class LiveVideos: NSObject {
     @objc weak var player: MediaPlayer!
     
     /**
-    LiveVideos initializer
-    - parameter player: the player instance
-    - returns: LiveVideos instance
-    */
+     LiveVideos initializer
+     - parameter player: the player instance
+     - returns: LiveVideos instance
+     */
     init(player: MediaPlayer) {
         self.player = player
     }
@@ -70,7 +70,7 @@ public class LiveVideos: NSObject {
             self.player.tracker.delegate?.warningDidOccur?("A LiveVideo with the same name already exists.")
             return video
         } else {
-            let video = LiveVideo(player: player)
+            let video = LiveVideo(tracker: self.player.tracker, playerId: self.player.playerId)
             video.mediaLabel = mediaLabel
             
             self.list[mediaLabel] = video
@@ -126,7 +126,7 @@ public class LiveVideos: NSObject {
         liveVideo.mediaTheme2 = mediaTheme2
         return liveVideo
     }
-
+    
     /// Add a new live video
     ///
     /// - Parameters:
@@ -155,9 +155,9 @@ public class LiveVideos: NSObject {
     }
     
     /**
-    Remove a live video
-    - parameter mediaLabel: video name
-    */
+     Remove a live video
+     - parameter mediaLabel: video name
+     */
     @objc public func remove(_ mediaLabel: String) {
         if let timer = list[mediaLabel]?.timer {
             if timer.isValid {
@@ -168,8 +168,8 @@ public class LiveVideos: NSObject {
     }
     
     /**
-    Remove all live videos
-    */
+     Remove all live videos
+     */
     @objc public func removeAll() {
         for (_, value) in self.list {
             if let timer = value.timer {
