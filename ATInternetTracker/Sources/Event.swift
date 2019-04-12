@@ -92,13 +92,13 @@ public class Events: BusinessObject {
         for e in self.eventLists {
             
             if e.data.count != 0 {
-                eventsArr.append(["type" : e.type, "data" : e.data])
+                eventsArr.append(["event" : e.type, "data" : e.data])
             }
             
             let additionalEvents = e.getAdditionalEvents()
             
             for ev in additionalEvents {
-                eventsArr.append(["type" : ev.type, "data" : ev.data])
+                eventsArr.append(["event" : ev.type, "data" : ev.data])
             }
 
         }

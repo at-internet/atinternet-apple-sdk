@@ -97,15 +97,15 @@ public class TransactionConfirmation: Event {
         /// SALES TRACKER
         if let autoSalesTrackerStr = tracker.configuration.parameters[TrackerConfigurationKeys.AutoSalesTracker], autoSalesTrackerStr.toBool() && screen != nil {
             
-            let turnoverTaxIncluded = Double(String(describing: cart.get(key: "f:turnoverTaxIncluded") ?? 0)) ?? 0
-            let turnoverTaxFree = Double(String(describing: cart.get(key: "f:turnoverTaxFree") ?? 0)) ?? 0
+            let turnoverTaxIncluded = Double(String(describing: cart.get(key: "f:turnovertaxincluded") ?? 0)) ?? 0
+            let turnoverTaxFree = Double(String(describing: cart.get(key: "f:turnovertaxfree") ?? 0)) ?? 0
             
             let o = tracker.orders.add(String(describing: transaction.get(key: "s:id") ?? ""), turnover: turnoverTaxIncluded)
             o.status = 3
             o.paymentMethod = 0
             o.isConfirmationRequired = false
             o.isNewCustomer = String(describing: customer.get(key: "b:new") ?? false).toBool()
-            _ = o.delivery.set(Double(String(describing: shipping.get(key: "f:costTaxFree") ?? 0)) ?? 0, shippingFeesTaxIncluded: Double(String(describing: shipping.get(key: "f:costTaxIncluded") ?? 0)) ?? 0, deliveryMethod: String(describing: shipping.get(key: "s:delivery") ?? ""))
+            _ = o.delivery.set(Double(String(describing: shipping.get(key: "f:costtaxfree") ?? 0)) ?? 0, shippingFeesTaxIncluded: Double(String(describing: shipping.get(key: "f:costtaxincluded") ?? 0)) ?? 0, deliveryMethod: String(describing: shipping.get(key: "s:delivery") ?? ""))
             _ = o.amount.set(turnoverTaxFree, amountTaxIncluded: turnoverTaxIncluded, taxAmount: turnoverTaxIncluded - turnoverTaxFree)
             
             _ = o.discount.promotionalCode = promotionalCodes.joined(separator: "|")
@@ -114,7 +114,7 @@ public class TransactionConfirmation: Event {
             
             for p in products {
                 var stProductId : String
-                if let name = (p as RequiredPropertiesDataObject).get(key: "s:name") {
+                if let name = (p as RequiredPropertiesDataObject).get(key: "s:$") {
                     stProductId = String(format: "%@[%@]", String(describing: p.get(key: "s:id") ?? ""), String(describing: name))
                 } else {
                     stProductId = String(describing: p.get(key: "s:id") ?? "")
@@ -122,8 +122,8 @@ public class TransactionConfirmation: Event {
                 
                 let stProduct = stCart.products.add(stProductId)
                 stProduct.quantity = Int(String(describing: p.get(key: "n:quantity") ?? 0)) ?? 0
-                stProduct.unitPriceTaxIncluded = Double(String(describing: p.get(key: "f:priceTaxIncluded") ?? 0)) ?? 0
-                stProduct.unitPriceTaxFree = Double(String(describing: p.get(key: "f:priceTaxFree") ?? 0)) ?? 0
+                stProduct.unitPriceTaxIncluded = Double(String(describing: p.get(key: "f:pricetaxincluded") ?? 0)) ?? 0
+                stProduct.unitPriceTaxFree = Double(String(describing: p.get(key: "f:pricetaxfree") ?? 0)) ?? 0
                 
                 if let category1 = p.get(key: "s:category1") {
                     stProduct.category1 = String(format: "[%@]", String(describing: category1))

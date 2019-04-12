@@ -62,7 +62,7 @@ public class DisplayProduct: Event {
             
             for p in products {
                 var stProductId : String
-                if let name = p.get(key: "s:name") {
+                if let name = p.get(key: "s:$") {
                     stProductId = String(format: "%@[%@]", String(describing: p.get(key: "s:id") ?? ""), String(describing: name))
                 } else {
                     stProductId = String(describing: p.get(key: "s:id") ?? "")

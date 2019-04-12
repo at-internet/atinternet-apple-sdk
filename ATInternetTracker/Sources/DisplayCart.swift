@@ -59,7 +59,7 @@ public class DisplayCart: Event {
             
             for p in products {
                 var stProductId : String
-                if let name = p.get(key: "s:name") {
+                if let name = p.get(key: "s:$") {
                     stProductId = String(format: "%@[%@]", String(describing: p.get(key: "s:id") ?? ""), String(describing: name))
                 } else {
                     stProductId = String(describing: p.get(key: "s:id") ?? "")
@@ -67,8 +67,8 @@ public class DisplayCart: Event {
                 
                 let stProduct = stCart.products.add(stProductId)
                 stProduct.quantity = Int(String(describing: p.get(key: "n:quantity") ?? 0)) ?? 0
-                stProduct.unitPriceTaxIncluded = Double(String(describing: p.get(key: "f:priceTaxIncluded") ?? 0)) ?? 0
-                stProduct.unitPriceTaxFree = Double(String(describing: p.get(key: "f:priceTaxFree") ?? 0)) ?? 0
+                stProduct.unitPriceTaxIncluded = Double(String(describing: p.get(key: "f:pricetaxincluded") ?? 0)) ?? 0
+                stProduct.unitPriceTaxFree = Double(String(describing: p.get(key: "f:pricetaxfree") ?? 0)) ?? 0
                 
                 if let category1 = p.get(key: "s:category1") {
                     stProduct.category1 = String(format: "[%@]", String(describing: category1))

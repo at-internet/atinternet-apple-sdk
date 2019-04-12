@@ -33,11 +33,11 @@ public class ECommerceCart: RequiredPropertiesDataObject {
         
         propertiesPrefixMap["creation_utc"] = "d"
         
-        propertiesPrefixMap["turnoverTaxIncluded"] = "f"
-        propertiesPrefixMap["turnoverTaxFree"] = "f"
+        propertiesPrefixMap["turnovertaxincluded"] = "f"
+        propertiesPrefixMap["turnovertaxfree"] = "f"
         
         propertiesPrefixMap["quantity"] = "n"
-        propertiesPrefixMap["nbDistinctProduct"] = "n"
+        propertiesPrefixMap["nbdistinctproduct"] = "n"
     }
 }
 
@@ -59,7 +59,7 @@ public class ECommerceProduct: RequiredPropertiesDataObject {
     override init() {
         super.init()
         propertiesPrefixMap["id"] = "s"
-        propertiesPrefixMap["name"] = "s"
+        propertiesPrefixMap["$"] = "s"
         propertiesPrefixMap["brand"] = "s"
         propertiesPrefixMap["currency"] = "s"
         propertiesPrefixMap["variant"] = "s"
@@ -74,8 +74,8 @@ public class ECommerceProduct: RequiredPropertiesDataObject {
         propertiesPrefixMap["stock"] = "b"
         propertiesPrefixMap["cartcreation"] = "b"
         
-        propertiesPrefixMap["priceTaxIncluded"] = "f"
-        propertiesPrefixMap["priceTaxFree"] = "f"
+        propertiesPrefixMap["pricetaxincluded"] = "f"
+        propertiesPrefixMap["pricetaxfree"] = "f"
         
         propertiesPrefixMap["quantity"] = "n"
     }
@@ -93,8 +93,8 @@ public class ECommerceShipping: RequiredPropertiesDataObject {
         super.init()
         propertiesPrefixMap["delivery"] = "s"
         
-        propertiesPrefixMap["costTaxIncluded"] = "f"
-        propertiesPrefixMap["costTaxFree"] = "f"
+        propertiesPrefixMap["costtaxincluded"] = "f"
+        propertiesPrefixMap["costtaxfree"] = "f"
     }
 }
 
