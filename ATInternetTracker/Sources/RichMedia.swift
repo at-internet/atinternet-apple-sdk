@@ -79,9 +79,6 @@ public class RichMedia : BusinessObject {
         case download = 9
     }
     
-    /// Player instance
-    var player: MediaPlayer
-    
     /// Refresh timer
     var timer: Timer?
     
@@ -174,6 +171,9 @@ public class RichMedia : BusinessObject {
     /// Refresh Duration
     var refreshDuration: Int = 5
     
+    /// Player Id
+    var playerId: Int = -1
+    
     /// Duration
     @objc public var duration: Int = 0
     
@@ -191,9 +191,9 @@ public class RichMedia : BusinessObject {
     let DynamicRefreshDefaultConfiguration = [0:5, 1:15, 5:30, 10: 60]
     var chronoRefresh: DynamicRefresher?
     
-    init(player: MediaPlayer) {
-        self.player = player
-        super.init(tracker: player.tracker)
+    init(tracker: Tracker, playerId: Int) {
+        self.playerId = playerId
+        super.init(tracker: tracker)
     }
     
     /// Set parameters in buffer
@@ -203,7 +203,7 @@ public class RichMedia : BusinessObject {
         
         _ = self.tracker.setParam("p", value: buildMediaName(), options: encodingOption)
         
-        _ = self.tracker.setParam("plyr", value: player.playerId)
+        _ = self.tracker.setParam("plyr", value: self.playerId)
         
         _ = self.tracker.setParam("m6", value: broadcastMode == BroadcastMode.clip ? "clip" : "live")
         
@@ -311,7 +311,7 @@ public class RichMedia : BusinessObject {
         }
         let config = DynamicRefreshConfiguration(configuration: conf)
         self.chronoRefresh = DynamicRefresher(configuration: config) {
-            [unowned self] in self.sendRefresh()
+            [weak self] in self?.sendRefresh()
         }
         _ = self.tracker.setParam("a", value: "play")
         setPlayOrInfoParams()

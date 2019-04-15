@@ -36,8 +36,8 @@ import Foundation
 /// Wrapper class for live audio tracking
 public class LiveMedium: RichMedia {
     
-    override init(player: MediaPlayer) {
-        super.init(player: player)
+    override init(tracker: Tracker, playerId: Int) {
+        super.init(tracker: tracker, playerId: playerId)
         broadcastMode = BroadcastMode.live
     }
 }
@@ -69,7 +69,7 @@ public class LiveMedia: NSObject {
             self.player.tracker.delegate?.warningDidOccur?("A LiveMedium with the same name already exists.")
             return liveMedium
         } else {
-            let liveMedium = LiveMedium(player: player)
+            let liveMedium = LiveMedium(tracker: self.player.tracker, playerId: self.player.playerId)
             liveMedium.mediaLabel = mediaLabel
             liveMedium.type = mediaType
             
