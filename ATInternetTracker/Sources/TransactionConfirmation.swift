@@ -46,20 +46,12 @@ public class TransactionConfirmation: Event {
     /// Payment property
     @objc public lazy var payment : ECommercePayment = ECommercePayment()
     
-    /// Customer property
-    @objc public lazy var customer : ECommerceCustomer = ECommerceCustomer()
-    
-    /// Promotional codes
-    @objc public var promotionalCodes = [String]()
-    
     override var data: [String : Any] {
         get {
             _data["cart"] = cart.properties
             _data["payment"] = payment.properties
-            _data["customer"] = customer.properties
             _data["shipping"] = shipping.properties
             _data["transaction"] = transaction.properties
-            _data["a:s:promotionalCode"] = promotionalCodes
             return super.data
         }
     }
@@ -72,10 +64,6 @@ public class TransactionConfirmation: Event {
     
     @objc public func setProducts(products: [ECommerceProduct]) {
         self.products = products
-    }
-    
-    @objc public func setPromotionalCodes(codes: [String]) {
-        self.promotionalCodes = codes
     }
     
     override func getAdditionalEvents() -> [Event] {
@@ -104,11 +92,13 @@ public class TransactionConfirmation: Event {
             o.status = 3
             o.paymentMethod = 0
             o.isConfirmationRequired = false
-            o.isNewCustomer = String(describing: customer.get(key: "b:new") ?? false).toBool()
+            o.isNewCustomer = String(describing: transaction.get(key: "b:firstpurchase") ?? false).toBool()
             _ = o.delivery.set(Double(String(describing: shipping.get(key: "f:costtaxfree") ?? 0)) ?? 0, shippingFeesTaxIncluded: Double(String(describing: shipping.get(key: "f:costtaxincluded") ?? 0)) ?? 0, deliveryMethod: String(describing: shipping.get(key: "s:delivery") ?? ""))
             _ = o.amount.set(turnoverTaxFree, amountTaxIncluded: turnoverTaxIncluded, taxAmount: turnoverTaxIncluded - turnoverTaxFree)
             
-            _ = o.discount.promotionalCode = promotionalCodes.joined(separator: "|")
+            if let promotionalCodes = transaction.get(key: "a:s:promocode") as? [String] {
+                _ = o.discount.promotionalCode = promotionalCodes.joined(separator: "|")
+            }
             
             let stCart = tracker.cart.set(String(describing: cart.get(key: "s:id") ?? ""))
             

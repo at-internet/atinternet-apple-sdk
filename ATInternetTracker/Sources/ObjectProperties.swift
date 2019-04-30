@@ -41,13 +41,6 @@ public class ECommerceCart: RequiredPropertiesDataObject {
     }
 }
 
-public class ECommerceCustomer: RequiredPropertiesDataObject {
-    override init() {
-        super.init()
-        propertiesPrefixMap["new"] = "b"
-    }
-}
-
 public class ECommercePayment: RequiredPropertiesDataObject {
     override init() {
         super.init()
@@ -102,5 +95,7 @@ public class ECommerceTransaction: RequiredPropertiesDataObject {
     override init() {
         super.init()
         propertiesPrefixMap["id"] = "s"
+        propertiesPrefixMap["promocode"] = "a:s"
+        propertiesPrefixMap["firstpurchase"] = "b"
     }
 }

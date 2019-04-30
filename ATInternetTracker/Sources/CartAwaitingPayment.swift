@@ -19,38 +19,50 @@
  */
 
 //
-//  UpdateCart.swift
+//  CartAwaitingPayment.swift
 //  Tracker
 //
 import Foundation
 
 /// Wrapper class for UpdateCart event tracking (SalesInsight)
-public class UpdateCart: Event {
+public class CartAwaitingPayment: Event {
     
     /// Cart property
     @objc public lazy var cart : ECommerceCart = ECommerceCart()
     
+    /// Transaction property
+    @objc public lazy var transaction : ECommerceTransaction = ECommerceTransaction()
+    
+    /// Shipping property
+    @objc public lazy var shipping : ECommerceShipping = ECommerceShipping()
+    
+    /// Payment property
+    @objc public lazy var payment : ECommercePayment = ECommercePayment()
+    
     override var data: [String : Any] {
         get {
             _data["cart"] = cart.properties
+            _data["payment"] = payment.properties
+            _data["shipping"] = shipping.properties
+            _data["transaction"] = transaction.properties
             return super.data
         }
     }
     
     init() {
-        super.init(type: "cart.update")
-    }    
+        super.init(type: "cart.awaiting_payment")
+    }
 }
 
 /// Wrapper class to manage UpdateCart event instances
-public class UpdateCarts : EventsHelper {
+public class CartAwaitingPayments : EventsHelper {
     
-    /// Add update cart event tracking
+    /// Add cart awaiting payment event tracking
     ///
-    /// - Returns: UpdateCart instance
-    @objc public func add() -> UpdateCart {
-        let uc = UpdateCart()
-        _ = events.add(event: uc)
-        return uc
+    /// - Returns: CartAwaitingPayment instance
+    @objc public func add() -> CartAwaitingPayment {
+        let cap = CartAwaitingPayment()
+        _ = events.add(event: cap)
+        return cap
     }
 }
