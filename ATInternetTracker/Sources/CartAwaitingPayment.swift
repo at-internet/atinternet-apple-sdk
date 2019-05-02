@@ -41,10 +41,18 @@ public class CartAwaitingPayment: Event {
     
     override var data: [String : Any] {
         get {
-            _data["cart"] = cart.properties
-            _data["payment"] = payment.properties
-            _data["shipping"] = shipping.properties
-            _data["transaction"] = transaction.properties
+            if !cart.properties.isEmpty {
+                _data["cart"] = cart.properties
+            }
+            if !payment.properties.isEmpty {
+                _data["payment"] = payment.properties
+            }
+            if !shipping.properties.isEmpty {
+                _data["shipping"] = shipping.properties
+            }
+            if !transaction.properties.isEmpty {
+                _data["transaction"] = transaction.properties
+            }
             return super.data
         }
     }

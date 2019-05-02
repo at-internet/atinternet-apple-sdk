@@ -37,7 +37,9 @@ public class DisplayCart: Event {
     
     override var data: [String : Any] {
         get {
-            _data["cart"] = cart.properties
+            if !cart.properties.isEmpty {
+                _data["cart"] = cart.properties
+            }
             return super.data
         }
     }

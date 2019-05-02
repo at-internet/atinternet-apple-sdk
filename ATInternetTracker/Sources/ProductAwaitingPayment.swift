@@ -49,8 +49,12 @@ public class ProductAwaitingPayment : Event {
         for p in products {
             /// SALES INSIGHTS
             let pap = ProductAwaitingPayment()
-            pap._data["product"] = p.properties
-            pap._data["cart"] = cart.properties
+            if !p.properties.isEmpty {
+                pap._data["product"] = p.properties
+            }
+            if !cart.properties.isEmpty {
+                pap._data["cart"] = cart.properties
+            }
             generatedEvents.append(pap)
         }
         

@@ -35,8 +35,12 @@ public class RemoveProduct: Event {
     
     override var data: [String : Any] {
         get {
-            _data["product"] = product.properties
-            _data["cart"] = cart.properties
+            if !product.properties.isEmpty {
+                _data["product"] = product.properties
+            }
+            if !cart.properties.isEmpty {
+                _data["cart"] = cart.properties
+            }
             return super.data
         }
     }

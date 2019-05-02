@@ -48,10 +48,18 @@ public class TransactionConfirmation: Event {
     
     override var data: [String : Any] {
         get {
-            _data["cart"] = cart.properties
-            _data["payment"] = payment.properties
-            _data["shipping"] = shipping.properties
-            _data["transaction"] = transaction.properties
+            if !cart.properties.isEmpty {
+                _data["cart"] = cart.properties
+            }
+            if !payment.properties.isEmpty {
+                _data["payment"] = payment.properties
+            }
+            if !shipping.properties.isEmpty {
+                _data["shipping"] = shipping.properties
+            }
+            if !transaction.properties.isEmpty {
+                _data["transaction"] = transaction.properties
+            }
             return super.data
         }
     }
@@ -70,15 +78,21 @@ public class TransactionConfirmation: Event {
         /// SALES INSIGHTS
         var generatedEvents = super.getAdditionalEvents()
         let cc = CartConfirmation()
-        _ = cc.transaction.setAll(obj: transaction.properties)
-        _ = cc.cart.setAll(obj: cart.properties)
+        if !transaction.properties.isEmpty {
+            _ = cc.transaction.setAll(obj: transaction.properties)
+        }
+        if !cart.properties.isEmpty {
+            _ = cc.cart.setAll(obj: cart.properties)
+        }
         generatedEvents.append(cc)
         
         for p in products {
             let pp = ProductPurchased()
             _ = pp.cart.set(key: "id", value: String(describing: cart.get(key: "s:id") ?? ""))
             _ = pp.transaction.set(key: "id", value: String(describing: transaction.get(key: "s:id") ?? ""))
-            _ = pp.product.setAll(obj: p.properties)
+            if !p.properties.isEmpty {
+                _ = pp.product.setAll(obj: p.properties)
+            }
             generatedEvents.append(pp)
         }
         

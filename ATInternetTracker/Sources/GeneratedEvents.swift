@@ -31,7 +31,9 @@ class CartCreation: Event {
     
     override var data: [String : Any] {
         get {
-            _data["cart"] = cart.properties
+            if !cart.properties.isEmpty {
+                _data["cart"] = cart.properties
+            }
             return super.data
         }
     }
@@ -56,8 +58,12 @@ class CartConfirmation: Event {
     
     override var data: [String : Any] {
         get {
-            _data["cart"] = cart.properties
-            _data["transaction"] = transaction.properties
+            if !cart.properties.isEmpty {
+                _data["cart"] = cart.properties
+            }
+            if !transaction.properties.isEmpty {
+                _data["transaction"] = transaction.properties
+            }
             return super.data
         }
     }
@@ -76,9 +82,15 @@ class ProductPurchased: Event {
     
     override var data: [String : Any] {
         get {
-            _data["product"] = product.properties
-            _data["cart"] = cart.properties
-            _data["transaction"] = transaction.properties
+            if !product.properties.isEmpty {
+                _data["product"] = product.properties
+            }
+            if !cart.properties.isEmpty {
+                _data["cart"] = cart.properties
+            }
+            if !transaction.properties.isEmpty {
+                _data["transaction"] = transaction.properties
+            }
             return super.data
         }
     }

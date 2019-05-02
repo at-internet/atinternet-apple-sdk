@@ -53,7 +53,9 @@ public class DisplayProduct: Event {
         for p in products {
             /// SALES INSIGHTS
             let dp = DisplayProduct(tracker: tracker)
-            dp._data["product"] = p.properties
+            if !p.properties.isEmpty {
+                dp._data["product"] = p.properties
+            }
             generatedEvents.append(dp)
         }
         

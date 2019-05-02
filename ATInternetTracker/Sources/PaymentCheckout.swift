@@ -35,8 +35,12 @@ public class PaymentCheckout: Event {
     
     override var data: [String : Any] {
         get {
-            _data["cart"] = cart.properties
-            _data["shipping"] = shipping.properties
+            if !cart.properties.isEmpty {
+                _data["cart"] = cart.properties
+            }
+            if !shipping.properties.isEmpty {
+                _data["shipping"] = shipping.properties
+            }
             return super.data
         }
     }
