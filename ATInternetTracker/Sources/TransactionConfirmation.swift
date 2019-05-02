@@ -78,9 +78,7 @@ public class TransactionConfirmation: Event {
         /// SALES INSIGHTS
         var generatedEvents = super.getAdditionalEvents()
         let cc = CartConfirmation()
-        if !transaction.properties.isEmpty {
-            _ = cc.transaction.setAll(obj: transaction.properties)
-        }
+        _ = cc.transaction.set(key: "id", value: String(describing: transaction.get(key: "s:id") ?? ""))
         if !cart.properties.isEmpty {
             _ = cc.cart.setAll(obj: cart.properties)
         }
