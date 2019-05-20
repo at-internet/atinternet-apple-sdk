@@ -39,33 +39,7 @@ class CartCreation: Event {
     }
     
     init() {
-        super.init(type: "cart.creation")
-    }
-}
-
-/// Wrapper class for CartConfirmation event tracking (SalesInsight)
-class CartConfirmation: Event {
-    
-    /// Cart property
-    lazy var cart : ECommerceCart = ECommerceCart()
-    
-    /// Transaction property
-    var transaction : ECommerceTransaction = ECommerceTransaction()
-    
-    init() {
-        super.init(type: "cart.confirmation")
-    }
-    
-    override var data: [String : Any] {
-        get {
-            if !cart.properties.isEmpty {
-                _data["cart"] = cart.properties
-            }
-            if !transaction.properties.isEmpty {
-                _data["transaction"] = transaction.properties
-            }
-            return super.data
-        }
+        super.init(name: "cart.creation")
     }
 }
 
@@ -96,6 +70,31 @@ class ProductPurchased: Event {
     }
     
     init() {
-        super.init(type: "product.purchased")
+        super.init(name: "product.purchased")
+    }
+}
+
+class ProductAwaitingPayment: Event {
+    
+    /// Product property
+    lazy var product : ECommerceProduct = ECommerceProduct()
+    
+    /// Cart property
+    var cart = ECommerceCart()
+    
+    override var data: [String : Any] {
+        get {
+            if !product.properties.isEmpty {
+                _data["product"] = product.properties
+            }
+            if !cart.properties.isEmpty {
+                _data["cart"] = cart.properties
+            }
+            return super.data
+        }
+    }
+    
+    init() {
+        super.init(name: "product.awaiting_payment")
     }
 }

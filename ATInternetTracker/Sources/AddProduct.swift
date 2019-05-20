@@ -46,7 +46,7 @@ public class AddProduct: Event {
     }
     
     init() {
-        super.init(type: "product.add_to_cart")
+        super.init(name: "product.add_to_cart")
     }
     
     override func getAdditionalEvents() -> [Event] {

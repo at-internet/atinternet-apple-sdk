@@ -40,7 +40,7 @@ public class DisplayPageProduct: Event {
     }
     
     init() {
-        super.init(type: "product.page_display")
+        super.init(name: "product.page_display")
     }
 }
 

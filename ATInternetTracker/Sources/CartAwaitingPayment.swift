@@ -30,6 +30,9 @@ public class CartAwaitingPayment: Event {
     /// Cart property
     @objc public lazy var cart : ECommerceCart = ECommerceCart()
     
+    /// Products list
+    @objc public lazy var products : [ECommerceProduct] = [ECommerceProduct]()
+    
     /// Transaction property
     @objc public lazy var transaction : ECommerceTransaction = ECommerceTransaction()
     
@@ -42,7 +45,9 @@ public class CartAwaitingPayment: Event {
     override var data: [String : Any] {
         get {
             if !cart.properties.isEmpty {
-                _data["cart"] = cart.properties
+                var cartData = cart.properties
+                cartData["s:version"] = cart.version
+                _data["cart"] = cartData
             }
             if !payment.properties.isEmpty {
                 _data["payment"] = payment.properties
@@ -58,7 +63,30 @@ public class CartAwaitingPayment: Event {
     }
     
     init() {
-        super.init(type: "cart.awaiting_payment")
+        super.init(name: "cart.awaiting_payment")
+    }
+    
+    @objc public func setProducts(products: [ECommerceProduct]) {
+        self.products = products
+    }
+    
+    override func getAdditionalEvents() -> [Event] {
+        var generatedEvents = super.getAdditionalEvents()
+        
+        for p in products {
+            let pap = ProductAwaitingPayment()
+            _ = pap.cart.setAll(obj:
+                [
+                    "id": String(describing: cart.get(key: "s:id") ?? ""),
+                    "version": cart.version
+                ])
+            if !p.properties.isEmpty {
+                _ = pap.product.setAll(obj: p.properties)
+            }
+            generatedEvents.append(pap)
+        }
+       
+        return generatedEvents
     }
 }
 

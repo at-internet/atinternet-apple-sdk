@@ -67,7 +67,7 @@ public class TransactionConfirmation: Event {
     init(tracker: Tracker, screen: Screen?) {
         self.tracker = tracker
         self.screen = screen
-        super.init(type: "transaction.confirmation")
+        super.init(name: "transaction.confirmation")
     }
     
     @objc public func setProducts(products: [ECommerceProduct]) {
@@ -77,12 +77,6 @@ public class TransactionConfirmation: Event {
     override func getAdditionalEvents() -> [Event] {
         /// SALES INSIGHTS
         var generatedEvents = super.getAdditionalEvents()
-        let cc = CartConfirmation()
-        _ = cc.transaction.set(key: "id", value: String(describing: transaction.get(key: "s:id") ?? ""))
-        if !cart.properties.isEmpty {
-            _ = cc.cart.setAll(obj: cart.properties)
-        }
-        generatedEvents.append(cc)
         
         for p in products {
             let pp = ProductPurchased()

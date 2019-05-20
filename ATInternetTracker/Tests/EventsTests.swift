@@ -41,7 +41,7 @@ class EventsTests: XCTestCase {
     }
     
     func testSetParamsOne() {
-        _ = events.add(type: "act", data: ["test1" : "value1"])
+        _ = events.add(name: "act", data: ["test1" : "value1"])
         events.setParams()
         
         XCTAssertEqual(events.tracker.buffer.volatileParameters.count, 2, "Le nombre de paramètres volatiles doit être égal à 5")
@@ -57,7 +57,7 @@ class EventsTests: XCTestCase {
         
         let evt = evts[0]
         XCTAssertEqual(evt.dictionaryObject!.count, 2, "Le nombre de proprietes dans l'event doit être égal à 2")
-        XCTAssertEqual(evt.dictionaryObject!["event"] as! String, "act", "La propriété type doit etre égale a act")
+        XCTAssertEqual(evt.dictionaryObject!["name"] as! String, "act", "La propriété name doit etre égale a act")
         
         let data = evt.dictionaryObject!["data"] as! [String : Any]
         XCTAssertEqual(data.count, 1, "Le nombre de proprietes dans data doit être égal à 1")

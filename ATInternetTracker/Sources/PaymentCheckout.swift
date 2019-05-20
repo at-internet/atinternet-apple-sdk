@@ -46,7 +46,7 @@ public class PaymentCheckout: Event {
     }
     
     init() {
-        super.init(type: "cart.payment")
+        super.init(name: "cart.payment")
     }
 }
 

@@ -40,7 +40,7 @@ public class DisplayProduct: Event {
     
     init(tracker: Tracker) {
         self.tracker = tracker
-        super.init(type: "product.display")
+        super.init(name: "product.display")
     }
     
     @objc public func setProducts(products: [ECommerceProduct]) {

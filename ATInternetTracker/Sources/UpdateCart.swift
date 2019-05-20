@@ -40,7 +40,7 @@ public class UpdateCart: Event {
     }
     
     init() {
-        super.init(type: "cart.update")
+        super.init(name: "cart.update")
     }    
 }
 

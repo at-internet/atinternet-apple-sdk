@@ -417,12 +417,6 @@
 		CC2DC3D8227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2DC3D4227826B2008A2B96 /* CartAwaitingPayment.swift */; };
 		CC2DC3D9227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2DC3D4227826B2008A2B96 /* CartAwaitingPayment.swift */; };
 		CC2DC3DA227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2DC3D4227826B2008A2B96 /* CartAwaitingPayment.swift */; };
-		CC2DC3DC2278276B008A2B96 /* ProductAwaitingPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2DC3DB2278276B008A2B96 /* ProductAwaitingPayment.swift */; };
-		CC2DC3DD2278276B008A2B96 /* ProductAwaitingPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2DC3DB2278276B008A2B96 /* ProductAwaitingPayment.swift */; };
-		CC2DC3DE2278276B008A2B96 /* ProductAwaitingPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2DC3DB2278276B008A2B96 /* ProductAwaitingPayment.swift */; };
-		CC2DC3DF2278276B008A2B96 /* ProductAwaitingPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2DC3DB2278276B008A2B96 /* ProductAwaitingPayment.swift */; };
-		CC2DC3E02278276B008A2B96 /* ProductAwaitingPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2DC3DB2278276B008A2B96 /* ProductAwaitingPayment.swift */; };
-		CC2DC3E12278276B008A2B96 /* ProductAwaitingPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC2DC3DB2278276B008A2B96 /* ProductAwaitingPayment.swift */; };
 		CC543FE92248AFB3005E3DBA /* MvTestingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC543FE82248AFB3005E3DBA /* MvTestingTests.swift */; };
 		CC543FEA2248AFB3005E3DBA /* MvTestingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC543FE82248AFB3005E3DBA /* MvTestingTests.swift */; };
 		CC704B2821B58B5300114A86 /* EventsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B2721B58B5300114A86 /* EventsHelper.swift */; };
@@ -651,7 +645,6 @@
 		CC1FE8A62159FE4D006FE401 /* Medium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medium.swift; sourceTree = "<group>"; };
 		CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMedium.swift; sourceTree = "<group>"; };
 		CC2DC3D4227826B2008A2B96 /* CartAwaitingPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAwaitingPayment.swift; sourceTree = "<group>"; };
-		CC2DC3DB2278276B008A2B96 /* ProductAwaitingPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductAwaitingPayment.swift; sourceTree = "<group>"; };
 		CC543FE82248AFB3005E3DBA /* MvTestingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MvTestingTests.swift; path = Tests/MvTestingTests.swift; sourceTree = "<group>"; };
 		CC704B2721B58B5300114A86 /* EventsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsHelper.swift; sourceTree = "<group>"; };
 		CC704B3C21B65B5E00114A86 /* ObjectProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectProperties.swift; sourceTree = "<group>"; };
@@ -948,7 +941,6 @@
 				CC704B5121B6AFF500114A86 /* GeneratedEvents.swift */,
 				CC704B5F21B6BD9E00114A86 /* DeliveryCheckout.swift */,
 				CC704B6621B6BE3A00114A86 /* DisplayCart.swift */,
-				CC2DC3DB2278276B008A2B96 /* ProductAwaitingPayment.swift */,
 				CC704B7421B6C48200114A86 /* DisplayPageProduct.swift */,
 				CC704B7B21B6C8AA00114A86 /* DisplayProduct.swift */,
 				CC704B8221B6C90300114A86 /* PaymentCheckout.swift */,
@@ -1264,7 +1256,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F47A5331D35451A00702747 /* Crash.m in Sources */,
-				CC2DC3DC2278276B008A2B96 /* ProductAwaitingPayment.swift in Sources */,
 				4F47A53B1D35451A00702747 /* Hash.m in Sources */,
 				CC704B7C21B6C8AA00114A86 /* DisplayProduct.swift in Sources */,
 				CC704B2821B58B5300114A86 /* EventsHelper.swift in Sources */,
@@ -1363,7 +1354,6 @@
 				4F47A4781D3542A400702747 /* LifeCycle.swift in Sources */,
 				4F47A4E71D35446700702747 /* InternalSearch.swift in Sources */,
 				4F47A4CB1D35446700702747 /* Cart.swift in Sources */,
-				CC2DC3DE2278276B008A2B96 /* ProductAwaitingPayment.swift in Sources */,
 				4F47A50F1D35446700702747 /* Publisher.swift in Sources */,
 				4F47A4841D3542A400702747 /* Sender.swift in Sources */,
 				CC2DC3D7227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */,
@@ -1464,7 +1454,6 @@
 				4F47A5041D35446700702747 /* OnAppAd.swift in Sources */,
 				4F47A4611D3542A400702747 /* Buffer.swift in Sources */,
 				CC2DC3D8227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */,
-				CC2DC3DF2278276B008A2B96 /* ProductAwaitingPayment.swift in Sources */,
 				4F47A5081D35446700702747 /* Order.swift in Sources */,
 				4F47A5181D35446700702747 /* Screen.swift in Sources */,
 				4F47A5291D3544F400702747 /* BusinessObject.swift in Sources */,
@@ -1515,7 +1504,6 @@
 				4FF594671D3FB46B0004D336 /* SwiftyJSON.swift in Sources */,
 				4F47A51A1D35446700702747 /* SelfPromotion.swift in Sources */,
 				4F47A4EE1D35446700702747 /* LiveVideo.swift in Sources */,
-				CC2DC3DD2278276B008A2B96 /* ProductAwaitingPayment.swift in Sources */,
 				4F47A4C21D35446700702747 /* Audio.swift in Sources */,
 				4F47A4831D3542A400702747 /* Sender.swift in Sources */,
 				CC2DC3D6227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */,
@@ -1587,7 +1575,6 @@
 				4F47A84A1D3D192C00702747 /* Tracker.swift in Sources */,
 				4F47A85B1D3D20F400702747 /* StringExtension.swift in Sources */,
 				8EA41A2A20AF0688009ED4B0 /* DictionaryExtension.swift in Sources */,
-				CC2DC3E02278276B008A2B96 /* ProductAwaitingPayment.swift in Sources */,
 				4F47A7F41D3D137800702747 /* GPSTests.swift in Sources */,
 				4F47A8211D3D17FC00702747 /* Product.swift in Sources */,
 				4F47A8191D3D17FC00702747 /* LiveAudio.swift in Sources */,
@@ -1705,7 +1692,6 @@
 				4FF129841D7D73D6009FFECB /* ATReachability.swift in Sources */,
 				CC9A55AB21CA23A900A78AB3 /* ECommerce.swift in Sources */,
 				4FF594591D3F66A30004D336 /* MediaPlayer.swift in Sources */,
-				CC2DC3E12278276B008A2B96 /* ProductAwaitingPayment.swift in Sources */,
 				4FF5945A1D3F66A50004D336 /* NuggAd.swift in Sources */,
 				4FF594291D3F61E50004D336 /* InternalSearchTests.swift in Sources */,
 				8EA41A2B20AF0689009ED4B0 /* DictionaryExtension.swift in Sources */,

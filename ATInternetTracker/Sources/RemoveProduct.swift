@@ -46,7 +46,7 @@ public class RemoveProduct: Event {
     }
     
     init() {
-        super.init(type: "product.remove_from_cart")
+        super.init(name: "product.remove_from_cart")
     }
 }
 

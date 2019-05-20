@@ -26,8 +26,14 @@
 import Foundation
 
 public class ECommerceCart: RequiredPropertiesDataObject {
+    
+   @objc var version : String = ""
+    
     override init() {
         super.init()
+        let id = Foundation.UUID().uuidString
+        self.version = String(id[..<id.index(id.startIndex, offsetBy: 8)])
+        propertiesPrefixMap["version"] = "s"
         propertiesPrefixMap["id"] = "s"
         propertiesPrefixMap["currency"] = "s"
         

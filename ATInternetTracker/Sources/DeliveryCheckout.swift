@@ -46,7 +46,7 @@ public class DeliveryCheckout: Event {
     }
     
     init() {
-        super.init(type: "cart.delivery")
+        super.init(name: "cart.delivery")
     }
 }
 

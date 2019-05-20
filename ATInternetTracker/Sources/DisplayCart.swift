@@ -51,7 +51,7 @@ public class DisplayCart: Event {
     init(tracker: Tracker) {
         self.tracker = tracker
         
-        super.init(type: "cart.display")
+        super.init(name: "cart.display")
     }
     
     override func getAdditionalEvents() -> [Event] {
