@@ -12,7 +12,6 @@ Pod::Spec.new do |s|
 	s.ios.deployment_target	= '8.0'
 	s.tvos.deployment_target = '9.0'
 	s.watchos.deployment_target = '2.0'
-    s.static_framework = true
     s.swift_version = '5'
 
 	s.subspec 'Tracker' do |tracker|
