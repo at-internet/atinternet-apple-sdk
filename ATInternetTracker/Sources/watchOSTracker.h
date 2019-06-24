@@ -21,7 +21,9 @@
  SOFTWARE.
  */
 
+#if TARGET_OS_WATCH
 #import <WatchKit/WatchKit.h>
+#endif
 
 //! Project version number for Tracker.
 FOUNDATION_EXPORT double watchOSTrackerVersionNumber;
