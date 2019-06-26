@@ -60,8 +60,11 @@ class Buffer: NSObject {
         self.volatileParameters.removeValue(forKey: HitParam.userID.rawValue)
         let persistentOpt = ParamOption()
         persistentOpt.persistent = true
-        let ignoreLimitedAdTracking = self.tracker.configuration.parameters["ignoreLimitedAdTracking"]?.toBool() ?? false
-        self.persistentParameters[HitParam.userID.rawValue] = Param(key: HitParam.userID.rawValue, value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking)}, options: persistentOpt)
+        if let ignoreLimitedAdTracking = self.tracker.configuration.parameters["ignoreLimitedAdTracking"] {
+             self.persistentParameters[HitParam.userID.rawValue] = Param(key: HitParam.userID.rawValue, value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking.toBool())}, options: persistentOpt)
+        } else {
+            self.persistentParameters[HitParam.userID.rawValue] = Param(key: HitParam.userID.rawValue, value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"], ignoreLimitedAdTracking: false)}, options: persistentOpt)
+        }
     }
     
     /**
