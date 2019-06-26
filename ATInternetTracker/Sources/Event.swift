@@ -62,7 +62,7 @@ public class Events: BusinessObject {
      - parameter data: event data content
      - returns: a new Event
      */
-    public func add(name: String, data: [String : Any]) -> Event {
+    @objc public func add(name: String, data: [String : Any]) -> Event {
         let ev = Event(name: name)
         ev._data = data
         return add(event: ev)
@@ -73,7 +73,7 @@ public class Events: BusinessObject {
      - parameter event: event instance
      - returns: the event instance added
      */
-    public func add(event: Event) -> Event {
+    @objc public func add(event: Event) -> Event {
         self.eventLists.append(event)
         self.tracker.businessObjects[id] = self
         return event
@@ -82,7 +82,7 @@ public class Events: BusinessObject {
     /**
      Send all stored events
      */
-    public func send() {
+    @objc public func send() {
         self.tracker.dispatcher.dispatch([self])
     }
     

@@ -97,7 +97,6 @@ public class TransactionConfirmation: Event {
             let o = tracker.orders.add(String(describing: transaction.get(key: "s:id") ?? ""), turnover: turnoverTaxIncluded)
             o.status = 3
             o.paymentMethod = 0
-            o.isConfirmationRequired = false
             o.isNewCustomer = String(describing: transaction.get(key: "b:firstpurchase") ?? false).toBool()
             _ = o.delivery.set(Double(String(describing: shipping.get(key: "f:costtaxfree") ?? 0)) ?? 0, shippingFeesTaxIncluded: Double(String(describing: shipping.get(key: "f:costtaxincluded") ?? 0)) ?? 0, deliveryMethod: String(describing: shipping.get(key: "s:delivery") ?? ""))
             _ = o.amount.set(turnoverTaxFree, amountTaxIncluded: turnoverTaxIncluded, taxAmount: turnoverTaxIncluded - turnoverTaxFree)

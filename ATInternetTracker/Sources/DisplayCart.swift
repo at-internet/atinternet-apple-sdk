@@ -97,6 +97,7 @@ public class DisplayCart: Event {
                 }
             }
             
+            tracker.setParam("tp", value: "cart")
             stCart.send()
         }
         return super.getAdditionalEvents()
