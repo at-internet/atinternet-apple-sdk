@@ -29,7 +29,7 @@ public class CartAwaitingPayment: Event {
     
     private var tracker : Tracker
     
-    private var screen : Screen?
+    private var screenLabel : String?
     
     /// Cart property
     @objc public lazy var cart : ECommerceCart = ECommerceCart()
@@ -66,9 +66,9 @@ public class CartAwaitingPayment: Event {
         }
     }
     
-    init(tracker: Tracker, screen: Screen?) {
+    init(tracker: Tracker, screenLabel: String?) {
         self.tracker = tracker
-        self.screen = screen
+        self.screenLabel = screenLabel
         super.init(name: "cart.awaiting_payment")
     }
     
@@ -93,7 +93,7 @@ public class CartAwaitingPayment: Event {
         }
         
         /// SALES TRACKER
-        if let autoSalesTrackerStr = tracker.configuration.parameters[TrackerConfigurationKeys.AutoSalesTracker], autoSalesTrackerStr.toBool() && screen != nil {
+        if let autoSalesTrackerStr = tracker.configuration.parameters[TrackerConfigurationKeys.AutoSalesTracker], autoSalesTrackerStr.toBool() {
             
             let turnoverTaxIncluded = Double(String(describing: cart.get(key: "f:turnovertaxincluded") ?? 0)) ?? 0
             let turnoverTaxFree = Double(String(describing: cart.get(key: "f:turnovertaxfree") ?? 0)) ?? 0
@@ -149,16 +149,10 @@ public class CartAwaitingPayment: Event {
                     stProduct.category6 = String(format: "[%@]", String(describing: category6))
                 }
             }
-            
-            var info = mach_timebase_info()
-            mach_timebase_info(&info)
-            screen!.timeStamp = mach_absolute_time() * UInt64(info.numer) / UInt64(info.denom)
-            screen!.cart = stCart
-            screen!.isBasketScreen = false
-            
-            screen!.sendView()
-            screen!.cart = nil
-            stCart.unset()
+            let s = self.tracker.screens.add(self.screenLabel ?? "")
+            s.cart = stCart
+            s.isBasketScreen = false
+            s.sendView()
         }
        
         return generatedEvents
@@ -178,8 +172,8 @@ public class CartAwaitingPayments : EventsHelper {
     /// Add cart awaiting payment event tracking
     ///
     /// - Returns: CartAwaitingPayment instance
-    @objc public func add(screen: Screen?) -> CartAwaitingPayment {
-        let cap = CartAwaitingPayment(tracker: tracker, screen: screen)
+    @objc public func add(screenLabel: String?) -> CartAwaitingPayment {
+        let cap = CartAwaitingPayment(tracker: tracker, screenLabel: screenLabel)
         _ = events.add(event: cap)
         return cap
     }
