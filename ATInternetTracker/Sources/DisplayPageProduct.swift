@@ -32,13 +32,15 @@ public class DisplayPageProduct: Event {
     
     override var data: [String : Any] {
         get {
-            _data["product"] = product.properties
+            if !product.properties.isEmpty {
+                _data["product"] = product.properties
+            }
             return super.data
         }
     }
     
     init() {
-        super.init(type: "product.page_display")
+        super.init(name: "product.page_display")
     }
 }
 

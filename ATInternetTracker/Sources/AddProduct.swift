@@ -35,14 +35,18 @@ public class AddProduct: Event {
     
     override var data: [String : Any] {
         get {
-            _data["product"] = product.properties
-            _data["cart"] = cart.properties
+            if !product.properties.isEmpty {
+                _data["product"] = product.properties
+            }
+            if !cart.properties.isEmpty {
+                _data["cart"] = cart.properties
+            }
             return super.data
         }
     }
     
     init() {
-        super.init(type: "product.add_to_cart")
+        super.init(name: "product.add_to_cart")
     }
     
     override func getAdditionalEvents() -> [Event] {
@@ -54,10 +58,10 @@ public class AddProduct: Event {
             
             _ = cc.cart.set(key: "id", value: String(describing: cart.get(key: "s:id") ?? ""))
                 .set(key: "currency", value: String(describing: product.get(key: "s:currency") ?? ""))
-                .set(key: "turnoverTaxIncluded", value: (Double(String(describing: product.get(key: "f:priceTaxIncluded") ?? 0)) ?? 0) * Double(quantity))
-                .set(key: "turnoverTaxFree", value: (Double(String(describing: product.get(key: "f:priceTaxFree") ?? 0)) ?? 0) * Double(quantity))
+                .set(key: "turnovertaxincluded", value: (Double(String(describing: product.get(key: "f:pricetaxincluded") ?? 0)) ?? 0) * Double(quantity))
+                .set(key: "turnovertaxfree", value: (Double(String(describing: product.get(key: "f:pricetaxfree") ?? 0)) ?? 0) * Double(quantity))
                 .set(key: "quantity", value: quantity)
-                .set(key: "nbDistinctProduct", value: 1)
+                .set(key: "nbdistinctproduct", value: 1)
             
             generatedEvents.append(cc)
         }
