@@ -21,6 +21,8 @@
  SOFTWARE.
  */
 
+#include <TargetConditionals.h>
+
 #if TARGET_OS_WATCH
 #import <WatchKit/WatchKit.h>
 #endif
@@ -30,6 +32,7 @@ FOUNDATION_EXPORT double watchOSTrackerVersionNumber;
 
 //! Project version string for Tracker.
 FOUNDATION_EXPORT const unsigned char watchOSTrackerVersionString[];
+
 
 // In this header, you should import all the public headers of your framework using statements like #import <Tracker/PublicHeader.h>
 #import "Crash.h"
