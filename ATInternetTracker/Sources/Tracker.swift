@@ -1184,17 +1184,22 @@ public class Tracker: NSObject {
     ///
     /// - Returns: the user id depending on configuration (uuid, idfv)
     @objc public func getUserId() -> String {
-        let ignoreLimitedAdTracking = self.configuration.parameters["ignoreLimitedAdTracking"]?.toBool() ?? false
+        if let ignoreLimitedAdTracking = self.configuration.parameters["ignoreLimitedAdTracking"] {
+
+            if let hash = self.configuration.parameters["hashUserId"] {
+                if hash.toBool() {
+                    return TechnicalContext.userId(self.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking.toBool()).sha256Value
+                }
+            }
+            return TechnicalContext.userId(self.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking.toBool())
+        }
         
         if let hash = self.configuration.parameters["hashUserId"] {
-            if (hash == "true") {
-                return TechnicalContext.userId(self.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking).sha256Value
-            } else {
-                return TechnicalContext.userId(self.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking)
+            if hash.toBool() {
+                return TechnicalContext.userId(self.configuration.parameters["identifier"], ignoreLimitedAdTracking: false).sha256Value
             }
-        } else {
-            return TechnicalContext.userId(self.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking)
         }
+        return TechnicalContext.userId(self.configuration.parameters["identifier"], ignoreLimitedAdTracking: false)
     }
     
     

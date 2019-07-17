@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 	s.name = "ATInternet-Apple-SDK"
-	s.version = '2.14.4'
+	s.version = '2.15.0'
 	s.summary = "AT Internet mobile analytics solution for Apple devices"
 	s.homepage = "https://github.com/at-internet/atinternet-apple-sdk"
 	s.documentation_url	= 'https://developers.atinternet-solutions.com/apple-en/getting-started-apple-en/operating-principle-apple-en/'
@@ -12,7 +12,6 @@ Pod::Spec.new do |s|
 	s.ios.deployment_target	= '8.0'
 	s.tvos.deployment_target = '9.0'
 	s.watchos.deployment_target = '2.0'
-    s.static_framework = true
     s.swift_version = '5'
 
 	s.subspec 'Tracker' do |tracker|

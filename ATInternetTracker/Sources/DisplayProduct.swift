@@ -40,7 +40,7 @@ public class DisplayProduct: Event {
     
     init(tracker: Tracker) {
         self.tracker = tracker
-        super.init(type: "product.display")
+        super.init(name: "product.display")
     }
     
     @objc public func setProducts(products: [ECommerceProduct]) {
@@ -53,7 +53,9 @@ public class DisplayProduct: Event {
         for p in products {
             /// SALES INSIGHTS
             let dp = DisplayProduct(tracker: tracker)
-            dp._data["product"] = p.properties
+            if !p.properties.isEmpty {
+                dp._data["product"] = p.properties
+            }
             generatedEvents.append(dp)
         }
         
@@ -62,7 +64,7 @@ public class DisplayProduct: Event {
             
             for p in products {
                 var stProductId : String
-                if let name = p.get(key: "s:name") {
+                if let name = p.get(key: "s:$") {
                     stProductId = String(format: "%@[%@]", String(describing: p.get(key: "s:id") ?? ""), String(describing: name))
                 } else {
                     stProductId = String(describing: p.get(key: "s:id") ?? "")

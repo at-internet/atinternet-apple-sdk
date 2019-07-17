@@ -32,13 +32,15 @@ public class UpdateCart: Event {
     
     override var data: [String : Any] {
         get {
-            _data["cart"] = cart.properties
+            if !cart.properties.isEmpty {
+                _data["cart"] = cart.properties
+            }
             return super.data
         }
     }
     
     init() {
-        super.init(type: "cart.update")
+        super.init(name: "cart.update")
     }    
 }
 
@@ -47,7 +49,7 @@ public class UpdateCarts : EventsHelper {
     
     /// Add update cart event tracking
     ///
-    /// - Returns: DisplayCart instance
+    /// - Returns: UpdateCart instance
     @objc public func add() -> UpdateCart {
         let uc = UpdateCart()
         _ = events.add(event: uc)
