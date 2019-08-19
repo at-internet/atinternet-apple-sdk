@@ -30,16 +30,13 @@ public class DisplayProduct: Event {
     /// List property
     @objc public lazy var products : [ECommerceProduct] = [ECommerceProduct]()
     
-    private var tracker : Tracker
-    
     override var data: [String : Any] {
         get {
             return _data
         }
     }
     
-    init(tracker: Tracker) {
-        self.tracker = tracker
+    init() {
         super.init(name: "product.display")
     }
     
@@ -52,51 +49,11 @@ public class DisplayProduct: Event {
         
         for p in products {
             /// SALES INSIGHTS
-            let dp = DisplayProduct(tracker: tracker)
+            let dp = DisplayProduct()
             if !p.properties.isEmpty {
                 dp._data["product"] = p.properties
             }
             generatedEvents.append(dp)
-        }
-        
-        /// SALES TRACKER
-        if let autoSalesTrackerStr = tracker.configuration.parameters[TrackerConfigurationKeys.AutoSalesTracker], autoSalesTrackerStr.toBool() {
-            
-            for p in products {
-                var stProductId : String
-                if let name = p.get(key: "s:$") {
-                    stProductId = String(format: "%@[%@]", String(describing: p.get(key: "s:id") ?? ""), String(describing: name))
-                } else {
-                    stProductId = String(describing: p.get(key: "s:id") ?? "")
-                }
-                
-                let stProduct = tracker.products.add(stProductId)
-                
-                if let category1 = p.get(key: "s:category1") {
-                    stProduct.category1 = String(format: "[%@]", String(describing: category1))
-                }
-                
-                if let category2 = p.get(key: "s:category2") {
-                    stProduct.category2 = String(format: "[%@]", String(describing: category2))
-                }
-                
-                if let category3 = p.get(key: "s:category3") {
-                    stProduct.category3 = String(format: "[%@]", String(describing: category3))
-                }
-                
-                if let category4 = p.get(key: "s:category4") {
-                    stProduct.category4 = String(format: "[%@]", String(describing: category4))
-                }
-                
-                if let category5 = p.get(key: "s:category5") {
-                    stProduct.category5 = String(format: "[%@]", String(describing: category5))
-                }
-                
-                if let category6 = p.get(key: "s:category6") {
-                    stProduct.category6 = String(format: "[%@]", String(describing: category6))
-                }
-            }
-            tracker.products.sendViews()
         }
         
         return generatedEvents
@@ -106,18 +63,11 @@ public class DisplayProduct: Event {
 /// Wrapper class to manage DisplayProducts event instances
 public class DisplayProducts : EventsHelper {
     
-    private let tracker : Tracker
-    
-    init(events: Events, tracker: Tracker) {
-        self.tracker = tracker
-        super.init(events: events)
-    }
-    
     /// Add display products event tracking
     ///
     /// - Returns: DisplayProduct instance
     @objc public func add() -> DisplayProduct {
-        let dp = DisplayProduct(tracker: tracker)
+        let dp = DisplayProduct()
         _ = events.add(event: dp)
         return dp
     }
