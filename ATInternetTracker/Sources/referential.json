@@ -1,0 +1,262 @@
+{
+    "plugins": [
+        {
+            "_id": "core",
+            "name": "core",
+            "label": "Core",
+            "description": "SDK iOS Swift",
+            "isPublic": false,
+            "type": "core"
+        },
+        {
+            "_id": "nuggad",
+            "name": "nuggad",
+            "label": "Geode_Tag_Plg_NuggAd",
+            "description": "Plugin permettant de récupérer les informations liées à NuggAd",
+            "isPublic": false,
+            "type": "sdkplugins"
+        }
+    ],
+    "settings": [
+        {
+            "_id": "storage",
+            "name": "storage",
+            "pluginId": "core",
+            "category": "default",
+            "label": "Geode_Tag_SDK_Config_Title_storage",
+            "description": "Geode_Tag_SDK_Config_Description_storage",
+            "defaultValue": "required",
+            "type": "string",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "plugins",
+            "name": "plugins",
+            "pluginId": "core",
+            "category": "advanced",
+            "label": "plugins",
+            "description": "",
+            "defaultValue": "",
+            "type": "string",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "log",
+            "name": "log",
+            "pluginId": "core",
+            "category": "deployment",
+            "label": "Geode_Tag_SDK_Config_Title_log",
+            "description": "",
+            "defaultValue": "",
+            "type": "string",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "logSSL",
+            "name": "logSSL",
+            "pluginId": "core",
+            "category": "deployment",
+            "label": "Geode_Tag_SDK_Config_Title_logSSL",
+            "description": "",
+            "defaultValue": "",
+            "type": "string",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "domain",
+            "name": "domain",
+            "pluginId": "core",
+            "category": "deployment",
+            "label": "Geode_Tag_SDK_Config_Title_domain",
+            "description": "",
+            "defaultValue": "xiti.com",
+            "type": "string",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "pixelPath",
+            "name": "pixelPath",
+            "pluginId": "core",
+            "category": "deployment",
+            "label": "Geode_Tag_SDK_Config_Title_pixelPath",
+            "description": "",
+            "defaultValue": "/hit.xiti",
+            "type": "string",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "site",
+            "name": "site",
+            "pluginId": "core",
+            "category": "deployment",
+            "label": "Geode_Tag_SDK_Config_Title_site",
+            "description": "Geode_Tag_SDK_Config_Description_site",
+            "defaultValue": "0",
+            "type": "int",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "secure",
+            "name": "secure",
+            "pluginId": "core",
+            "category": "default",
+            "label": "Geode_Tag_SDK_Config_Title_secure",
+            "description": "Geode_Tag_SDK_Config_Description_secure",
+            "defaultValue": "false",
+            "type": "bool",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "identifier",
+            "name": "identifier",
+            "pluginId": "core",
+            "category": "default",
+            "label": "Geode_Tag_SDK_Config_Title_identifier",
+            "description": "Geode_Tag_SDK_Config_Description_identifier_Apple",
+            "defaultValue": "UUID",
+            "type": "string",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "enableBackgroundTask",
+            "name": "enableBackgroundTask",
+            "pluginId": "core",
+            "category": "advanced",
+            "label": "Geode_Tag_SDK_Config_Title_enableBackgroundTask",
+            "description": "Geode_Tag_SDK_Config_Description_enableBackgroundTask",
+            "defaultValue": "true",
+            "type": "bool",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "hashUserId",
+            "name": "hashUserId",
+            "pluginId": "core",
+            "category": "advanced",
+            "label": "Geode_Tag_SDK_Config_Title_hashUserId",
+            "description": "Geode_Tag_SDK_Config_Description_hashUserId",
+            "defaultValue": "false",
+            "type": "bool",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "persistIdentifiedVisitor",
+            "name": "persistIdentifiedVisitor",
+            "pluginId": "core",
+            "category": "advanced",
+            "label": "Geode_Tag_SDK_Config_Title_persistIdentifiedVisitor",
+            "description": "Geode_Tag_SDK_Config_Description_persistIdentifiedVisitor",
+            "defaultValue": "true",
+            "type": "bool",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "campaignLifetime",
+            "name": "campaignLifetime",
+            "pluginId": "core",
+            "category": "advanced",
+            "label": "Geode_Tag_SDK_Config_Title_lifetime",
+            "description": "Geode_Tag_SDK_Config_Description_lifetime",
+            "defaultValue": "30",
+            "type": "int",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "campaignLastPersistence",
+            "name": "campaignLastPersistence",
+            "pluginId": "core",
+            "category": "advanced",
+            "label": "Geode_Tag_SDK_Config_Title_campaignLastPersistence",
+            "description": "Geode_Tag_SDK_Config_Description_campaignLastPersistence",
+            "defaultValue": "true",
+            "type": "bool",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "sessionBackgroundDuration",
+            "name": "sessionBackgroundDuration",
+            "pluginId": "core",
+            "category": "advanced",
+            "label": "Geode_Tag_SDK_Config_Title_sessionBackgroundDuration",
+            "description": "Geode_Tag_SDK_Config_Description_sessionBackgroundDuration",
+            "defaultValue": "60",
+            "type": "int",
+            "isPublic": true,
+            "isGlobal": true
+        },
+        {
+            "_id": "downloadSource",
+            "name": "downloadSource",
+            "pluginId": "core",
+            "category": "deployment",
+            "label": "Geode_Tag_SDK_Config_Title_downloadSource",
+            "description": "Geode_Tag_SDK_Config_Description_downloadSource",
+            "defaultValue": "int",
+            "type": "string",
+            "isPublic": false,
+            "isGlobal": true
+        },
+        {
+            "_id": "sendOnApplicationState",
+            "name": "sendOnApplicationState",
+            "pluginId": "core",
+            "category": "advanced",
+            "label": "Geode_Tag_SDK_Config_Title_sendOnApplicationState",
+            "description": "Geode_Tag_SDK_Config_Description_sendOnApplicationState",
+            "defaultValue": "all",
+            "type": "string",
+            "isPublic": false,
+            "isGlobal": true
+        },
+        {
+            "_id": "collectDomain",
+            "name": "collectDomain",
+            "pluginId": "core",
+            "category": "deployment",
+            "label": "Geode_Tag_SDK_Config_Title_collectDomain",
+            "description": "Geode_Tag_SDK_Config_Description_collectDomain",
+            "defaultValue": "",
+            "type": "string",
+            "isPublic": false,
+            "isGlobal": true
+        },
+        {
+            "_id": "ignoreLimitedAdTracking",
+            "name": "ignoreLimitedAdTracking",
+            "pluginId": "core",
+            "category": "advanced",
+            "label": "Geode_Tag_SDK_Config_Title_ignoreLimitedAdTracking",
+            "description": "Geode_Tag_SDK_Config_Description_ignoreLimitedAdTracking",
+            "defaultValue": "false",
+            "type": "bool",
+            "isPublic": false,
+            "isGlobal": true
+        },
+        {
+            "_id": "sendHitWhenOptOut",
+            "name": "sendHitWhenOptOut",
+            "pluginId": "core",
+            "category": "advanced",
+            "label": "Geode_Tag_Js_Config_Title_sendHitWhenOptOut",
+            "description": "Geode_Tag_Js_Config_Description_sendHitWhenOptOut",
+            "defaultValue": true,
+            "type": "bool",
+            "isPublic": true,
+            "isGlobal": true
+        }
+    ]
+}
