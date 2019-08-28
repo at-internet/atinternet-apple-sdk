@@ -35,9 +35,9 @@ public class ECommerce: NSObject {
     private var tracker : Tracker
     private var events : Events
     
-    @objc public lazy var displayPageProducts: DisplayPageProducts = DisplayPageProducts(events: self.events)
+    @objc public lazy var displayPageProducts: DisplayPageProducts = DisplayPageProducts(events: self.events, tracker: self.tracker)
     
-    @objc public lazy var displayProducts: DisplayProducts = DisplayProducts(events: self.events, tracker: self.tracker)
+    @objc public lazy var displayProducts: DisplayProducts = DisplayProducts(events: self.events)
     
     @objc public lazy var addProducts: AddProducts = AddProducts(events: self.events)
     

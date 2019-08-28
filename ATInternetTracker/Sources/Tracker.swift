@@ -341,6 +341,9 @@ public class Tracker: NSObject {
     @objc fileprivate(set) public lazy var mvTestings: MvTestings = MvTestings(tracker: self)
     
     
+    /// SDK Version
+    @objc fileprivate(set) public lazy var sdkVersion = TechnicalContext.sdkVersion
+    
     //MARK: - Initializer
     
     
