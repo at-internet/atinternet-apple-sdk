@@ -22,13 +22,14 @@
             "_id": "storage",
             "name": "storage",
             "pluginId": "core",
-            "category": "default",
+            "category": "advanced",
             "label": "Geode_Tag_SDK_Config_Title_storage",
             "description": "Geode_Tag_SDK_Config_Description_storage",
             "defaultValue": "required",
-            "type": "string",
+            "type": "list",
             "isPublic": true,
-            "isGlobal": true
+            "isGlobal": true,
+	    "values": ["always", "required", "never"]
         },
         {
             "_id": "plugins",
@@ -39,7 +40,7 @@
             "description": "",
             "defaultValue": "",
             "type": "string",
-            "isPublic": true,
+            "isPublic": false,
             "isGlobal": true
         },
         {
@@ -106,7 +107,7 @@
             "_id": "secure",
             "name": "secure",
             "pluginId": "core",
-            "category": "default",
+            "category": "advanced",
             "label": "Geode_Tag_SDK_Config_Title_secure",
             "description": "Geode_Tag_SDK_Config_Description_secure",
             "defaultValue": "false",
@@ -122,9 +123,10 @@
             "label": "Geode_Tag_SDK_Config_Title_identifier",
             "description": "Geode_Tag_SDK_Config_Description_identifier_Apple",
             "defaultValue": "UUID",
-            "type": "string",
+            "type": "list",
             "isPublic": true,
-            "isGlobal": true
+            "isGlobal": true,
+	    "values" : ["IDFA", "IDFV", "UUID"]
         },
         {
             "_id": "enableBackgroundTask",

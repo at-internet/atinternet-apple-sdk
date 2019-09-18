@@ -582,62 +582,47 @@ class TrackerTests: XCTestCase, TrackerDelegate {
     }
     
     func testDoNotTrack() {
-        Tracker.doNotTrack = true
+        TechnicalContext.optOut = true
         
-         let configurationOperation = BlockOperation(block: {
+         let builder = Builder(tracker: self.tracker)
+         
+         let hits = builder.build()
+         let url = URL(string: hits[0])
+         
+         let urlComponents = url?.query!.components(separatedBy: "&")
+         
+         for component in urlComponents! as [String] {
+             let pairComponents = component.components(separatedBy: "=")
+             
+             if(pairComponents[0] == "idclient") {
+                 XCTAssert(pairComponents[1] == "opt-out", "le paramètre idclient doit être égal à opt-out")
+             }
+         }
         
-            let builder = Builder(tracker: self.tracker)
-            
-            let hits = builder.build()
-            let url = URL(string: hits[0])
-            
-            let urlComponents = url?.query!.components(separatedBy: "&")
-            
-            for component in urlComponents! as [String] {
-                let pairComponents = component.components(separatedBy: "=")
-                
-                if(pairComponents[0] == "idclient") {
-                    XCTAssert(pairComponents[1] == "opt-out", "le paramètre idclient doit être égal à opt-out")
-                }
-            }
-        })
-        
-        TrackerQueue.sharedInstance.queue.addOperation(configurationOperation)
-        
-        Tracker.doNotTrack = false
+        TechnicalContext.optOut = false
     }
     
     func testHashUserId() {
-        let expectation = self.expectation(description: "test")
-        
+        TechnicalContext.optOut = false
         self.tracker.setHashUserIdEnabled(true, sync: true, completionHandler: nil)
         _ = self.tracker.setParam(HitParam.userID.rawValue, value: "coucou")
         
-        let configurationOperation = BlockOperation(block: {
+        let builder = Builder(tracker: self.tracker)
         
-            let builder = Builder(tracker: self.tracker)
+        let hits = builder.build()
+        let url = URL(string: hits[0])
+        
+        let urlComponents = url?.query!.components(separatedBy: "&")
+        
+        for component in urlComponents! as [String] {
+            let pairComponents = component.components(separatedBy: "=")
             
-            let hits = builder.build()
-            let url = URL(string: hits[0])            
-            
-            let urlComponents = url?.query!.components(separatedBy: "&")
-            
-            for component in urlComponents! as [String] {
-                let pairComponents = component.components(separatedBy: "=")
-                
-                if(pairComponents[0] == "idclient") {
-                    XCTAssert(pairComponents[1] == "1edd758910e96f4c7f7426ce8daf82c1a97dda4bfb165855e2b47a43021bddef".percentEncodedString, "le paramètre idclient doit être égal à 1edd758910e96f4c7f7426ce8daf82c1a97dda4bfb165855e2b47a43021bddef")
-                }
+            if(pairComponents[0] == "idclient") {
+                XCTAssert(pairComponents[1] == "1edd758910e96f4c7f7426ce8daf82c1a97dda4bfb165855e2b47a43021bddef".percentEncodedString, "le paramètre idclient doit être égal à 1edd758910e96f4c7f7426ce8daf82c1a97dda4bfb165855e2b47a43021bddef")
             }
-            
-            expectation.fulfill()
-        })
+        }
         
-        TrackerQueue.sharedInstance.queue.addOperation(configurationOperation)
-        
-        waitForExpectations(timeout: 10, handler: nil)
-        
-        self.tracker.setConfig("hashUserId", value: "false", completionHandler:nil)
+        self.tracker.setHashUserIdEnabled(false, sync: true, completionHandler: nil)
     }
     
     func testNoHashUserId() {

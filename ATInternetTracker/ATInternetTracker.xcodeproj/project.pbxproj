@@ -242,7 +242,6 @@
 		4F47A7F51D3D137A00702747 /* IdentifiedVisitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6FA1D3D126500702747 /* IdentifiedVisitorTests.swift */; };
 		4F47A7F61D3D138400702747 /* InternalSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6FC1D3D126500702747 /* InternalSearchTests.swift */; };
 		4F47A7F71D3D138B00702747 /* MediaPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6FF1D3D126500702747 /* MediaPlayerTests.swift */; };
-		4F47A7F81D3D139000702747 /* NuggAdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7021D3D126500702747 /* NuggAdTests.swift */; };
 		4F47A7F91D3D139300702747 /* OrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7031D3D126500702747 /* OrderTests.swift */; };
 		4F47A7FA1D3D139900702747 /* ParameterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7051D3D126500702747 /* ParameterTests.swift */; };
 		4F47A7FB1D3D139D00702747 /* PublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7071D3D126500702747 /* PublisherTests.swift */; };
@@ -317,7 +316,6 @@
 		4FF594281D3F61E50004D336 /* IdentifiedVisitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6FA1D3D126500702747 /* IdentifiedVisitorTests.swift */; };
 		4FF594291D3F61E50004D336 /* InternalSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6FC1D3D126500702747 /* InternalSearchTests.swift */; };
 		4FF5942A1D3F63670004D336 /* MediaPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A6FF1D3D126500702747 /* MediaPlayerTests.swift */; };
-		4FF5942B1D3F63670004D336 /* NuggAdTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7021D3D126500702747 /* NuggAdTests.swift */; };
 		4FF5942C1D3F63670004D336 /* OrderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7031D3D126500702747 /* OrderTests.swift */; };
 		4FF5942D1D3F63800004D336 /* ParameterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7051D3D126500702747 /* ParameterTests.swift */; };
 		4FF5942E1D3F63800004D336 /* PublisherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A7071D3D126500702747 /* PublisherTests.swift */; };
@@ -622,7 +620,6 @@
 		4F47A6FC1D3D126500702747 /* InternalSearchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InternalSearchTests.swift; path = Tests/InternalSearchTests.swift; sourceTree = "<group>"; };
 		4F47A6FD1D3D126500702747 /* LifeCycleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LifeCycleTests.swift; path = Tests/LifeCycleTests.swift; sourceTree = "<group>"; };
 		4F47A6FF1D3D126500702747 /* MediaPlayerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaPlayerTests.swift; path = Tests/MediaPlayerTests.swift; sourceTree = "<group>"; };
-		4F47A7021D3D126500702747 /* NuggAdTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NuggAdTests.swift; path = Tests/NuggAdTests.swift; sourceTree = "<group>"; };
 		4F47A7031D3D126500702747 /* OrderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTests.swift; path = Tests/OrderTests.swift; sourceTree = "<group>"; };
 		4F47A7051D3D126500702747 /* ParameterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParameterTests.swift; path = Tests/ParameterTests.swift; sourceTree = "<group>"; };
 		4F47A7071D3D126500702747 /* PublisherTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PublisherTests.swift; path = Tests/PublisherTests.swift; sourceTree = "<group>"; };
@@ -897,7 +894,6 @@
 				4F47A6FC1D3D126500702747 /* InternalSearchTests.swift */,
 				4F47A6FD1D3D126500702747 /* LifeCycleTests.swift */,
 				4F47A6FF1D3D126500702747 /* MediaPlayerTests.swift */,
-				4F47A7021D3D126500702747 /* NuggAdTests.swift */,
 				4F47A7031D3D126500702747 /* OrderTests.swift */,
 				4F47A7051D3D126500702747 /* ParameterTests.swift */,
 				4F47A7071D3D126500702747 /* PublisherTests.swift */,
@@ -1116,7 +1112,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1100;
 				TargetAttributes = {
 					4F47A3DD1D351E8100702747 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1642,7 +1638,6 @@
 				4F47A80D1D3D17C800702747 /* CustomObject.swift in Sources */,
 				4F47A80B1D3D17C500702747 /* Cart.swift in Sources */,
 				CC704B5621B6AFF500114A86 /* GeneratedEvents.swift in Sources */,
-				4F47A7F81D3D139000702747 /* NuggAdTests.swift in Sources */,
 				4F47A7F01D3D135C00702747 /* CustomTreeStructureTests.swift in Sources */,
 				4F47A81F1D3D17FC00702747 /* OnAppAd.swift in Sources */,
 				CC704B4821B6649B00114A86 /* RequiredPropertiesDataObject.swift in Sources */,
@@ -1723,7 +1718,6 @@
 				4FF594521D3F66920004D336 /* Event.swift in Sources */,
 				4FF5942E1D3F63800004D336 /* PublisherTests.swift in Sources */,
 				CC704B6C21B6BE3A00114A86 /* DisplayCart.swift in Sources */,
-				4FF5942B1D3F63670004D336 /* NuggAdTests.swift in Sources */,
 				CCEDDA7121C384F9006E1848 /* MvTesting.swift in Sources */,
 				CC1FE8AD2159FE4D006FE401 /* Medium.swift in Sources */,
 				4FF5945F1D3F66B00004D336 /* Publisher.swift in Sources */,
@@ -1890,7 +1884,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1956,7 +1950,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2013,7 +2007,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -2079,7 +2073,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -2264,7 +2258,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2335,7 +2329,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
