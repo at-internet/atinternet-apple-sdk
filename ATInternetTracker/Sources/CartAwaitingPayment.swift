@@ -29,7 +29,9 @@ public class CartAwaitingPayment: Event {
     
     private var tracker : Tracker
     
-    private var screenLabel : String?
+    var screenLabel : String?
+    
+    var screen : Screen?
     
     /// Cart property
     @objc public lazy var cart : ECommerceCart = ECommerceCart()
@@ -66,9 +68,8 @@ public class CartAwaitingPayment: Event {
         }
     }
     
-    init(tracker: Tracker, screenLabel: String?) {
+    init(tracker: Tracker) {
         self.tracker = tracker
-        self.screenLabel = screenLabel
         super.init(name: "cart.awaiting_payment")
     }
     
@@ -149,10 +150,18 @@ public class CartAwaitingPayment: Event {
                     stProduct.category6 = String(format: "[%@]", String(describing: category6))
                 }
             }
-            let s = self.tracker.screens.add(self.screenLabel ?? "")
-            s.cart = stCart
-            s.isBasketScreen = false
-            s.sendView()
+            if screen == nil {
+                let s = self.tracker.screens.add(self.screenLabel ?? "")
+                s.cart = stCart
+                s.isBasketScreen = false
+                s.sendView()
+            } else {
+                screen?.cart = stCart
+                screen?.isBasketScreen = false
+                screen?.sendView()
+                screen?.cart = nil
+                stCart.unset();
+            }
         }
        
         return generatedEvents
@@ -171,9 +180,23 @@ public class CartAwaitingPayments : EventsHelper {
     
     /// Add cart awaiting payment event tracking
     ///
+    /// - Parameter screenLabel: a screen label
     /// - Returns: CartAwaitingPayment instance
     @objc public func add(screenLabel: String?) -> CartAwaitingPayment {
-        let cap = CartAwaitingPayment(tracker: tracker, screenLabel: screenLabel)
+        let cap = CartAwaitingPayment(tracker: tracker)
+        cap.screenLabel = screenLabel
+        _ = events.add(event: cap)
+        return cap
+    }
+    
+    /// Add cart awaiting payment event tracking
+    ///
+    /// - Parameter screen: a screen instance
+    /// - Returns: CartAwaitingPayment instance
+    @objc public func add(screen: Screen?) -> CartAwaitingPayment {
+        let cap = CartAwaitingPayment(tracker: tracker)
+        cap.screen = screen
+        tracker.businessObjects.removeValue(forKey: screen?.id ?? "")
         _ = events.add(event: cap)
         return cap
     }

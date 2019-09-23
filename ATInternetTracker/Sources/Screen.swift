@@ -45,7 +45,7 @@ public class AbstractScreen: BusinessObject {
     var _publishers: [String: PublisherImpression] = [String: PublisherImpression]()
     var _selfPromotions: [String: SelfPromotionImpression] = [String: SelfPromotionImpression]()
     
-    var builtScreenName: String = ""
+    var commpleteScreenLabel: String = ""
     
     /// Actions
     @objc public enum ScreenAction: Int {
@@ -193,7 +193,7 @@ public class AbstractScreen: BusinessObject {
     }
     
     //MARK: Screen name building
-    func buildScreenName() -> String {
+    func buildCompleteLabel() -> String {
         var screenName = _chapter1 == nil ? "" : _chapter1! + "::"
         screenName = _chapter2 ==  nil ? screenName : screenName + _chapter2! + "::"
         screenName = _chapter3 ==  nil ? screenName : screenName + _chapter3! + "::"
@@ -203,9 +203,9 @@ public class AbstractScreen: BusinessObject {
     }
     
     func updateContext() {
-        builtScreenName = buildScreenName()
-        TechnicalContext.screenName = builtScreenName
-        Crash.lastScreen(builtScreenName)
+        commpleteScreenLabel = buildCompleteLabel()
+        TechnicalContext.screenName = commpleteScreenLabel
+        Crash.lastScreen(commpleteScreenLabel)
     }
 }
 
@@ -268,7 +268,7 @@ public class Screen: AbstractScreen {
         super.setParams()
         let encodingOption = ParamOption()
         encodingOption.encode = true
-        _ = self.tracker.setParam(HitParam.screen.rawValue, value: builtScreenName, options: encodingOption)
+        _ = self.tracker.setParam(HitParam.screen.rawValue, value: commpleteScreenLabel, options: encodingOption)
     }
 }
 
