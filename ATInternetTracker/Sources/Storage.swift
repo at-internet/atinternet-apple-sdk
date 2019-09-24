@@ -31,7 +31,9 @@
 //
 
 import Foundation
+#if canImport(CoreData)
 import CoreData
+#endif
 
 protocol StorageProtocol {
     func insert(_ hit: inout String, mhOlt: String?) -> Bool
