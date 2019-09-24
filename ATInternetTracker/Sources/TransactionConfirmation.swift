@@ -151,6 +151,9 @@ public class TransactionConfirmation: Event {
                 s.isBasketScreen = false
                 s.sendView()
             } else {
+                var info = mach_timebase_info()
+                mach_timebase_info(&info)
+                screen?.timeStamp = mach_absolute_time() * UInt64(info.numer) / UInt64(info.denom)
                 screen?.cart = stCart
                 screen?.isBasketScreen = false
                 screen?.sendView()
