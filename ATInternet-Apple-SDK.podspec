@@ -17,7 +17,6 @@ Pod::Spec.new do |s|
 	s.subspec 'Tracker' do |tracker|
 		tracker.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
 		tracker.resources = "ATInternetTracker/Sources/*.{plist,json}", "ATInternetTracker/Sources/TrackerBundle.bundle"
-		tracker.frameworks = "CoreData", "CoreFoundation", "UIKit", "CoreTelephony", "SystemConfiguration"
 		tracker.platform = :ios
 	end
 
@@ -25,7 +24,6 @@ Pod::Spec.new do |s|
 		appExt.pod_target_xcconfig	  = { 'OTHER_SWIFT_FLAGS' => '-DAT_EXTENSION' }
 		appExt.source_files           = "ATInternetTracker/Sources/*.{h,m,swift}"
 		appExt.exclude_files          = ["ATInternetTracker/Sources/BackgroundTask.swift","ATInternetTracker/Sources/Debugger.swift","ATInternetTracker/Sources/TrackerTests-Bridging-Header.h"]
-		appExt.frameworks             = "CoreData", "CoreFoundation", "UIKit", "SystemConfiguration", "CoreTelephony"
 		appExt.platform				  = :ios
 		appExt.resources = "ATInternetTracker/Sources/*.{plist,json}", "ATInternetTracker/Sources/TrackerBundle.bundle"
 	end
@@ -33,7 +31,6 @@ Pod::Spec.new do |s|
     s.subspec 'watchOSTracker' do |wos|
 		wos.source_files           = "ATInternetTracker/Sources/*.{h,m,swift}"
 		wos.exclude_files          = ["ATInternetTracker/Sources/BackgroundTask.swift","ATInternetTracker/Sources/ATReachability.swift","ATInternetTracker/Sources/Debugger.swift","ATInternetTracker/Sources/TrackerTests-Bridging-Header.h"]
-		wos.frameworks             = "CoreData", "CoreFoundation", "WatchKit"
 		wos.platform				  = :watchos
 		wos.resources = "ATInternetTracker/Sources/DefaultConfiguration.plist","ATInternetTracker/Sources/core.manifest.json"
 	end
@@ -42,7 +39,6 @@ Pod::Spec.new do |s|
 		tvos.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
 		tvos.exclude_files = ["ATInternetTracker/Sources/TrackerTests-Bridging-Header.h", "ATInternetTracker/Sources/watchOSTracker.h"]
 		tvos.resources = "ATInternetTracker/Sources/*.{plist,json,mp3,ttf}", "ATInternetTracker/Sources/TrackerBundle.bundle"
-		tvos.frameworks = "CoreData", "CoreFoundation", "UIKit", "SystemConfiguration"
 		tvos.platform = :tvos
 	end
 end

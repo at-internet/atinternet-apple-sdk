@@ -31,12 +31,9 @@
 //
 
 import Foundation
-import CoreData
 
-#if !os(watchOS)
-    import UIKit
-#else
-    import WatchKit
+#if canImport(UIKit)
+import UIKit
 #endif
 
 /// Build or send status of the hit

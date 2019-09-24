@@ -31,11 +31,6 @@ SOFTWARE.
 //
 
 import Foundation
-import CoreData
-
-#if !AT_EXTENSION && !os(watchOS)
-import UIKit
-#endif
 
 /// Hit sender
 class Sender: Operation {

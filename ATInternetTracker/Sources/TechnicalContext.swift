@@ -33,9 +33,9 @@ SOFTWARE.
 import CoreTelephony
 #endif
 
-#if os(watchOS)
+#if canImport(WatchKit)
 import WatchKit
-#else
+#elseif canImport(UIKit)
 import UIKit
 #endif
 
@@ -177,7 +177,11 @@ class TechnicalContext: NSObject {
                 switch(optIdentifier.lowercased())
                 {
                 case "idfv":
+                    #if canImport(UIKit)
                     return UIDevice.current.identifierForVendor?.uuidString ?? ""
+                    #else
+                    return ""
+                    #endif
                 case "idfa":
                     return idfa()
                 default:
@@ -226,10 +230,12 @@ class TechnicalContext: NSObject {
     /// Device OS (name + version)
     @objc class var operatingSystem: String {
         get {
-            #if os(watchOS)
+            #if canImport(WatchKit)
             return String(format: "[%@]-[%@]", WKInterfaceDevice.current().systemName.removeSpaces().lowercased(), WKInterfaceDevice.current().systemVersion)
-            #else
+            #elseif canImport(UIKit)
             return String(format: "[%@]-[%@]", UIDevice.current.systemName.removeSpaces().lowercased(), UIDevice.current.systemVersion)
+            #else
+            return ""
             #endif
         }
     }
@@ -291,22 +297,25 @@ class TechnicalContext: NSObject {
     /// Screen resolution (eg. 1024x768)
     class var screenResolution: String {
         get {
-            #if os(watchOS)
+            #if canImport(WatchKit)
             let screenBounds = WKInterfaceDevice.current().screenBounds
             let screenScale = WKInterfaceDevice.current().screenScale
-            #else
+            #elseif canImport(UIKit)
             let screenBounds = UIScreen.main.bounds
             let screenScale = UIScreen.main.scale
+            #else
+            let screenBounds = 0
+            let screenScale = 0
             #endif
                 
             return String(format:"%ix%i", Int(screenBounds.size.width * screenScale), Int(screenBounds.size.height * screenScale))
         }
     }
     
-    #if os(iOS)
     /// Carrier
     @objc class var carrier: String {
         get {
+            #if os(iOS)
             let networkInfo = CTTelephonyNetworkInfo()
             let provider = networkInfo.subscriberCellularProvider
             
@@ -319,11 +328,10 @@ class TechnicalContext: NSObject {
             } else {
                 return ""
             }
-            
+            #endif
             return ""
         }
     }
-    #endif
     
     /// Download Source
     class func downloadSource(_ tracker: Tracker) -> String {

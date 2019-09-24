@@ -30,12 +30,6 @@ SOFTWARE.
 //  Tracker
 //
 
-//#if AT_EXTENSION
-//import TrackerExtension
-//#else
-//import Tracker
-//#endif
-
 import Foundation
 
 class Dispatcher: NSObject {

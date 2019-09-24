@@ -31,12 +31,6 @@ SOFTWARE.
 //
 import Foundation
 
-#if os(watchOS)
-import WatchKit
-#else
-import UIKit
-#endif
-
 /// Use this class to manage tracker instances
 public class ATInternet: NSObject {
     

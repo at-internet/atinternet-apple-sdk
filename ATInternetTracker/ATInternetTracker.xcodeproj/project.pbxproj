@@ -638,7 +638,7 @@
 		8E41DCBF20BC0170002CE4CC /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		8E7AD14320D2C834000FDB08 /* TrackerBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = TrackerBundle.bundle; path = Sources/TrackerBundle.bundle; sourceTree = "<group>"; };
 		8E9497E920D3F0890006872F /* ATBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATBundle.swift; sourceTree = "<group>"; };
-		8EEBADC51DF5779200FD1CFD /* ATInternet-Apple-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = "ATInternet-Apple-SDK.podspec"; path = "../../ATInternet-Apple-SDK.podspec"; sourceTree = "<group>"; };
+		8EEBADC51DF5779200FD1CFD /* ATInternet-Apple-SDK.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = "ATInternet-Apple-SDK.podspec"; path = "../../ATInternet-Apple-SDK.podspec"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		CC1FE8A62159FE4D006FE401 /* Medium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medium.swift; sourceTree = "<group>"; };
 		CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMedium.swift; sourceTree = "<group>"; };
 		CC2DC3D4227826B2008A2B96 /* CartAwaitingPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAwaitingPayment.swift; sourceTree = "<group>"; };
