@@ -29,13 +29,13 @@ SOFTWARE.
 //  TechnicalContext.swift
 //  Tracker
 //
-#if os(iOS)
+#if os(iOS) && canImport(CoreTelephony)
 import CoreTelephony
 #endif
 
-#if os(watchOS)
+#if canImport(WatchKit)
 import WatchKit
-#else
+#elseif canImport(UIKit)
 import UIKit
 #endif
 
@@ -45,9 +45,9 @@ class TechnicalContext: NSObject {
     class var sdkVersion: String {
         get {
             #if os(watchOS) || os(tvOS)
-            return "1.12.2"
+            return "1.12.3"
             #else
-            return "2.15.2"
+            return "2.15.3"
             #endif
         }
     }
@@ -173,29 +173,26 @@ class TechnicalContext: NSObject {
             }
             
             if let optIdentifier = identifier {
-                #if !os(watchOS)
                 switch(optIdentifier.lowercased())
                 {
                 case "idfv":
+                    #if !os(watchOS) && canImport(UIKit)
                     return UIDevice.current.identifierForVendor?.uuidString ?? ""
+                    #else
+                    return ""
+                    #endif
                 case "idfa":
                     return idfa()
                 default:
                     return uuid()
                 }
-                #else
-                    return uuid()
-                #endif
             } else {
                 return uuid()
             }
             
         } else {
-            
             return "opt-out"
-            
         }
-        
     }
     
     /// Device language (eg. en_US)
@@ -226,10 +223,12 @@ class TechnicalContext: NSObject {
     /// Device OS (name + version)
     @objc class var operatingSystem: String {
         get {
-            #if os(watchOS)
+            #if canImport(WatchKit)
             return String(format: "[%@]-[%@]", WKInterfaceDevice.current().systemName.removeSpaces().lowercased(), WKInterfaceDevice.current().systemVersion)
-            #else
+            #elseif canImport(UIKit)
             return String(format: "[%@]-[%@]", UIDevice.current.systemName.removeSpaces().lowercased(), UIDevice.current.systemVersion)
+            #else
+            return ""
             #endif
         }
     }
@@ -291,22 +290,25 @@ class TechnicalContext: NSObject {
     /// Screen resolution (eg. 1024x768)
     class var screenResolution: String {
         get {
-            #if os(watchOS)
+            #if canImport(WatchKit)
             let screenBounds = WKInterfaceDevice.current().screenBounds
             let screenScale = WKInterfaceDevice.current().screenScale
-            #else
+            #elseif canImport(UIKit)
             let screenBounds = UIScreen.main.bounds
             let screenScale = UIScreen.main.scale
+            #else
+            let screenBounds = 0
+            let screenScale = 0
             #endif
                 
             return String(format:"%ix%i", Int(screenBounds.size.width * screenScale), Int(screenBounds.size.height * screenScale))
         }
     }
     
-    #if os(iOS)
     /// Carrier
     @objc class var carrier: String {
         get {
+            #if os(iOS) && canImport(CoreTelephony)
             let networkInfo = CTTelephonyNetworkInfo()
             let provider = networkInfo.subscriberCellularProvider
             
@@ -319,11 +321,10 @@ class TechnicalContext: NSObject {
             } else {
                 return ""
             }
-            
+            #endif
             return ""
         }
     }
-    #endif
     
     /// Download Source
     class func downloadSource(_ tracker: Tracker) -> String {
@@ -352,7 +353,7 @@ class TechnicalContext: NSObject {
                 } else if(optReachability.currentReachabilityStatus == ATReachability.NetworkStatus.notReachable) {
                     return ConnexionType.offline
                 } else {
-                    #if os(iOS)
+                    #if os(iOS) && canImport(CoreTelephony)
                     let telephonyInfo = CTTelephonyNetworkInfo()
                     let radioType = telephonyInfo.currentRadioAccessTechnology
                     

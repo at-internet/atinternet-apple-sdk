@@ -35,6 +35,10 @@ public class DisplayCart: Event {
     
     private var tracker : Tracker
     
+    var screenLabel : String?
+    
+    var screen : Screen?
+    
     override var data: [String : Any] {
         get {
             if !cart.properties.isEmpty {
@@ -96,9 +100,18 @@ public class DisplayCart: Event {
                     stProduct.category6 = String(format: "[%@]", String(describing: category6))
                 }
             }
-            
-            tracker.setParam("tp", value: "cart")
-            stCart.send()
+            if screen == nil {
+                let s = self.tracker.screens.add(self.screenLabel ?? "")
+                s.cart = stCart
+                s.isBasketScreen = true
+                s.sendView()
+            } else {
+                screen?.cart = stCart
+                screen?.isBasketScreen = true
+                screen?.sendView()
+                screen?.cart = nil
+                stCart.unset();
+            }
         }
         return super.getAdditionalEvents()
     }
@@ -121,5 +134,26 @@ public class DisplayCarts : EventsHelper {
         let dp = DisplayCart(tracker: tracker)
         _ = events.add(event: dp)
         return dp
+    }
+    
+    /// Add display cart event tracking
+    ///
+    /// - Parameter screenLabel: a screen label
+    /// - Returns: DisplayCart instance
+    @objc public func add(screenLabel: String?) -> DisplayCart {
+        let dc = add()
+        dc.screenLabel = screenLabel
+        return dc
+    }
+    
+    /// Add display cart event tracking
+    ///
+    /// - Parameter screen: a screen instance
+    /// - Returns: DisplayCart instance
+    @objc public func add(screen: Screen?) -> DisplayCart {
+        let dc = add()
+        dc.screen = screen
+        tracker.businessObjects.removeValue(forKey: screen?.id ?? "")
+        return dc
     }
 }

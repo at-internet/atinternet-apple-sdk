@@ -5,9 +5,6 @@ To help you, the tag makes available classes (helpers) enabling the quick implem
 
 ### Requirements
 iOS 8.0+ or tvOS 9.0+ or watchOS 2.0
-Swift 4.1
-For Swift 3.0, please use v2.6.1
-New : Swift 4.2 with v2.10.0
 
 Supported devices : 
 * iPhone 

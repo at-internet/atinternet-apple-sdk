@@ -27,7 +27,9 @@
 //  Tracker
 //
 
+#if canImport(UIKit)
 import UIKit
+#endif
 
 class DebuggerButton: UIButton {}
 class DebuggerView: UIView {}

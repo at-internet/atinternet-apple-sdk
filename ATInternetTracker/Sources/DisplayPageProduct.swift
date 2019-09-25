@@ -29,6 +29,10 @@ public class DisplayPageProduct: Event {
     
     private var tracker : Tracker
     
+    var screenLabel : String?
+    
+    var screen : Screen?
+    
     /// Product property
     @objc public lazy var product : ECommerceProduct = ECommerceProduct()
     
@@ -82,7 +86,18 @@ public class DisplayPageProduct: Event {
             if let category6 = product.get(key: "s:category6") {
                 stProduct.category6 = String(format: "[%@]", String(describing: category6))
             }
-            
+            if screen == nil {
+                if let s = screenLabel, s != "" {
+                    tracker.setParam("p", value: s)
+                }
+            } else {
+                if let s = screen?.buildCompleteLabel(), s != "" {
+                    tracker.setParam("p", value: s)
+                }
+                if let l2 = screen?.level2, l2 > 0 {
+                    tracker.setParam("s2", value: l2)
+                }
+            }
             stProduct.sendView()
         }
         
@@ -104,8 +119,29 @@ public class DisplayPageProducts : EventsHelper {
     ///
     /// - Returns: DisplayPageProduct instance
     @objc public func add() -> DisplayPageProduct {
-        let dp = DisplayPageProduct(tracker: tracker)
-        _ = events.add(event: dp)
-        return dp
+        let dpp = DisplayPageProduct(tracker: tracker)
+        _ = events.add(event: dpp)
+        return dpp
+    }
+    
+    /// Add display page product event tracking
+    ///
+    /// - Parameter screenLabel: a screen label
+    /// - Returns: DisplayPageProduct instance
+    @objc public func add(screenLabel: String?) -> DisplayPageProduct {
+        let dpp = add()
+        dpp.screenLabel = screenLabel
+        return dpp
+    }
+    
+    /// Add display page product event tracking
+    ///
+    /// - Parameter screen: a screen instance
+    /// - Returns: DisplayPageProduct instance
+    @objc public func add(screen: Screen?) -> DisplayPageProduct {
+        let dpp = add()
+        dpp.screen = screen
+        tracker.businessObjects.removeValue(forKey: screen?.id ?? "")
+        return dpp
     }
 }

@@ -30,8 +30,7 @@
 //  Tracker
 //
 
-import UIKit
-
+import Foundation
 
 /// Wrapper class for Visited aisle tracking
 @objcMembers public class Aisle: ScreenInfo {

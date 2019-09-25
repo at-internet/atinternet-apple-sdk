@@ -27,7 +27,9 @@
 //  Tracker
 //
 import Foundation
+#if canImport(UIKit)
 import UIKit
+#endif
 
 /// Background task
 public class BackgroundTask: NSObject {
@@ -82,7 +84,7 @@ public class BackgroundTask: NSObject {
         taskCounter += 1
         objc_sync_exit(self)
         
-        #if !AT_EXTENSION
+        #if canImport(UIKit) && !AT_EXTENSION
         let identifier = UIApplication.shared.beginBackgroundTask(expirationHandler: {
             self.end(taskKey)
         })
@@ -119,13 +121,13 @@ public class BackgroundTask: NSObject {
                 }
             }
             
-            #if !AT_EXTENSION
+            #if canImport(UIKit) && !AT_EXTENSION
             // On arrete la tache en arrière plan
             UIApplication.shared.endBackgroundTask(UIBackgroundTaskIdentifier(rawValue: taskId))
-            #endif
             
             tasks[key] = UIBackgroundTaskIdentifier.invalid.rawValue
             tasks.removeValue(forKey: key)
+            #endif
         }
         
         objc_sync_exit(self.tasks)

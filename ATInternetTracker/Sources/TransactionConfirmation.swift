@@ -29,7 +29,9 @@ public class TransactionConfirmation: Event {
     
     private var tracker : Tracker
     
-    private var screenLabel : String?
+    var screenLabel : String?
+    
+    var screen : Screen?
     
     /// Products list
     @objc public lazy var products : [ECommerceProduct] = [ECommerceProduct]()
@@ -64,9 +66,8 @@ public class TransactionConfirmation: Event {
         }
     }
     
-    init(tracker: Tracker, screenLabel: String?) {
+    init(tracker: Tracker) {
         self.tracker = tracker
-        self.screenLabel = screenLabel
         super.init(name: "transaction.confirmation")
     }
     
@@ -144,11 +145,21 @@ public class TransactionConfirmation: Event {
                     stProduct.category6 = String(format: "[%@]", String(describing: category6))
                 }
             }
-            
-            let s = self.tracker.screens.add(self.screenLabel ?? "")
-            s.cart = stCart
-            s.isBasketScreen = false
-            s.sendView()
+            if screen == nil {
+                let s = self.tracker.screens.add(self.screenLabel ?? "")
+                s.cart = stCart
+                s.isBasketScreen = false
+                s.sendView()
+            } else {
+                var info = mach_timebase_info()
+                mach_timebase_info(&info)
+                screen?.timeStamp = mach_absolute_time() * UInt64(info.numer) / UInt64(info.denom)
+                screen?.cart = stCart
+                screen?.isBasketScreen = false
+                screen?.sendView()
+                screen?.cart = nil
+                stCart.unset();
+            }
         }
         return generatedEvents
     }
@@ -166,11 +177,31 @@ public class TransactionConfirmations : EventsHelper {
     
     /// Add transaction confirmation event tracking
     ///
+    /// - Returns: TransactionConfirmation instance
+    @objc public func add() -> TransactionConfirmation {
+        let tc = TransactionConfirmation(tracker: tracker)
+        _ = events.add(event: tc)
+        return tc
+    }
+    
+    /// Add transaction confirmation event tracking
+    ///
     /// - Parameter screenLabel: a screen label
     /// - Returns: TransactionConfirmation instance
     @objc public func add(screenLabel: String?) -> TransactionConfirmation {
-        let tc = TransactionConfirmation(tracker: tracker, screenLabel: screenLabel)
-        _ = events.add(event: tc)
+        let tc = add()
+        tc.screenLabel = screenLabel
+        return tc
+    }
+    
+    /// Add transaction confirmation event tracking
+    ///
+    /// - Parameter screen: a screen instance
+    /// - Returns: TransactionConfirmation instance
+    @objc public func add(screen: Screen?) -> TransactionConfirmation {
+        let tc = add()
+        tc.screen = screen
+        tracker.businessObjects.removeValue(forKey: screen?.id ?? "")
         return tc
     }
 }
