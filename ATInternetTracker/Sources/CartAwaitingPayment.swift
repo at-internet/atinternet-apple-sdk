@@ -183,12 +183,20 @@ public class CartAwaitingPayments : EventsHelper {
     
     /// Add cart awaiting payment event tracking
     ///
+    /// - Returns: CartAwaitingPayment instance
+    @objc public func add() -> CartAwaitingPayment {
+        let cap = CartAwaitingPayment(tracker: tracker)
+        _ = events.add(event: cap)
+        return cap
+    }
+    
+    /// Add cart awaiting payment event tracking
+    ///
     /// - Parameter screenLabel: a screen label
     /// - Returns: CartAwaitingPayment instance
     @objc public func add(screenLabel: String?) -> CartAwaitingPayment {
-        let cap = CartAwaitingPayment(tracker: tracker)
+        let cap = add()
         cap.screenLabel = screenLabel
-        _ = events.add(event: cap)
         return cap
     }
     
@@ -197,10 +205,9 @@ public class CartAwaitingPayments : EventsHelper {
     /// - Parameter screen: a screen instance
     /// - Returns: CartAwaitingPayment instance
     @objc public func add(screen: Screen?) -> CartAwaitingPayment {
-        let cap = CartAwaitingPayment(tracker: tracker)
+        let cap = add()
         cap.screen = screen
         tracker.businessObjects.removeValue(forKey: screen?.id ?? "")
-        _ = events.add(event: cap)
         return cap
     }
 }

@@ -118,11 +118,10 @@ public class DisplayPageProducts : EventsHelper {
     /// Add display page product event tracking
     ///
     /// - Returns: DisplayPageProduct instance
-    @available(*, deprecated, message: "")
     @objc public func add() -> DisplayPageProduct {
-        let dp = DisplayPageProduct(tracker: tracker)
-        _ = events.add(event: dp)
-        return dp
+        let dpp = DisplayPageProduct(tracker: tracker)
+        _ = events.add(event: dpp)
+        return dpp
     }
     
     /// Add display page product event tracking
@@ -130,9 +129,8 @@ public class DisplayPageProducts : EventsHelper {
     /// - Parameter screenLabel: a screen label
     /// - Returns: DisplayPageProduct instance
     @objc public func add(screenLabel: String?) -> DisplayPageProduct {
-        let dpp = DisplayPageProduct(tracker: tracker)
+        let dpp = add()
         dpp.screenLabel = screenLabel
-        _ = events.add(event: dpp)
         return dpp
     }
     
@@ -141,10 +139,9 @@ public class DisplayPageProducts : EventsHelper {
     /// - Parameter screen: a screen instance
     /// - Returns: DisplayPageProduct instance
     @objc public func add(screen: Screen?) -> DisplayPageProduct {
-        let dpp = DisplayPageProduct(tracker: tracker)
+        let dpp = add()
         dpp.screen = screen
         tracker.businessObjects.removeValue(forKey: screen?.id ?? "")
-        _ = events.add(event: dpp)
         return dpp
     }
 }

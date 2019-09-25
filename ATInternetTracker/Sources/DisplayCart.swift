@@ -130,7 +130,6 @@ public class DisplayCarts : EventsHelper {
     /// Add display cart event tracking
     ///
     /// - Returns: DisplayCart instance
-    @available(*, deprecated, message: "")
     @objc public func add() -> DisplayCart {
         let dp = DisplayCart(tracker: tracker)
         _ = events.add(event: dp)
@@ -142,9 +141,8 @@ public class DisplayCarts : EventsHelper {
     /// - Parameter screenLabel: a screen label
     /// - Returns: DisplayCart instance
     @objc public func add(screenLabel: String?) -> DisplayCart {
-        let dc = DisplayCart(tracker: tracker)
+        let dc = add()
         dc.screenLabel = screenLabel
-        _ = events.add(event: dc)
         return dc
     }
     
@@ -153,10 +151,9 @@ public class DisplayCarts : EventsHelper {
     /// - Parameter screen: a screen instance
     /// - Returns: DisplayCart instance
     @objc public func add(screen: Screen?) -> DisplayCart {
-        let dc = DisplayCart(tracker: tracker)
+        let dc = add()
         dc.screen = screen
         tracker.businessObjects.removeValue(forKey: screen?.id ?? "")
-        _ = events.add(event: dc)
         return dc
     }
 }

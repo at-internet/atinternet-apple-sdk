@@ -177,12 +177,20 @@ public class TransactionConfirmations : EventsHelper {
     
     /// Add transaction confirmation event tracking
     ///
+    /// - Returns: TransactionConfirmation instance
+    @objc public func add() -> TransactionConfirmation {
+        let tc = TransactionConfirmation(tracker: tracker)
+        _ = events.add(event: tc)
+        return tc
+    }
+    
+    /// Add transaction confirmation event tracking
+    ///
     /// - Parameter screenLabel: a screen label
     /// - Returns: TransactionConfirmation instance
     @objc public func add(screenLabel: String?) -> TransactionConfirmation {
-        let tc = TransactionConfirmation(tracker: tracker)
+        let tc = add()
         tc.screenLabel = screenLabel
-        _ = events.add(event: tc)
         return tc
     }
     
@@ -191,10 +199,9 @@ public class TransactionConfirmations : EventsHelper {
     /// - Parameter screen: a screen instance
     /// - Returns: TransactionConfirmation instance
     @objc public func add(screen: Screen?) -> TransactionConfirmation {
-        let tc = TransactionConfirmation(tracker: tracker)
+        let tc = add()
         tc.screen = screen
         tracker.businessObjects.removeValue(forKey: screen?.id ?? "")
-        _ = events.add(event: tc)
         return tc
     }
 }
