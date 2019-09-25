@@ -29,7 +29,7 @@ SOFTWARE.
 //  TechnicalContext.swift
 //  Tracker
 //
-#if os(iOS)
+#if os(iOS) && canImport(CoreTelephony)
 import CoreTelephony
 #endif
 
@@ -173,11 +173,10 @@ class TechnicalContext: NSObject {
             }
             
             if let optIdentifier = identifier {
-                #if !os(watchOS)
                 switch(optIdentifier.lowercased())
                 {
                 case "idfv":
-                    #if canImport(UIKit)
+                    #if !os(watchOS) && canImport(UIKit)
                     return UIDevice.current.identifierForVendor?.uuidString ?? ""
                     #else
                     return ""
@@ -187,19 +186,13 @@ class TechnicalContext: NSObject {
                 default:
                     return uuid()
                 }
-                #else
-                    return uuid()
-                #endif
             } else {
                 return uuid()
             }
             
         } else {
-            
             return "opt-out"
-            
         }
-        
     }
     
     /// Device language (eg. en_US)
@@ -315,7 +308,7 @@ class TechnicalContext: NSObject {
     /// Carrier
     @objc class var carrier: String {
         get {
-            #if os(iOS)
+            #if os(iOS) && canImport(CoreTelephony)
             let networkInfo = CTTelephonyNetworkInfo()
             let provider = networkInfo.subscriberCellularProvider
             
@@ -360,7 +353,7 @@ class TechnicalContext: NSObject {
                 } else if(optReachability.currentReachabilityStatus == ATReachability.NetworkStatus.notReachable) {
                     return ConnexionType.offline
                 } else {
-                    #if os(iOS)
+                    #if os(iOS) && canImport(CoreTelephony)
                     let telephonyInfo = CTTelephonyNetworkInfo()
                     let radioType = telephonyInfo.currentRadioAccessTechnology
                     

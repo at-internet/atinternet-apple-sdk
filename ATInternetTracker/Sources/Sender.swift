@@ -297,7 +297,7 @@ class Sender: Operation {
                             
                             let backgroundTaskIdentifier: Int?
                             
-                            #if !AT_EXTENSION && canImport(UIKit) && !os(watchOS)
+                            #if !(AT_EXTENSION || os(watchOS)) && canImport(UIKit)
                             // Creates background task for offline hits
                             if UIDevice.current.isMultitaskingSupported && tracker.backgroundTaskEnabled {
                                 backgroundTaskIdentifier = BackgroundTask.sharedInstance.begin()
@@ -308,7 +308,7 @@ class Sender: Operation {
                                 backgroundTaskIdentifier = nil
                             #endif
                             
-                            #if !AT_EXTENSION && canImport(UIKit) && !os(watchOS)
+                            #if !(AT_EXTENSION || os(watchOS))
                             if(async) {
                                 for offlineHit in storage.get() {
                                     let sender = Sender(tracker: tracker, hit: offlineHit, forceSendOfflineHits: forceSendOfflineHits, mhOlt: nil)

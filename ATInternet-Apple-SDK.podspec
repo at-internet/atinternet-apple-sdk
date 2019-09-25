@@ -17,32 +17,28 @@ Pod::Spec.new do |s|
 	s.subspec 'Tracker' do |tracker|
 		tracker.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
 		tracker.resources = "ATInternetTracker/Sources/*.{plist,json}", "ATInternetTracker/Sources/TrackerBundle.bundle"
-        tracker.frameworks = "CoreData", "CoreTelephony", "SystemConfiguration"
 		tracker.platform = :ios
 	end
 
 	s.subspec 'AppExtension' do |appExt|
-		appExt.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '-DAT_EXTENSION' }
-		appExt.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
-		appExt.exclude_files = ["ATInternetTracker/Sources/BackgroundTask.swift","ATInternetTracker/Sources/Debugger.swift","ATInternetTracker/Sources/TrackerTests-Bridging-Header.h"]
-        appExt.frameworks = "CoreData", "SystemConfiguration", "CoreTelephony"
-		appExt.platform = :ios
-		appExt.resources = "ATInternetTracker/Sources/*.{plist,json}", "ATInternetTracker/Sources/TrackerBundle.bundle"
+        appExt.pod_target_xcconfig = { 'OTHER_SWIFT_FLAGS' => '-DAT_EXTENSION' }
+        appExt.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
+        appExt.exclude_files = ["ATInternetTracker/Sources/BackgroundTask.swift","ATInternetTracker/Sources/Debugger.swift","ATInternetTracker/Sources/TrackerTests-Bridging-Header.h"]
+        appExt.platform = :ios
+        appExt.resources = "ATInternetTracker/Sources/*.{plist,json}", "ATInternetTracker/Sources/TrackerBundle.bundle"
 	end
 
     s.subspec 'watchOSTracker' do |wos|
-		wos.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
-		wos.exclude_files = ["ATInternetTracker/Sources/BackgroundTask.swift","ATInternetTracker/Sources/ATReachability.swift","ATInternetTracker/Sources/Debugger.swift","ATInternetTracker/Sources/TrackerTests-Bridging-Header.h"]
-        wos.frameworks = "CoreData"
-		wos.platform = :watchos
-		wos.resources = "ATInternetTracker/Sources/DefaultConfiguration.plist","ATInternetTracker/Sources/core.manifest.json"
-	end
+        wos.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
+        wos.exclude_files = ["ATInternetTracker/Sources/BackgroundTask.swift","ATInternetTracker/Sources/ATReachability.swift","ATInternetTracker/Sources/Debugger.swift","ATInternetTracker/Sources/TrackerTests-Bridging-Header.h"]
+        wos.platform = :watchos
+        wos.resources = "ATInternetTracker/Sources/DefaultConfiguration.plist","ATInternetTracker/Sources/core.manifest.json"
+    end
 
     s.subspec 'tvOSTracker' do |tvos|
-		tvos.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
+        tvos.source_files = "ATInternetTracker/Sources/*.{h,m,swift}"
         tvos.exclude_files = ["ATInternetTracker/Sources/TrackerTests-Bridging-Header.h", "ATInternetTracker/Sources/watchOSTracker.h"]
         tvos.resources = "ATInternetTracker/Sources/*.{plist,json,mp3,ttf}", "ATInternetTracker/Sources/TrackerBundle.bundle"
-        tvos.frameworks = "CoreData", "SystemConfiguration"
         tvos.platform = :tvos
-	end
+    end
 end

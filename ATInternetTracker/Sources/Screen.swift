@@ -175,10 +175,8 @@ public class AbstractScreen: BusinessObject {
         }
         
         if let cart = self.cart {
-            if cart.cartId != "" || order != nil {
-                cart.tracker = self.tracker
-                cart.setParams()
-            }
+            cart.tracker = self.tracker
+            cart.setParams()
         }
         
         if (isBasketScreen) {

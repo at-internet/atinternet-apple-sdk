@@ -116,10 +116,8 @@ class Buffer: NSObject {
         self.persistentParameters["hl"] = Param(key: "hl", value: {TechnicalContext.localHour}, options: persistentOption)
         // Add screen resolution
         self.persistentParameters["r"] = Param(key: "r", value: {TechnicalContext.screenResolution}, options: persistentOption)
-        #if os(iOS)
         // Add carrier
         self.persistentParameters["car"] = Param(key: "car", value: {TechnicalContext.carrier}, options: persistentOptionWithEncoding)
-        #endif
         // Add connexion information
         self.persistentParameters["cn"] = Param(key: "cn", value: {TechnicalContext.connectionType.rawValue}, options: persistentOptionWithEncoding)
         // Add time stamp for cache
