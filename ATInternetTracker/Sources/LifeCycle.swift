@@ -86,6 +86,9 @@ class LifeCycle: NSObject {
         
         // Not first launch
         if let _ = userDefaults.object(forKey: LifeCycleKey.FirstSession.rawValue) as? Int {
+            if ATInternet.optOut {
+                return
+            }
             LifeCycle.firstSession = false
             
             // Last session
