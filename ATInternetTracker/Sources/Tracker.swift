@@ -1212,6 +1212,15 @@ public class Tracker: NSObject {
         handleNotStringParameterSetting(HitParam.userID.rawValue, value: userId, options: param)
     }
     
+    /// Set a custom application version
+    ///
+    /// - Parameter appVersion: new application version value
+    @objc public func setApplicationVersion(appVersion: String) {
+        let param = ParamOption()
+        param.persistent = true
+        handleNotStringParameterSetting("apvr", value: appVersion, options: param)
+    }
+    
     /// Get lifecycle metrics
     ///
     /// - Returns: the map which contains lifecycle metrics computed by the SDK

@@ -91,8 +91,8 @@ class Storage: StorageProtocol {
         }
     }()
     
-    static func sharedInstanceOf(_ offlineMode: String) -> StorageProtocol {
-        if offlineMode == "never" {
+    static func sharedInstanceOf(_ offlineMode: String, forceStorageAccess: Bool) -> StorageProtocol {
+        if offlineMode == "never" && !forceStorageAccess {
             return NilStorage()
         } else {
             return Storage.sharedInstance

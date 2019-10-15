@@ -107,7 +107,7 @@ class Sender: Operation {
             return
         }
         
-        let db = Storage.sharedInstanceOf(self.tracker.configuration.parameters["storage"] ?? "never")
+        let db = Storage.sharedInstanceOf(self.tracker.configuration.parameters["storage"] ?? "never", forceStorageAccess: self.forceSendOfflineHits)
         
         // Si pas de connexion ou que le mode offline est à "always"
         if((self.tracker.configuration.parameters["storage"] == "always" && !self.forceSendOfflineHits)
@@ -290,7 +290,7 @@ class Sender: Operation {
                     
                     // If there's no offline hit being sent
                     if offlineOperations.count == 0 {
-                        let storage = Storage.sharedInstanceOf(tracker.configuration.parameters["storage"] ?? "never")
+                        let storage = Storage.sharedInstanceOf(tracker.configuration.parameters["storage"] ?? "never", forceStorageAccess: forceSendOfflineHits)
                         
                         // Check if offline hits exists in database
                         if storage.count() > 0 {
