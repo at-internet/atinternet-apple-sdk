@@ -341,19 +341,60 @@ public class Tracker: NSObject {
     /// SDK Version
     @objc fileprivate(set) public lazy var sdkVersion = TechnicalContext.sdkVersion
     
+    /// Custom User-Agent
+    @objc internal var userAgent = ""
+    
+    /// Application version
+    @objc private var _applicationVersion = "";
+    @objc internal var applicationVersion : String {
+        get {
+            return _applicationVersion
+        }
+        set {
+            let po = ParamOption()
+            po.persistent = true
+            if newValue == "" {
+                handleNotStringParameterSetting("apvr", value: "[\"" + TechnicalContext.applicationVersion + "\"]", options: po)
+            } else {
+                handleNotStringParameterSetting("apvr", value: "[\"" + newValue + "\"]", options: po)
+            }
+            _applicationVersion = newValue
+        }
+    };
+    
     //MARK: - Initializer
+    
+    
+    @objc func registerIfNeeded(needed: Bool) {
+        if needed {
+            ATInternet.sharedInstance.registerTracker(UUID().uuidString, tracker: self)
+        }
+    }
     
     
     /// Initialisation with default configuration
     public convenience override init() {
-        self.init(configuration: Configuration().parameters)
+        self.init(configuration: Configuration().parameters, registerNeeded: true)
+    }
+    
+    /// Initialisation with default configuration
+    convenience init(registerNeeded: Bool) {
+        self.init(configuration: Configuration().parameters, registerNeeded: registerNeeded)
     }
     
     
     /// Initialisation with a custom configuration
     ///
     /// - Parameter configuration: map that contains key/values. See TrackerConfigurationKeys
-    @objc public init(configuration: [String: String]) {
+    @objc public convenience init(configuration: [String: String]) {
+        self.init(configuration: configuration, registerNeeded: true)
+    }
+    
+    /// Initialisation with a custom configuration
+    ///
+    /// - Parameter configuration: map that contains key/values. See TrackerConfigurationKeys
+    /// - Parameter registerNeeded: if registrering tracker to ATInternet trackers is needed
+    @objc init(configuration: [String: String], registerNeeded: Bool) {
         
         // Set the custom configuration
         self.configuration = Configuration(customConfiguration: configuration)
@@ -373,6 +414,8 @@ public class Tracker: NSObject {
         let ud = UserDefaults.standard
         ud.setValue(false, forKey: CampaignKeys.ATCampaignAdded.rawValue)
         ud.synchronize()
+        
+        self.registerIfNeeded(needed: registerNeeded)
     }
     
     /**
@@ -1212,15 +1255,6 @@ public class Tracker: NSObject {
         handleNotStringParameterSetting(HitParam.userID.rawValue, value: userId, options: param)
     }
     
-    /// Set a custom application version
-    ///
-    /// - Parameter appVersion: new application version value
-    @objc public func setApplicationVersion(appVersion: String) {
-        let param = ParamOption()
-        param.persistent = true
-        handleNotStringParameterSetting("apvr", value: appVersion, options: param)
-    }
-    
     /// Get lifecycle metrics
     ///
     /// - Returns: the map which contains lifecycle metrics computed by the SDK
@@ -1260,18 +1294,6 @@ public class Tracker: NSObject {
     /// Disable user identification.
     @objc @available(*, deprecated, message: "Use ATInternet.optOut instead")
     public class var doNotTrack: Bool {
-        /*get {
-            return TechnicalContext.doNotTrack
-        } set {
-            if (!LifeCycle.isInitialized && !newValue) {
-                LifeCycle.initLifeCycle()
-            }
-            let dotNotTrackOperation = BlockOperation(block: {
-                TechnicalContext.doNotTrack = newValue
-            })
-            
-            TrackerQueue.sharedInstance.queue.addOperation(dotNotTrackOperation)
-        }*/
         get {
             return Tracker.optOut
         } set {

@@ -50,7 +50,7 @@ public class ATInternet: NSObject {
     }
     
     /// List of all initialized trackers
-    fileprivate var trackers: [String: Tracker]!
+    fileprivate var trackers = [String: Tracker]()
     
     /**
     Default initializer
@@ -72,16 +72,11 @@ public class ATInternet: NSObject {
     /// - Parameter name: the tracker identifier
     /// - Returns: a new tracker or an existing instance
     @objc public func tracker(_ name: String) -> Tracker {
-        if(self.trackers == nil) {
-            self.trackers = [String: Tracker]()
-        }
-        
         if(self.trackers.index(forKey: name) != nil) {
             return self.trackers[name]!
         } else {
-            let tracker = Tracker()
-            self.trackers[name] = tracker
-            
+            let tracker = Tracker(registerNeeded: false)
+            registerTracker(name, tracker: tracker)
             return tracker
         }
     }
@@ -92,6 +87,43 @@ public class ATInternet: NSObject {
     #else
     static var _databaseDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!
     #endif
+    
+    /// Custom User-Agent
+    @objc fileprivate(set) var _userAgent = "";
+    @objc public var userAgent : String {
+        get {
+            if _userAgent != "" {
+                return _userAgent
+            }
+            if let optDefaultUa = TechnicalContext.defaultUserAgent {
+                return optDefaultUa
+            }
+            return ""
+        }
+        set {
+            _userAgent = newValue
+            for (_, t) in trackers {
+                t.userAgent = _userAgent
+            }
+        }
+    }
+    
+    /// Application version
+    @objc fileprivate(set) var _applicationVersion = "";
+    @objc public var applicationVersion : String {
+        get {
+            if _applicationVersion != "" {
+                return _applicationVersion
+            }
+            return TechnicalContext.applicationVersion
+        }
+        set {
+            _applicationVersion = newValue
+            for (_, t) in trackers {
+                t.applicationVersion = _applicationVersion
+            }
+        }
+    };
     
     @objc public class var databaseDirectory: URL {
         get {
@@ -128,18 +160,22 @@ public class ATInternet: NSObject {
     ///   - configuration: a custom configuration. See TrackerConfigurationKeys
     /// - Returns: a new tracker or an existing instance
     @objc public func tracker(_ name: String, configuration: [String: String]) -> Tracker {
-        if(self.trackers == nil) {
-            self.trackers = [String: Tracker]()
-        }
-        
         if(self.trackers.index(forKey: name) != nil) {
             return self.trackers[name]!
         } else {
-            let tracker = Tracker(configuration: configuration)
-            
-            self.trackers[name] = tracker
-            
+            let tracker = Tracker(configuration: configuration, registerNeeded: false)
+            registerTracker(name, tracker: tracker)
             return tracker
         }
+    }
+    
+    @objc func registerTracker(_ trackerName: String, tracker: Tracker) {
+        if self._applicationVersion != "" {
+            tracker.applicationVersion = self._applicationVersion
+        }
+        if self._userAgent != "" {
+            tracker.userAgent = self._userAgent
+        }
+        self.trackers[trackerName] = tracker
     }
 }

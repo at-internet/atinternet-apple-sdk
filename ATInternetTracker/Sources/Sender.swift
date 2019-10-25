@@ -144,11 +144,17 @@ class Sender: Operation {
                 if(!isCancelled) {
                     let semaphore = DispatchSemaphore(value: 0)
                     
-                    let sessionConfig = URLSessionConfiguration.default
+                    let sessionConfig = URLSessionConfiguration.default                    
                     sessionConfig.requestCachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
                     let session = URLSession(configuration: sessionConfig)
                     var request = URLRequest(url: optURL, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 30)
                     request.networkServiceType = NSURLRequest.NetworkServiceType.background
+                    
+                    if self.tracker.userAgent != "" {
+                        request.setValue(self.tracker.userAgent, forHTTPHeaderField: "User-Agent")
+                    } else if let optDefaultUa = TechnicalContext.defaultUserAgent {
+                        request.setValue(optDefaultUa, forHTTPHeaderField: "User-Agent")
+                    }
                     
                     let task = session.dataTask(with: request, completionHandler: {(data, response, error) in
                         var statusCode: Int?

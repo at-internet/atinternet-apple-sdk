@@ -236,12 +236,12 @@ class TechnicalContext: NSObject {
     /// Application localized name
     class var applicationName: String {
         let defaultAppName = TechnicalContext.applicationIdentifier
-        if let info = Bundle.main.infoDictionary,  let name = info["CFBundleDisplayName"] as? String {
+        if let info = Bundle.main.infoDictionary,  let name = info[String(kCFBundleNameKey)] as? String {
             if !name.isEmpty {
                 return name
             }
         }
-        if let localizedDic = Bundle.main.localizedInfoDictionary, let name = localizedDic["CFBundleDisplayName"] as? String {
+        if let localizedDic = Bundle.main.localizedInfoDictionary, let name = localizedDic[String(kCFBundleNameKey)] as? String {
             if !name.isEmpty {
                 return name
             }
@@ -332,6 +332,30 @@ class TechnicalContext: NSObject {
             return optDls
         } else {
             return "ext"
+        }
+    }
+    
+    @objc static var _defaultUserAgent: String?
+    @objc class var defaultUserAgent: String? {
+        get {
+            if _defaultUserAgent == nil {
+                #if os(iOS) && canImport(UIKit)
+                if Thread.isMainThread {
+                    _defaultUserAgent = UIWebView(frame: CGRect.zero).stringByEvaluatingJavaScript(from: "navigator.userAgent")
+                } else {
+                    let semaphore = DispatchSemaphore(value: 0)
+                    DispatchQueue.main.async {
+                        _defaultUserAgent = UIWebView(frame: CGRect.zero).stringByEvaluatingJavaScript(from: "navigator.userAgent")
+                        semaphore.signal()
+                    }
+                    _ = semaphore.wait(timeout: .distantFuture)
+                }
+                #endif
+            }
+            if _defaultUserAgent != nil {
+                return String(format: "%@ %@/%@", _defaultUserAgent!, applicationName, applicationVersion)
+            }
+            return _defaultUserAgent
         }
     }
 
