@@ -596,14 +596,16 @@ public class Tracker: NSObject {
         setConfig(TrackerConfigurationKeys.OfflineMode, value: offlineMode.rawValue, sync: sync, completionHandler: completionHandler)
     }
     
-    /// Enable the secure mode (use HTTPS with secured log)
+    /// Enable the secure mode
     ///
     /// - Parameters:
     ///   - enabled: /
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    @objc public func setSecureModeEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
-        setConfig(TrackerConfigurationKeys.Secure, value: String(enabled), sync: sync, completionHandler: completionHandler)
+    /// - Deprecated : Since 2.16.0, secure mode is forced
+    @objc @available(*, deprecated, message: "since 2.16.0, secure mode is forced")
+    public func setSecureModeEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+        delegate?.warningDidOccur?("Useless method, secure mode is forced")
     }
     
     /// Set a new identifier type
