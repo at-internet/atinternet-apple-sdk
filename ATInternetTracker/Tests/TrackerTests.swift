@@ -377,14 +377,8 @@ class TrackerTests: XCTestCase, TrackerDelegate {
     }
     
     func testSetSecureModeConfiguration() {
-        let expectation = self.expectation(description: "test")
-        
-        tracker.setSecureModeEnabled(true, completionHandler: { (isSet) -> Void in
-            XCTAssert(self.tracker.configuration.parameters["secure"] == "true", "Le nouveau mode securise est incorrect")
-            expectation.fulfill()
-        })
-        
-        waitForExpectations(timeout: 10, handler: nil)
+        tracker.setSecureModeEnabled(true, sync:true, completionHandler: nil)
+        XCTAssert(self.tracker.configuration.parameters["secure"] == "false", "Le nouveau mode securise est incorrect")
     }
     
     func testSetIdentifierConfiguration() {
