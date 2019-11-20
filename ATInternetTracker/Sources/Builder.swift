@@ -82,16 +82,12 @@ class Builder: Operation {
         var hitConfChunks = 0
         
         hitConf += "https://"
-        if let optLogs = self.tracker.configuration.parameters[sslLogKey] {
+        if let optLogs = self.tracker.configuration.parameters[sslLogKey], optLogs != "" {
              hitConf += optLogs
-            if (optLogs != "") {
-                hitConfChunks += 1
-            }
-        } else if let optLog = self.tracker.configuration.parameters[logKey] {
+             hitConfChunks += 1
+        } else if let optLog = self.tracker.configuration.parameters[logKey], optLog != "" {
             hitConf += optLog
-            if (optLog != "") {
-                hitConfChunks += 1
-            }
+            hitConfChunks += 1
         }
         hitConf += "."
         

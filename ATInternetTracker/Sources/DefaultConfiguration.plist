@@ -36,8 +36,6 @@
 	<string>/hit.xiti</string>
 	<key>site</key>
 	<string></string>
-	<key>secure</key>
-	<string>false</string>
 	<key>identifier</key>
 	<string>uuid</string>
 	<key>downloadSource</key>
