@@ -213,18 +213,6 @@
             "isGlobal": true
         },
         {
-            "_id": "collectDomain",
-            "name": "collectDomain",
-            "pluginId": "core",
-            "category": "deployment",
-            "label": "Geode_Tag_SDK_Config_Title_collectDomain",
-            "description": "Geode_Tag_SDK_Config_Description_collectDomain",
-            "defaultValue": "",
-            "type": "string",
-            "isPublic": false,
-            "isGlobal": true
-        },
-        {
             "_id": "ignoreLimitedAdTracking",
             "name": "ignoreLimitedAdTracking",
             "pluginId": "core",

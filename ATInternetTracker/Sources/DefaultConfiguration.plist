@@ -6,8 +6,6 @@
 	<string>true</string>
 	<key>ignoreLimitedAdTracking</key>
 	<string>false</string>
-	<key>collectDomain</key>
-	<string></string>
 	<key>sendOnApplicationState</key>
 	<string>all</string>
 	<key>campaignLifetime</key>

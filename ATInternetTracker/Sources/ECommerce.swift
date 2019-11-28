@@ -76,7 +76,9 @@ public class ECommerce: NSObject {
     ///   - domain: the new domain
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
-    @objc public func setCollectDomain(_ domain: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
-        tracker.setConfig(TrackerConfigurationKeys.CollectDomain, value: domain, sync: sync, completionHandler: completionHandler)
+    /// - Deprecated : Since 2.16.0, default log domain used
+    @objc @available(*, deprecated, message: "since 2.16.0, default log domain used")
+    public func setCollectDomain(_ domain: String, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
+        tracker.delegate?.warningDidOccur?("Useless method, default log domain used")
     }
 }

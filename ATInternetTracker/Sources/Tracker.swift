@@ -603,9 +603,9 @@ public class Tracker: NSObject {
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
     /// - Deprecated : Since 2.16.0, secure mode is forced
-    @objc @available(*, deprecated, message: "since 2.16.0, secure mode is forced")
+    @objc @available(*, deprecated, message: "since 2.16.0, secure mode forced")
     public func setSecureModeEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
-        delegate?.warningDidOccur?("Useless method, secure mode is forced")
+        delegate?.warningDidOccur?("Useless method, secure mode forced")
     }
     
     /// Set a new identifier type
