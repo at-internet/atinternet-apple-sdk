@@ -43,8 +43,6 @@ class Builder: Operation {
     
     // Number of configuration part 
     let refConfigChunks = 4
-    // Constant for secure configuration key
-    let sslKey = "secure"
     // Constant for log configuration key
     let logKey = "log"
     // Constant for secured log configuration key
@@ -83,21 +81,15 @@ class Builder: Operation {
         var hitConf: String = ""
         var hitConfChunks = 0
         
-        if (self.tracker.configuration.parameters[sslKey]?.lowercased() == "true") {
-            if let optLogs = self.tracker.configuration.parameters[sslLogKey] {
-                hitConf += "https://" + optLogs + "."
-                if (optLogs != "") {
-                    hitConfChunks += 1
-                }
-            }
-        } else {
-            if let optLog = self.tracker.configuration.parameters[logKey] {
-                hitConf += "http://" + optLog + "."
-                if (optLog != "") {
-                    hitConfChunks += 1
-                }
-            }
+        hitConf += "https://"
+        if let optLogs = self.tracker.configuration.parameters[sslLogKey], optLogs != "" {
+             hitConf += optLogs
+             hitConfChunks += 1
+        } else if let optLog = self.tracker.configuration.parameters[logKey], optLog != "" {
+            hitConf += optLog
+            hitConfChunks += 1
         }
+        hitConf += "."
         
         if let optDomain = self.tracker.configuration.parameters[domainKey] {
             hitConf += optDomain
@@ -156,7 +148,7 @@ class Builder: Operation {
         let mhParamsAllParts = ["idclient", "col"]
         
         // Get the first part of the hit
-        var config = buildConfiguration()
+        let config = buildConfiguration()
         if config == "" {
             return hits
         }
@@ -164,26 +156,6 @@ class Builder: Operation {
 
         // Get the parameters from the buffer (formatted as &p=v)
         var formattedParams = prepareQuery()
-        if formattedParams["col"] != nil {
-            let collectDomain = self.tracker.configuration.parameters[TrackerConfigurationKeys.CollectDomain]
-            guard collectDomain != nil && collectDomain != "" else { return hits }
-            
-            if let secure = self.tracker.configuration.parameters[TrackerConfigurationKeys.Secure] {
-                if secure.toBool() {
-                    let logSSL = self.tracker.configuration.parameters[TrackerConfigurationKeys.LogSSL]
-                    guard logSSL != nil && logSSL != "" else { return hits }
-                    config = config.replacingOccurrences(of: logSSL!, with: collectDomain!)
-                } else {
-                    let log = self.tracker.configuration.parameters[TrackerConfigurationKeys.Log]
-                    guard log != nil && log != "" else { return hits }
-                    config = config.replacingOccurrences(of: log!, with: collectDomain!)
-                }
-            } else {
-                let log = self.tracker.configuration.parameters[TrackerConfigurationKeys.Log]
-                guard log != nil && log != "" else { return hits }
-                config = config.replacingOccurrences(of: log!, with: collectDomain!)
-            }
-        }
         
         // Hit slicing error
         var err = false

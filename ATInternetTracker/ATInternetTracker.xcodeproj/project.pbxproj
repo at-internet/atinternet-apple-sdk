@@ -206,14 +206,6 @@
 		4F47A5691D3620E800702747 /* DefaultConfiguration~iphone.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A55C1D3620E800702747 /* DefaultConfiguration~iphone.plist */; };
 		4F47A56D1D3620E800702747 /* DefaultConfiguration~ipod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A55D1D3620E800702747 /* DefaultConfiguration~ipod.plist */; };
 		4F47A56E1D3620E800702747 /* DefaultConfiguration~ipod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A55D1D3620E800702747 /* DefaultConfiguration~ipod.plist */; };
-		4F47A5AA1D36214200702747 /* core.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A51D36214200702747 /* core.manifest.json */; };
-		4F47A5AB1D36214200702747 /* core.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A51D36214200702747 /* core.manifest.json */; };
-		4F47A5AC1D36214200702747 /* core.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A51D36214200702747 /* core.manifest.json */; };
-		4F47A5AD1D36214200702747 /* core.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A51D36214200702747 /* core.manifest.json */; };
-		4F47A5AF1D36214200702747 /* nuggad.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A61D36214200702747 /* nuggad.manifest.json */; };
-		4F47A5B01D36214200702747 /* nuggad.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A61D36214200702747 /* nuggad.manifest.json */; };
-		4F47A5B11D36214200702747 /* nuggad.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A61D36214200702747 /* nuggad.manifest.json */; };
-		4F47A5B21D36214200702747 /* nuggad.manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 4F47A5A61D36214200702747 /* nuggad.manifest.json */; };
 		4F47A5BF1D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
 		4F47A5C01D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
 		4F47A5C11D36215D00702747 /* ATReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A5BE1D36215D00702747 /* ATReachability.swift */; };
@@ -593,8 +585,6 @@
 		4F47A55B1D3620E800702747 /* DefaultConfiguration~ipad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DefaultConfiguration~ipad.plist"; sourceTree = "<group>"; };
 		4F47A55C1D3620E800702747 /* DefaultConfiguration~iphone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DefaultConfiguration~iphone.plist"; sourceTree = "<group>"; };
 		4F47A55D1D3620E800702747 /* DefaultConfiguration~ipod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DefaultConfiguration~ipod.plist"; sourceTree = "<group>"; };
-		4F47A5A51D36214200702747 /* core.manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = core.manifest.json; sourceTree = "<group>"; };
-		4F47A5A61D36214200702747 /* nuggad.manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nuggad.manifest.json; sourceTree = "<group>"; };
 		4F47A5BE1D36215D00702747 /* ATReachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ATReachability.swift; sourceTree = "<group>"; };
 		4F47A5C61D36223D00702747 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		4F47A6281D3624AF00702747 /* DictionaryExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DictionaryExtension.swift; sourceTree = "<group>"; };
@@ -853,8 +843,6 @@
 				4F47A55B1D3620E800702747 /* DefaultConfiguration~ipad.plist */,
 				4F47A55C1D3620E800702747 /* DefaultConfiguration~iphone.plist */,
 				4F47A55D1D3620E800702747 /* DefaultConfiguration~ipod.plist */,
-				4F47A5A51D36214200702747 /* core.manifest.json */,
-				4F47A5A61D36214200702747 /* nuggad.manifest.json */,
 				CCBE56C623151D2200FF043D /* referential.json */,
 			);
 			name = Asset;
@@ -1182,12 +1170,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F47A56D1D3620E800702747 /* DefaultConfiguration~ipod.plist in Resources */,
-				4F47A5AA1D36214200702747 /* core.manifest.json in Resources */,
 				8E7AD14420D2C834000FDB08 /* TrackerBundle.bundle in Resources */,
 				4F47A5681D3620E800702747 /* DefaultConfiguration~iphone.plist in Resources */,
 				4F47A55E1D3620E800702747 /* DefaultConfiguration.plist in Resources */,
 				4F47A5631D3620E800702747 /* DefaultConfiguration~ipad.plist in Resources */,
-				4F47A5AF1D36214200702747 /* nuggad.manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1195,10 +1181,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F47A5B11D36214200702747 /* nuggad.manifest.json in Resources */,
 				4F47A5601D3620E800702747 /* DefaultConfiguration.plist in Resources */,
 				8E7AD14620D2C834000FDB08 /* TrackerBundle.bundle in Resources */,
-				4F47A5AC1D36214200702747 /* core.manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1206,10 +1190,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F47A5B21D36214200702747 /* nuggad.manifest.json in Resources */,
 				4F47A5611D3620E800702747 /* DefaultConfiguration.plist in Resources */,
 				8E7AD14720D2C834000FDB08 /* TrackerBundle.bundle in Resources */,
-				4F47A5AD1D36214200702747 /* core.manifest.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1218,8 +1200,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E7AD14520D2C834000FDB08 /* TrackerBundle.bundle in Resources */,
-				4F47A5AB1D36214200702747 /* core.manifest.json in Resources */,
-				4F47A5B01D36214200702747 /* nuggad.manifest.json in Resources */,
 				4F47A5641D3620E800702747 /* DefaultConfiguration~ipad.plist in Resources */,
 				4F47A56E1D3620E800702747 /* DefaultConfiguration~ipod.plist in Resources */,
 				4F47A55F1D3620E800702747 /* DefaultConfiguration.plist in Resources */,

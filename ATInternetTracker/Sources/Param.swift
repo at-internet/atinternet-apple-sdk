@@ -59,7 +59,6 @@ class ReadOnlyParam: NSObject {
                 "lng",
                 "mfmd",
                 "os",
-                "apvr",
                 "hl",
                 "r",
                 "car",

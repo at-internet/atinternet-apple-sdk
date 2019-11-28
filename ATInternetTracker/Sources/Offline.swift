@@ -57,21 +57,21 @@ public class Offline: NSObject {
     ///
     /// - Returns: collection of offline hits
     @objc public func get() -> [Hit] {
-        return Storage.sharedInstanceOf(offlineMode).get()
+        return Storage.sharedInstanceOf(offlineMode, forceStorageAccess: true).get()
     }
     
     /// Get the number of offline hits stored in database
     ///
     /// - Returns: number of offline hits
     @objc public func count() -> Int {
-        return Storage.sharedInstanceOf(offlineMode).count()
+        return Storage.sharedInstanceOf(offlineMode, forceStorageAccess: true).count()
     }
 
     /// Delete all offline hits stored in database
     ///
     /// - Returns: number of deleted hits (-1 if an error occured)
     @objc public func delete() -> Int {
-        return Storage.sharedInstanceOf(offlineMode).delete()
+        return Storage.sharedInstanceOf(offlineMode, forceStorageAccess: true).delete()
     }
 
     /// Delete offline hits older than the number of days passed in parameter
@@ -80,7 +80,7 @@ public class Offline: NSObject {
     /// - Returns: number of deleted hits (-1 if an error occured)
     @objc(deleteOlderThanInt:)
     public func delete(_ olderThan: Int) -> Int {
-        let storage = Storage.sharedInstanceOf(offlineMode)
+        let storage = Storage.sharedInstanceOf(offlineMode, forceStorageAccess: true)
         
         let now = Date()
         var dateComponent = DateComponents()
@@ -97,20 +97,20 @@ public class Offline: NSObject {
     /// - Returns: number of deleted hits (-1 if an error occured)
     @objc(deleteOlderThanDate:)
     public func delete(_ olderThan: Date) -> Int {
-        return Storage.sharedInstanceOf(offlineMode).delete(olderThan)
+        return Storage.sharedInstanceOf(offlineMode, forceStorageAccess: true).delete(olderThan)
     }
     
     /// Get the first hit stored in database
     ///
     /// - Returns: the oldest hit
     @objc public func oldest() -> Hit? {
-        return Storage.sharedInstanceOf(offlineMode).first()
+        return Storage.sharedInstanceOf(offlineMode, forceStorageAccess: true).first()
     }
     
     /// Get the latest hit stored in database
     ///
     /// - Returns: the latest hit
     @objc public func latest() -> Hit? {
-        return Storage.sharedInstanceOf(offlineMode).last()
+        return Storage.sharedInstanceOf(offlineMode, forceStorageAccess: true).last()
     }
 }
