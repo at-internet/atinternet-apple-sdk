@@ -44,8 +44,10 @@ internal class Debugger: NSObject {
             Static.instance = Debugger()
         }()
     
+    #if os(iOS) && !AT_EXTENSION
     /// Application window
     lazy var applicationWindow: UIWindow? = UIApplication.shared.keyWindow
+    #endif
     /// Debug button
     lazy var debugButton: DebuggerButton = DebuggerButton()
     /// Debug button position
