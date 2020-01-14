@@ -31,6 +31,7 @@
 import UIKit
 #endif
 
+#if os(iOS) && !AT_EXTENSION
 class DebuggerButton: UIButton {}
 class DebuggerView: UIView {}
 
@@ -44,10 +45,8 @@ internal class Debugger: NSObject {
             Static.instance = Debugger()
         }()
     
-    #if os(iOS) && !AT_EXTENSION
     /// Application window
     lazy var applicationWindow: UIWindow? = UIApplication.shared.keyWindow
-    #endif
     /// Debug button
     lazy var debugButton: DebuggerButton = DebuggerButton()
     /// Debug button position
@@ -1773,3 +1772,4 @@ class DebuggerTopBar: UIView {
         self.layer.mask = maskLayer
     }
 }
+#endif
