@@ -31,6 +31,7 @@
 import UIKit
 #endif
 
+#if os(iOS) && !AT_EXTENSION
 class DebuggerButton: UIButton {}
 class DebuggerView: UIView {}
 
@@ -1771,3 +1772,4 @@ class DebuggerTopBar: UIView {
         self.layer.mask = maskLayer
     }
 }
+#endif
