@@ -4,7 +4,7 @@ The AT Internet tag allows you to follow your users activity throughout your app
 To help you, the tag makes available classes (helpers) enabling the quick implementation of tracking for different application events (screen loads, gestures, video plays…)
 
 ### Requirements
-iOS 8.0+ or tvOS 9.0+ or watchOS 2.0
+iOS 9.0+ or tvOS 9.0+ or watchOS 2.0
 
 Supported devices : 
 * iPhone 
