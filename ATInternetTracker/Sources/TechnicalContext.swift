@@ -39,15 +39,19 @@ import WatchKit
 import UIKit
 #endif
 
+#if canImport(WebKit)
+import WebKit
+#endif
+
 /// Contextual information from user device
 class TechnicalContext: NSObject {
     /// SDK Version
     class var sdkVersion: String {
         get {
             #if os(watchOS) || os(tvOS)
-            return "1.13.1"
+            return "1.13.2"
             #else
-            return "2.16.1"
+            return "2.16.2"
             #endif
         }
     }
@@ -335,18 +339,33 @@ class TechnicalContext: NSObject {
         }
     }
     
+    #if os(iOS) && canImport(WebKit)
+    static var webView : WKWebView?
+    #endif
+    
     @objc static var _defaultUserAgent: String?
     @objc class var defaultUserAgent: String? {
         get {
             if _defaultUserAgent == nil {
-                #if os(iOS) && canImport(UIKit)
-                if Thread.isMainThread {
-                    _defaultUserAgent = UIWebView(frame: CGRect.zero).stringByEvaluatingJavaScript(from: "navigator.userAgent")
-                } else {
+                #if os(iOS) && canImport(WebKit)
+                if self.webView == nil {
+                    if Thread.isMainThread {
+                       self.webView = WKWebView(frame: .zero)
+                    } else {
+                        DispatchQueue.main.sync {
+                            self.webView = WKWebView(frame: .zero)
+                        }
+                    }
+                }
+                if self.webView != nil && !Thread.isMainThread {
                     let semaphore = DispatchSemaphore(value: 0)
-                    DispatchQueue.main.async {
-                        _defaultUserAgent = UIWebView(frame: CGRect.zero).stringByEvaluatingJavaScript(from: "navigator.userAgent")
-                        semaphore.signal()
+                    DispatchQueue.main.sync {
+                        self.webView!.evaluateJavaScript("navigator.userAgent") { (data, error) in
+                            if let dataStr = data as? String {
+                                _defaultUserAgent = dataStr
+                            }
+                            semaphore.signal()
+                        }
                     }
                     _ = semaphore.wait(timeout: .distantFuture)
                 }
@@ -357,6 +376,44 @@ class TechnicalContext: NSObject {
             }
             return _defaultUserAgent
         }
+    }
+    
+    /// Get user agent async
+    static func getUserAgentAsync(completionHandler: @escaping ((String) -> Void)) {
+        if _defaultUserAgent == nil {
+            #if os(iOS) && canImport(WebKit)
+            if self.webView == nil {
+                if Thread.isMainThread {
+                   self.webView = WKWebView(frame: .zero)
+                } else {
+                    DispatchQueue.main.sync {
+                        self.webView = WKWebView(frame: .zero)
+                    }
+                }
+            }
+            if self.webView != nil {
+                if Thread.isMainThread {
+                    self.webView!.evaluateJavaScript("navigator.userAgent") { (data, error) in
+                        if let dataStr = data as? String {
+                            _defaultUserAgent = dataStr
+                        }
+                        completionHandler(_defaultUserAgent ?? "")
+                    }
+                } else {
+                    DispatchQueue.main.sync {
+                        self.webView!.evaluateJavaScript("navigator.userAgent") { (data, error) in
+                            if let dataStr = data as? String {
+                                _defaultUserAgent = dataStr
+                            }
+                            completionHandler(_defaultUserAgent ?? "")
+                        }
+                    }
+                }
+            }
+            #endif
+            return
+        }
+        completionHandler(_defaultUserAgent ?? "")
     }
 
     #if os(watchOS)
