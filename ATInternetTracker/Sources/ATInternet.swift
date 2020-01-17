@@ -108,6 +108,15 @@ public class ATInternet: NSObject {
         }
     }
     
+    /// Get user agent async
+    @objc public func getUserAgentAsync(completionHandler: @escaping ((String) -> Void)) {
+        if _userAgent != "" {
+            completionHandler(_userAgent)
+            return
+        }
+        TechnicalContext.getUserAgentAsync(completionHandler: completionHandler)
+    }
+    
     /// Application version
     @objc fileprivate(set) var _applicationVersion = "";
     @objc public var applicationVersion : String {
