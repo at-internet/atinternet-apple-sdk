@@ -396,16 +396,20 @@ class TechnicalContext: NSObject {
                     self.webView!.evaluateJavaScript("navigator.userAgent") { (data, error) in
                         if let dataStr = data as? String {
                             _defaultUserAgent = dataStr
+                            completionHandler(String(format: "%@ %@/%@", _defaultUserAgent!, applicationName, applicationVersion))
+                        } else {
+                            completionHandler("")
                         }
-                        completionHandler(_defaultUserAgent ?? "")
                     }
                 } else {
                     DispatchQueue.main.sync {
                         self.webView!.evaluateJavaScript("navigator.userAgent") { (data, error) in
                             if let dataStr = data as? String {
                                 _defaultUserAgent = dataStr
+                                completionHandler(String(format: "%@ %@/%@", _defaultUserAgent!, applicationName, applicationVersion))
+                            } else {
+                                completionHandler("")
                             }
-                            completionHandler(_defaultUserAgent ?? "")
                         }
                     }
                 }
@@ -413,7 +417,11 @@ class TechnicalContext: NSObject {
             #endif
             return
         }
-        completionHandler(_defaultUserAgent ?? "")
+        if _defaultUserAgent != nil {
+            completionHandler(String(format: "%@ %@/%@", _defaultUserAgent!, applicationName, applicationVersion))
+        } else {
+            completionHandler("")
+        }
     }
 
     #if os(watchOS)
