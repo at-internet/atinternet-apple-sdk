@@ -62,8 +62,7 @@ end
 ```ruby
 
 target 'MyProject App Extension' do
-#pod "ATInternet-Apple-SDK/TrackerExtension",">=2.0" this works but if you need both iOS and AppExtension, you need an another pod to avoid module conflicts
-pod "ATInternet-Apple-SDK-TrackerExtension",">=2.0"
+pod "ATInternet-Apple-SDK/AppExtension",">=2.0" 
 use_frameworks!
 end
 ```
