@@ -60,7 +60,9 @@ public class InternalSearch: BusinessObject {
     
     /// Set parameters in buffer
     override func setParams() {
-        _ = tracker.setParam("mc", value: keyword)
+        let pOpt = ParamOption()
+        pOpt.encode = true
+        _ = tracker.setParam("mc", value: keyword, options: pOpt)
         _ = tracker.setParam("np", value: resultScreenNumber)
         
         if(resultPosition > -1) {
