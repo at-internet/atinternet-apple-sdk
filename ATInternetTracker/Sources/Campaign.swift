@@ -65,9 +65,7 @@ public class Campaign: ScreenInfo {
         if let remanentCampaign = userDefaults.value(forKey: CampaignKeys.ATCampaign.rawValue) as? String, let campaignDate = userDefaults.object(forKey: CampaignKeys.ATCampaignDate.rawValue) as? Date {
             let nbDays: Int = Tool.daysBetweenDates(campaignDate, toDate: Date())
             
-            if let campaignValue = tracker.configuration.parameters["campaignLifetime"],
-                let campaignIntValue = Int(campaignValue),
-                (nbDays > campaignIntValue) {
+            if let campaignValue = tracker.configuration.parameters["campaignLifetime"], let campaignIntValue = Int(campaignValue), nbDays > campaignIntValue {
                 userDefaults.removeObject(forKey: CampaignKeys.ATCampaign.rawValue)
             } else {
                 let remanent = remanentCampaign
