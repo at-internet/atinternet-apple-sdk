@@ -32,14 +32,19 @@ SOFTWARE.
 
 import UIKit
 import XCTest
+@testable import ATInternetTracker
 
 class CrashTests: XCTestCase {
 
     func testCompute() {
+      #if ENABLE_CRASH
         let report = (Crash.compute() as NSDictionary?) as! [String: Any]?
         if let _ = report {
             XCTAssert(false, "Il ne doit pas y'avoir de données relatives à un crash")
         }
+      #else
+      XCTAssert(true)
+      #endif
     }
 
 }

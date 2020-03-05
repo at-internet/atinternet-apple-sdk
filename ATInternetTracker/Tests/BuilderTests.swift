@@ -31,6 +31,7 @@
 //
 
 import XCTest
+@testable import ATInternetTracker
 
 class BuilderTests: XCTestCase, TrackerDelegate {
     

@@ -32,6 +32,7 @@
 
 import UIKit
 import XCTest
+@testable import ATInternetTracker
 
 class MvTestingTests: XCTestCase {
     
