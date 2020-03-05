@@ -110,11 +110,13 @@ class Dispatcher: NSObject {
         _ = self.tracker.setParam(HitParam.json.rawValue, value: LifeCycle.getMetrics(), options: appendOptionWithEncoding)
         
         // Add crash report if available in stc variable
+        #if ENABLE_CRASH_REPORTER
         let report = (Crash.compute() as NSDictionary?) as! [String: Any]?
         if let optReport = report {
             _ = self.tracker.setParam(HitParam.json.rawValue, value: optReport, options: appendOptionWithEncoding)
         }
-        
+        #endif
+
         let identification = self.tracker.configuration.parameters["identifier"] ?? ""
         _ = self.tracker.setParam(HitParam.json.rawValue, value: ["idType": identification], options: appendOptionWithEncoding)
         

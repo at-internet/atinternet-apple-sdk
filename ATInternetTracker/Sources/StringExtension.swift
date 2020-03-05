@@ -32,6 +32,12 @@ SOFTWARE.
 
 import Foundation
 
+#if canImport(CryptoKit)
+import CryptoKit
+#elseif canImport(Crypto)
+import Crypto
+#endif
+
 /// Properties for extending String object
 extension String {    
     /// Returns a percent encoded string
@@ -50,7 +56,17 @@ extension String {
     }
     
     var sha256Value: String {
+      if #available(iOS 13.0, *) {
+        let base = "AT" + self
+        let hashed = SHA256.hash(data: base.data(using: .utf8)!)
+        return hashed.compactMap { String(format: "%02x", $0) }.joined()
+      } else {
+        #if ENABLE_HASH
         return Hash.sha256Value("AT" + self)
+        #else
+        return ""
+        #endif
+      }
     }
     
     /**
