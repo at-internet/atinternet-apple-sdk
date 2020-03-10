@@ -39,6 +39,9 @@ public class Event: NSObject {
         get {
             return self._data
         }
+        set {
+            self._data = newValue
+        }
     }
     
     @objc public var name: String
@@ -92,13 +95,13 @@ public class Events: BusinessObject {
         for e in self.eventLists {
             
             if e.data.count != 0 {
-                eventsArr.append(["name" : e.name, "data" : e.data])
+                eventsArr.append(["name" : e.name, "data" : Tool.toObject(src: e.data)])
             }
             
             let additionalEvents = e.getAdditionalEvents()
             
             for ev in additionalEvents {
-                eventsArr.append(["name" : ev.name, "data" : ev.data])
+                eventsArr.append(["name" : ev.name, "data" : Tool.toObject(src: ev.data)])
             }
 
         }
@@ -108,5 +111,32 @@ public class Events: BusinessObject {
         optEncode.encode = true
         _ = self.tracker.setParam("events", value: Tool.JSONStringify(eventsArr, prettyPrinted: false), options: optEncode)
                         .setParam("col", value: "2")
+        
+        let pageContext = getPageContext()
+        if pageContext.count != 0 {
+            _ = self.tracker.setParam("context", value: Tool.JSONStringify([["data": pageContext]], prettyPrinted: false), options: optEncode)
+        }
+    }
+    
+    private func getPageContext() -> [String: Any] {
+        var pageContext = [String: Any]()
+        
+        /// Page
+        if let s = TechnicalContext.screenName {
+            var pageObj = [String: Any]()
+            let splt = s.components(separatedBy: "::")
+            pageObj["$"] = splt[splt.count - 1]
+            for (i,c) in splt.dropLast().enumerated() {
+                pageObj["chapter" + String(i+1)] = c
+            }
+            pageContext["page"] = pageObj
+        }
+        
+        /// Level 2
+        if TechnicalContext.level2 > -1 {
+            pageContext["site"] = ["level2_id": TechnicalContext.level2]
+        }
+        
+        return pageContext
     }
 }

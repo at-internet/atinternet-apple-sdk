@@ -451,7 +451,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
     /* Tests de la gestion du multihits */
     
     func testMultihitsSplitOnParameterWithoutError() {
-        for i in 1...60 {
+        for i in 1...300 {
             let param = Param(key:"bigparameter\(i)", value: {Tool.convertToString("bigvalue\(i)").value})
             tracker.buffer.volatileParameters[param.key] = param
         }
@@ -475,7 +475,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
     func testMultihitsSplitOnValueWithoutError() {
         var array = [String]()
         
-        for i in 1...150 {
+        for i in 1...500 {
             array.append("abigtestvalue\(i)")
         }
         
@@ -532,7 +532,7 @@ class BuilderTests: XCTestCase, TrackerDelegate {
     func testMultihitsSplitOnValueWithNotAllowedParam() {
         var array = [String]()
         
-        for i in 1...150 {
+        for i in 1...500 {
             array.append("abigtestvalue\(i)")
         }
         

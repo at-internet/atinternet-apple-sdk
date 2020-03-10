@@ -129,8 +129,6 @@ class Builder: Operation {
     */
     func build() -> [String] {
         
-        // Hit maximum length
-        let hitMaxLength = 1600
         // Mhid maxium length
         let mhidMaxLength = 30
         // Added to slices olt maximum length
@@ -161,6 +159,13 @@ class Builder: Operation {
         var err = false
         let errQuery = self.makeSubQuery("mherr", value: "1")
         
+        // Hit maximum length
+        var hitMaxLength = 8_000
+        if let confMaxHitSize = self.tracker.configuration.parameters[TrackerConfigurationKeys.MaxHitSize] {
+            if let maxHitSize = Int(confMaxHitSize){
+                hitMaxLength = maxHitSize
+            }
+        }
         // Reference maximum size
         var refMaxSize = hitMaxLength
             - mhidMaxLength

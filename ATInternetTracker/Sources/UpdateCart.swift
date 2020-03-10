@@ -32,10 +32,14 @@ public class UpdateCart: Event {
     
     override var data: [String : Any] {
         get {
-            if !cart.properties.isEmpty {
-                _data["cart"] = cart.properties
+            let cartProps = cart.getProps()
+            if !cartProps.isEmpty {
+                _data["cart"] = cartProps
             }
             return super.data
+        }
+        set {
+            _data = newValue
         }
     }
     

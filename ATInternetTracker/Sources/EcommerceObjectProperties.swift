@@ -19,7 +19,7 @@
  */
 
 //
-//  ObjectProperties.swift
+//  EcommerceObjectProperties.swift
 //  Tracker
 //
 
@@ -33,75 +33,34 @@ public class ECommerceCart: RequiredPropertiesDataObject {
         super.init()
         let id = Foundation.UUID().uuidString
         self.version = String(id[..<id.index(id.startIndex, offsetBy: 8)])
-        propertiesPrefixMap["version"] = "s"
-        propertiesPrefixMap["id"] = "s"
-        propertiesPrefixMap["currency"] = "s"
-        
-        propertiesPrefixMap["creation_utc"] = "d"
-        
-        propertiesPrefixMap["turnovertaxincluded"] = "f"
-        propertiesPrefixMap["turnovertaxfree"] = "f"
-        
-        propertiesPrefixMap["quantity"] = "n"
-        propertiesPrefixMap["nbdistinctproduct"] = "n"
     }
 }
 
 public class ECommercePayment: RequiredPropertiesDataObject {
     override init() {
         super.init()
-        propertiesPrefixMap["mode"] = "s"
     }
 }
 
 public class ECommerceProduct: RequiredPropertiesDataObject {
     override init() {
         super.init()
-        propertiesPrefixMap["id"] = "s"
-        propertiesPrefixMap["$"] = "s"
-        propertiesPrefixMap["brand"] = "s"
-        propertiesPrefixMap["currency"] = "s"
-        propertiesPrefixMap["variant"] = "s"
-        propertiesPrefixMap["category1"] = "s"
-        propertiesPrefixMap["category2"] = "s"
-        propertiesPrefixMap["category3"] = "s"
-        propertiesPrefixMap["category4"] = "s"
-        propertiesPrefixMap["category5"] = "s"
-        propertiesPrefixMap["category6"] = "s"
-        
-        propertiesPrefixMap["discount"] = "b"
-        propertiesPrefixMap["stock"] = "b"
-        propertiesPrefixMap["cartcreation"] = "b"
-        
-        propertiesPrefixMap["pricetaxincluded"] = "f"
-        propertiesPrefixMap["pricetaxfree"] = "f"
-        
-        propertiesPrefixMap["quantity"] = "n"
     }
     
     @objc public convenience init(obj: [String : Any]) {
         self.init()
-        for (k,v) in obj {
-            _ = self.set(key: k, value: v)
-        }
+        _ = setProps(obj: obj)
     }
 }
 
 public class ECommerceShipping: RequiredPropertiesDataObject {
     override init() {
         super.init()
-        propertiesPrefixMap["delivery"] = "s"
-        
-        propertiesPrefixMap["costtaxincluded"] = "f"
-        propertiesPrefixMap["costtaxfree"] = "f"
     }
 }
 
 public class ECommerceTransaction: RequiredPropertiesDataObject {
     override init() {
         super.init()
-        propertiesPrefixMap["id"] = "s"
-        propertiesPrefixMap["promocode"] = "a:s"
-        propertiesPrefixMap["firstpurchase"] = "b"
     }
 }

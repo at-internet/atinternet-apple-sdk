@@ -98,10 +98,10 @@ public class SelfPromotion : OnAppAd {
         }
         
         if(action == OnAppAdAction.touch) {
-            if(TechnicalContext.screenName != "") {
+            if let screenName = TechnicalContext.screenName {
                 let encodingOption = ParamOption()
                 encodingOption.encode = true
-                _ = tracker.setParam("patc", value: TechnicalContext.screenName, options: encodingOption)
+                _ = tracker.setParam("patc", value: screenName, options: encodingOption)
             }
             
             if(TechnicalContext.level2 >= 0) {

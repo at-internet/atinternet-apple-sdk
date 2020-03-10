@@ -35,13 +35,18 @@ public class DeliveryCheckout: Event {
     
     override var data: [String : Any] {
         get {
-            if !cart.properties.isEmpty {
-                _data["cart"] = cart.properties
+            let cartProps = cart.getProps()
+            if !cartProps.isEmpty {
+                _data["cart"] = cartProps
             }
-            if !shipping.properties.isEmpty {
-                _data["shipping"] = shipping.properties
+            let shippingProps = shipping.getProps()
+            if !shippingProps.isEmpty {
+                _data["shipping"] = shippingProps
             }
             return super.data
+        }
+        set {
+            _data = newValue
         }
     }
     

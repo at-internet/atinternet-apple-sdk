@@ -74,4 +74,35 @@ extension Dictionary {
         }
         return ""
     }
+    
+    mutating func setValue(value: Any, forKeyPath keyPath: String) {
+        var keys = keyPath.components(separatedBy: "_")
+        guard let first = keys.first as? Key else { return }
+        keys.remove(at: 0)
+        if keys.isEmpty, let settable = value as? Value {
+            self[first] = settable
+            return
+        }
+        let rejoined = keys.joined(separator: "_")
+        var subdict: [NSObject : AnyObject] = [:]
+        if let sub = self[first] as? [NSObject : AnyObject] {
+            subdict = sub
+        }
+        subdict.setValue(value: value, forKeyPath: rejoined)
+        if let settable = subdict as? Value {
+            self[first] = settable
+        }
+    }
+    
+    func valueForKeyPath<T>(keyPath: String) -> T? {
+        var keys = keyPath.components(separatedBy: "_")
+        guard let first = keys.first as? Key else { return nil }
+        guard let value = self[first] else { return nil }
+        keys.remove(at: 0)
+        if !keys.isEmpty, let subDict = value as? [NSObject : AnyObject] {
+            let rejoined = keys.joined(separator: "_")
+            return subDict.valueForKeyPath(keyPath: rejoined)
+        }
+        return value as? T
+    }
 }

@@ -174,8 +174,8 @@ public class Gesture: BusinessObject {
     override func setParams() {
         let encodingOption = ParamOption()
         encodingOption.encode = true
-        if(TechnicalContext.screenName != "") {
-            _ = tracker.setParam(HitParam.touchScreen.rawValue, value: TechnicalContext.screenName, options: encodingOption)
+        if let screenName = TechnicalContext.screenName {
+            _ = tracker.setParam(HitParam.touchScreen.rawValue, value: screenName, options: encodingOption)
         }
         
         if(TechnicalContext.level2 >= 0) {
