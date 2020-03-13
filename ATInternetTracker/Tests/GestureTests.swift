@@ -35,14 +35,13 @@ import XCTest
 
 class GestureTests: XCTestCase {
 
-    lazy var gesture: Gesture = Gesture(tracker: Tracker())
-    lazy var gestures: Gestures = Gestures(tracker: Tracker())
+    lazy var tracker = Tracker()
+    lazy var gesture: Gesture = Gesture(tracker: tracker)
+    lazy var gestures: Gestures = Gestures(tracker: tracker)
     
     override func setUp() {
         super.setUp()
-
-        TechnicalContext.level2 = -1
-        TechnicalContext.screenName = ""
+        tracker.resetScreenContext()
     }
     
     func testInitGesture() {
