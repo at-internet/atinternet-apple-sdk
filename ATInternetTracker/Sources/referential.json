@@ -29,7 +29,7 @@
             "type": "list",
             "isPublic": true,
             "isGlobal": true,
-	    "values": ["always", "required", "never"]
+            "values": ["always", "required", "never"]
         },
         {
             "_id": "plugins",
@@ -235,6 +235,18 @@
             "type": "bool",
             "isPublic": true,
             "isGlobal": true
+        },
+        {
+          "_id": "maxHitSize",
+          "name": "maxHitSize",
+          "pluginId": "core",
+          "category": "advanced",
+          "label": "Geode_Tag_Js_Config_Title_maxHitSize",
+          "description": "Geode_Tag_Js_Config_Description_maxHitSize",
+          "defaultValue": "8000",
+          "type": "int",
+          "isPublic": false,
+          "isGlobal": true
         }
     ]
 }

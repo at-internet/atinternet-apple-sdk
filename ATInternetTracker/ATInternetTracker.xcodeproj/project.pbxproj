@@ -415,12 +415,12 @@
 		CC704B3221B65B0E00114A86 /* EventsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B2721B58B5300114A86 /* EventsHelper.swift */; };
 		CC704B3321B65B1800114A86 /* EventsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B2721B58B5300114A86 /* EventsHelper.swift */; };
 		CC704B3421B65B1900114A86 /* EventsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B2721B58B5300114A86 /* EventsHelper.swift */; };
-		CC704B3D21B65B5E00114A86 /* ObjectProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B3C21B65B5E00114A86 /* ObjectProperties.swift */; };
-		CC704B3E21B65B5E00114A86 /* ObjectProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B3C21B65B5E00114A86 /* ObjectProperties.swift */; };
-		CC704B3F21B65B5E00114A86 /* ObjectProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B3C21B65B5E00114A86 /* ObjectProperties.swift */; };
-		CC704B4021B65B5E00114A86 /* ObjectProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B3C21B65B5E00114A86 /* ObjectProperties.swift */; };
-		CC704B4121B65B5E00114A86 /* ObjectProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B3C21B65B5E00114A86 /* ObjectProperties.swift */; };
-		CC704B4221B65B5E00114A86 /* ObjectProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B3C21B65B5E00114A86 /* ObjectProperties.swift */; };
+		CC704B3D21B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B3C21B65B5E00114A86 /* EcommerceObjectProperties.swift */; };
+		CC704B3E21B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B3C21B65B5E00114A86 /* EcommerceObjectProperties.swift */; };
+		CC704B3F21B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B3C21B65B5E00114A86 /* EcommerceObjectProperties.swift */; };
+		CC704B4021B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B3C21B65B5E00114A86 /* EcommerceObjectProperties.swift */; };
+		CC704B4121B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B3C21B65B5E00114A86 /* EcommerceObjectProperties.swift */; };
+		CC704B4221B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B3C21B65B5E00114A86 /* EcommerceObjectProperties.swift */; };
 		CC704B4421B6649B00114A86 /* RequiredPropertiesDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B4321B6649B00114A86 /* RequiredPropertiesDataObject.swift */; };
 		CC704B4521B6649B00114A86 /* RequiredPropertiesDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B4321B6649B00114A86 /* RequiredPropertiesDataObject.swift */; };
 		CC704B4621B6649B00114A86 /* RequiredPropertiesDataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC704B4321B6649B00114A86 /* RequiredPropertiesDataObject.swift */; };
@@ -493,6 +493,18 @@
 		CC9A55A921CA23A900A78AB3 /* ECommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A55A521CA23A900A78AB3 /* ECommerce.swift */; };
 		CC9A55AA21CA23A900A78AB3 /* ECommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A55A521CA23A900A78AB3 /* ECommerce.swift */; };
 		CC9A55AB21CA23A900A78AB3 /* ECommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A55A521CA23A900A78AB3 /* ECommerce.swift */; };
+		CCC9F5FA23B63A580055516B /* AVInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F5F923B63A580055516B /* AVInsights.swift */; };
+		CCC9F5FB23B63A580055516B /* AVInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F5F923B63A580055516B /* AVInsights.swift */; };
+		CCC9F5FC23B63A580055516B /* AVInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F5F923B63A580055516B /* AVInsights.swift */; };
+		CCC9F5FD23B63A580055516B /* AVInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F5F923B63A580055516B /* AVInsights.swift */; };
+		CCC9F5FE23B63A580055516B /* AVInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F5F923B63A580055516B /* AVInsights.swift */; };
+		CCC9F5FF23B63A580055516B /* AVInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F5F923B63A580055516B /* AVInsights.swift */; };
+		CCC9F60123B63C100055516B /* AVMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F60023B63C100055516B /* AVMedia.swift */; };
+		CCC9F60223B63C100055516B /* AVMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F60023B63C100055516B /* AVMedia.swift */; };
+		CCC9F60323B63C100055516B /* AVMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F60023B63C100055516B /* AVMedia.swift */; };
+		CCC9F60423B63C100055516B /* AVMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F60023B63C100055516B /* AVMedia.swift */; };
+		CCC9F60523B63C100055516B /* AVMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F60023B63C100055516B /* AVMedia.swift */; };
+		CCC9F60623B63C100055516B /* AVMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F60023B63C100055516B /* AVMedia.swift */; };
 		CCE8902E2182F7CF000BBC4F /* EventsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE8902D2182F7CF000BBC4F /* EventsTests.swift */; };
 		CCEDDA6C21C384F9006E1848 /* MvTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEDDA6B21C384F9006E1848 /* MvTesting.swift */; };
 		CCEDDA6D21C384F9006E1848 /* MvTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCEDDA6B21C384F9006E1848 /* MvTesting.swift */; };
@@ -634,7 +646,7 @@
 		CC2DC3D4227826B2008A2B96 /* CartAwaitingPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAwaitingPayment.swift; sourceTree = "<group>"; };
 		CC543FE82248AFB3005E3DBA /* MvTestingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MvTestingTests.swift; path = Tests/MvTestingTests.swift; sourceTree = "<group>"; };
 		CC704B2721B58B5300114A86 /* EventsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsHelper.swift; sourceTree = "<group>"; };
-		CC704B3C21B65B5E00114A86 /* ObjectProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectProperties.swift; sourceTree = "<group>"; };
+		CC704B3C21B65B5E00114A86 /* EcommerceObjectProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcommerceObjectProperties.swift; sourceTree = "<group>"; };
 		CC704B4321B6649B00114A86 /* RequiredPropertiesDataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredPropertiesDataObject.swift; sourceTree = "<group>"; };
 		CC704B4A21B672BA00114A86 /* AddProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProduct.swift; sourceTree = "<group>"; };
 		CC704B5121B6AFF500114A86 /* GeneratedEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratedEvents.swift; sourceTree = "<group>"; };
@@ -648,6 +660,8 @@
 		CC704B9E21B6D2AE00114A86 /* TransactionConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfirmation.swift; sourceTree = "<group>"; };
 		CC9A55A521CA23A900A78AB3 /* ECommerce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECommerce.swift; sourceTree = "<group>"; };
 		CCBE56C623151D2200FF043D /* referential.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = referential.json; sourceTree = "<group>"; };
+		CCC9F5F923B63A580055516B /* AVInsights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVInsights.swift; sourceTree = "<group>"; };
+		CCC9F60023B63C100055516B /* AVMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVMedia.swift; sourceTree = "<group>"; };
 		CCE8902D2182F7CF000BBC4F /* EventsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventsTests.swift; path = Tests/EventsTests.swift; sourceTree = "<group>"; };
 		CCEDDA6B21C384F9006E1848 /* MvTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MvTesting.swift; sourceTree = "<group>"; };
 		CCF9B3D4214F77BC00235A77 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -733,6 +747,7 @@
 		4F47A4021D351F2800702747 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				CCC9F5F823B639C10055516B /* AVInsights */,
 				CC704B2621B58A0A00114A86 /* Ecommerce */,
 				4F47A4461D3541C500702747 /* ATInternet.swift */,
 				4F47A5591D36209900702747 /* Asset */,
@@ -812,6 +827,7 @@
 				CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */,
 				CCEDDA6B21C384F9006E1848 /* MvTesting.swift */,
 				CC9A55A521CA23A900A78AB3 /* ECommerce.swift */,
+				CCC9F5F923B63A580055516B /* AVInsights.swift */,
 			);
 			name = Object;
 			sourceTree = "<group>";
@@ -922,7 +938,7 @@
 			isa = PBXGroup;
 			children = (
 				CC704B2721B58B5300114A86 /* EventsHelper.swift */,
-				CC704B3C21B65B5E00114A86 /* ObjectProperties.swift */,
+				CC704B3C21B65B5E00114A86 /* EcommerceObjectProperties.swift */,
 				CC704B4A21B672BA00114A86 /* AddProduct.swift */,
 				CC704B5121B6AFF500114A86 /* GeneratedEvents.swift */,
 				CC704B5F21B6BD9E00114A86 /* DeliveryCheckout.swift */,
@@ -936,6 +952,14 @@
 				CC704B9E21B6D2AE00114A86 /* TransactionConfirmation.swift */,
 			);
 			name = Ecommerce;
+			sourceTree = "<group>";
+		};
+		CCC9F5F823B639C10055516B /* AVInsights */ = {
+			isa = PBXGroup;
+			children = (
+				CCC9F60023B63C100055516B /* AVMedia.swift */,
+			);
+			name = AVInsights;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1241,6 +1265,7 @@
 				4F47A5461D35458E00702747 /* DefaultTrackerDelegate.swift in Sources */,
 				4F47A4E11D35446700702747 /* IdentifiedVisitor.swift in Sources */,
 				4F47A4E91D35446700702747 /* LiveAudio.swift in Sources */,
+				CCC9F60F23B643010055516B /* AVEvent.swift in Sources */,
 				CC704B4421B6649B00114A86 /* RequiredPropertiesDataObject.swift in Sources */,
 				4F47A4CD1D35446700702747 /* CustomObject.swift in Sources */,
 				4F47A45A1D3542A400702747 /* BackgroundTask.swift in Sources */,
@@ -1276,7 +1301,7 @@
 				4F47A4BD1D35446700702747 /* Aisle.swift in Sources */,
 				4F47A4FD1D35446700702747 /* Offline.swift in Sources */,
 				CC2DC3D5227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */,
-				CC704B3D21B65B5E00114A86 /* ObjectProperties.swift in Sources */,
+				CC704B3D21B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */,
 				8E3061E020A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A4471D3541C500702747 /* ATInternet.swift in Sources */,
 				4F47A4E51D35446700702747 /* InternalSearch.swift in Sources */,
@@ -1286,7 +1311,9 @@
 				CC704B9121B6D16700114A86 /* RemoveProduct.swift in Sources */,
 				4F47A46E1D3542A400702747 /* Dispatcher.swift in Sources */,
 				4F47A4F91D35446700702747 /* NuggAd.swift in Sources */,
+				CCC9F5FA23B63A580055516B /* AVInsights.swift in Sources */,
 				4F47A5091D35446700702747 /* Product.swift in Sources */,
+				CCC9F60123B63C100055516B /* AVMedia.swift in Sources */,
 				CC9A55A621CA23A900A78AB3 /* ECommerce.swift in Sources */,
 				4F47A4F51D35446700702747 /* MediaPlayer.swift in Sources */,
 				4F47A5261D3544F400702747 /* BusinessObject.swift in Sources */,
@@ -1326,6 +1353,7 @@
 				CC704B5421B6AFF500114A86 /* GeneratedEvents.swift in Sources */,
 				CC704BA121B6D2AE00114A86 /* TransactionConfirmation.swift in Sources */,
 				4F47A4901D3542A400702747 /* Tool.swift in Sources */,
+				CCC9F60323B63C100055516B /* AVMedia.swift in Sources */,
 				CC704B7721B6C48200114A86 /* DisplayPageProduct.swift in Sources */,
 				CC704B9321B6D16700114A86 /* RemoveProduct.swift in Sources */,
 				4F47A4941D3542A400702747 /* Tracker.swift in Sources */,
@@ -1343,9 +1371,11 @@
 				CC9A55A821CA23A900A78AB3 /* ECommerce.swift in Sources */,
 				4F47A4491D3541C500702747 /* ATInternet.swift in Sources */,
 				CCEDDA6E21C384F9006E1848 /* MvTesting.swift in Sources */,
+				CCC9F5FC23B63A580055516B /* AVInsights.swift in Sources */,
 				CC704B6221B6BD9E00114A86 /* DeliveryCheckout.swift in Sources */,
 				4F47A46C1D3542A400702747 /* Context.swift in Sources */,
 				4F47A5231D35446700702747 /* Video.swift in Sources */,
+				CCC9F60A23B641580055516B /* AVObjectProperties.swift in Sources */,
 				4F47A4DB1D35446700702747 /* Event.swift in Sources */,
 				8E3061E220A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A4C71D35446700702747 /* Campaign.swift in Sources */,
@@ -1355,6 +1385,7 @@
 				4F47A48C1D3542A400702747 /* TechnicalContext.swift in Sources */,
 				4F47A53D1D35451A00702747 /* Hash.m in Sources */,
 				CC1FE8A92159FE4D006FE401 /* Medium.swift in Sources */,
+				CCC9F61123B643010055516B /* AVEvent.swift in Sources */,
 				4F47A5C11D36215D00702747 /* ATReachability.swift in Sources */,
 				4F47A4EB1D35446700702747 /* LiveAudio.swift in Sources */,
 				4F47A4F71D35446700702747 /* MediaPlayer.swift in Sources */,
@@ -1376,7 +1407,7 @@
 				4F47A4EF1D35446700702747 /* LiveVideo.swift in Sources */,
 				4F47A4FB1D35446700702747 /* NuggAd.swift in Sources */,
 				4F47A5481D35458E00702747 /* DefaultTrackerDelegate.swift in Sources */,
-				CC704B3F21B65B5E00114A86 /* ObjectProperties.swift in Sources */,
+				CC704B3F21B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */,
 				4F47A4BF1D35446700702747 /* Aisle.swift in Sources */,
 				4F47A4881D3542A400702747 /* Storage.swift in Sources */,
 			);
@@ -1392,12 +1423,13 @@
 				CC704B6A21B6BE3A00114A86 /* DisplayCart.swift in Sources */,
 				4F47A6661D36425C00702747 /* DictionaryExtension.swift in Sources */,
 				4F47A5001D35446700702747 /* Offline.swift in Sources */,
-				CC704B4021B65B5E00114A86 /* ObjectProperties.swift in Sources */,
+				CC704B4021B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */,
 				4F47A4811D3542A400702747 /* Plugin.swift in Sources */,
 				4F47A4D41D35446700702747 /* CustomTreeStructure.swift in Sources */,
 				4F47A47D1D3542A400702747 /* Param.swift in Sources */,
 				CCEDDA6F21C384F9006E1848 /* MvTesting.swift in Sources */,
 				4F47A5361D35451A00702747 /* Crash.m in Sources */,
+				CCC9F60B23B641580055516B /* AVObjectProperties.swift in Sources */,
 				CC704B4E21B672BA00114A86 /* AddProduct.swift in Sources */,
 				4F47A5CF1D36223D00702747 /* StringExtension.swift in Sources */,
 				4F47A4911D3542A400702747 /* Tool.swift in Sources */,
@@ -1414,11 +1446,13 @@
 				4F47A4751D3542A400702747 /* Hit.swift in Sources */,
 				4F47A4D81D35446700702747 /* CustomVar.swift in Sources */,
 				CC704B4721B6649B00114A86 /* RequiredPropertiesDataObject.swift in Sources */,
+				CCC9F60423B63C100055516B /* AVMedia.swift in Sources */,
 				4F47A4691D3542A400702747 /* Configuration.swift in Sources */,
 				4F47A44A1D3541C500702747 /* ATInternet.swift in Sources */,
 				4F47A46D1D3542A400702747 /* Context.swift in Sources */,
 				4F47A5241D35446700702747 /* Video.swift in Sources */,
 				CC704B9421B6D16700114A86 /* RemoveProduct.swift in Sources */,
+				CCC9F61223B643010055516B /* AVEvent.swift in Sources */,
 				4F47A4DC1D35446700702747 /* Event.swift in Sources */,
 				4F47A4C81D35446700702747 /* Campaign.swift in Sources */,
 				4F47A48D1D3542A400702747 /* TechnicalContext.swift in Sources */,
@@ -1433,6 +1467,7 @@
 				4F47A4611D3542A400702747 /* Buffer.swift in Sources */,
 				CC2DC3D8227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */,
 				4F47A5081D35446700702747 /* Order.swift in Sources */,
+				CCC9F5FD23B63A580055516B /* AVInsights.swift in Sources */,
 				4F47A5181D35446700702747 /* Screen.swift in Sources */,
 				4F47A5291D3544F400702747 /* BusinessObject.swift in Sources */,
 				4F47A4651D3542A400702747 /* Builder.swift in Sources */,
@@ -1476,6 +1511,7 @@
 				CC704BA021B6D2AE00114A86 /* TransactionConfirmation.swift in Sources */,
 				4F47A48F1D3542A400702747 /* Tool.swift in Sources */,
 				CC704B7621B6C48200114A86 /* DisplayPageProduct.swift in Sources */,
+				CCC9F60223B63C100055516B /* AVMedia.swift in Sources */,
 				CC704B9221B6D16700114A86 /* RemoveProduct.swift in Sources */,
 				4F47A4931D3542A400702747 /* Tracker.swift in Sources */,
 				4F47A4771D3542A400702747 /* LifeCycle.swift in Sources */,
@@ -1493,9 +1529,11 @@
 				CC9A55A721CA23A900A78AB3 /* ECommerce.swift in Sources */,
 				4F47A50E1D35446700702747 /* Publisher.swift in Sources */,
 				CCEDDA6D21C384F9006E1848 /* MvTesting.swift in Sources */,
+				CCC9F5FB23B63A580055516B /* AVInsights.swift in Sources */,
 				CC704B6121B6BD9E00114A86 /* DeliveryCheckout.swift in Sources */,
 				4F47A5CD1D36223D00702747 /* StringExtension.swift in Sources */,
 				4F47A4CA1D35446700702747 /* Cart.swift in Sources */,
+				CCC9F60923B641580055516B /* AVObjectProperties.swift in Sources */,
 				4F47A4671D3542A400702747 /* Configuration.swift in Sources */,
 				4F47A5121D35446700702747 /* RichMedia.swift in Sources */,
 				8E3061E120A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
@@ -1505,6 +1543,7 @@
 				4F47A4BE1D35446700702747 /* Aisle.swift in Sources */,
 				4F47A4FE1D35446700702747 /* Offline.swift in Sources */,
 				CC1FE8A82159FE4D006FE401 /* Medium.swift in Sources */,
+				CCC9F61023B643010055516B /* AVEvent.swift in Sources */,
 				4F47A4481D3541C500702747 /* ATInternet.swift in Sources */,
 				4F47A4E61D35446700702747 /* InternalSearch.swift in Sources */,
 				4F47A4C61D35446700702747 /* Campaign.swift in Sources */,
@@ -1526,7 +1565,7 @@
 				4F47A4F21D35446700702747 /* Location.swift in Sources */,
 				4F47A5021D35446700702747 /* OnAppAd.swift in Sources */,
 				4F47A4871D3542A400702747 /* Storage.swift in Sources */,
-				CC704B3E21B65B5E00114A86 /* ObjectProperties.swift in Sources */,
+				CC704B3E21B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */,
 				4F47A5C01D36215D00702747 /* ATReachability.swift in Sources */,
 				4F47A4DA1D35446700702747 /* Event.swift in Sources */,
 			);
@@ -1551,6 +1590,7 @@
 				CC704B6421B6BD9E00114A86 /* DeliveryCheckout.swift in Sources */,
 				4F47A81D1D3D17FC00702747 /* NuggAd.swift in Sources */,
 				4F47A84A1D3D192C00702747 /* Tracker.swift in Sources */,
+				CCC9F60523B63C100055516B /* AVMedia.swift in Sources */,
 				4F47A85B1D3D20F400702747 /* StringExtension.swift in Sources */,
 				8EA41A2A20AF0688009ED4B0 /* DictionaryExtension.swift in Sources */,
 				4F47A7F41D3D137800702747 /* GPSTests.swift in Sources */,
@@ -1566,7 +1606,7 @@
 				4F47A8111D3D17CD00702747 /* CustomVar.swift in Sources */,
 				4F47A8001D3D141000702747 /* TechnicalContextTests.swift in Sources */,
 				4F47A80F1D3D17CB00702747 /* CustomTreeStructure.swift in Sources */,
-				CC704B4121B65B5E00114A86 /* ObjectProperties.swift in Sources */,
+				CC704B4121B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */,
 				4F47A8011D3D141500702747 /* TrackerTests.swift in Sources */,
 				4F47A8461D3D192C00702747 /* Sender.swift in Sources */,
 				4F47A7FD1D3D13B100702747 /* ScreenTests.swift in Sources */,
@@ -1587,6 +1627,7 @@
 				CC704B7921B6C48200114A86 /* DisplayPageProduct.swift in Sources */,
 				4F47A83F1D3D192C00702747 /* Context.swift in Sources */,
 				4F47A8421D3D192C00702747 /* Hit.swift in Sources */,
+				CCC9F5FE23B63A580055516B /* AVInsights.swift in Sources */,
 				8EF627C421357BD700EF6902 /* ATInternet.swift in Sources */,
 				8E3061E520A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A8171D3D17FC00702747 /* IdentifiedVisitor.swift in Sources */,
@@ -1596,6 +1637,7 @@
 				8EC45F06206A471E00B0EC52 /* ATReachability.swift in Sources */,
 				4F47A83E1D3D192C00702747 /* Configuration.swift in Sources */,
 				CCEDDA7021C384F9006E1848 /* MvTesting.swift in Sources */,
+				CCC9F60C23B641580055516B /* AVObjectProperties.swift in Sources */,
 				4F47A81E1D3D17FC00702747 /* Offline.swift in Sources */,
 				4F47A8231D3D17FC00702747 /* RichMedia.swift in Sources */,
 				CC2DC3D9227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */,
@@ -1629,6 +1671,7 @@
 				CC1FE8AC2159FE4D006FE401 /* Medium.swift in Sources */,
 				4F47A8201D3D17FC00702747 /* Order.swift in Sources */,
 				4F47A8251D3D17FC00702747 /* SelfPromotion.swift in Sources */,
+				CCC9F61323B643010055516B /* AVEvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1637,6 +1680,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FF5942C1D3F63670004D336 /* OrderTests.swift in Sources */,
+				CCC9F60623B63C100055516B /* AVMedia.swift in Sources */,
 				4FF594321D3F63800004D336 /* TechnicalContextTests.swift in Sources */,
 				4FF594331D3F63800004D336 /* TrackerTests.swift in Sources */,
 				4FF5946A1D3FB46F0004D336 /* SwiftyJSON.swift in Sources */,
@@ -1659,9 +1703,10 @@
 				4FF5944C1D3F66830004D336 /* BusinessObject.swift in Sources */,
 				4FF594281D3F61E50004D336 /* IdentifiedVisitorTests.swift in Sources */,
 				CC543FEA2248AFB3005E3DBA /* MvTestingTests.swift in Sources */,
+				CCC9F60D23B641580055516B /* AVObjectProperties.swift in Sources */,
 				4FF594581D3F66A00004D336 /* Location.swift in Sources */,
 				CC2DC3DA227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */,
-				CC704B4221B65B5E00114A86 /* ObjectProperties.swift in Sources */,
+				CC704B4221B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */,
 				4FF5941C1D3F61A60004D336 /* BuilderTests.swift in Sources */,
 				4FF594371D3F66250004D336 /* TechnicalContext.swift in Sources */,
 				4FF5941B1D3F61A60004D336 /* BufferTests.swift in Sources */,
@@ -1701,6 +1746,7 @@
 				CCEDDA7121C384F9006E1848 /* MvTesting.swift in Sources */,
 				CC1FE8AD2159FE4D006FE401 /* Medium.swift in Sources */,
 				4FF5945F1D3F66B00004D336 /* Publisher.swift in Sources */,
+				CCC9F61423B643010055516B /* AVEvent.swift in Sources */,
 				CC704B9621B6D16700114A86 /* RemoveProduct.swift in Sources */,
 				4FF5945B1D3F66A70004D336 /* Offline.swift in Sources */,
 				8E3061E620A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
@@ -1711,6 +1757,7 @@
 				4FF594481D3F66700004D336 /* StringExtension.swift in Sources */,
 				4FF594391D3F66350004D336 /* Buffer.swift in Sources */,
 				4FF5943A1D3F66380004D336 /* Builder.swift in Sources */,
+				CCC9F5FF23B63A580055516B /* AVInsights.swift in Sources */,
 				CC704B5021B672BA00114A86 /* AddProduct.swift in Sources */,
 				CC704B5721B6AFF500114A86 /* GeneratedEvents.swift in Sources */,
 				4FF594441D3F664F0004D336 /* Storage.swift in Sources */,

@@ -49,9 +49,9 @@ class TechnicalContext: NSObject {
     class var sdkVersion: String {
         get {
             #if os(watchOS) || os(tvOS)
-            return "1.13.3"
+            return "1.14.0"
             #else
-            return "2.16.3"
+            return "2.17.0"
             #endif
         }
     }
@@ -84,7 +84,7 @@ class TechnicalContext: NSObject {
     }
     
     /// Name of the last tracked screen
-    static var screenName: String = ""
+    static var screenName: String? = nil
     /// ID of the last level2 id set in parameters
     static var level2: Int = -1
     

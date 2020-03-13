@@ -31,10 +31,14 @@ class CartCreation: Event {
     
     override var data: [String : Any] {
         get {
-            if !cart.properties.isEmpty {
-                _data["cart"] = cart.properties
+            let cartProps = cart.getProps()
+            if !cartProps.isEmpty {
+                _data["cart"] = cartProps
             }
             return super.data
+        }
+        set {
+            _data = newValue
         }
     }
     
@@ -56,16 +60,22 @@ class ProductPurchased: Event {
     
     override var data: [String : Any] {
         get {
-            if !product.properties.isEmpty {
-                _data["product"] = product.properties
+            let productProps = product.getProps()
+            if !productProps.isEmpty {
+                _data["product"] = productProps
             }
-            if !cart.properties.isEmpty {
-                _data["cart"] = cart.properties
+            let cartProps = cart.getProps()
+            if !cartProps.isEmpty {
+                _data["cart"] = cartProps
             }
-            if !transaction.properties.isEmpty {
-                _data["transaction"] = transaction.properties
+            let transactionProps = transaction.getProps()
+            if !transactionProps.isEmpty {
+                _data["transaction"] = transactionProps
             }
             return super.data
+        }
+        set {
+            _data = newValue
         }
     }
     
@@ -84,13 +94,18 @@ class ProductAwaitingPayment: Event {
     
     override var data: [String : Any] {
         get {
-            if !product.properties.isEmpty {
-                _data["product"] = product.properties
+            let productProps = product.getProps()
+            if !productProps.isEmpty {
+                _data["product"] = productProps
             }
-            if !cart.properties.isEmpty {
-                _data["cart"] = cart.properties
+            let cartProps = cart.getProps()
+            if !cartProps.isEmpty {
+                _data["cart"] = cartProps
             }
             return super.data
+        }
+        set {
+            _data = newValue
         }
     }
     

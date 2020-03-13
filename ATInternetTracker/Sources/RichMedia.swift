@@ -239,8 +239,8 @@ public class RichMedia : BusinessObject {
                 }
             }
         }
-        if TechnicalContext.screenName != "" {
-            _ = self.tracker.setParam("prich", value: TechnicalContext.screenName, options: encodingOption)
+        if let screenName = TechnicalContext.screenName {
+            _ = self.tracker.setParam("prich", value: screenName, options: encodingOption)
         }
         if TechnicalContext.level2 >= 0 {
             _ = self.tracker.setParam("s2rich", value: TechnicalContext.level2)

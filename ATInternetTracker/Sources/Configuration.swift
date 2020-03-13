@@ -123,6 +123,8 @@ public class TrackerConfigurationKeys: NSObject {
     public static let IgnoreLimitedAdTracking = "ignoreLimitedAdTracking"
     /// send hits when opt out
     public static let SendHitWhenOptOut = "sendHitWhenOptOut"
+    /// max hit size
+    public static let MaxHitSize = "maxHitSize"
 }
 
 /// Tracker configuraiton
