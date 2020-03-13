@@ -4,17 +4,6 @@
 //
 import Foundation
 
-public enum RequiredPropertiesDataObjectPropertyType: String {
-    case string = "s"
-    case number = "n"
-    case boolean = "b"
-    case date = "d"
-    case float = "f"
-    case arrayString = "a:s"
-    case arrayNumber = "a:n"
-    case arrayFloat = "a:f"
-}
-
 public class RequiredPropertiesDataObject : NSObject {
     
     fileprivate let propertiesSynchronizer = DispatchQueue(label: "PropertiesSynchronizer")

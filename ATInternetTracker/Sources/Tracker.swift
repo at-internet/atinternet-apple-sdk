@@ -748,7 +748,7 @@ public class Tracker: NSObject {
     ///
     /// - Parameters:
     ///   - maxHitSize: new max hit size
-    @objc public func setSessionBackgroundDuration(_ maxHitSize: Int) {
+    @objc public func setMaxHitSize(_ maxHitSize: Int) {
         if maxHitSize < 1_600 {
             self.configuration.parameters[TrackerConfigurationKeys.MaxHitSize] = String(1_600)
         } else {
