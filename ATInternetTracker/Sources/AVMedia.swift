@@ -122,83 +122,83 @@ public class AVMedia: RequiredPropertiesDataObject {
     }
     
     @objc public func track(action: String, options: [String : Any]?, extraProps: [String : Any]?) {
-        self.avSynchronizer.sync {
-            switch (action){
-            case "av.heartbeat":
-                heartbeat(extraProps: extraProps)
-            case "av.buffer.heartbeat":
-                bufferHeartbeat(extraProps: extraProps)
-            case "av.rebuffer.heartbeat":
-                rebufferHeartbeat(extraProps: extraProps)
-            case "av.play":
-                var avPosition = 0
-                if let optAvPosition = options?["av_position"] as? Int {
-                    avPosition = optAvPosition
-                }
-                play(cursorPosition: avPosition, extraProps: extraProps)
-            case "av.buffer.start":
-                var avPosition = 0
-                if let optAvPosition = options?["av_position"] as? Int {
-                    avPosition = optAvPosition
-                }
-                bufferStart(cursorPosition: avPosition, extraProps: extraProps)
-            case "av.start":
-                var avPosition = 0
-                if let optAvPosition = options?["av_position"] as? Int {
-                    avPosition = optAvPosition
-                }
-                playbackStart(cursorPosition: avPosition, extraProps: extraProps)
-            case "av.resume":
-                var avPosition = 0
-                if let optAvPosition = options?["av_position"] as? Int {
-                    avPosition = optAvPosition
-                }
-                playbackResumed(cursorPosition: avPosition, extraProps: extraProps)
-            case "av.pause":
-                var avPosition = 0
-                if let optAvPosition = options?["av_position"] as? Int {
-                    avPosition = optAvPosition
-                }
-                playbackPaused(cursorPosition: avPosition, extraProps: extraProps)
-            case "av.stop":
-                var avPosition = 0
-                if let optAvPosition = options?["av_position"] as? Int {
-                    avPosition = optAvPosition
-                }
-                playbackStopped(cursorPosition: avPosition, extraProps: extraProps)
-            case "av.backward":
-                var avPreviousPosition = 0
-                var avPosition = 0
-                if let optAvPreviousPosition = options?["av_previous_position"] as? Int {
-                    avPreviousPosition = optAvPreviousPosition
-                }
-                if let optAvPosition = options?["av_position"] as? Int {
-                    avPosition = optAvPosition
-                }
-                seekBackward(oldCursorPosition: avPreviousPosition, newCursorPosition: avPosition, extraProps: extraProps)
-            case "av.forward":
-                var avPreviousPosition = 0
-                var avPosition = 0
-                if let optAvPreviousPosition = options?["av_previous_position"] as? Int {
-                    avPreviousPosition = optAvPreviousPosition
-                }
-                if let optAvPosition = options?["av_position"] as? Int {
-                    avPosition = optAvPosition
-                }
-                seekForward(oldCursorPosition: avPreviousPosition, newCursorPosition: avPosition, extraProps: extraProps)
-            case "av.seek.start":
-                var avPreviousPosition = 0
-                if let optAvPreviousPosition = options?["av_previous_position"] as? Int {
-                    avPreviousPosition = optAvPreviousPosition
-                }
-                seekStart(oldCursorPosition: avPreviousPosition, extraProps: extraProps)
-            case "av.error":
-                var avError = ""
-                if let optAvError = options?["av_player_error"] as? String {
-                    avError = optAvError
-                }
-                error(message: avError, extraProps: extraProps)
-            default:
+        switch (action){
+        case "av.heartbeat":
+            heartbeat(extraProps: extraProps)
+        case "av.buffer.heartbeat":
+            bufferHeartbeat(extraProps: extraProps)
+        case "av.rebuffer.heartbeat":
+            rebufferHeartbeat(extraProps: extraProps)
+        case "av.play":
+            var avPosition = 0
+            if let optAvPosition = options?["av_position"] as? Int {
+                avPosition = optAvPosition
+            }
+            play(cursorPosition: avPosition, extraProps: extraProps)
+        case "av.buffer.start":
+            var avPosition = 0
+            if let optAvPosition = options?["av_position"] as? Int {
+                avPosition = optAvPosition
+            }
+            bufferStart(cursorPosition: avPosition, extraProps: extraProps)
+        case "av.start":
+            var avPosition = 0
+            if let optAvPosition = options?["av_position"] as? Int {
+                avPosition = optAvPosition
+            }
+            playbackStart(cursorPosition: avPosition, extraProps: extraProps)
+        case "av.resume":
+            var avPosition = 0
+            if let optAvPosition = options?["av_position"] as? Int {
+                avPosition = optAvPosition
+            }
+            playbackResumed(cursorPosition: avPosition, extraProps: extraProps)
+        case "av.pause":
+            var avPosition = 0
+            if let optAvPosition = options?["av_position"] as? Int {
+                avPosition = optAvPosition
+            }
+            playbackPaused(cursorPosition: avPosition, extraProps: extraProps)
+        case "av.stop":
+            var avPosition = 0
+            if let optAvPosition = options?["av_position"] as? Int {
+                avPosition = optAvPosition
+            }
+            playbackStopped(cursorPosition: avPosition, extraProps: extraProps)
+        case "av.backward":
+            var avPreviousPosition = 0
+            var avPosition = 0
+            if let optAvPreviousPosition = options?["av_previous_position"] as? Int {
+                avPreviousPosition = optAvPreviousPosition
+            }
+            if let optAvPosition = options?["av_position"] as? Int {
+                avPosition = optAvPosition
+            }
+            seekBackward(oldCursorPosition: avPreviousPosition, newCursorPosition: avPosition, extraProps: extraProps)
+        case "av.forward":
+            var avPreviousPosition = 0
+            var avPosition = 0
+            if let optAvPreviousPosition = options?["av_previous_position"] as? Int {
+                avPreviousPosition = optAvPreviousPosition
+            }
+            if let optAvPosition = options?["av_position"] as? Int {
+                avPosition = optAvPosition
+            }
+            seekForward(oldCursorPosition: avPreviousPosition, newCursorPosition: avPosition, extraProps: extraProps)
+        case "av.seek.start":
+            var avPreviousPosition = 0
+            if let optAvPreviousPosition = options?["av_previous_position"] as? Int {
+                avPreviousPosition = optAvPreviousPosition
+            }
+            seekStart(oldCursorPosition: avPreviousPosition, extraProps: extraProps)
+        case "av.error":
+            var avError = ""
+            if let optAvError = options?["av_player_error"] as? String {
+                avError = optAvError
+            }
+            error(message: avError, extraProps: extraProps)
+        default:
+            self.avSynchronizer.sync {
                 sendEvents(events: self.createEvent(name: action, withOptions: false, extraProps: extraProps))
             }
         }
@@ -485,10 +485,14 @@ public class AVMedia: RequiredPropertiesDataObject {
     
     @objc public func error(message: String, extraProps: [String : Any]?) {
        self.avSynchronizer.sync {
-            if var optExtraProps = extraProps {
-                optExtraProps["av_player_error"] = message
-                sendEvents(events: self.createEvent(name: "av.error", withOptions: false, extraProps: optExtraProps))
+            var optExtraProps : [String : Any]? = nil
+            if extraProps != nil {
+                optExtraProps = extraProps
+            } else {
+                optExtraProps = [String : Any]()
             }
+            optExtraProps?["av_player_error"] = message
+            sendEvents(events: self.createEvent(name: "av.error", withOptions: false, extraProps: optExtraProps))
        }
     }
     
