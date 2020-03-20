@@ -297,15 +297,14 @@ class TechnicalContext: NSObject {
             #if canImport(WatchKit)
             let screenBounds = WKInterfaceDevice.current().screenBounds
             let screenScale = WKInterfaceDevice.current().screenScale
+            return String(format:"%ix%i", Int(screenBounds.size.width * screenScale), Int(screenBounds.size.height * screenScale))
             #elseif canImport(UIKit)
             let screenBounds = UIScreen.main.bounds
             let screenScale = UIScreen.main.scale
-            #else
-            let screenBounds = 0
-            let screenScale = 0
-            #endif
-                
             return String(format:"%ix%i", Int(screenBounds.size.width * screenScale), Int(screenBounds.size.height * screenScale))
+            #else
+            return "0x0"
+            #endif
         }
     }
     
