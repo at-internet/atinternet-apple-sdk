@@ -121,8 +121,8 @@ public class AVMedia: RequiredPropertiesDataObject {
         return self
     }
     
-    @objc public func track(action: String, options: [String : Any]?, extraProps: [String : Any]?) {
-        switch (action){
+    @objc public func track(event: String, options: [String : Any]?, extraProps: [String : Any]?) {
+        switch (event){
         case "av.heartbeat":
             heartbeat(extraProps: extraProps)
         case "av.buffer.heartbeat":
@@ -199,7 +199,7 @@ public class AVMedia: RequiredPropertiesDataObject {
             error(message: avError, extraProps: extraProps)
         default:
             self.avSynchronizer.sync {
-                sendEvents(events: self.createEvent(name: action, withOptions: false, extraProps: extraProps))
+                sendEvents(events: self.createEvent(name: event, withOptions: false, extraProps: extraProps))
             }
         }
     }
