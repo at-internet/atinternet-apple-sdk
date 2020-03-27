@@ -38,25 +38,59 @@ public class AVMedia: RequiredPropertiesDataObject {
     
     fileprivate let avSynchronizer = DispatchQueue(label: "AVSynchronizer")
 
-    var heartbeatTimer : Timer? = nil
+    fileprivate var heartbeatTimer : Timer? = nil
     
-    var sessionId: String = Foundation.UUID().uuidString
-    var previousEvent: String = ""
-    var previousCursorPositionMillis: Int = 0
-    var currentCursorPositionMillis: Int = 0
-    var eventDurationMillis: Int = 0
-    var sessionDurationMillis: Int = 0
-    var startSessionTimeMillis: Int = 0
-    var bufferTimeMillis: Int = 0
-    var heartbeatDurations: [Int:Int] = [Int:Int]()
-    var bufferHeartbeatDurations: [Int:Int] = [Int:Int]()
+    fileprivate var sessionId: String = Foundation.UUID().uuidString
+    fileprivate var previousEvent: String = ""
+    fileprivate var previousCursorPositionMillis: Int = 0
+    fileprivate var currentCursorPositionMillis: Int = 0
+    fileprivate var eventDurationMillis: Int = 0
+    fileprivate var sessionDurationMillis: Int = 0
+    fileprivate var startSessionTimeMillis: Int = 0
+    fileprivate var bufferTimeMillis: Int = 0
+    fileprivate var heartbeatDurations: [Int:Int] = [Int:Int]()
+    fileprivate var bufferHeartbeatDurations: [Int:Int] = [Int:Int]()
     
-    var isPlaying: Bool = false
-    var isPlaybackStartAlreadyCalled: Bool = false
-    var autoHeartbeat: Bool = false
-    var autoBufferHeartbeat: Bool = false
+    fileprivate var isPlaying: Bool = false
+    fileprivate var isPlaybackStartAlreadyCalled: Bool = false
+    fileprivate var autoHeartbeat: Bool = false
+    fileprivate var autoBufferHeartbeat: Bool = false
+    fileprivate var events : Events?
     
-    var events : Events?
+    @objc fileprivate var _playbackSpeed = 1.0;
+    @objc public var playbackSpeed : Double {
+        get {
+            self.avSynchronizer.sync {
+                return _playbackSpeed
+            }
+        }
+        set {
+            self.avSynchronizer.sync {
+                guard newValue > 0 && newValue != _playbackSpeed else { return }
+                
+                if !isPlaying {
+                    _playbackSpeed = newValue
+                    return
+                }
+            }
+            
+            heartbeat(extraProps: nil)
+            
+            self.avSynchronizer.sync {
+                stopHeartbeatTimer()
+                
+                if self.autoHeartbeat {
+                    let diffMin = (Int(Date().timeIntervalSince1970 * 1000) - self.startSessionTimeMillis) / 60000
+                    if let duration = self.heartbeatDurations[diffMin] {
+                        heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(duration), target: self, selector: #selector(self.processAutoHeartbeat), userInfo: nil, repeats: false)
+                    } else {
+                        heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(MinHeartbeatDuration), target: self, selector: #selector(self.processAutoHeartbeat), userInfo: nil, repeats: false)
+                    }
+                }
+                _playbackSpeed = newValue
+            }
+        }
+    }
     
     init(events: Events?) {
         self.events = events
@@ -69,27 +103,23 @@ public class AVMedia: RequiredPropertiesDataObject {
         _ = self.setBufferHeartbeat(bufferHeartbeat: bufferHeartbeat)
     }
     
-    convenience init(events: Events?, heartbeat: [Int:Int], bufferHeartbeat: [Int:Int]) {
+    convenience init(events: Events?, heartbeat: [Int:Int]?, bufferHeartbeat: [Int:Int]?) {
         self.init(events: events)
         _ = self.setHeartbeat(heartbeat: heartbeat)
         _ = self.setBufferHeartbeat(bufferHeartbeat: bufferHeartbeat)
     }
     
     func setHeartbeat(heartbeat: Int) -> AVMedia {
-        return setHeartbeat(heartbeat: [0:heartbeat])
+        return setHeartbeat(heartbeat: [0: max(heartbeat, MinHeartbeatDuration)])
     }
     
-    func setHeartbeat(heartbeat: [Int: Int]) -> AVMedia {
-        guard heartbeat.count > 0 else { return self }
+    func setHeartbeat(heartbeat: [Int: Int]?) -> AVMedia {
+        guard heartbeat != nil && heartbeat!.count > 0 else { return self }
         self.avSynchronizer.sync {
             self.autoHeartbeat = true
             self.heartbeatDurations.removeAll()
-            for (k,v) in heartbeat {
-                if v < MinHeartbeatDuration {
-                    self.heartbeatDurations[k] = MinHeartbeatDuration
-                } else {
-                    self.heartbeatDurations[k] = v
-                }
+            for (k,v) in heartbeat! {
+                self.heartbeatDurations[k] =  max(v, MinHeartbeatDuration)
             }
             if !self.heartbeatDurations.keys.contains(0) {
                self.heartbeatDurations[0] = MinHeartbeatDuration
@@ -99,20 +129,16 @@ public class AVMedia: RequiredPropertiesDataObject {
     }
     
     func setBufferHeartbeat(bufferHeartbeat: Int) -> AVMedia {
-        return setBufferHeartbeat(bufferHeartbeat: [0:bufferHeartbeat])
+        return setBufferHeartbeat(bufferHeartbeat: [0: max(bufferHeartbeat, MinBufferHeartbeatDuration)])
     }
     
-    func setBufferHeartbeat(bufferHeartbeat: [Int: Int]) -> AVMedia {
-        guard bufferHeartbeat.count > 0 else { return self }
+    func setBufferHeartbeat(bufferHeartbeat: [Int: Int]?) -> AVMedia {
+        guard bufferHeartbeat != nil && bufferHeartbeat!.count > 0 else { return self }
         self.avSynchronizer.sync {
             self.autoBufferHeartbeat = true
             self.bufferHeartbeatDurations.removeAll()
-            for (k,v) in bufferHeartbeat {
-                if v < MinBufferHeartbeatDuration {
-                    self.bufferHeartbeatDurations[k] = MinBufferHeartbeatDuration
-                } else {
-                    self.bufferHeartbeatDurations[k] = v
-                }
+            for (k,v) in bufferHeartbeat! {
+                self.bufferHeartbeatDurations[k] = max(v, MinBufferHeartbeatDuration)
             }
             if !self.bufferHeartbeatDurations.keys.contains(0) {
                self.bufferHeartbeatDurations[0] = MinBufferHeartbeatDuration
@@ -211,30 +237,9 @@ public class AVMedia: RequiredPropertiesDataObject {
             self.updateDuration()
             
             self.previousCursorPositionMillis = self.currentCursorPositionMillis
-            self.currentCursorPositionMillis += self.eventDurationMillis
+            self.currentCursorPositionMillis += Int(Double(self.eventDurationMillis) * self._playbackSpeed)
             
             sendEvents(events: self.createEvent(name: "av.heartbeat", withOptions: true, extraProps: extraProps))
-        }
-    }
-    
-    @objc func processAutoHeartbeat() {
-        self.avSynchronizer.sync {
-            self.startSessionTimeMillis = self.startSessionTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.startSessionTimeMillis
-            
-            self.updateDuration()
-            
-            self.previousCursorPositionMillis = self.currentCursorPositionMillis
-            self.currentCursorPositionMillis += self.eventDurationMillis
-            
-            if self.autoHeartbeat {
-                let diffMin = (Int(Date().timeIntervalSince1970 * 1000) - self.startSessionTimeMillis) / 60000
-                if let duration = self.heartbeatDurations[diffMin] {
-                    heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(duration), target: self, selector: #selector(self.processAutoHeartbeat), userInfo: nil, repeats: false)
-                } else {
-                    heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(MinHeartbeatDuration), target: self, selector: #selector(self.processAutoHeartbeat), userInfo: nil, repeats: false)
-                }
-            }
-            sendEvents(events: self.createEvent(name: "av.heartbeat", withOptions: true, extraProps: nil))
         }
     }
     
@@ -245,26 +250,6 @@ public class AVMedia: RequiredPropertiesDataObject {
             self.updateDuration()
             
             sendEvents(events: self.createEvent(name: "av.buffer.heartbeat", withOptions: true, extraProps: extraProps))
-        }
-    }
-    
-    @objc func processAutoBufferHeartbeat() {
-        self.avSynchronizer.sync {
-            self.startSessionTimeMillis = self.startSessionTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.startSessionTimeMillis
-            
-            self.updateDuration()
-            
-            if self.autoBufferHeartbeat {
-                
-                self.bufferTimeMillis = self.bufferTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.bufferTimeMillis
-                let diffMin = (Int(Date().timeIntervalSince1970 * 1000) - self.bufferTimeMillis) / 60000
-                if let duration = self.bufferHeartbeatDurations[diffMin] {
-                    heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(duration), target: self, selector: #selector(self.processAutoBufferHeartbeat), userInfo: nil, repeats: false)
-                } else {
-                    heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(MinBufferHeartbeatDuration), target: self, selector: #selector(self.processAutoBufferHeartbeat), userInfo: nil, repeats: false)
-                }
-                sendEvents(events: self.createEvent(name: "av.buffer.heartbeat", withOptions: true, extraProps: nil))
-            }
         }
     }
     
@@ -280,36 +265,15 @@ public class AVMedia: RequiredPropertiesDataObject {
         }
     }
     
-    @objc func processAutoRebufferHeartbeat() {
-        self.avSynchronizer.sync {
-            self.startSessionTimeMillis = self.startSessionTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.startSessionTimeMillis
-            
-            self.updateDuration()
-            
-            self.previousCursorPositionMillis = self.currentCursorPositionMillis
-            
-            if self.autoBufferHeartbeat {
-                
-                self.bufferTimeMillis = self.bufferTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.bufferTimeMillis
-                let diffMin = (Int(Date().timeIntervalSince1970 * 1000) - self.bufferTimeMillis) / 60000
-                if let duration = self.bufferHeartbeatDurations[diffMin] {
-                    heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(duration), target: self, selector: #selector(self.processAutoRebufferHeartbeat), userInfo: nil, repeats: false)
-                } else {
-                    heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(MinBufferHeartbeatDuration), target: self, selector: #selector(self.processAutoRebufferHeartbeat), userInfo: nil, repeats: false)
-                }
-                sendEvents(events: self.createEvent(name: "av.rebuffer.heartbeat", withOptions: true, extraProps: nil))
-            }
-        }
-    }
-    
     @objc public func play(cursorPosition: Int, extraProps: [String : Any]?) {
         self.avSynchronizer.sync {
             self.startSessionTimeMillis = self.startSessionTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.startSessionTimeMillis
             
             self.eventDurationMillis = 0
             
-            self.previousCursorPositionMillis = cursorPosition
-            self.currentCursorPositionMillis = cursorPosition
+            let v = max(cursorPosition, 0)
+            self.previousCursorPositionMillis = v
+            self.currentCursorPositionMillis = v
             
             self.bufferTimeMillis = 0
             self.isPlaying = false
@@ -327,7 +291,7 @@ public class AVMedia: RequiredPropertiesDataObject {
             
             self.updateDuration()
             self.previousCursorPositionMillis = self.currentCursorPositionMillis
-            self.currentCursorPositionMillis = cursorPosition
+            self.currentCursorPositionMillis = max(cursorPosition, 0)
             
             stopHeartbeatTimer()
             
@@ -362,8 +326,10 @@ public class AVMedia: RequiredPropertiesDataObject {
             self.startSessionTimeMillis = self.startSessionTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.startSessionTimeMillis
             
             self.updateDuration()
-            self.previousCursorPositionMillis = cursorPosition
-            self.currentCursorPositionMillis = cursorPosition
+            
+            let v = max(cursorPosition, 0)
+            self.previousCursorPositionMillis = v
+            self.currentCursorPositionMillis = v
             
             self.bufferTimeMillis = 0
             self.isPlaying = true
@@ -388,7 +354,7 @@ public class AVMedia: RequiredPropertiesDataObject {
             
             self.updateDuration()
             self.previousCursorPositionMillis = self.currentCursorPositionMillis
-            self.currentCursorPositionMillis = cursorPosition
+            self.currentCursorPositionMillis = max(cursorPosition, 0)
             self.bufferTimeMillis = 0
             
             self.isPlaying = true
@@ -413,7 +379,7 @@ public class AVMedia: RequiredPropertiesDataObject {
             
             self.updateDuration()
             self.previousCursorPositionMillis = self.currentCursorPositionMillis
-            self.currentCursorPositionMillis = cursorPosition
+            self.currentCursorPositionMillis = max(cursorPosition, 0)
             
             self.bufferTimeMillis = 0
             self.isPlaying = false
@@ -430,7 +396,7 @@ public class AVMedia: RequiredPropertiesDataObject {
             
             self.updateDuration()
             self.previousCursorPositionMillis = self.currentCursorPositionMillis
-            self.currentCursorPositionMillis = cursorPosition
+            self.currentCursorPositionMillis = max(cursorPosition, 0)
             
             self.isPlaying = false
             
@@ -556,9 +522,64 @@ public class AVMedia: RequiredPropertiesDataObject {
        }
     }
     
+    @objc func processAutoHeartbeat() {
+        self.avSynchronizer.sync {
+            self.startSessionTimeMillis = self.startSessionTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.startSessionTimeMillis
+            
+            self.updateDuration()
+            
+            self.previousCursorPositionMillis = self.currentCursorPositionMillis
+            self.currentCursorPositionMillis += Int(Double(self.eventDurationMillis) * self._playbackSpeed)
+            
+            let diffMin = (Int(Date().timeIntervalSince1970 * 1000) - self.startSessionTimeMillis) / 60000
+            if let duration = self.heartbeatDurations[diffMin] {
+                heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(duration), target: self, selector: #selector(self.processAutoHeartbeat), userInfo: nil, repeats: false)
+            } else {
+                heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(MinHeartbeatDuration), target: self, selector: #selector(self.processAutoHeartbeat), userInfo: nil, repeats: false)
+            }
+            sendEvents(events: self.createEvent(name: "av.heartbeat", withOptions: true, extraProps: nil))
+        }
+    }
+    
+    @objc func processAutoBufferHeartbeat() {
+        self.avSynchronizer.sync {
+            self.startSessionTimeMillis = self.startSessionTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.startSessionTimeMillis
+            
+            self.updateDuration()
+            
+            self.bufferTimeMillis = self.bufferTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.bufferTimeMillis
+            let diffMin = (Int(Date().timeIntervalSince1970 * 1000) - self.bufferTimeMillis) / 60000
+            if let duration = self.bufferHeartbeatDurations[diffMin] {
+                heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(duration), target: self, selector: #selector(self.processAutoBufferHeartbeat), userInfo: nil, repeats: false)
+            } else {
+                heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(MinBufferHeartbeatDuration), target: self, selector: #selector(self.processAutoBufferHeartbeat), userInfo: nil, repeats: false)
+            }
+            sendEvents(events: self.createEvent(name: "av.buffer.heartbeat", withOptions: true, extraProps: nil))
+        }
+    }
+    
+    @objc func processAutoRebufferHeartbeat() {
+        self.avSynchronizer.sync {
+            self.startSessionTimeMillis = self.startSessionTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.startSessionTimeMillis
+            
+            self.updateDuration()
+            
+            self.previousCursorPositionMillis = self.currentCursorPositionMillis
+            
+            self.bufferTimeMillis = self.bufferTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.bufferTimeMillis
+            let diffMin = (Int(Date().timeIntervalSince1970 * 1000) - self.bufferTimeMillis) / 60000
+            if let duration = self.bufferHeartbeatDurations[diffMin] {
+                heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(duration), target: self, selector: #selector(self.processAutoRebufferHeartbeat), userInfo: nil, repeats: false)
+            } else {
+                heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(MinBufferHeartbeatDuration), target: self, selector: #selector(self.processAutoRebufferHeartbeat), userInfo: nil, repeats: false)
+            }
+            sendEvents(events: self.createEvent(name: "av.rebuffer.heartbeat", withOptions: true, extraProps: nil))
+        }
+    }
+    
     private func createSeekStart(oldCursorPosition: Int, extraProps: [String : Any]?) -> Event {
         self.previousCursorPositionMillis = self.currentCursorPositionMillis
-        self.currentCursorPositionMillis = oldCursorPosition
+        self.currentCursorPositionMillis = max(oldCursorPosition, 0)
         
         if self.isPlaying {
             self.updateDuration()
@@ -572,8 +593,8 @@ public class AVMedia: RequiredPropertiesDataObject {
         let seekStart = createSeekStart(oldCursorPosition: oldCursorPosition, extraProps: extraProps)
         
         self.eventDurationMillis = 0
-        self.previousCursorPositionMillis = oldCursorPosition
-        self.currentCursorPositionMillis = newCursorPosition
+        self.previousCursorPositionMillis = max(oldCursorPosition, 0)
+        self.currentCursorPositionMillis = max(newCursorPosition, 0)
         
         sendEvents(events: seekStart, self.createEvent(name: "av." + seekDirection, withOptions: true, extraProps: extraProps))
     }

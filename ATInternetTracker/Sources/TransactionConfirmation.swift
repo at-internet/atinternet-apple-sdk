@@ -97,10 +97,7 @@ public class TransactionConfirmation: Event {
 /// Wrapper class to manage TransactionConfirmation event instances
 public class TransactionConfirmations : EventsHelper {
     
-    private let tracker : Tracker
-    
-    init(events: Events, tracker: Tracker) {
-        self.tracker = tracker
+    override init(events: Events) {
         super.init(events: events)
     }
     

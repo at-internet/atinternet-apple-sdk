@@ -53,7 +53,7 @@ public class ECommerce: NSObject {
     
     @objc public lazy var cartAwaitingPayments: CartAwaitingPayments = CartAwaitingPayments(events: self.events)
     
-    @objc public lazy var transactionConfirmations: TransactionConfirmations = TransactionConfirmations(events: self.events, tracker: self.tracker)
+    @objc public lazy var transactionConfirmations: TransactionConfirmations = TransactionConfirmations(events: self.events)
     
     init(tracker: Tracker) {
         self.tracker = tracker

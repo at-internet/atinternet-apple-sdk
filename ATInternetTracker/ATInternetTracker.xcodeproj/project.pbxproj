@@ -1265,7 +1265,6 @@
 				4F47A5461D35458E00702747 /* DefaultTrackerDelegate.swift in Sources */,
 				4F47A4E11D35446700702747 /* IdentifiedVisitor.swift in Sources */,
 				4F47A4E91D35446700702747 /* LiveAudio.swift in Sources */,
-				CCC9F60F23B643010055516B /* AVEvent.swift in Sources */,
 				CC704B4421B6649B00114A86 /* RequiredPropertiesDataObject.swift in Sources */,
 				4F47A4CD1D35446700702747 /* CustomObject.swift in Sources */,
 				4F47A45A1D3542A400702747 /* BackgroundTask.swift in Sources */,
@@ -1375,7 +1374,6 @@
 				CC704B6221B6BD9E00114A86 /* DeliveryCheckout.swift in Sources */,
 				4F47A46C1D3542A400702747 /* Context.swift in Sources */,
 				4F47A5231D35446700702747 /* Video.swift in Sources */,
-				CCC9F60A23B641580055516B /* AVObjectProperties.swift in Sources */,
 				4F47A4DB1D35446700702747 /* Event.swift in Sources */,
 				8E3061E220A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A4C71D35446700702747 /* Campaign.swift in Sources */,
@@ -1385,7 +1383,6 @@
 				4F47A48C1D3542A400702747 /* TechnicalContext.swift in Sources */,
 				4F47A53D1D35451A00702747 /* Hash.m in Sources */,
 				CC1FE8A92159FE4D006FE401 /* Medium.swift in Sources */,
-				CCC9F61123B643010055516B /* AVEvent.swift in Sources */,
 				4F47A5C11D36215D00702747 /* ATReachability.swift in Sources */,
 				4F47A4EB1D35446700702747 /* LiveAudio.swift in Sources */,
 				4F47A4F71D35446700702747 /* MediaPlayer.swift in Sources */,
@@ -1429,7 +1426,6 @@
 				4F47A47D1D3542A400702747 /* Param.swift in Sources */,
 				CCEDDA6F21C384F9006E1848 /* MvTesting.swift in Sources */,
 				4F47A5361D35451A00702747 /* Crash.m in Sources */,
-				CCC9F60B23B641580055516B /* AVObjectProperties.swift in Sources */,
 				CC704B4E21B672BA00114A86 /* AddProduct.swift in Sources */,
 				4F47A5CF1D36223D00702747 /* StringExtension.swift in Sources */,
 				4F47A4911D3542A400702747 /* Tool.swift in Sources */,
@@ -1452,7 +1448,6 @@
 				4F47A46D1D3542A400702747 /* Context.swift in Sources */,
 				4F47A5241D35446700702747 /* Video.swift in Sources */,
 				CC704B9421B6D16700114A86 /* RemoveProduct.swift in Sources */,
-				CCC9F61223B643010055516B /* AVEvent.swift in Sources */,
 				4F47A4DC1D35446700702747 /* Event.swift in Sources */,
 				4F47A4C81D35446700702747 /* Campaign.swift in Sources */,
 				4F47A48D1D3542A400702747 /* TechnicalContext.swift in Sources */,
@@ -1533,7 +1528,6 @@
 				CC704B6121B6BD9E00114A86 /* DeliveryCheckout.swift in Sources */,
 				4F47A5CD1D36223D00702747 /* StringExtension.swift in Sources */,
 				4F47A4CA1D35446700702747 /* Cart.swift in Sources */,
-				CCC9F60923B641580055516B /* AVObjectProperties.swift in Sources */,
 				4F47A4671D3542A400702747 /* Configuration.swift in Sources */,
 				4F47A5121D35446700702747 /* RichMedia.swift in Sources */,
 				8E3061E120A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
@@ -1543,7 +1537,6 @@
 				4F47A4BE1D35446700702747 /* Aisle.swift in Sources */,
 				4F47A4FE1D35446700702747 /* Offline.swift in Sources */,
 				CC1FE8A82159FE4D006FE401 /* Medium.swift in Sources */,
-				CCC9F61023B643010055516B /* AVEvent.swift in Sources */,
 				4F47A4481D3541C500702747 /* ATInternet.swift in Sources */,
 				4F47A4E61D35446700702747 /* InternalSearch.swift in Sources */,
 				4F47A4C61D35446700702747 /* Campaign.swift in Sources */,
@@ -1637,7 +1630,6 @@
 				8EC45F06206A471E00B0EC52 /* ATReachability.swift in Sources */,
 				4F47A83E1D3D192C00702747 /* Configuration.swift in Sources */,
 				CCEDDA7021C384F9006E1848 /* MvTesting.swift in Sources */,
-				CCC9F60C23B641580055516B /* AVObjectProperties.swift in Sources */,
 				4F47A81E1D3D17FC00702747 /* Offline.swift in Sources */,
 				4F47A8231D3D17FC00702747 /* RichMedia.swift in Sources */,
 				CC2DC3D9227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */,
@@ -1671,7 +1663,6 @@
 				CC1FE8AC2159FE4D006FE401 /* Medium.swift in Sources */,
 				4F47A8201D3D17FC00702747 /* Order.swift in Sources */,
 				4F47A8251D3D17FC00702747 /* SelfPromotion.swift in Sources */,
-				CCC9F61323B643010055516B /* AVEvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1703,7 +1694,6 @@
 				4FF5944C1D3F66830004D336 /* BusinessObject.swift in Sources */,
 				4FF594281D3F61E50004D336 /* IdentifiedVisitorTests.swift in Sources */,
 				CC543FEA2248AFB3005E3DBA /* MvTestingTests.swift in Sources */,
-				CCC9F60D23B641580055516B /* AVObjectProperties.swift in Sources */,
 				4FF594581D3F66A00004D336 /* Location.swift in Sources */,
 				CC2DC3DA227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */,
 				CC704B4221B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */,
@@ -1746,7 +1736,6 @@
 				CCEDDA7121C384F9006E1848 /* MvTesting.swift in Sources */,
 				CC1FE8AD2159FE4D006FE401 /* Medium.swift in Sources */,
 				4FF5945F1D3F66B00004D336 /* Publisher.swift in Sources */,
-				CCC9F61423B643010055516B /* AVEvent.swift in Sources */,
 				CC704B9621B6D16700114A86 /* RemoveProduct.swift in Sources */,
 				4FF5945B1D3F66A70004D336 /* Offline.swift in Sources */,
 				8E3061E620A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
@@ -1834,7 +1823,7 @@
 				RESOURCES_TARGETED_DEVICE_FAMILY = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1882,7 +1871,7 @@
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				VALIDATE_PRODUCT = YES;

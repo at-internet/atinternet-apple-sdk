@@ -49,7 +49,7 @@ public class AVInsights: NSObject {
     }
     
     @objc(MediaWithDynamicValues::)
-    public func Media(heartbeat: [Int:Int], bufferHeartbeat: [Int:Int]) -> AVMedia {
+    public func Media(heartbeat: [Int:Int]?, bufferHeartbeat: [Int:Int]?) -> AVMedia {
         return AVMedia(events: self.events, heartbeat: heartbeat, bufferHeartbeat: bufferHeartbeat)
     }
 }
