@@ -68,6 +68,8 @@ public class AVMedia: RequiredPropertiesDataObject {
             self.avSynchronizer.sync {
                 guard newValue > 0 && newValue != _playbackSpeed else { return }
                 
+                stopHeartbeatTimer()
+                
                 if !isPlaying {
                     _playbackSpeed = newValue
                     return
@@ -77,7 +79,6 @@ public class AVMedia: RequiredPropertiesDataObject {
             heartbeat(extraProps: nil)
             
             self.avSynchronizer.sync {
-                stopHeartbeatTimer()
                 
                 if self.autoHeartbeat {
                     let diffMin = (Int(Date().timeIntervalSince1970 * 1000) - self.startSessionTimeMillis) / 60000
