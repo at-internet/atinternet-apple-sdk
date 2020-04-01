@@ -232,7 +232,14 @@ public class AVMedia: RequiredPropertiesDataObject {
     }
     
     @objc public func heartbeat(extraProps: [String : Any]?) {
+        self.heartbeat(cursorPosition: -1, extraProps: extraProps)
+    }
+    
+    @objc public func heartbeat(cursorPosition: Int, extraProps: [String : Any]?) {
         self.avSynchronizer.sync {
+            if cursorPosition >= 0 {
+                self.currentCursorPositionMillis = cursorPosition
+            }
             self.startSessionTimeMillis = self.startSessionTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.startSessionTimeMillis
             
             self.updateDuration()
