@@ -60,36 +60,29 @@ public class AVMedia: RequiredPropertiesDataObject {
     @objc fileprivate var _playbackSpeed = 1.0;
     @objc public var playbackSpeed : Double {
         get {
-            self.avSynchronizer.sync {
-                return _playbackSpeed
-            }
+             return _playbackSpeed
         }
         set {
-            self.avSynchronizer.sync {
-                guard newValue > 0 && newValue != _playbackSpeed else { return }
-                
-                stopHeartbeatTimer()
-                
-                if !isPlaying {
-                    _playbackSpeed = newValue
-                    return
-                }
+            guard newValue > 0 && newValue != _playbackSpeed else { return }
+            
+            stopHeartbeatTimer()
+            
+            if !isPlaying {
+                _playbackSpeed = newValue
+                return
             }
             
             heartbeat(extraProps: nil)
             
-            self.avSynchronizer.sync {
-                
-                if self.autoHeartbeat {
-                    let diffMin = (Int(Date().timeIntervalSince1970 * 1000) - self.startSessionTimeMillis) / 60000
-                    if let duration = self.heartbeatDurations[diffMin] {
-                        heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(duration), target: self, selector: #selector(self.processAutoHeartbeat), userInfo: nil, repeats: false)
-                    } else {
-                        heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(MinHeartbeatDuration), target: self, selector: #selector(self.processAutoHeartbeat), userInfo: nil, repeats: false)
-                    }
+            if self.autoHeartbeat {
+                let diffMin = (Int(Date().timeIntervalSince1970 * 1000) - self.startSessionTimeMillis) / 60000
+                if let duration = self.heartbeatDurations[diffMin] {
+                    heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(duration), target: self, selector: #selector(self.processAutoHeartbeat), userInfo: nil, repeats: false)
+                } else {
+                    heartbeatTimer = Timer.scheduledTimer(timeInterval: TimeInterval(MinHeartbeatDuration), target: self, selector: #selector(self.processAutoHeartbeat), userInfo: nil, repeats: false)
                 }
-                _playbackSpeed = newValue
             }
+            _playbackSpeed = newValue
         }
     }
     
