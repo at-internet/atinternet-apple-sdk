@@ -72,7 +72,7 @@ public class AVMedia: RequiredPropertiesDataObject {
                 return
             }
             
-            heartbeat(extraProps: nil)
+            heartbeat(cursorPosition: -1, extraProps: nil)
             
             if self.autoHeartbeat {
                 let diffMin = (Int(Date().timeIntervalSince1970 * 1000) - self.startSessionTimeMillis) / 60000
@@ -144,7 +144,11 @@ public class AVMedia: RequiredPropertiesDataObject {
     @objc public func track(event: String, options: [String : Any]?, extraProps: [String : Any]?) {
         switch (event){
         case "av.heartbeat":
-            heartbeat(extraProps: extraProps)
+            var avPosition = -1
+            if let optAvPosition = options?["av_position"] as? Int {
+                avPosition = optAvPosition
+            }
+            heartbeat(cursorPosition: avPosition, extraProps: extraProps)
         case "av.buffer.heartbeat":
             bufferHeartbeat(extraProps: extraProps)
         case "av.rebuffer.heartbeat":
@@ -224,21 +228,18 @@ public class AVMedia: RequiredPropertiesDataObject {
         }
     }
     
-    @objc public func heartbeat(extraProps: [String : Any]?) {
-        self.heartbeat(cursorPosition: -1, extraProps: extraProps)
-    }
-    
     @objc public func heartbeat(cursorPosition: Int, extraProps: [String : Any]?) {
         self.avSynchronizer.sync {
-            if cursorPosition >= 0 {
-                self.currentCursorPositionMillis = cursorPosition
-            }
             self.startSessionTimeMillis = self.startSessionTimeMillis == 0 ? Int(Date().timeIntervalSince1970 * 1000) : self.startSessionTimeMillis
             
             self.updateDuration()
             
             self.previousCursorPositionMillis = self.currentCursorPositionMillis
-            self.currentCursorPositionMillis += Int(Double(self.eventDurationMillis) * self._playbackSpeed)
+            if cursorPosition >= 0 {
+                self.currentCursorPositionMillis = cursorPosition
+            } else {
+                self.currentCursorPositionMillis += Int(Double(self.eventDurationMillis) * self._playbackSpeed)
+            }
             
             sendEvents(events: self.createEvent(name: "av.heartbeat", withOptions: true, extraProps: extraProps))
         }
