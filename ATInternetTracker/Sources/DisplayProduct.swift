@@ -34,6 +34,9 @@ public class DisplayProduct: Event {
         get {
             return _data
         }
+        set {
+            _data = newValue
+        }
     }
     
     init() {
@@ -50,8 +53,9 @@ public class DisplayProduct: Event {
         for p in products {
             /// SALES INSIGHTS
             let dp = DisplayProduct()
-            if !p.properties.isEmpty {
-                dp._data["product"] = p.properties
+            let productProps = p.getProps()
+            if !productProps.isEmpty {
+                dp._data["product"] = productProps
             }
             generatedEvents.append(dp)
         }

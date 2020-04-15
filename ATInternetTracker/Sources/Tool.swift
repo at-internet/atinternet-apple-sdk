@@ -187,4 +187,50 @@ class Tool: NSObject {
         
         return value
     }
+    
+    class func toFlatten(src: [String : Any]) -> [String: Any] {
+        var dst = [String : Any]()
+        doFlatten(src: src, prefix: "", dst: &dst)
+        return dst
+    }
+    
+    private class func doFlatten(src: [String: Any], prefix: String, dst: inout [String : Any]) {
+        for (k,v) in src {
+            let key = prefix == "" ? k : prefix + "_" + k
+            if v is [String : Any] {
+                doFlatten(src: v as! [String : Any], prefix: key, dst: &dst)
+            } else {
+                dst[key] = v
+            }
+        }
+    }
+    
+    class func toObject(src: [String : Any]) -> [String: Any] {
+        return src.reduce(into: [:]) { (acc, arg1) in
+            let (key, value) = arg1
+            let parts = key.components(separatedBy: "_")
+            
+            var path = ""
+            for (i, part) in parts.enumerated() {
+                if i != 0 {
+                    path += "_"
+                }
+                path += part
+                
+                let existingValue : Any? = acc.valueForKeyPath(keyPath: path)
+                if i == parts.count - 1 {
+                    if existingValue == nil {
+                        acc.setValue(value: value, forKeyPath: path)
+                    } else if existingValue is [String: Any] {
+                        acc.setValue(value: value, forKeyPath: String(path + "_$"))
+                    }
+                    return
+                }
+                
+                if existingValue != nil && !(existingValue is [String: Any]) {
+                    acc.setValue(value: existingValue!, forKeyPath: String(path + "_$"))
+                }
+            }
+        }
+    }
 }

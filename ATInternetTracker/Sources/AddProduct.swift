@@ -35,13 +35,18 @@ public class AddProduct: Event {
     
     override var data: [String : Any] {
         get {
-            if !product.properties.isEmpty {
-                _data["product"] = product.properties
+            let productProps = product.getProps()
+            if !productProps.isEmpty {
+                _data["product"] = productProps
             }
-            if !cart.properties.isEmpty {
-                _data["cart"] = cart.properties
+            let cartProps = cart.getProps()
+            if !cartProps.isEmpty {
+                _data["cart"] = cartProps
             }
             return super.data
+        }
+        set {
+            _data = newValue
         }
     }
     
@@ -52,14 +57,14 @@ public class AddProduct: Event {
     override func getAdditionalEvents() -> [Event] {
         var generatedEvents = super.getAdditionalEvents()
         
-        if String(describing: product.get(key: "b:cartcreation") ?? false).toBool() {
+        if String(describing: product.get(key: "cartcreation") ?? false).toBool() {
             let cc = CartCreation()
-            let quantity = Int(String(describing: product.get(key: "n:quantity") ?? 0)) ?? 0
+            let quantity = Int(String(describing: product.get(key: "quantity") ?? 0)) ?? 0
             
-            _ = cc.cart.set(key: "id", value: String(describing: cart.get(key: "s:id") ?? ""))
-                .set(key: "currency", value: String(describing: product.get(key: "s:currency") ?? ""))
-                .set(key: "turnovertaxincluded", value: (Double(String(describing: product.get(key: "f:pricetaxincluded") ?? 0)) ?? 0) * Double(quantity))
-                .set(key: "turnovertaxfree", value: (Double(String(describing: product.get(key: "f:pricetaxfree") ?? 0)) ?? 0) * Double(quantity))
+            _ = cc.cart.set(key: "id", value: String(describing: cart.get(key: "id") ?? ""))
+                .set(key: "currency", value: String(describing: product.get(key: "currency") ?? ""))
+                .set(key: "turnovertaxincluded", value: (Double(String(describing: product.get(key: "pricetaxincluded") ?? 0)) ?? 0) * Double(quantity))
+                .set(key: "turnovertaxfree", value: (Double(String(describing: product.get(key: "pricetaxfree") ?? 0)) ?? 0) * Double(quantity))
                 .set(key: "quantity", value: quantity)
                 .set(key: "nbdistinctproduct", value: 1)
             

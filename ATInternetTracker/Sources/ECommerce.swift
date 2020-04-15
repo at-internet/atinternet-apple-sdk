@@ -35,7 +35,7 @@ public class ECommerce: NSObject {
     private var tracker : Tracker
     private var events : Events
     
-    @objc public lazy var displayPageProducts: DisplayPageProducts = DisplayPageProducts(events: self.events, tracker: self.tracker)
+    @objc public lazy var displayPageProducts: DisplayPageProducts = DisplayPageProducts(events: self.events)
     
     @objc public lazy var displayProducts: DisplayProducts = DisplayProducts(events: self.events)
     
@@ -43,7 +43,7 @@ public class ECommerce: NSObject {
     
     @objc public lazy var removeProducts: RemoveProducts = RemoveProducts(events: self.events)
     
-    @objc public lazy var displayCarts: DisplayCarts = DisplayCarts(events: self.events, tracker: self.tracker)
+    @objc public lazy var displayCarts: DisplayCarts = DisplayCarts(events: self.events)
     
     @objc public lazy var updateCarts: UpdateCarts = UpdateCarts(events: self.events)
     
@@ -51,9 +51,9 @@ public class ECommerce: NSObject {
     
     @objc public lazy var paymentCheckouts: PaymentCheckouts = PaymentCheckouts(events: self.events)
     
-    @objc public lazy var cartAwaitingPayments: CartAwaitingPayments = CartAwaitingPayments(events: self.events, tracker: self.tracker)
+    @objc public lazy var cartAwaitingPayments: CartAwaitingPayments = CartAwaitingPayments(events: self.events)
     
-    @objc public lazy var transactionConfirmations: TransactionConfirmations = TransactionConfirmations(events: self.events, tracker: self.tracker)
+    @objc public lazy var transactionConfirmations: TransactionConfirmations = TransactionConfirmations(events: self.events)
     
     init(tracker: Tracker) {
         self.tracker = tracker
@@ -66,8 +66,9 @@ public class ECommerce: NSObject {
     ///   - enabled: /
     ///   - sync: perform the operation synchronously (optional, default: false)
     ///   - completionHandler: called when the operation has been done
+    @available(*, deprecated, message: "since 2.17.0, configuration is unused")
     @objc public func setAutoSalesTrackerEnabled(_ enabled: Bool, sync: Bool = false, completionHandler: ((_ isSet: Bool) -> Void)?) {
-        tracker.setConfig(TrackerConfigurationKeys.AutoSalesTracker, value: String(enabled), sync: sync, completionHandler: completionHandler)
+        tracker.delegate?.warningDidOccur?("Useless method")
     }
     
     /// Set a new collect domain

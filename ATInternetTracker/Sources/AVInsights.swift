@@ -1,14 +1,17 @@
 /*
  This SDK is licensed under the MIT license (MIT)
  Copyright (c) 2015- Applied Technologies Internet SAS (registration number B 403 261 258 - Trade and Companies Register of Bordeaux – France)
+ 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  copies of the Software, and to permit persons to whom the Software is
  furnished to do so, subject to the following conditions:
+ 
  The above copyright notice and this permission notice shall be included in all
  copies or substantial portions of the Software.
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -18,52 +21,35 @@
  SOFTWARE.
  */
 
+
+
+
+
 //
-//  PaymentCheckout.swift
+//  AVInsights.swift
 //  Tracker
 //
 import Foundation
 
-/// Wrapper class for PaymentCheckout event tracking (SalesInsight)
-public class PaymentCheckout: Event {
+public class AVInsights: NSObject {
+    private var events : Events
     
-    /// Cart property
-    @objc public lazy var cart : ECommerceCart = ECommerceCart()
+    init(tracker: Tracker) {
+        self.events = tracker.events
+    }
     
-    /// Shipping property
-    @objc public lazy var shipping : ECommerceShipping = ECommerceShipping()
-    
-    override var data: [String : Any] {
+    @objc public var media : AVMedia {
         get {
-            let cartProps = cart.getProps()
-            if !cartProps.isEmpty {
-                _data["cart"] = cartProps
-            }
-            let shippingProps = shipping.getProps()
-            if !shippingProps.isEmpty {
-                _data["shipping"] = shippingProps
-            }
-            return super.data
-        }
-        set {
-            _data = newValue
+            return AVMedia(events: self.events)
         }
     }
     
-    init() {
-        super.init(name: "cart.payment")
+    @objc public func Media(heartbeat: Int, bufferHeartbeat: Int) -> AVMedia {
+        return AVMedia(events: self.events, heartbeat: heartbeat, bufferHeartbeat: bufferHeartbeat)
     }
-}
-
-/// Wrapper class to manage PaymentCheckout event instances
-public class PaymentCheckouts : EventsHelper {
     
-    /// Add payment checkout event tracking
-    ///
-    /// - Returns: PaymentCheckout instance
-    @objc public func add() -> PaymentCheckout {
-        let pc = PaymentCheckout()
-        _ = events.add(event: pc)
-        return pc
+    @objc(MediaWithDynamicValues::)
+    public func Media(heartbeat: [Int:Int]?, bufferHeartbeat: [Int:Int]?) -> AVMedia {
+        return AVMedia(events: self.events, heartbeat: heartbeat, bufferHeartbeat: bufferHeartbeat)
     }
 }

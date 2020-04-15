@@ -33,16 +33,16 @@
 import XCTest
 
 class SelfPromotionTests: XCTestCase {
+    
+    var tracker = Tracker()
     override func setUp() {
         super.setUp()
-        
-        TechnicalContext.level2 = -1
-        TechnicalContext.screenName = ""
+        tracker.resetScreenContext()
     }
     
-    lazy var selfPromo: SelfPromotion = SelfPromotion(tracker: Tracker())
-    lazy var selfPromo2: SelfPromotion = SelfPromotion(tracker: Tracker())
-    lazy var selfPromos: SelfPromotions = SelfPromotions(tracker: Tracker())
+    lazy var selfPromo: SelfPromotion = SelfPromotion(tracker: tracker)
+    lazy var selfPromo2: SelfPromotion = SelfPromotion(tracker: tracker)
+    lazy var selfPromos: SelfPromotions = SelfPromotions(tracker: tracker)
     func lookupParam(key: String, params: [ (key: String, value: (String, String)) ]) -> (key: String, value: (String, String)) {
         return params.filter({ (tuple) -> Bool in
             return tuple.key == key

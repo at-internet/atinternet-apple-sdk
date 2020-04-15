@@ -34,10 +34,12 @@ import XCTest
 
 class EventsTests: XCTestCase {
     
-    lazy var events: Events = Events(tracker: Tracker())
+    lazy var tracker = Tracker()
+    lazy var events: Events = Events(tracker: tracker)
 
     override func setUp() {
         super.setUp()
+        tracker.resetScreenContext()
     }
     
     func testSetParamsOne() {

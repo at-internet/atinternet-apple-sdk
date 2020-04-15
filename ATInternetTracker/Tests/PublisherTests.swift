@@ -34,14 +34,21 @@ import XCTest
 
 class PublisherTests: XCTestCase {
     
-    lazy var publisher: Publisher = Publisher(tracker: Tracker())
-    lazy var publisher2: Publisher = Publisher(tracker: Tracker())
-    lazy var publishers: Publishers = Publishers(tracker: Tracker())
+    lazy var tracker = Tracker()
+    lazy var publisher: Publisher = Publisher(tracker: tracker)
+    lazy var publisher2: Publisher = Publisher(tracker: tracker)
+    lazy var publishers: Publishers = Publishers(tracker: tracker)
     func lookupParam(key: String, params: [ (key: String, value: (String, String)) ]) -> (key: String, value: (String, String)) {
         return params.filter({ (tuple) -> Bool in
             return tuple.key == key
         })[0]
     }
+    
+    override func setUp() {
+        super.setUp()
+        tracker.resetScreenContext()
+    }
+    
     func testInitPublisher() {
         XCTAssertTrue(publisher.campaignId == "", "Le nom de la pub doit être vide")
         XCTAssertTrue(publisher.action == OnAppAd.OnAppAdAction.view, "L'action par défaut doit être view")
