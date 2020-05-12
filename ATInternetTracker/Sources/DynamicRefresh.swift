@@ -15,13 +15,18 @@ class DynamicRefresher {
     
     private var elapsedTime: Int = 0 // total time
     private var curr = 0 // current index of DynamicRefreshConfiguration
-    private var timer: Timer
+    private var timer: Timer? {
+        willSet { self.timer?.invalidate() }
+    }
     private var lastTick = Date(); // needed to handle pause
-    
+
+    deinit {
+        self.timer = nil
+    }
+
     init(configuration: DynamicRefreshConfiguration, sendRefresh: @escaping (() -> ()) ) {
         self.configuration = configuration
         self.sendRefresh = sendRefresh
-        self.timer = Timer()
     }
     
     public func start() {
@@ -51,7 +56,7 @@ class DynamicRefresher {
     public func pause() {
         let delta = -(self.lastTick.timeIntervalSinceNow)
         self.elapsedTime += Int(delta)
-        self.timer.invalidate()
+        self.timer = nil
     }
     
     public func resume() {
@@ -59,7 +64,7 @@ class DynamicRefresher {
     }
     
     public func stop() {
-        self.timer.invalidate()
+        self.timer = nil
         self.elapsedTime = 0
         self.curr = 0
     }

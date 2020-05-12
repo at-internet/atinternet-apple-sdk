@@ -310,6 +310,7 @@ public class RichMedia : BusinessObject {
             }
         }
         let config = DynamicRefreshConfiguration(configuration: conf)
+        self.chronoRefresh?.stop()
         self.chronoRefresh = DynamicRefresher(configuration: config) {
             [weak self] in self?.sendRefresh()
         }
