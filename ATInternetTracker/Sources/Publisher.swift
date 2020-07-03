@@ -148,8 +148,8 @@ public class Publisher : OnAppAd {
                 _ = tracker.setParam("patc", value: screenName, options: encodingOption)
             }
             
-            if(TechnicalContext.level2 >= 0) {
-                _ = tracker.setParam("s2atc", value: TechnicalContext.level2)
+            if let level2 = TechnicalContext.level2 {
+                _ = tracker.setParam("s2atc", value: level2)
             }
         }
     }

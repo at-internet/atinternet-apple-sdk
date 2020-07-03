@@ -133,8 +133,12 @@ public class Events: BusinessObject {
         }
         
         /// Level 2
-        if TechnicalContext.level2 > -1 {
-            pageContext["site"] = ["level2_id": TechnicalContext.level2]
+        if let level2 = TechnicalContext.level2 {
+            if let level2Int = Int(level2), level2Int >= 0 && TechnicalContext.isLevel2Int {
+                pageContext["site"] = ["level2_id": level2Int]
+            } else {
+                pageContext["site"] = ["level2": level2]
+            }
         }
         
         return pageContext

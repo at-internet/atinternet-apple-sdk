@@ -88,11 +88,11 @@ class SliceReadyParam: NSObject {
 }
 
 /// Hit parameter
-class Param: NSObject {
+public class Param: NSObject {
     /// Parameter key (Querystring variable)
-    var key: String
+    internal(set) public var key: String
     /// Parameter value
-    var values: [(() -> String)]!
+    internal(set) public var values: [(() -> String)]!
     /// Parameter options
     lazy var options: ParamOption? = ParamOption()
     /// Description (&p=v)
@@ -103,8 +103,13 @@ class Param: NSObject {
         }
         return str
     }
-    var isPersistent: Bool {
+    
+    public var isPersistent: Bool {
         return self.options?.persistent ?? false;
+    }
+    
+    var isProperty: Bool {
+        return self.options?.property ?? false;
     }
     
     /**
@@ -180,6 +185,8 @@ class Param: NSObject {
     /// Indicates if value must be appended to the old value of parameter
     public var append: Bool
     
+    var property: Bool
+    
     /**
     Default initializer
     
@@ -192,5 +199,6 @@ class Param: NSObject {
         encode = false
         persistent = false
         append = false
+        property = false
     }
 }

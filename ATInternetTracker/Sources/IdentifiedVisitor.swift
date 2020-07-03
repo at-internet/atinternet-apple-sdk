@@ -66,7 +66,7 @@ public class IdentifiedVisitor: NSObject {
     @objc(setInt:)
     public func set(_ visitorId: Int) -> Tracker {
         _ = unset()
-        save(HitParam.visitorIdentifierNumeric.rawValue, keyPersistent: IdentifiedVisitorHelperKey.numeric.rawValue, value: visitorId)
+        save(HitParam.visitorIdentifierNumeric.rawValue, keyPersistent: IdentifiedVisitorHelperKey.numeric.rawValue, value: String(visitorId))
         
         return self.tracker
     }
@@ -80,6 +80,18 @@ public class IdentifiedVisitor: NSObject {
     @discardableResult
     @objc(setInt:visitorCategory:)
     public func set(_ visitorId: Int, visitorCategory: Int) -> Tracker {
+        return set(visitorId, visitorCategory: String(visitorCategory))
+    }
+    
+    /// Set Identified visitor for the current session
+    ///
+    /// - Parameters:
+    ///   - visitorId: numeric identifier
+    ///   - visitorCategory: visitorCategory
+    /// - Returns: the tracker instance
+    @discardableResult
+    @objc(setInt:visitorCategoryString:)
+    public func set(_ visitorId: Int, visitorCategory: String) -> Tracker {
         _ = set(visitorId)
         save(HitParam.visitorCategory.rawValue, keyPersistent: IdentifiedVisitorHelperKey.category.rawValue, value: visitorCategory)
         
@@ -108,6 +120,18 @@ public class IdentifiedVisitor: NSObject {
     @discardableResult
     @objc(setString:visitorCategory:)
     public func set(_ visitorId: String, visitorCategory: Int) -> Tracker {
+        return set(visitorId, visitorCategory: String(visitorCategory))
+    }
+    
+    /// Set Identified visitor for the current session
+    ///
+    /// - Parameters:
+    ///   - visitorId: visitorId textual identifier
+    ///   - visitorCategory: visitorCategory
+    /// - Returns: the tracker instance
+    @discardableResult
+    @objc(setString:visitorCategoryString:)
+    public func set(_ visitorId: String, visitorCategory: String) -> Tracker {
         _ = set(visitorId)
         save(HitParam.visitorCategory.rawValue, keyPersistent: IdentifiedVisitorHelperKey.category.rawValue, value: visitorCategory)
         
@@ -129,15 +153,6 @@ public class IdentifiedVisitor: NSObject {
         userDefaults.synchronize()
         
         return self.tracker
-    }
-    
-    /**
-    Save identified visitor specific data to buffer or user defaults
-    - parameter key: parameter name
-    - parameter value: integer parameter value
-    */
-    fileprivate func save(_ keyParameter: String, keyPersistent: String, value: Int) {
-        save(keyParameter, keyPersistent: keyPersistent, value: String(value))
     }
     
     /**

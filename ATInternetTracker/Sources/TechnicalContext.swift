@@ -49,9 +49,9 @@ class TechnicalContext: NSObject {
     class var sdkVersion: String {
         get {
             #if os(watchOS) || os(tvOS)
-            return "1.14.1"
+            return "1.15.0"
             #else
-            return "2.17.1"
+            return "2.18.0"
             #endif
         }
     }
@@ -86,7 +86,8 @@ class TechnicalContext: NSObject {
     /// Name of the last tracked screen
     static var screenName: String? = nil
     /// ID of the last level2 id set in parameters
-    static var level2: Int = -1
+    static var level2: String? = nil
+    static var isLevel2Int: Bool = false
     
     /// Enable or disable user identification
     class var optOut: Bool {
