@@ -877,7 +877,7 @@ public class Tracker: NSObject {
         opts.encode = true
         opts.persistent = persistent
         opts.property = true
-        return setParam(key.lowercased(), value: {value}, options: opts)
+        return setParam(key, value: {value}, options: opts)
     }
     
     /// Add properties in the hit querystring

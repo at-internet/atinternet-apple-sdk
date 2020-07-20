@@ -620,7 +620,10 @@ public class AVMedia: RequiredPropertiesDataObject {
     }
     
     private func createEvent(name: String, withOptions: Bool, extraProps: [String : Any]?) -> Event {
-        var props = Tool.toFlatten(src: self.getProps())
+        var props = [String: Any]()
+        for (k,v) in self.getProps(){
+            props[k] = v
+        }
         if withOptions{
             props["av_previous_position"] = self.previousCursorPositionMillis
             props["av_position"] = self.currentCursorPositionMillis
@@ -632,7 +635,7 @@ public class AVMedia: RequiredPropertiesDataObject {
         props["av_session_id"] = self.sessionId
         
         if extraProps != nil {
-            for (k,v) in Tool.toFlatten(src: extraProps!) {
+            for (k,v) in extraProps! {
                 props[k] = v
             }
         }
