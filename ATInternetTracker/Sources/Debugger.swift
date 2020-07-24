@@ -677,6 +677,7 @@ internal class Debugger: NSObject {
         /******* DATE ********/
         dateLabel.text = hourFormatter.string(from: event.date)
         dateLabel.sizeToFit();
+        dateLabel.textColor = UIColor.black
         
         // align iconView from the top and bottom
         rowView.addConstraint(NSLayoutConstraint(item: dateLabel,
@@ -700,6 +701,7 @@ internal class Debugger: NSObject {
         messageLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
         messageLabel.baselineAdjustment = UIBaselineAdjustment.none
         messageLabel.text = event.message
+        messageLabel.textColor = UIColor.black
         
         rowView.addConstraint(NSLayoutConstraint(item: messageLabel,
             attribute: .left,
@@ -969,6 +971,7 @@ internal class Debugger: NSObject {
                 let variableLabel = UILabel()
                 variableLabel.translatesAutoresizingMaskIntoConstraints = false
                 variableLabel.text = key
+                variableLabel.textColor = UIColor.black
                 variableLabel.textAlignment = NSTextAlignment.right
                 variableLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
                 
@@ -1030,7 +1033,7 @@ internal class Debugger: NSObject {
                 } else {
                     valueLabel.text = value
                 }
-                
+                valueLabel.textColor = UIColor.black
                 valueLabel.textAlignment = NSTextAlignment.left
                 valueLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
                 valueLabel.numberOfLines = 0
@@ -1066,7 +1069,7 @@ internal class Debugger: NSObject {
             let eventMessageLabel = UILabel()
             eventMessageLabel.translatesAutoresizingMaskIntoConstraints = false
             eventMessageLabel.text = hit
-            
+            eventMessageLabel.textColor = UIColor.black
             eventMessageLabel.textAlignment = NSTextAlignment.left
             eventMessageLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
             eventMessageLabel.numberOfLines = 0
@@ -1403,6 +1406,7 @@ internal class Debugger: NSObject {
                 
                 /******* DATE ********/
                 dateLabel.text = dateHourFormatter.string(from: hit.creationDate as Date)
+                dateLabel.textColor = UIColor.black
                 dateLabel.sizeToFit();
                 
                 // align iconView from the top and bottom
@@ -1427,6 +1431,7 @@ internal class Debugger: NSObject {
                 messageLabel.lineBreakMode = NSLineBreakMode.byTruncatingTail
                 messageLabel.baselineAdjustment = UIBaselineAdjustment.none
                 messageLabel.text = hit.url
+                messageLabel.textColor = UIColor.black
                 
                 rowView.addConstraint(NSLayoutConstraint(item: messageLabel,
                     attribute: .left,

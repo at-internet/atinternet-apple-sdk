@@ -57,11 +57,10 @@ public class AbstractScreen: BusinessObject {
     var _chapter1: String?
     var _chapter2: String?
     var _chapter3: String?
+    var _level2: String?
     
     /// Action
     @objc public var action: ScreenAction = ScreenAction.view
-    
-    var _level2: Int = -1
     
     /// true if the screen is a basket screen
     @objc public var isBasketScreen: Bool = false
@@ -112,8 +111,8 @@ public class AbstractScreen: BusinessObject {
 
     /// Set parameters in buffer
     override func setParams() {
-        if _level2 >= 0 {
-            _ = self.tracker.setParam(HitParam.level2.rawValue, value: _level2)
+        if let l = _level2 {
+            _ = self.tracker.setParam(HitParam.level2.rawValue, value: l)
         }
         
         for (_, value) in _customObjects {
@@ -249,13 +248,34 @@ public class Screen: AbstractScreen {
             updateContext()
         }
     }
+    
     /// Level 2
     @objc public var level2: Int {
+        get {
+            if let l = level2String {
+                return Int(l) ?? -1
+            }
+            return -1
+        }
+        set {
+            if newValue >= 0 {
+                _level2 = String(newValue)
+                TechnicalContext.isLevel2Int = true
+            } else {
+                _level2 = nil
+                TechnicalContext.isLevel2Int = false
+            }
+            TechnicalContext.level2 = _level2
+        }
+    }
+    
+    @objc public var level2String: String? {
         get {
             return _level2
         }
         set {
             _level2 = newValue
+            TechnicalContext.isLevel2Int = false
             TechnicalContext.level2 = newValue
         }
     }
@@ -309,15 +329,38 @@ public class DynamicScreen: AbstractScreen {
             _chapter3 = newValue
         }
     }
+    
     /// Level 2
     @objc public var level2: Int {
+        get {
+            if let l = level2String {
+                return Int(l) ?? -1
+            }
+            return -1
+        }
+        set {
+            if newValue >= 0 {
+                _level2 = String(newValue)
+                TechnicalContext.isLevel2Int = true
+            } else {
+                _level2 = nil
+                TechnicalContext.isLevel2Int = false
+            }
+            TechnicalContext.level2 = _level2
+        }
+    }
+    
+    @objc public var level2String: String? {
         get {
             return _level2
         }
         set {
             _level2 = newValue
+            TechnicalContext.isLevel2Int = false
+            TechnicalContext.level2 = newValue
         }
     }
+    
     /// Dynamic screen identifier
     @objc public var screenId: String = ""
     /// Dynamic screen update date

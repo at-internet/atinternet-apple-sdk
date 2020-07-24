@@ -864,6 +864,84 @@ public class Tracker: NSObject {
         return self
     }
     
+    /// Add a property in the hit querystring
+    ///
+    /// - Parameters:
+    ///   - key: parameter key
+    ///   - value: string property value
+    ///   - persistent: persistent option
+    /// - Returns: the current tracker
+    @discardableResult
+    @objc public func setProp(_ key: String, value: String, persistent: Bool) -> Tracker {
+        let opts = ParamOption()
+        opts.encode = true
+        opts.persistent = persistent
+        opts.property = true
+        return setParam(key, value: {value}, options: opts)
+    }
+    
+    /// Add properties in the hit querystring
+    ///
+    /// - Parameters:
+    ///   - props: properties map
+    ///   - persistent: persistent option
+    /// - Returns: the current tracker
+    @discardableResult
+    @objc public func setProps(_ props: [String: String], persistent: Bool) -> Tracker {
+        for (k,v) in props {
+            setProp(k, value: v, persistent: persistent)
+        }
+        return self
+    }
+    
+    /// get a property
+    ///
+    /// - Parameters:
+    ///   - key: parameter key
+    /// - Returns: param object
+    @discardableResult
+    @objc public func getProp(_ key: String) -> Param? {
+        if let p = getParam(key), p.isProperty {
+            return p
+        }
+        return nil
+    }
+    
+    /// get all properties
+    ///
+    /// - Returns: param object list
+    @discardableResult
+    @objc public func getProps() -> [Param] {
+        let params = getParams()
+        var properties = [Param]()
+        for p in params {
+            if p.isProperty {
+                properties.append(p)
+            }
+        }
+        return properties
+    }
+    
+    /// remove property from the hit querystring
+    ///
+    /// - Parameters:
+    ///   - key: property key
+    @objc public func delProp(_ key: String) {
+        if let p = getProp(key) {
+            unsetParam(p.key)
+        }
+    }
+    
+    /// remove all properties
+    @objc public func delProps() {
+        var keys = [String]()
+        keys.append(contentsOf: buffer.volatileParameters.keys)
+        keys.append(contentsOf: buffer.persistentParameters.keys)
+        for k in keys {
+            delProp(k)
+        }
+    }
+    
     /// Add a parameter in the hit querystring
     ///
     /// - Parameters:
@@ -1084,6 +1162,28 @@ public class Tracker: NSObject {
         }
     }
     
+    /// get a parameter
+    ///
+    /// - Parameters:
+    ///   - key: parameter key
+    /// - Returns: param object
+    func getParam(_ key: String) -> Param? {
+        if let p = buffer.volatileParameters[key] {
+            return p
+        }
+        return buffer.persistentParameters[key]
+    }
+    
+    /// get all parameters
+    ///
+    /// - Returns: param object list
+    func getParams() -> [Param] {
+        var params = [Param]()
+        params.append(contentsOf: buffer.volatileParameters.values)
+        params.append(contentsOf: buffer.persistentParameters.values)
+        return params
+    }
+    
     /// Remove a parameter from the hit querystring
     ///
     /// - Parameter param: type
@@ -1095,7 +1195,8 @@ public class Tracker: NSObject {
     /// Remove the screen context: Use only for specific issue mark screenA, mark touchA, dont mark screenB, mark touchB. touchB will be no longer attached to screenA
     @objc public func resetScreenContext() {
         TechnicalContext.screenName = nil
-        TechnicalContext.level2 = -1
+        TechnicalContext.level2 = nil
+        TechnicalContext.isLevel2Int = false
     }
     
     // MARK: - Dispatch

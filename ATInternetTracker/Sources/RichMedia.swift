@@ -166,7 +166,24 @@ public class RichMedia : BusinessObject {
         }
     }
     /// Level 2
-    @objc public var mediaLevel2: Int = -1
+    @objc public var mediaLevel2: Int {
+        get {
+            if let l = mediaLevel2String {
+                return Int(l) ?? -1
+            }
+            return -1
+        }
+        set {
+            if newValue >= 0 {
+                mediaLevel2String = String(newValue)
+            } else {
+                mediaLevel2String = nil
+            }
+        }
+    }
+    
+    /// Level 2
+    @objc public var mediaLevel2String: String?
     
     /// Refresh Duration
     var refreshDuration: Int = 5
@@ -213,8 +230,8 @@ public class RichMedia : BusinessObject {
             _ = self.tracker.setParam("m5", value: optIsEmbedded ? "ext" : "int")
         }
         
-        if self.mediaLevel2 >= 0 {
-            _ = self.tracker.setParam("s2", value: mediaLevel2)
+        if let l = self.mediaLevel2String {
+            _ = self.tracker.setParam("s2", value: l)
         }
     }
     
@@ -242,8 +259,8 @@ public class RichMedia : BusinessObject {
         if let screenName = TechnicalContext.screenName {
             _ = self.tracker.setParam("prich", value: screenName, options: encodingOption)
         }
-        if TechnicalContext.level2 >= 0 {
-            _ = self.tracker.setParam("s2rich", value: TechnicalContext.level2)
+        if let level2 = TechnicalContext.level2 {
+            _ = self.tracker.setParam("s2rich", value: level2)
         }
         if let optLinkedContent = self.linkedContent {
             _ = self.tracker.setParam("clnk", value: optLinkedContent, options: encodingOption)
@@ -310,6 +327,7 @@ public class RichMedia : BusinessObject {
             }
         }
         let config = DynamicRefreshConfiguration(configuration: conf)
+        self.chronoRefresh?.stop()
         self.chronoRefresh = DynamicRefresher(configuration: config) {
             [weak self] in self?.sendRefresh()
         }

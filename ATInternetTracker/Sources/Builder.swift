@@ -479,7 +479,8 @@ class Builder: Operation {
                 separator = opts.separator.percentEncodedString
             }
             
-            formattedParameters[p.key] = (self.makeSubQuery(p.key, value: strValue), separator)
+            let key = p.isProperty ? p.key.lowercased() : p.key
+            formattedParameters[key] = (self.makeSubQuery(key, value: strValue), separator)
         }
         return formattedParameters
     }

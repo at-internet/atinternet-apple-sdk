@@ -97,7 +97,23 @@ public class Gesture: BusinessObject {
     /// Third chapter
     @objc public var chapter3: String?
     /// Level 2
-    @objc public var level2: Int = -1
+    @objc public var level2: Int {
+        get {
+            if let l = level2String {
+                return Int(l) ?? -1
+            }
+            return -1
+        }
+        set {
+            if newValue >= 0 {
+                level2String = String(newValue)
+            } else {
+                level2String = nil
+            }
+        }
+    }
+    
+    @objc public var level2String: String?
     /// Action - See GestureAction
     @objc public var action: GestureAction = GestureAction.touch
     /// Type of touch - See GestureEventType
@@ -178,12 +194,12 @@ public class Gesture: BusinessObject {
             _ = tracker.setParam(HitParam.touchScreen.rawValue, value: screenName, options: encodingOption)
         }
         
-        if(TechnicalContext.level2 >= 0) {
-            _ = tracker.setParam(HitParam.touchLevel2.rawValue, value: TechnicalContext.level2)
+        if let level2 = TechnicalContext.level2 {
+            _ = tracker.setParam(HitParam.touchLevel2.rawValue, value: level2)
         }
         
-        if level2 >= 0 {
-            _ = self.tracker.setParam("s2", value: level2)
+        if let l = level2String {
+            _ = self.tracker.setParam("s2", value: l)
         }
         
         if let search = self.internalSearch {

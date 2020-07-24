@@ -44,24 +44,40 @@ public class Context: NSObject {
     
     // MARK: - Level 2
     
-    internal var _level2: Int = -1
+    internal var _level2: String? = nil
     
     /// Global level 2
     @objc public var level2: Int {
         get {
-            return _level2
+            if let l = level2String {
+                return Int(l) ?? -1
+            }
+            return -1
         }
         set {
-            _level2 = newValue
-            
-            if _level2 >= 0 {
-                let option = ParamOption()
-                option.persistent = true;
-                
-                _ = tracker.setParam(HitParam.level2.rawValue, value: _level2, options: option)
+            if newValue >= 0 {
+                level2String = String(newValue)
             } else {
-                tracker.unsetParam(HitParam.level2.rawValue)
+                level2String = nil
             }
+        }
+    }
+    
+    @objc public var level2String: String? {
+        get {
+            return _level2
+        }
+       set {
+           _level2 = newValue
+           
+           if let l = _level2{
+               let option = ParamOption()
+               option.persistent = true;
+               
+               _ = tracker.setParam(HitParam.level2.rawValue, value: l, options: option)
+           } else {
+               tracker.unsetParam(HitParam.level2.rawValue)
+           }
         }
     }
     
