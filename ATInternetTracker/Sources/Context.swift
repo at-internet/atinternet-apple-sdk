@@ -102,7 +102,7 @@ public class Context: NSObject {
                 case .task:
                     _ = tracker.setParam(HitParam.backgroundMode.rawValue, value: "task", options: option)
                 default:
-                    _ = tracker.unsetParam(HitParam.backgroundMode.rawValue)
+                    tracker.unsetParam(HitParam.backgroundMode.rawValue)
             }
         }
     }

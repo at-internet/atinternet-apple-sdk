@@ -43,6 +43,14 @@ import UIKit
 import WebKit
 #endif
 
+#if canImport(AdSupport)
+import AdSupport
+#endif
+
+#if canImport(AppTrackingTransparency)
+import AppTrackingTransparency
+#endif
+
 /// Contextual information from user device
 class TechnicalContext: NSObject {
     /// SDK Version
@@ -193,35 +201,31 @@ class TechnicalContext: NSObject {
             }
             
             let idfa: () -> String = {
-                if let ASIdentifierManagerClass = NSClassFromString("ASIdentifierManager") {
-                    let sharedManagerSelector = NSSelectorFromString("sharedManager")
-                    if let sharedManagerIMP = ASIdentifierManagerClass.method(for: sharedManagerSelector) {
-                        typealias sharedManagerCType = @convention(c) (AnyObject, Selector) -> AnyObject?
-                        let getSharedManager = unsafeBitCast(sharedManagerIMP, to: sharedManagerCType.self)
-                        if let sharedManager = getSharedManager(ASIdentifierManagerClass.self, sharedManagerSelector) {
-                            let advertisingTrackingEnabledSelector = NSSelectorFromString("isAdvertisingTrackingEnabled")
-                            if let isTrackingEnabledIMP = sharedManager.method(for: advertisingTrackingEnabledSelector) {
-                                typealias isTrackingEnabledCType = @convention(c) (AnyObject, Selector) -> Bool
-                                let getIsTrackingEnabled = unsafeBitCast(isTrackingEnabledIMP, to: isTrackingEnabledCType.self)
-                                let isTrackingEnabled = getIsTrackingEnabled(self, advertisingTrackingEnabledSelector)
-                                if isTrackingEnabled {
-                                    let advertisingIdentifierSelector = NSSelectorFromString("advertisingIdentifier")
-                                    if let advertisingIdentifierIMP = sharedManager.method(for: advertisingIdentifierSelector) {
-                                        typealias adIdentifierCType = @convention(c) (AnyObject, Selector) -> NSUUID
-                                        let getIdfa = unsafeBitCast(advertisingIdentifierIMP, to: adIdentifierCType.self)
-                                        return getIdfa(self, advertisingIdentifierSelector).uuidString
-                                    }
-                                } else {
-                                    if ignoreLimitedAdTracking {
-                                        return uuid()
-                                    }
-                                    return "opt-out"
-                                }
-                            }
-                        }
-                    }
+                #if canImport(AdSupport)
+                let sharedASIdentifierManager = ASIdentifierManager.shared()
+                var isTrackingEnabled: Bool
+                
+                if #available(iOS 14, *) {
+                    #if canImport(AppTrackingTransparency)
+                    isTrackingEnabled = ATTrackingManager.trackingAuthorizationStatus == ATTrackingManager.AuthorizationStatus.authorized
+                    #else
+                    isTrackingEnabled = false
+                    #endif
+                } else {
+                    isTrackingEnabled = sharedASIdentifierManager.isAdvertisingTrackingEnabled
                 }
+                
+                if isTrackingEnabled {
+                    return sharedASIdentifierManager.advertisingIdentifier.uuidString
+                } else {
+                    if ignoreLimitedAdTracking {
+                        return uuid()
+                    }
+                    return "opt-out"
+                }
+                #else
                 return ""
+                #endif
             }
             
             if let optIdentifier = identifier {
