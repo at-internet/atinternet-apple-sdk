@@ -250,7 +250,8 @@ class Storage: StorageProtocol {
     func saveToPersistentStore() {
         if let moc = self.managedObjectContext {
             moc.perform({
-                try! moc.save()
+                do { try moc.save() }
+                catch { return }
             })
         }
     }
