@@ -49,9 +49,9 @@ class TechnicalContext: NSObject {
     class var sdkVersion: String {
         get {
             #if os(watchOS) || os(tvOS)
-            return "1.15.1"
+            return "1.16.0"
             #else
-            return "2.18.1"
+            return "2.19.0"
             #endif
         }
     }
@@ -75,6 +75,7 @@ class TechnicalContext: NSObject {
         case UserIDV1 = "ATIdclient"
         case UserIDV2 = "ApplicationUniqueIdentifier"
         case UserID = "ATApplicationUniqueIdentifier"
+        case UserIDGenerationTimestamp = "ATUserIdGenerationTimestamp"
     }
     
     enum ApplicationState: EnumCollection {
@@ -88,6 +89,8 @@ class TechnicalContext: NSObject {
     /// ID of the last level2 id set in parameters
     static var level2: String? = nil
     static var isLevel2Int: Bool = false
+    
+    static var generatedUUID: String? = nil
     
     /// Enable or disable user identification
     class var optOut: Bool {
@@ -126,23 +129,61 @@ class TechnicalContext: NSObject {
     static var applicationState: ApplicationState = ApplicationState.inactive
     
     /// Unique user id
-    class func userId(_ identifier: String?, ignoreLimitedAdTracking: Bool) -> String {
+    class func userId(_ identifier: String?, ignoreLimitedAdTracking: Bool, uuidDuration: Int, uuidExpirationMode: String) -> String {
         
         if(!self.doNotTrack) {
             
             let uuid: () -> String = {
+                /// From context
+                if let id = TechnicalContext.generatedUUID {
+                    return id
+                }
+                
+                /// uuid expired ?
+                var uuidGenerationTimestamp : Int64
+                if let optUUIDGenerationTimestamp = UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue) as? Int64 {
+                    uuidGenerationTimestamp = optUUIDGenerationTimestamp
+                } else {
+                    uuidGenerationTimestamp = Int64(Date().timeIntervalSince1970) * 1000
+                }
+                let daysSinceGeneration = (Int64(Date().timeIntervalSince1970) * 1000 - uuidGenerationTimestamp) / (1000 * 60 * 60 * 24)
+                if daysSinceGeneration >= uuidDuration {
+                    UserDefaults.standard.set(nil, forKey: TechnicalContextKeys.UserIDV1.rawValue)
+                    UserDefaults.standard.set(nil, forKey: TechnicalContextKeys.UserIDV2.rawValue)
+                    UserDefaults.standard.set(nil, forKey: TechnicalContextKeys.UserID.rawValue)
+                    UserDefaults.standard.synchronize()
+                }
+                
+                
+                /// Legacy
                 if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV1.rawValue) != nil {
                     return UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV1.rawValue) as! String
-                } else if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV2.rawValue) != nil {
+                }
+                
+                /// Legacy
+                if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV2.rawValue) != nil {
                     return UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV2.rawValue) as! String
-                } else if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) == nil {
+                }
+                
+                /// No or expired id
+                if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) == nil {
                     let UUID = Foundation.UUID().uuidString
                     UserDefaults.standard.set(UUID, forKey: TechnicalContextKeys.UserID.rawValue)
+                    UserDefaults.standard.set(uuidGenerationTimestamp, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
                     UserDefaults.standard.synchronize()
+                    TechnicalContext.generatedUUID = UUID
                     return UUID
-                } else {
-                    return UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) as! String
                 }
+                
+                /// expiration relative
+                if uuidExpirationMode.lowercased() == "relative" {
+                    UserDefaults.standard.set(uuidGenerationTimestamp, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
+                    UserDefaults.standard.synchronize()
+                }
+                
+                let UUID = UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) as! String
+                TechnicalContext.generatedUUID = UUID
+                return UUID
             }
             
             let idfa: () -> String = {

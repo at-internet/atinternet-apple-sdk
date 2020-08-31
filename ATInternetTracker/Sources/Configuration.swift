@@ -125,6 +125,10 @@ public class TrackerConfigurationKeys: NSObject {
     public static let SendHitWhenOptOut = "sendHitWhenOptOut"
     /// max hit size
     public static let MaxHitSize = "maxHitSize"
+    /// UUID Duration
+    public static let UUIDDuration = "UUIDDuration"
+    /// UUID ExpirationMode
+    public static let UUIDExpirationMode = "UUIDExpirationMode"
 }
 
 /// Tracker configuraiton

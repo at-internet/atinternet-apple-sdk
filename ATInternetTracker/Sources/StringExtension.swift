@@ -76,6 +76,13 @@ extension String {
         || self == "1"
     }
     
+    func toInt() -> Int {
+        if let i = Int(self) {
+            return i
+        }
+        return 0
+    }
+    
     /**
     Removes white spaces inside of a string
     
