@@ -45,11 +45,20 @@ public class AVInsights: NSObject {
     }
     
     @objc public func Media(heartbeat: Int, bufferHeartbeat: Int) -> AVMedia {
-        return AVMedia(events: self.events, heartbeat: heartbeat, bufferHeartbeat: bufferHeartbeat)
+        return AVMedia(events: self.events, heartbeat: heartbeat, bufferHeartbeat: bufferHeartbeat, sessionId: nil)
+    }
+    
+    @objc public func Media(heartbeat: Int, bufferHeartbeat: Int, sessionId: String?) -> AVMedia {
+        return AVMedia(events: self.events, heartbeat: heartbeat, bufferHeartbeat: bufferHeartbeat, sessionId: sessionId)
     }
     
     @objc(MediaWithDynamicValues::)
     public func Media(heartbeat: [Int:Int]?, bufferHeartbeat: [Int:Int]?) -> AVMedia {
-        return AVMedia(events: self.events, heartbeat: heartbeat, bufferHeartbeat: bufferHeartbeat)
+        return AVMedia(events: self.events, heartbeat: heartbeat, bufferHeartbeat: bufferHeartbeat, sessionId: nil)
+    }
+    
+    @objc(MediaWithDynamicValues:::)
+    public func Media(heartbeat: [Int:Int]?, bufferHeartbeat: [Int:Int]?, sessionId: String?) -> AVMedia {
+        return AVMedia(events: self.events, heartbeat: heartbeat, bufferHeartbeat: bufferHeartbeat, sessionId: sessionId)
     }
 }

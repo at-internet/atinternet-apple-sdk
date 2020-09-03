@@ -40,7 +40,14 @@ public class AVMedia: RequiredPropertiesDataObject {
 
     fileprivate var heartbeatTimer : Timer? = nil
     
-    fileprivate var sessionId: String = Foundation.UUID().uuidString
+    fileprivate var _sessionId: String = ""
+    @objc public var sessionId: String {
+        get {
+            self.avSynchronizer.sync {
+                return _sessionId
+            }
+        }
+    }
     fileprivate var previousEvent: String = ""
     fileprivate var previousCursorPositionMillis: Int = 0
     fileprivate var currentCursorPositionMillis: Int = 0
@@ -91,16 +98,26 @@ public class AVMedia: RequiredPropertiesDataObject {
         super.init()
     }
     
-    convenience init(events: Events?, heartbeat: Int, bufferHeartbeat: Int) {
+    convenience init(events: Events?, heartbeat: Int, bufferHeartbeat: Int, sessionId: String?) {
         self.init(events: events)
         _ = self.setHeartbeat(heartbeat: heartbeat)
         _ = self.setBufferHeartbeat(bufferHeartbeat: bufferHeartbeat)
+        if let optSessionId = sessionId, optSessionId != "" {
+            self._sessionId = optSessionId
+        } else {
+            self._sessionId = Foundation.UUID().uuidString
+        }
     }
     
-    convenience init(events: Events?, heartbeat: [Int:Int]?, bufferHeartbeat: [Int:Int]?) {
+    convenience init(events: Events?, heartbeat: [Int:Int]?, bufferHeartbeat: [Int:Int]?, sessionId: String?) {
         self.init(events: events)
         _ = self.setHeartbeat(heartbeat: heartbeat)
         _ = self.setBufferHeartbeat(bufferHeartbeat: bufferHeartbeat)
+        if let optSessionId = sessionId, optSessionId != "" {
+            self._sessionId = optSessionId
+        } else {
+            self._sessionId = Foundation.UUID().uuidString
+        }
     }
     
     func setHeartbeat(heartbeat: Int) -> AVMedia {
@@ -612,7 +629,7 @@ public class AVMedia: RequiredPropertiesDataObject {
     }
     
     private func resetState() {
-        self.sessionId = Foundation.UUID().uuidString
+        self._sessionId = Foundation.UUID().uuidString
         self.previousEvent = ""
         self.previousCursorPositionMillis = 0
         self.currentCursorPositionMillis = 0
@@ -632,7 +649,7 @@ public class AVMedia: RequiredPropertiesDataObject {
             
             self.previousEvent = name
         }
-        props["av_session_id"] = self.sessionId
+        props["av_session_id"] = self._sessionId
         
         if extraProps != nil {
             for (k,v) in extraProps! {
