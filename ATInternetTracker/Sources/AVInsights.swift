@@ -40,7 +40,7 @@ public class AVInsights: NSObject {
     
     @objc public var media : AVMedia {
         get {
-            return AVMedia(events: self.events)
+            return AVMedia(events: self.events, sessionId: nil)
         }
     }
     

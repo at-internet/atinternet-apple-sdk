@@ -93,31 +93,26 @@ public class AVMedia: RequiredPropertiesDataObject {
         }
     }
     
-    init(events: Events?) {
+    init(events: Events?, sessionId: String?) {
         self.events = events
+        if let optSessionId = sessionId, optSessionId != "" {
+            self._sessionId = optSessionId
+        } else {
+            self._sessionId = Foundation.UUID().uuidString
+        }
         super.init()
     }
     
     convenience init(events: Events?, heartbeat: Int, bufferHeartbeat: Int, sessionId: String?) {
-        self.init(events: events)
+        self.init(events: events, sessionId: sessionId)
         _ = self.setHeartbeat(heartbeat: heartbeat)
         _ = self.setBufferHeartbeat(bufferHeartbeat: bufferHeartbeat)
-        if let optSessionId = sessionId, optSessionId != "" {
-            self._sessionId = optSessionId
-        } else {
-            self._sessionId = Foundation.UUID().uuidString
-        }
     }
     
     convenience init(events: Events?, heartbeat: [Int:Int]?, bufferHeartbeat: [Int:Int]?, sessionId: String?) {
-        self.init(events: events)
+        self.init(events: events, sessionId: sessionId)
         _ = self.setHeartbeat(heartbeat: heartbeat)
         _ = self.setBufferHeartbeat(bufferHeartbeat: bufferHeartbeat)
-        if let optSessionId = sessionId, optSessionId != "" {
-            self._sessionId = optSessionId
-        } else {
-            self._sessionId = Foundation.UUID().uuidString
-        }
     }
     
     func setHeartbeat(heartbeat: Int) -> AVMedia {
