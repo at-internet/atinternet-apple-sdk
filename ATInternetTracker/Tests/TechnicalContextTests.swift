@@ -48,7 +48,7 @@ class TechnicalContextTests: XCTestCase {
     func testIDFV() {
         let ref = UIDevice.current.identifierForVendor!.uuidString
         XCTAssertNotNil(ref, "IDFV shall not be nil")
-        XCTAssertEqual(ref, TechnicalContext.userId("idfv", ignoreLimitedAdTracking: false), "Unique identifier shall be equal to IDFV")
+        XCTAssertEqual(ref, TechnicalContext.userId("idfv", ignoreLimitedAdTracking: false, uuidDuration: 0, uuidExpirationMode: ""), "Unique identifier shall be equal to IDFV")
     }
     
     func testVersion() {
@@ -60,24 +60,16 @@ class TechnicalContextTests: XCTestCase {
         }
     }
     
-    func testExistingUUID() {
-        let ref = UUID().uuidString
-        UserDefaults.standard.set(ref, forKey: "ATApplicationUniqueIdentifier")
-        UserDefaults.standard.synchronize()
-        XCTAssertNotNil(ref, "UUID shall not be nil")
-        XCTAssertEqual(ref, TechnicalContext.userId("whatever", ignoreLimitedAdTracking: false), "Unique identifier shall be equal to existing UUID")
-    }
-    
     func testNonExistingUUID() {
         UserDefaults.standard.removeObject(forKey: "ATApplicationUniqueIdentifier")
         UserDefaults.standard.synchronize()
-        XCTAssertEqual(36, TechnicalContext.userId("whatever", ignoreLimitedAdTracking: false).count, "Unique identifier shall be a new valid UUID")
+        XCTAssertEqual(36, TechnicalContext.userId("whatever", ignoreLimitedAdTracking: false, uuidDuration: 0, uuidExpirationMode: "").count, "Unique identifier shall be a new valid UUID")
     }
     
     func testUserIdWithNilConfiguration() {
         UserDefaults.standard.removeObject(forKey: "ATApplicationUniqueIdentifier")
         UserDefaults.standard.synchronize()
-        XCTAssertEqual(36, TechnicalContext.userId(nil, ignoreLimitedAdTracking: false).count, "Unique identifier shall be a new valid UUID")
+        XCTAssertEqual(36, TechnicalContext.userId(nil, ignoreLimitedAdTracking: false, uuidDuration: 0, uuidExpirationMode: "").count, "Unique identifier shall be a new valid UUID")
     }
     
     func testSDKVersion() {
