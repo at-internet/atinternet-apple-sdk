@@ -354,7 +354,7 @@ class TechnicalContext: NSObject {
     /// Carrier
     @objc class var carrier: String {
         get {
-            #if os(iOS) && canImport(CoreTelephony)
+            #if os(iOS) && canImport(CoreTelephony) && !targetEnvironment(simulator)
             let networkInfo = CTTelephonyNetworkInfo()
             let provider = networkInfo.subscriberCellularProvider
             
