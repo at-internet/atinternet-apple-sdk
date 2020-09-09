@@ -139,14 +139,20 @@ class TechnicalContext: NSObject {
                     return id
                 }
                 
-                /// uuid expired ?
+                let now = Int64(Date().timeIntervalSince1970) * 1000
+                
+                /// get uuid generation timestamp
                 var uuidGenerationTimestamp : Int64
                 if let optUUIDGenerationTimestamp = UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue) as? Int64 {
                     uuidGenerationTimestamp = optUUIDGenerationTimestamp
                 } else {
-                    uuidGenerationTimestamp = Int64(Date().timeIntervalSince1970) * 1000
+                    UserDefaults.standard.set(now, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
+                    UserDefaults.standard.synchronize()
+                    uuidGenerationTimestamp = now
                 }
-                let daysSinceGeneration = (Int64(Date().timeIntervalSince1970) * 1000 - uuidGenerationTimestamp) / (1000 * 60 * 60 * 24)
+                
+                /// uuid expired ?
+                let daysSinceGeneration = (now - uuidGenerationTimestamp) / (1000 * 60 * 60 * 24)
                 if daysSinceGeneration >= uuidDuration {
                     UserDefaults.standard.set(nil, forKey: TechnicalContextKeys.UserIDV1.rawValue)
                     UserDefaults.standard.set(nil, forKey: TechnicalContextKeys.UserIDV2.rawValue)
@@ -169,7 +175,7 @@ class TechnicalContext: NSObject {
                 if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) == nil {
                     let UUID = Foundation.UUID().uuidString
                     UserDefaults.standard.set(UUID, forKey: TechnicalContextKeys.UserID.rawValue)
-                    UserDefaults.standard.set(uuidGenerationTimestamp, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
+                    UserDefaults.standard.set(now, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
                     UserDefaults.standard.synchronize()
                     TechnicalContext.generatedUUID = UUID
                     return UUID
@@ -177,7 +183,7 @@ class TechnicalContext: NSObject {
                 
                 /// expiration relative
                 if uuidExpirationMode.lowercased() == "relative" {
-                    UserDefaults.standard.set(uuidGenerationTimestamp, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
+                    UserDefaults.standard.set(now, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
                     UserDefaults.standard.synchronize()
                 }
                 
