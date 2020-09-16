@@ -756,6 +756,22 @@ public class Tracker: NSObject {
         }
     }
     
+    /// Set a new uuid duration
+    ///
+    /// - Parameters:
+    ///   - uuidDuration: new uuid duration
+    @objc public func setUUIDDuration(_ uuidDuration: Int) {
+        self.configuration.parameters[TrackerConfigurationKeys.UUIDDuration] = String(uuidDuration)
+    }
+    
+    /// Set a new uuid expiration mode
+    ///
+    /// - Parameters:
+    ///   - uuidExpirationMode: UUIDExpirationModeKey
+    public func setUUIDExpirationMode(_ uuidExpirationMode: UUIDExpirationModeKey) {
+        self.configuration.parameters[TrackerConfigurationKeys.UUIDExpirationMode] = uuidExpirationMode.rawValue
+    }
+    
     // MARK: - Parameter
     
     /**

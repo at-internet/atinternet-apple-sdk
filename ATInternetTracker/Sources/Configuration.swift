@@ -64,6 +64,15 @@ public enum IdentifierTypeKey: String {
     case idfa = "idfa"
 }
 
+/// UUID expiration Types
+///
+/// - fixed: The expiration date keep its value until expiration
+/// - relative: The expiration date renewed every time
+public enum UUIDExpirationModeKey: String {
+    case fixed = "fixed"
+    case relative = "relative"
+}
+
 /// States
 ///
 /// - active: hits are send only when the application is active
