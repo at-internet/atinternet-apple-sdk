@@ -205,6 +205,17 @@ class TechnicalContext: NSObject {
                 let sharedASIdentifierManager = ASIdentifierManager.shared()
                 var isTrackingEnabled: Bool
                 
+                #if os(tvOS)
+                if #available(tvOS 14, *) {
+                    #if canImport(AppTrackingTransparency)
+                    isTrackingEnabled = ATTrackingManager.trackingAuthorizationStatus == ATTrackingManager.AuthorizationStatus.authorized
+                    #else
+                    isTrackingEnabled = false
+                    #endif
+                } else {
+                    isTrackingEnabled = sharedASIdentifierManager.isAdvertisingTrackingEnabled
+                }
+                #else
                 if #available(iOS 14, *) {
                     #if canImport(AppTrackingTransparency)
                     isTrackingEnabled = ATTrackingManager.trackingAuthorizationStatus == ATTrackingManager.AuthorizationStatus.authorized
@@ -214,6 +225,7 @@ class TechnicalContext: NSObject {
                 } else {
                     isTrackingEnabled = sharedASIdentifierManager.isAdvertisingTrackingEnabled
                 }
+                #endif
                 
                 if isTrackingEnabled {
                     return sharedASIdentifierManager.advertisingIdentifier.uuidString
@@ -366,7 +378,12 @@ class TechnicalContext: NSObject {
         get {
             #if os(iOS) && canImport(CoreTelephony) && !targetEnvironment(simulator)
             let networkInfo = CTTelephonyNetworkInfo()
-            let provider = networkInfo.subscriberCellularProvider
+            var provider : CTCarrier? = nil
+            if #available(iOS 12, *) {
+                provider = networkInfo.serviceSubscriberCellularProviders?.values.first
+            } else {
+                provider = networkInfo.subscriberCellularProvider
+            }
             
             if let optProvider = provider {
                 let carrier = optProvider.carrierName
@@ -496,7 +513,12 @@ class TechnicalContext: NSObject {
                 } else {
                     #if os(iOS) && canImport(CoreTelephony)
                     let telephonyInfo = CTTelephonyNetworkInfo()
-                    let radioType = telephonyInfo.currentRadioAccessTechnology
+                    var radioType : String? = nil
+                    if #available(iOS 12, *) {
+                        radioType = telephonyInfo.serviceCurrentRadioAccessTechnology?.values.first
+                    } else {
+                        radioType = telephonyInfo.currentRadioAccessTechnology
+                    }
                     
                     if(radioType != nil) {
                         switch(radioType!) {
