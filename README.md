@@ -4,7 +4,7 @@ The AT Internet tag allows you to follow your users activity throughout your app
 To help you, the tag makes available classes (helpers) enabling the quick implementation of tracking for different application events (screen loads, gestures, video plays…)
 
 ### Requirements
-iOS 9.0+ or tvOS 9.0+ or watchOS 2.0
+iOS 10.0+ or tvOS 10.0+ or watchOS 3.0
 
 Supported devices : 
 * iPhone 
@@ -16,11 +16,6 @@ Supported devices :
 ### How to get started
   - Install our library on your project (see below)
   - Check out the [documentation page] for an overview of the functionalities and code examples. _Note that this repository is refered as SDK 2.5+_
-
-# What's new
-* We reworked how RichMedia and the refresh cycle works. We improved the _sendPlay()_ method and added _resume()_.More info [here]
-* Static framework support added for Cocoapods. It works well for Swift Apps but the ObjC integration seems unstable.
-* GDPR : _ATInternet.OptOut_ , _ATInternet.preventICloudSync_ , _ATInternet.databasePath_
 
 ### Integration
 Find the integration information by following [this link]
