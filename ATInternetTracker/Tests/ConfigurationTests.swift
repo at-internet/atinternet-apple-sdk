@@ -36,9 +36,9 @@ import XCTest
 class ConfigurationTests: XCTestCase {
     
     // Configuration définie
-    let myConf = ["log":"customlog", "logSSL":"customlogs", "domain":"customdomain", "pixelPath":"custompixelpath","site":"customsite", "secure":"customsecure", "identifier":"customidentifier", "plugins":"", "enableBackgroundTask":"false", "storage":"never", "hashUserId":"false", "persistIdentifiedVisitor":"true","sessionBackgroundDuration":"60", "campaignLastPersistence": "true", "campaignLifetime": "30","downloadSource":"ext", "sendOnApplicationState":"all", "ignoreLimitedAdTracking":"false","sendHitWhenOptOut":"true", "maxHitSize": "4000"]
+    let myConf = ["log":"customlog", "logSSL":"customlogs", "domain":"customdomain", "pixelPath":"custompixelpath","site":"customsite", "secure":"customsecure", "identifier":"customidentifier", "plugins":"", "enableBackgroundTask":"false", "storage":"never", "hashUserId":"false", "persistIdentifiedVisitor":"true","sessionBackgroundDuration":"60", "campaignLastPersistence": "true", "campaignLifetime": "30","downloadSource":"ext", "sendOnApplicationState":"all", "ignoreLimitedAdTracking":"false","sendHitWhenOptOut":"true", "maxHitSize": "4000", "UUIDDuration": "34", "UUIDExpirationMode": "relative"]
     // Configuration par défaut
-    let defaultConf = ["log":"", "logSSL":"", "domain":"xiti.com", "pixelPath":"/hit.xiti", "site":"", "identifier":"uuid", "plugins":"", "enableBackgroundTask":"false", "storage":"never", "hashUserId":"false", "persistIdentifiedVisitor":"true","sessionBackgroundDuration":"60", "campaignLastPersistence": "true", "campaignLifetime": "30","downloadSource":"ext", "sendOnApplicationState":"all", "ignoreLimitedAdTracking":"false","sendHitWhenOptOut":"true", "maxHitSize": "8000"]
+    let defaultConf = ["log":"", "logSSL":"", "domain":"xiti.com", "pixelPath":"/hit.xiti", "site":"", "identifier":"uuid", "plugins":"", "enableBackgroundTask":"false", "storage":"never", "hashUserId":"false", "persistIdentifiedVisitor":"true","sessionBackgroundDuration":"60", "campaignLastPersistence": "true", "campaignLifetime": "30","downloadSource":"ext", "sendOnApplicationState":"all", "ignoreLimitedAdTracking":"false","sendHitWhenOptOut":"true", "maxHitSize": "8000", "UUIDDuration": "397", "UUIDExpirationMode": "fixed"]
     
     override func setUp() {
         super.setUp()

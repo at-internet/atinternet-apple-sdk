@@ -60,11 +60,12 @@ class Buffer: NSObject {
         self.volatileParameters.removeValue(forKey: HitParam.userID.rawValue)
         let persistentOpt = ParamOption()
         persistentOpt.persistent = true
-        if let ignoreLimitedAdTracking = self.tracker.configuration.parameters["ignoreLimitedAdTracking"] {
-             self.persistentParameters[HitParam.userID.rawValue] = Param(key: HitParam.userID.rawValue, value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking.toBool())}, options: persistentOpt)
-        } else {
-            self.persistentParameters[HitParam.userID.rawValue] = Param(key: HitParam.userID.rawValue, value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"], ignoreLimitedAdTracking: false)}, options: persistentOpt)
-        }
+        
+        let ignoreLimitedAdTracking = self.tracker.configuration.parameters["ignoreLimitedAdTracking"]?.toBool() ?? false
+        let uuidDuration = self.tracker.configuration.parameters["UUIDDuration"]?.toInt() ?? 397
+        let uuidExpirationMode = self.tracker.configuration.parameters["UUIDExpirationMode"] ?? "fixed"
+        
+        self.persistentParameters[HitParam.userID.rawValue] = Param(key: HitParam.userID.rawValue, value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking, uuidDuration: uuidDuration, uuidExpirationMode: uuidExpirationMode)}, options: persistentOpt)
     }
     
     /**
@@ -126,6 +127,9 @@ class Buffer: NSObject {
         self.persistentParameters["dls"] = Param(key: "dls", value: {TechnicalContext.downloadSource(self.tracker)}, options: persistentOption)
         // Add unique user id
         let ignoreLimitedAdTracking = self.tracker.configuration.parameters["ignoreLimitedAdTracking"]?.toBool() ?? false
-        self.persistentParameters["idclient"] = Param(key: "idclient", value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking)}, options: persistentOption)
+        let uuidDuration = self.tracker.configuration.parameters["UUIDDuration"]?.toInt() ?? 397
+        let uuidExpirationMode = self.tracker.configuration.parameters["UUIDExpirationMode"] ?? "fixed"
+        
+        self.persistentParameters["idclient"] = Param(key: "idclient", value: {TechnicalContext.userId(self.tracker.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking, uuidDuration: uuidDuration, uuidExpirationMode: uuidExpirationMode)}, options: persistentOption)
     }
 }

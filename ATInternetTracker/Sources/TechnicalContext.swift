@@ -43,15 +43,23 @@ import UIKit
 import WebKit
 #endif
 
+#if canImport(AdSupport)
+import AdSupport
+#endif
+
+#if canImport(AppTrackingTransparency)
+import AppTrackingTransparency
+#endif
+
 /// Contextual information from user device
 class TechnicalContext: NSObject {
     /// SDK Version
     class var sdkVersion: String {
         get {
             #if os(watchOS) || os(tvOS)
-            return "1.15.0"
+            return "1.16.0"
             #else
-            return "2.18.0"
+            return "2.19.0"
             #endif
         }
     }
@@ -75,6 +83,7 @@ class TechnicalContext: NSObject {
         case UserIDV1 = "ATIdclient"
         case UserIDV2 = "ApplicationUniqueIdentifier"
         case UserID = "ATApplicationUniqueIdentifier"
+        case UserIDGenerationTimestamp = "ATUserIdGenerationTimestamp"
     }
     
     enum ApplicationState: EnumCollection {
@@ -88,6 +97,8 @@ class TechnicalContext: NSObject {
     /// ID of the last level2 id set in parameters
     static var level2: String? = nil
     static var isLevel2Int: Bool = false
+    
+    static var generatedUUID: String? = nil
     
     /// Enable or disable user identification
     class var optOut: Bool {
@@ -126,55 +137,107 @@ class TechnicalContext: NSObject {
     static var applicationState: ApplicationState = ApplicationState.inactive
     
     /// Unique user id
-    class func userId(_ identifier: String?, ignoreLimitedAdTracking: Bool) -> String {
+    class func userId(_ identifier: String?, ignoreLimitedAdTracking: Bool, uuidDuration: Int, uuidExpirationMode: String) -> String {
         
         if(!self.doNotTrack) {
             
             let uuid: () -> String = {
+                /// From context
+                if let id = TechnicalContext.generatedUUID {
+                    return id
+                }
+                
+                let now = Int64(Date().timeIntervalSince1970) * 1000
+                
+                /// get uuid generation timestamp
+                var uuidGenerationTimestamp : Int64
+                if let optUUIDGenerationTimestamp = UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue) as? Int64 {
+                    uuidGenerationTimestamp = optUUIDGenerationTimestamp
+                } else {
+                    UserDefaults.standard.set(now, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
+                    UserDefaults.standard.synchronize()
+                    uuidGenerationTimestamp = now
+                }
+                
+                /// uuid expired ?
+                let daysSinceGeneration = (now - uuidGenerationTimestamp) / (1000 * 60 * 60 * 24)
+                if daysSinceGeneration >= uuidDuration {
+                    UserDefaults.standard.set(nil, forKey: TechnicalContextKeys.UserIDV1.rawValue)
+                    UserDefaults.standard.set(nil, forKey: TechnicalContextKeys.UserIDV2.rawValue)
+                    UserDefaults.standard.set(nil, forKey: TechnicalContextKeys.UserID.rawValue)
+                    UserDefaults.standard.synchronize()
+                }
+                
+                
+                /// Legacy
                 if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV1.rawValue) != nil {
                     return UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV1.rawValue) as! String
-                } else if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV2.rawValue) != nil {
+                }
+                
+                /// Legacy
+                if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV2.rawValue) != nil {
                     return UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV2.rawValue) as! String
-                } else if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) == nil {
+                }
+                
+                /// No or expired id
+                if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) == nil {
                     let UUID = Foundation.UUID().uuidString
                     UserDefaults.standard.set(UUID, forKey: TechnicalContextKeys.UserID.rawValue)
+                    UserDefaults.standard.set(now, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
                     UserDefaults.standard.synchronize()
+                    TechnicalContext.generatedUUID = UUID
                     return UUID
-                } else {
-                    return UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) as! String
                 }
+                
+                /// expiration relative
+                if uuidExpirationMode.lowercased() == "relative" {
+                    UserDefaults.standard.set(now, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
+                    UserDefaults.standard.synchronize()
+                }
+                
+                let UUID = UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) as! String
+                TechnicalContext.generatedUUID = UUID
+                return UUID
             }
             
             let idfa: () -> String = {
-                if let ASIdentifierManagerClass = NSClassFromString("ASIdentifierManager") {
-                    let sharedManagerSelector = NSSelectorFromString("sharedManager")
-                    if let sharedManagerIMP = ASIdentifierManagerClass.method(for: sharedManagerSelector) {
-                        typealias sharedManagerCType = @convention(c) (AnyObject, Selector) -> AnyObject?
-                        let getSharedManager = unsafeBitCast(sharedManagerIMP, to: sharedManagerCType.self)
-                        if let sharedManager = getSharedManager(ASIdentifierManagerClass.self, sharedManagerSelector) {
-                            let advertisingTrackingEnabledSelector = NSSelectorFromString("isAdvertisingTrackingEnabled")
-                            if let isTrackingEnabledIMP = sharedManager.method(for: advertisingTrackingEnabledSelector) {
-                                typealias isTrackingEnabledCType = @convention(c) (AnyObject, Selector) -> Bool
-                                let getIsTrackingEnabled = unsafeBitCast(isTrackingEnabledIMP, to: isTrackingEnabledCType.self)
-                                let isTrackingEnabled = getIsTrackingEnabled(self, advertisingTrackingEnabledSelector)
-                                if isTrackingEnabled {
-                                    let advertisingIdentifierSelector = NSSelectorFromString("advertisingIdentifier")
-                                    if let advertisingIdentifierIMP = sharedManager.method(for: advertisingIdentifierSelector) {
-                                        typealias adIdentifierCType = @convention(c) (AnyObject, Selector) -> NSUUID
-                                        let getIdfa = unsafeBitCast(advertisingIdentifierIMP, to: adIdentifierCType.self)
-                                        return getIdfa(self, advertisingIdentifierSelector).uuidString
-                                    }
-                                } else {
-                                    if ignoreLimitedAdTracking {
-                                        return uuid()
-                                    }
-                                    return "opt-out"
-                                }
-                            }
-                        }
-                    }
+                #if canImport(AdSupport)
+                let sharedASIdentifierManager = ASIdentifierManager.shared()
+                var isTrackingEnabled: Bool
+                
+                #if os(tvOS)
+                if #available(tvOS 14, *) {
+                    #if canImport(AppTrackingTransparency)
+                    isTrackingEnabled = ATTrackingManager.trackingAuthorizationStatus == ATTrackingManager.AuthorizationStatus.authorized
+                    #else
+                    isTrackingEnabled = false
+                    #endif
+                } else {
+                    isTrackingEnabled = sharedASIdentifierManager.isAdvertisingTrackingEnabled
                 }
+                #else
+                if #available(iOS 14, *) {
+                    #if canImport(AppTrackingTransparency)
+                    isTrackingEnabled = ATTrackingManager.trackingAuthorizationStatus == ATTrackingManager.AuthorizationStatus.authorized
+                    #else
+                    isTrackingEnabled = false
+                    #endif
+                } else {
+                    isTrackingEnabled = sharedASIdentifierManager.isAdvertisingTrackingEnabled
+                }
+                #endif
+                
+                if isTrackingEnabled {
+                    return sharedASIdentifierManager.advertisingIdentifier.uuidString
+                } else {
+                    if ignoreLimitedAdTracking {
+                        return uuid()
+                    }
+                    return "opt-out"
+                }
+                #else
                 return ""
+                #endif
             }
             
             if let optIdentifier = identifier {
@@ -313,9 +376,14 @@ class TechnicalContext: NSObject {
     /// Carrier
     @objc class var carrier: String {
         get {
-            #if os(iOS) && canImport(CoreTelephony)
+            #if os(iOS) && canImport(CoreTelephony) && !targetEnvironment(simulator)
             let networkInfo = CTTelephonyNetworkInfo()
-            let provider = networkInfo.subscriberCellularProvider
+            var provider : CTCarrier? = nil
+            if #available(iOS 12, *) {
+                provider = networkInfo.serviceSubscriberCellularProviders?.values.first
+            } else {
+                provider = networkInfo.subscriberCellularProvider
+            }
             
             if let optProvider = provider {
                 let carrier = optProvider.carrierName
@@ -445,7 +513,12 @@ class TechnicalContext: NSObject {
                 } else {
                     #if os(iOS) && canImport(CoreTelephony)
                     let telephonyInfo = CTTelephonyNetworkInfo()
-                    let radioType = telephonyInfo.currentRadioAccessTechnology
+                    var radioType : String? = nil
+                    if #available(iOS 12, *) {
+                        radioType = telephonyInfo.serviceCurrentRadioAccessTechnology?.values.first
+                    } else {
+                        radioType = telephonyInfo.currentRadioAccessTechnology
+                    }
                     
                     if(radioType != nil) {
                         switch(radioType!) {

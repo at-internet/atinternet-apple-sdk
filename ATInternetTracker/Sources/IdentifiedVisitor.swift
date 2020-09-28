@@ -144,9 +144,9 @@ public class IdentifiedVisitor: NSObject {
     @discardableResult
     @objc
     public func unset() -> Tracker {
-        _ = tracker.unsetParam(HitParam.visitorIdentifierNumeric.rawValue)
-        _ = tracker.unsetParam(HitParam.visitorIdentifierText.rawValue)
-        _ = tracker.unsetParam(HitParam.visitorCategory.rawValue)
+        tracker.unsetParam(HitParam.visitorIdentifierNumeric.rawValue)
+        tracker.unsetParam(HitParam.visitorIdentifierText.rawValue)
+        tracker.unsetParam(HitParam.visitorCategory.rawValue)
         userDefaults.removeObject(forKey: IdentifiedVisitorHelperKey.numeric.rawValue)
         userDefaults.removeObject(forKey: IdentifiedVisitorHelperKey.text.rawValue)
         userDefaults.removeObject(forKey: IdentifiedVisitorHelperKey.category.rawValue)

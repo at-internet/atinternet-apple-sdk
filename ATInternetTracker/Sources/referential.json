@@ -247,6 +247,30 @@
           "type": "int",
           "isPublic": false,
           "isGlobal": true
+        },
+        {
+          "_id": "UUIDDuration",
+          "name": "UUIDDuration",
+          "pluginId": "core",
+          "category": "advanced",
+          "label": "Geode_Tag_SDK_Config_Title_UUIDDuration",
+          "description": "Geode_Tag_SDK_Config_Description_UUIDDuration",
+          "defaultValue": "397",
+          "type": "int",
+          "isPublic": true,
+          "isGlobal": true
+        },
+        {
+          "_id": "UUIDExpirationMode",
+          "name": "UUIDExpirationMode",
+          "pluginId": "core",
+          "category": "advanced",
+          "label": "Geode_Tag_SDK_Config_Title_UUIDExpirationMode",
+          "description": "Geode_Tag_SDK_Config_Description_UUIDExpirationMode",
+          "defaultValue": "fixed",
+          "type": "int",
+          "isPublic": true,
+          "isGlobal": true
         }
     ]
 }
