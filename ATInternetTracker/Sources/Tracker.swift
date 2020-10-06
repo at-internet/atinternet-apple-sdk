@@ -208,6 +208,9 @@ public class Tracker: NSObject {
     /// Dispatcher
     @objc lazy var dispatcher: Dispatcher = Dispatcher(tracker: self)
     
+    /// URLSessionConfiguration
+    @objc lazy var urlSessionConfiguration: URLSessionConfiguration = URLSessionConfiguration.default
+    
     #if os(iOS) && !AT_EXTENSION
     /// Sets Tracker in debug mode and display debugger window
     @objc public var enableDebugger: Bool = false {

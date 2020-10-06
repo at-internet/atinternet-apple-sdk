@@ -144,7 +144,7 @@ class Sender: Operation {
                 if(!isCancelled) {
                     let semaphore = DispatchSemaphore(value: 0)
                     
-                    let sessionConfig = URLSessionConfiguration.default                    
+                    let sessionConfig = tracker.urlSessionConfiguration
                     sessionConfig.requestCachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
                     let session = URLSession(configuration: sessionConfig)
                     var request = URLRequest(url: optURL, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 30)
