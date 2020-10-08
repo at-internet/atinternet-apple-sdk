@@ -144,7 +144,41 @@ class Sender: Operation {
                 if(!isCancelled) {
                     let semaphore = DispatchSemaphore(value: 0)
                     
-                    let sessionConfig = URLSessionConfiguration.default                    
+                    let sessionConfig = URLSessionConfiguration.default
+                    switch tracker.configuration.parameters[TrackerConfigurationKeys.ProxyType]?.lowercased() {
+                    case "http":
+                        if let address = tracker.configuration.parameters[TrackerConfigurationKeys.ProxyAddress] {
+                            if let index = address.lastIndex(of: ":") {
+                                sessionConfig.connectionProxyDictionary = [
+                                    kCFNetworkProxiesHTTPEnable: true,
+                                    kCFNetworkProxiesHTTPProxy: address[..<index],
+                                    kCFNetworkProxiesHTTPPort: address[address.index(after: index)...],
+                                ]
+                            }
+                        }
+                    case "https":
+                        if let address = tracker.configuration.parameters[TrackerConfigurationKeys.ProxyAddress] {
+                            if let index = address.lastIndex(of: ":") {
+                                sessionConfig.connectionProxyDictionary = [
+                                    "HTTPSEnable": true,
+                                    "HTTPSProxy": address[..<index],
+                                    "HTTPSPort": address[address.index(after: index)...],
+                                ]
+                            }
+                        }
+                    case "socks":
+                        if let address = tracker.configuration.parameters[TrackerConfigurationKeys.ProxyAddress] {
+                            if let index = address.lastIndex(of: ":") {
+                                sessionConfig.connectionProxyDictionary = [
+                                    kCFStreamPropertySOCKSProxy: true,
+                                    kCFStreamPropertySOCKSProxyHost: address[..<index],
+                                    kCFStreamPropertySOCKSProxyPort: address[address.index(after: index)...],
+                                ]
+                            }
+                        }
+                    default:
+                        break
+                    }
                     sessionConfig.requestCachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
                     let session = URLSession(configuration: sessionConfig)
                     var request = URLRequest(url: optURL, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 30)

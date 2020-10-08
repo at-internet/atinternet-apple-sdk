@@ -772,6 +772,22 @@ public class Tracker: NSObject {
         self.configuration.parameters[TrackerConfigurationKeys.UUIDExpirationMode] = uuidExpirationMode.rawValue
     }
     
+    /// Set a new proxy type
+    ///
+    /// - Parameters:
+    ///   - proxyType: ProxyTypeKey
+    public func setProxyType(_ proxyType: ProxyTypeKey) {
+        self.configuration.parameters[TrackerConfigurationKeys.ProxyType] = proxyType.rawValue
+    }
+    
+    /// Set a new proxy address
+    ///
+    /// - Parameters:
+    ///   - proxyAddress: new proxy address
+    public func setProxyAddress(_ proxyAdress: String) {
+        self.configuration.parameters[TrackerConfigurationKeys.ProxyAddress] = proxyAdress
+    }
+    
     // MARK: - Parameter
     
     /**

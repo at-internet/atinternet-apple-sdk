@@ -4,6 +4,10 @@
 <dict>
 	<key>maxHitSize</key>
 	<string>8000</string>
+	<key>proxyType</key>
+	<string>none</string>
+	<key>proxyAddress</key>
+	<string></string>
 	<key>UUIDDuration</key>
 	<string>397</string>
 	<key>UUIDExpirationMode</key>
