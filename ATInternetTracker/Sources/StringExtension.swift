@@ -53,6 +53,14 @@ extension String {
         return Hash.sha256Value("AT" + self)
     }
     
+    var encrypt: String? {
+        return Crypt().encrypt(data: self)
+    }
+    
+    var decrypt: String {
+        return Crypt().decrypt(data: self)!
+    }
+    
     /**
      Converts a String into a NSDictionary or NSArray
      

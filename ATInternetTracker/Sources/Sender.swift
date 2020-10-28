@@ -117,7 +117,7 @@ class Sender: Operation {
                 if(self.tracker.configuration.parameters["storage"] != "never") {
                     // Si le hit ne provient pas du stockage offline, on le sauvegarde
                     if(!hit.isOffline) {
-                        if(db.insert(&hit.url, mhOlt: self.mhOlt)) {
+                        if(db.insert(&hit.url, hitId: self.hit.id, mhOlt: self.mhOlt)) {
                             self.tracker.delegate?.saveDidEnd?(hit.url)
                             
                             #if os(iOS) && !AT_EXTENSION
@@ -169,7 +169,7 @@ class Sender: Operation {
                             // Si le hit ne provient pas du stockage offline, on le sauvegarde si le mode offline est différent de "never"
                             if(self.tracker.configuration.parameters["storage"] != "never") {
                                 if(!self.hit.isOffline) {
-                                    if(db.insert(&self.hit.url, mhOlt: self.mhOlt)) {
+                                    if(db.insert(&self.hit.url, hitId: self.hit.id, mhOlt: self.mhOlt)) {
                                         self.tracker.delegate?.saveDidEnd?(self.hit.url)
                                         
                                         #if os(iOS) && !AT_EXTENSION
@@ -187,11 +187,11 @@ class Sender: Operation {
                                         #endif
                                     }
                                 } else {
-                                    let retryCount = db.getRetryCountForHit(self.hit.url)
+                                    let retryCount = db.getRetryCountForHit(self.hit.id)
                                     if(retryCount < self.retryCount) {
-                                        db.setRetryCount(retryCount+1, hit: self.hit.url)
+                                        db.setRetryCount(retryCount+1, hitId: self.hit.id)
                                     } else {
-                                        _ = db.delete(self.hit.url)
+                                        _ = db.delete(self.hit.id)
                                     }
                                 }
                                 
@@ -240,7 +240,7 @@ class Sender: Operation {
                     _ = semaphore.wait(timeout: DispatchTime.distantFuture)
                 } else {
                     if(!hit.isOffline) {
-                        if(db.insert(&hit.url, mhOlt: self.mhOlt)) {
+                        if(db.insert(&hit.url, hitId: self.hit.id, mhOlt: self.mhOlt)) {
                             self.tracker.delegate?.saveDidEnd?(hit.url)
                             
                             #if os(iOS) && !AT_EXTENSION

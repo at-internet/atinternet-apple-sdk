@@ -146,6 +146,14 @@ public class ATInternet: NSObject {
         }
     }
     
+    @objc public class var encryptionMode: String {
+        get {
+            return Crypt.encryptionMode
+        } set {
+            Crypt.encryptionMode = newValue.lowercased()
+        }
+    }
+    
     /// Disable user identification.
     @objc public class var optOut: Bool {
         get {
