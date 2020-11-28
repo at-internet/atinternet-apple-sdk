@@ -50,6 +50,10 @@ public class BackgroundTask: NSObject {
     lazy var tasks = [Int: Int]()
     /// Array of tasks completion block
     lazy var tasksCompletionBlocks = [Int: completionBlock]()
+    /// A lock to protect access to the task counter from multiple threads.
+    private var taskCounterLock = NSLock()
+    /// A recursive lock to protect access to the tasks array from multiple threads.
+    private var tasksLock = NSRecursiveLock()
     
     /**
      Private initializer (cannot instantiate BackgroundTaskManager)
@@ -79,10 +83,10 @@ public class BackgroundTask: NSObject {
     func begin(_ completion: (() -> Void)!) -> Int {
         var taskKey = 0
         
-        objc_sync_enter(self)
+        self.taskCounterLock.lock()
         taskKey = taskCounter
         taskCounter += 1
-        objc_sync_exit(self)
+        self.taskCounterLock.unlock()
         
         #if canImport(UIKit) && !AT_EXTENSION
         let identifier = UIApplication.shared.beginBackgroundTask(expirationHandler: {
@@ -104,7 +108,10 @@ public class BackgroundTask: NSObject {
     ///
     /// - Parameter key: ID of the task to end
     func end(_ key: Int) {
-        objc_sync_enter(self.tasks)
+        self.tasksLock.lock()
+        defer {
+            self.tasksLock.unlock()
+        }
         
         if let completionBlock = tasksCompletionBlocks[key] {
             completionBlock()
@@ -129,7 +136,5 @@ public class BackgroundTask: NSObject {
             tasks.removeValue(forKey: key)
             #endif
         }
-        
-        objc_sync_exit(self.tasks)
     }
 }
