@@ -645,6 +645,7 @@
 		CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMedium.swift; sourceTree = "<group>"; };
 		CC2DC3D4227826B2008A2B96 /* CartAwaitingPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAwaitingPayment.swift; sourceTree = "<group>"; };
 		CC543FE82248AFB3005E3DBA /* MvTestingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MvTestingTests.swift; path = Tests/MvTestingTests.swift; sourceTree = "<group>"; };
+		CC6F92D02547FBA800921A32 /* ATInternet-Apple-SDK-AppExtension.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = "ATInternet-Apple-SDK-AppExtension.podspec"; path = "../../ATInternet-Apple-SDK-AppExtension.podspec"; sourceTree = "<group>"; };
 		CC704B2721B58B5300114A86 /* EventsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsHelper.swift; sourceTree = "<group>"; };
 		CC704B3C21B65B5E00114A86 /* EcommerceObjectProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcommerceObjectProperties.swift; sourceTree = "<group>"; };
 		CC704B4321B6649B00114A86 /* RequiredPropertiesDataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredPropertiesDataObject.swift; sourceTree = "<group>"; };
@@ -849,6 +850,7 @@
 		4F47A5591D36209900702747 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				CC6F92D02547FBA800921A32 /* ATInternet-Apple-SDK-AppExtension.podspec */,
 				8E41DCBF20BC0170002CE4CC /* README.md */,
 				8EEBADC51DF5779200FD1CFD /* ATInternet-Apple-SDK.podspec */,
 				4F47A43A1D3532FE00702747 /* Info-iOS-Extension.plist */,

@@ -62,6 +62,15 @@ use_frameworks!
 end
 ```
 
+NB : To avoid conflicts caused by [CocoaPods](https://github.com/CocoaPods/CocoaPods/issues/8206), it's possible to use an independent pod:
+```ruby
+
+target 'MyProject App Extension' do
+pod "ATInternet-Apple-SDK-AppExtension",">=2.0" 
+use_frameworks!
+end
+```
+
 ### Installation with Carthage
 
 Carthage is an alternative to **Cocoapods**. It’s a simple dependency manager for Mac and iOS, created by a group of developers from Github.
