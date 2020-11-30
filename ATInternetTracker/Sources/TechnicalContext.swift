@@ -73,6 +73,7 @@ class TechnicalContext: NSObject {
         threeg = "3g",
         threegplus = "3g+",
         fourg = "4g",
+        fiveg = "5g",
         wifi = "wifi",
         unknown = "unknown"
     }
@@ -521,6 +522,11 @@ class TechnicalContext: NSObject {
                     }
                     
                     if(radioType != nil) {
+                        if #available(iOS 14, *) {
+                            if radioType == CTRadioAccessTechnologyNRNSA || radioType == CTRadioAccessTechnologyNR {
+                                return ConnexionType.fiveg
+                            }
+                        }
                         switch(radioType!) {
                         case CTRadioAccessTechnologyGPRS:
                             return ConnexionType.gprs
