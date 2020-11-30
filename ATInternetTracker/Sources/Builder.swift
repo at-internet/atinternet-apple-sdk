@@ -515,7 +515,13 @@ class Builder: Operation {
     - returns: A string mhid suffix
     */
     func mhidSuffixGenerator() -> String {
-        let randId = arc4random_uniform(10000000)
+        let bytesCount = 4
+        var randId: Int = 0
+        var randomBytes = [UInt8](repeating: 0, count: bytesCount)
+
+        _ = SecRandomCopyBytes(kSecRandomDefault, bytesCount, &randomBytes)
+        NSData(bytes: randomBytes, length: bytesCount).getBytes(&randId, length: bytesCount)
+        
         let date = Date()
         let calendar = NSCalendar.current
         let components = (calendar as NSCalendar).components([.hour, .minute, .second], from: date)

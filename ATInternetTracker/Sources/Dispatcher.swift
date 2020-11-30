@@ -139,15 +139,15 @@ class Dispatcher: NSObject {
         if let conf = self.tracker.configuration.parameters[IdentifiedVisitorHelperKey.configuration.rawValue] {
             if conf == "true" {
                 if let num = userDefaults.object(forKey: IdentifiedVisitorHelperKey.numeric.rawValue) as? String {
-                    _ = self.tracker.setParam(HitParam.visitorIdentifierNumeric.rawValue, value: num)
+                    _ = self.tracker.setParam(HitParam.visitorIdentifierNumeric.rawValue, value: num.decrypt)
                 }
-                if let tex = userDefaults.object(forKey: IdentifiedVisitorHelperKey.text.rawValue) as? String {
+                if let text = userDefaults.object(forKey: IdentifiedVisitorHelperKey.text.rawValue) as? String {
                     let encodingOption = ParamOption()
                     encodingOption.encode = true
-                    _ = self.tracker.setParam(HitParam.visitorIdentifierText.rawValue, value: tex, options:encodingOption)
+                    _ = self.tracker.setParam(HitParam.visitorIdentifierText.rawValue, value: text.decrypt, options:encodingOption)
                 }
                 if let cat = userDefaults.object(forKey: IdentifiedVisitorHelperKey.category.rawValue) as? String {
-                    _ = self.tracker.setParam(HitParam.visitorCategory.rawValue, value: cat)
+                    _ = self.tracker.setParam(HitParam.visitorCategory.rawValue, value: cat.decrypt)
                 }
             }
         }
