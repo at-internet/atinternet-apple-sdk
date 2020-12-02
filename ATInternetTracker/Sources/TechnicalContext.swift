@@ -43,10 +43,6 @@ import UIKit
 import WebKit
 #endif
 
-#if canImport(AdSupport)
-import AdSupport
-#endif
-
 #if canImport(AppTrackingTransparency)
 import AppTrackingTransparency
 #endif
@@ -57,9 +53,9 @@ class TechnicalContext: NSObject {
     class var sdkVersion: String {
         get {
             #if os(watchOS) || os(tvOS)
-            return "1.16.0"
+            return "1.17.0"
             #else
-            return "2.19.0"
+            return "2.20.0"
             #endif
         }
     }
@@ -73,6 +69,7 @@ class TechnicalContext: NSObject {
         threeg = "3g",
         threegplus = "3g+",
         fourg = "4g",
+        fiveg = "5g",
         wifi = "wifi",
         unknown = "unknown"
     }
@@ -201,8 +198,7 @@ class TechnicalContext: NSObject {
             }
             
             let idfa: () -> String = {
-                #if canImport(AdSupport)
-                let sharedASIdentifierManager = ASIdentifierManager.shared()
+                let idfaInfo = getIdfaInfo()
                 var isTrackingEnabled: Bool
                 
                 #if os(tvOS)
@@ -213,7 +209,7 @@ class TechnicalContext: NSObject {
                     isTrackingEnabled = false
                     #endif
                 } else {
-                    isTrackingEnabled = sharedASIdentifierManager.isAdvertisingTrackingEnabled
+                    isTrackingEnabled = idfaInfo.0
                 }
                 #else
                 if #available(iOS 14, *) {
@@ -223,21 +219,18 @@ class TechnicalContext: NSObject {
                     isTrackingEnabled = false
                     #endif
                 } else {
-                    isTrackingEnabled = sharedASIdentifierManager.isAdvertisingTrackingEnabled
+                    isTrackingEnabled = idfaInfo.0
                 }
                 #endif
                 
                 if isTrackingEnabled {
-                    return sharedASIdentifierManager.advertisingIdentifier.uuidString
+                    return idfaInfo.1
                 } else {
                     if ignoreLimitedAdTracking {
                         return uuid()
                     }
                     return "opt-out"
                 }
-                #else
-                return ""
-                #endif
             }
             
             if let optIdentifier = identifier {
@@ -261,6 +254,48 @@ class TechnicalContext: NSObject {
         } else {
             return "opt-out"
         }
+    }
+    
+    class func getIdfaInfo() -> (Bool, String) {
+        guard let ASIdentifierManagerClass = NSClassFromString("ASIdentifierManager") else {
+            return (false, "")
+        }
+        
+        let sharedManagerSelector = NSSelectorFromString("sharedManager")
+        
+        guard let sharedManagerIMP = ASIdentifierManagerClass.method(for: sharedManagerSelector) else {
+            return (false, "")
+        }
+        
+        typealias sharedManagerCType = @convention(c) (AnyObject, Selector) -> AnyObject?
+        let getSharedManager = unsafeBitCast(sharedManagerIMP, to: sharedManagerCType.self)
+        
+        guard let sharedManager = getSharedManager(ASIdentifierManagerClass.self, sharedManagerSelector) else {
+            return (false, "")
+        }
+        
+        let advertisingTrackingEnabledSelector = NSSelectorFromString("isAdvertisingTrackingEnabled")
+        guard let isTrackingEnabledIMP = sharedManager.method(for: advertisingTrackingEnabledSelector) else {
+            return (false, "")
+        }
+        
+        typealias isTrackingEnabledCType = @convention(c) (AnyObject, Selector) -> Bool
+        let getIsTrackingEnabled = unsafeBitCast(isTrackingEnabledIMP, to: isTrackingEnabledCType.self)
+        let isTrackingEnabled = getIsTrackingEnabled(self, advertisingTrackingEnabledSelector)
+        
+        guard isTrackingEnabled else {
+            return (false, "")
+        }
+        
+        let advertisingIdentifierSelector = NSSelectorFromString("advertisingIdentifier")
+
+        guard let advertisingIdentifierIMP = sharedManager.method(for: advertisingIdentifierSelector) else {
+            return (false, "")
+        }
+        
+        typealias adIdentifierCType = @convention(c) (AnyObject, Selector) -> NSUUID
+        let getIdfa = unsafeBitCast(advertisingIdentifierIMP, to: adIdentifierCType.self)
+        return (true, getIdfa(self, advertisingIdentifierSelector).uuidString)
     }
     
     /// Device language (eg. en_US)
@@ -521,6 +556,11 @@ class TechnicalContext: NSObject {
                     }
                     
                     if(radioType != nil) {
+                        if #available(iOS 14, *) {
+                            if radioType == CTRadioAccessTechnologyNRNSA || radioType == CTRadioAccessTechnologyNR {
+                                return ConnexionType.fiveg
+                            }
+                        }
                         switch(radioType!) {
                         case CTRadioAccessTechnologyGPRS:
                             return ConnexionType.gprs

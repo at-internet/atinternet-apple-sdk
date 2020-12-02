@@ -1542,8 +1542,7 @@ internal class Debugger: NSObject {
      Delete offline hit
      */
     @objc func deleteOfflineHit(_ sender: UIButton) {
-        //let storage = Storage(concurrencyType: .MainQueueConcurrencyType)
-        _ = storage.delete(hits[sender.tag].url)
+        _ = storage.delete(hits[sender.tag].id)
         getOfflineHitsList(self.windows[self.windows.count - 1])
     }
     

@@ -111,6 +111,8 @@ class ProcessedHitType: NSObject {
         case mvTesting = 13
     }
     
+    /// Hit  id
+    var id: String
     /// Hit url
     @objc public var url: String
     /// Date of creation
@@ -142,6 +144,7 @@ class ProcessedHitType: NSObject {
     */
     init(url: String) {
         self.url = url
+        id = ""
         creationDate = Date()
         retryCount = 0
         isOffline = false

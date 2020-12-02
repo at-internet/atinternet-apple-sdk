@@ -493,6 +493,12 @@
 		CC9A55A921CA23A900A78AB3 /* ECommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A55A521CA23A900A78AB3 /* ECommerce.swift */; };
 		CC9A55AA21CA23A900A78AB3 /* ECommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A55A521CA23A900A78AB3 /* ECommerce.swift */; };
 		CC9A55AB21CA23A900A78AB3 /* ECommerce.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC9A55A521CA23A900A78AB3 /* ECommerce.swift */; };
+		CCB990A125488A220059D252 /* Crypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB990A025488A220059D252 /* Crypt.swift */; };
+		CCB990A225488A220059D252 /* Crypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB990A025488A220059D252 /* Crypt.swift */; };
+		CCB990A325488A220059D252 /* Crypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB990A025488A220059D252 /* Crypt.swift */; };
+		CCB990A425488A220059D252 /* Crypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB990A025488A220059D252 /* Crypt.swift */; };
+		CCB990A525488A220059D252 /* Crypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB990A025488A220059D252 /* Crypt.swift */; };
+		CCB990A625488A220059D252 /* Crypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB990A025488A220059D252 /* Crypt.swift */; };
 		CCC9F5FA23B63A580055516B /* AVInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F5F923B63A580055516B /* AVInsights.swift */; };
 		CCC9F5FB23B63A580055516B /* AVInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F5F923B63A580055516B /* AVInsights.swift */; };
 		CCC9F5FC23B63A580055516B /* AVInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F5F923B63A580055516B /* AVInsights.swift */; };
@@ -645,6 +651,7 @@
 		CC1FE8AF215A0DFC006FE401 /* LiveMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveMedium.swift; sourceTree = "<group>"; };
 		CC2DC3D4227826B2008A2B96 /* CartAwaitingPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartAwaitingPayment.swift; sourceTree = "<group>"; };
 		CC543FE82248AFB3005E3DBA /* MvTestingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MvTestingTests.swift; path = Tests/MvTestingTests.swift; sourceTree = "<group>"; };
+		CC6F92D02547FBA800921A32 /* ATInternet-Apple-SDK-AppExtension.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = "ATInternet-Apple-SDK-AppExtension.podspec"; path = "../../ATInternet-Apple-SDK-AppExtension.podspec"; sourceTree = "<group>"; };
 		CC704B2721B58B5300114A86 /* EventsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsHelper.swift; sourceTree = "<group>"; };
 		CC704B3C21B65B5E00114A86 /* EcommerceObjectProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcommerceObjectProperties.swift; sourceTree = "<group>"; };
 		CC704B4321B6649B00114A86 /* RequiredPropertiesDataObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequiredPropertiesDataObject.swift; sourceTree = "<group>"; };
@@ -659,6 +666,7 @@
 		CC704B9721B6D21000114A86 /* UpdateCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCart.swift; sourceTree = "<group>"; };
 		CC704B9E21B6D2AE00114A86 /* TransactionConfirmation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionConfirmation.swift; sourceTree = "<group>"; };
 		CC9A55A521CA23A900A78AB3 /* ECommerce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECommerce.swift; sourceTree = "<group>"; };
+		CCB990A025488A220059D252 /* Crypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypt.swift; sourceTree = "<group>"; };
 		CCBE56C623151D2200FF043D /* referential.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = referential.json; sourceTree = "<group>"; };
 		CCC9F5F923B63A580055516B /* AVInsights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVInsights.swift; sourceTree = "<group>"; };
 		CCC9F60023B63C100055516B /* AVMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVMedia.swift; sourceTree = "<group>"; };
@@ -781,6 +789,7 @@
 				4F47A4571D3542A400702747 /* TechnicalContext.swift */,
 				4F47A4581D3542A400702747 /* Tool.swift */,
 				4F47A4591D3542A400702747 /* Tracker.swift */,
+				CCB990A025488A220059D252 /* Crypt.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -849,6 +858,7 @@
 		4F47A5591D36209900702747 /* Asset */ = {
 			isa = PBXGroup;
 			children = (
+				CC6F92D02547FBA800921A32 /* ATInternet-Apple-SDK-AppExtension.podspec */,
 				8E41DCBF20BC0170002CE4CC /* README.md */,
 				8EEBADC51DF5779200FD1CFD /* ATInternet-Apple-SDK.podspec */,
 				4F47A43A1D3532FE00702747 /* Info-iOS-Extension.plist */,
@@ -1309,6 +1319,7 @@
 				4F47A48A1D3542A400702747 /* TechnicalContext.swift in Sources */,
 				CC704B9121B6D16700114A86 /* RemoveProduct.swift in Sources */,
 				4F47A46E1D3542A400702747 /* Dispatcher.swift in Sources */,
+				CCB990A125488A220059D252 /* Crypt.swift in Sources */,
 				4F47A4F91D35446700702747 /* NuggAd.swift in Sources */,
 				CCC9F5FA23B63A580055516B /* AVInsights.swift in Sources */,
 				4F47A5091D35446700702747 /* Product.swift in Sources */,
@@ -1344,6 +1355,7 @@
 				4F47A6651D36425B00702747 /* DictionaryExtension.swift in Sources */,
 				4F47A4FF1D35446700702747 /* Offline.swift in Sources */,
 				4F47A4801D3542A400702747 /* Plugin.swift in Sources */,
+				CCB990A325488A220059D252 /* Crypt.swift in Sources */,
 				CC704B4621B6649B00114A86 /* RequiredPropertiesDataObject.swift in Sources */,
 				4F47A4D31D35446700702747 /* CustomTreeStructure.swift in Sources */,
 				4F47A47C1D3542A400702747 /* Param.swift in Sources */,
@@ -1430,6 +1442,7 @@
 				4F47A5CF1D36223D00702747 /* StringExtension.swift in Sources */,
 				4F47A4911D3542A400702747 /* Tool.swift in Sources */,
 				4F47A4951D3542A400702747 /* Tracker.swift in Sources */,
+				CCB990A425488A220059D252 /* Crypt.swift in Sources */,
 				CC704B6321B6BD9E00114A86 /* DeliveryCheckout.swift in Sources */,
 				CC704B7821B6C48200114A86 /* DisplayPageProduct.swift in Sources */,
 				4F47A4791D3542A400702747 /* LifeCycle.swift in Sources */,
@@ -1498,6 +1511,7 @@
 				4F47A4EA1D35446700702747 /* LiveAudio.swift in Sources */,
 				4F47A4CE1D35446700702747 /* CustomObject.swift in Sources */,
 				CC704B4521B6649B00114A86 /* RequiredPropertiesDataObject.swift in Sources */,
+				CCB990A225488A220059D252 /* Crypt.swift in Sources */,
 				4F47A45B1D3542A400702747 /* BackgroundTask.swift in Sources */,
 				4F47A47F1D3542A400702747 /* Plugin.swift in Sources */,
 				4F47A47B1D3542A400702747 /* Param.swift in Sources */,
@@ -1624,6 +1638,7 @@
 				8EF627C421357BD700EF6902 /* ATInternet.swift in Sources */,
 				8E3061E520A9945A00D433B0 /* DynamicRefresh.swift in Sources */,
 				4F47A8171D3D17FC00702747 /* IdentifiedVisitor.swift in Sources */,
+				CCB990A525488A220059D252 /* Crypt.swift in Sources */,
 				4F47A8091D3D17C000702747 /* Campaign.swift in Sources */,
 				4F47A7F91D3D139300702747 /* OrderTests.swift in Sources */,
 				4F47A8481D3D192C00702747 /* TechnicalContext.swift in Sources */,
@@ -1688,6 +1703,7 @@
 				4FF594511D3F66900004D336 /* CustomVar.swift in Sources */,
 				4FF5942A1D3F63670004D336 /* MediaPlayerTests.swift in Sources */,
 				8E9497F220D3F1AA0006872F /* ATBundle.swift in Sources */,
+				CCB990A625488A220059D252 /* Crypt.swift in Sources */,
 				4FF594601D3F66B30004D336 /* RichMedia.swift in Sources */,
 				4FF594301D3F63800004D336 /* ScreenTests.swift in Sources */,
 				8EF627C521357BD700EF6902 /* ATInternet.swift in Sources */,
@@ -1819,7 +1835,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				ONLY_ACTIVE_ARCH = YES;
 				RESOURCES_TARGETED_DEVICE_FAMILY = "";
 				SDKROOT = iphoneos;
@@ -1868,7 +1884,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				RESOURCES_TARGETED_DEVICE_FAMILY = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -1932,7 +1948,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Sources/Info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1992,7 +2008,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Sources/Info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atinternet.Tracker;
@@ -2068,7 +2084,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -2126,7 +2142,7 @@
 				SUPPORTED_PLATFORMS = "appletvsimulator appletvos";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -2195,7 +2211,7 @@
 				TARGETED_DEVICE_FAMILY = 4;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
@@ -2254,7 +2270,7 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
-				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};
@@ -2306,7 +2322,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Sources/Info-iOS-Extension.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2371,7 +2387,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "Sources/Info-iOS-Extension.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = (

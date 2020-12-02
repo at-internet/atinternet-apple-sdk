@@ -36,20 +36,20 @@ import CoreData
 #endif
 
 protocol StorageProtocol {
-    func insert(_ hit: inout String, mhOlt: String?) -> Bool
-    func setRetryCount(_ count: Int, offlineHit: NSManagedObjectID)
-    func getRetryCountForHit(_ hit: String) -> Int
-    func setRetryCount(_ retryCount: Int, hit: String)
+    func insert(_ hit: inout String, hitId: String, mhOlt: String?) -> Bool
+    func setRetryCount(_ count: Int, offlineHitOid: NSManagedObjectID)
+    func getRetryCountForHit(_ hitId: String) -> Int
+    func setRetryCount(_ retryCount: Int, hitId: String)
     func getRetryCount(_ oid: NSManagedObjectID) -> Int
     func get() -> [Hit]
     func getStoredHits() -> [StoredOfflineHit]
-    func get(_ hit: String) -> Hit?
-    func getStoredHit(_ hit: String) -> NSManagedObjectID?
+    func get(_ hitId: String) -> Hit?
+    func getStoredHit(_ hitId: String) -> NSManagedObjectID?
     func count() -> Int
-    func exists(_ hit: String) -> Bool
+    func exists(_ hitId: String) -> Bool
     func delete() -> Int
     func delete(_ olderThan: Date) -> Int
-    func delete(_ hit: String) -> Bool
+    func delete(_ hitId: String) -> Bool
     func first() -> Hit?
     func last() -> Hit?
     func buildHitToStore(_ hit: String, olt: String) -> String
@@ -57,20 +57,20 @@ protocol StorageProtocol {
 }
 
 class NilStorage: StorageProtocol {
-    func insert(_ hit: inout String, mhOlt: String?) -> Bool {return false}
-    func setRetryCount(_ count: Int, offlineHit: NSManagedObjectID) {}
-    func getRetryCountForHit(_ hit: String) -> Int {return 0}
-    func setRetryCount(_ retryCount: Int, hit: String) {}
+    func insert(_ hit: inout String, hitId: String, mhOlt: String?) -> Bool {return false}
+    func setRetryCount(_ count: Int, offlineHitOid: NSManagedObjectID) {}
+    func getRetryCountForHit(_ hitId: String) -> Int {return 0}
+    func setRetryCount(_ retryCount: Int, hitId: String) {}
     func getRetryCount(_ oid: NSManagedObjectID) -> Int {return 0}
     func get() -> [Hit] {return []}
     func getStoredHits() -> [StoredOfflineHit] {return []}
-    func get(_ hit: String) -> Hit? {return nil}
-    func getStoredHit(_ hit: String) -> NSManagedObjectID? {return nil}
+    func get(_ hitId: String) -> Hit? {return nil}
+    func getStoredHit(_ hitId: String) -> NSManagedObjectID? {return nil}
     func count() -> Int {return 0}
-    func exists(_ hit: String) -> Bool {return false}
+    func exists(_ hitId: String) -> Bool {return false}
     func delete() -> Int {return 0}
     func delete(_ olderThan: Date) -> Int {return 0}
-    func delete(_ hit: String) -> Bool {return false}
+    func delete(_ hitId: String) -> Bool {return false}
     func first() -> Hit? {return nil}
     func last() -> Hit? {return nil}
     func buildHitToStore(_ hit: String, olt: String) -> String {return ""}
@@ -278,7 +278,7 @@ class Storage: StorageProtocol {
      
      - returns: true if hit has been successfully saved
      */
-    func insert(_ hit: inout String, mhOlt: String?) -> Bool {
+    func insert(_ hit: inout String, hitId: String, mhOlt: String?) -> Bool {
         let privateContext = newPrivateContext()
         if let _ = self.managedObjectContext {
             let now = Date()
@@ -293,8 +293,9 @@ class Storage: StorageProtocol {
             // Format hit before storage (olt, cn)
             hit = buildHitToStore(hit, olt: olt)
             var done = false
-            let copyHit = hit
-            if(exists(hit) == false) {
+            guard let copyHit = hit.encrypt else { return false }
+            
+            if(exists(hitId) == false) {
                 privateContext.performAndWait({
                     let managedHit = NSEntityDescription.insertNewObject(forEntityName: self.entityName, into: privateContext) as! StoredOfflineHit
                     managedHit.hit = copyHit
@@ -323,10 +324,10 @@ class Storage: StorageProtocol {
      - parameter count:      new retryCount
      - parameter offlineHit: OfflineHit's objectID
      */
-    func setRetryCount(_ count: Int, offlineHit: NSManagedObjectID) {
+    func setRetryCount(_ count: Int, offlineHitOid: NSManagedObjectID) {
         let privateContext = newPrivateContext()
         privateContext.performAndWait {
-            let hit = privateContext.object(with: offlineHit) as! StoredOfflineHit
+            let hit = privateContext.object(with: offlineHitOid) as! StoredOfflineHit
             hit.retry = NSNumber(value: count)
             try! privateContext.save()
             self.saveToPersistentStore()
@@ -340,12 +341,11 @@ class Storage: StorageProtocol {
      
      - returns: the retryCount of the OfflineHit
      */
-    func getRetryCountForHit(_ hit: String) -> Int {
-        let offlineHitID = self.getStoredHit(hit)
-        guard let hitID = offlineHitID else {
+    func getRetryCountForHit(_ hitId: String) -> Int {
+        guard let hitOID = self.getStoredHit(hitId) else {
             return -1
         }
-        return self.getRetryCount(hitID)
+        return self.getRetryCount(hitOID)
     }
     
     /**
@@ -354,12 +354,11 @@ class Storage: StorageProtocol {
      - parameter retryCount: the new retryCount
      - parameter hit:        the query string of the hit
      */
-    func setRetryCount(_ retryCount: Int, hit: String) {
-        let offlineHitID = self.getStoredHit(hit)
-        guard let hitID = offlineHitID else {
+    func setRetryCount(_ retryCount: Int, hitId: String) {
+        guard let hitOID = self.getStoredHit(hitId) else {
             return
         }
-        setRetryCount(retryCount, offlineHit: hitID)
+        setRetryCount(retryCount, offlineHitOid: hitOID)
     }
     
     /**
@@ -396,7 +395,8 @@ class Storage: StorageProtocol {
                 if let objects = try? privateContext.fetch(request) {
                     for object in objects {
                         let hit = Hit()
-                        hit.url = object.hit
+                        hit.id = object.objectID.uriRepresentation().absoluteString
+                        hit.url = object.hit.decrypt
                         hit.creationDate = object.date
                         hit.retryCount = object.retry
                         hit.isOffline = true
@@ -436,23 +436,22 @@ class Storage: StorageProtocol {
      
      - returns: an offline hit
      */
-    func get(_ hit: String) -> Hit? {
+    func get(_ hitId: String) -> Hit? {
         if let moc = self.managedObjectContext {
-            let request = NSFetchRequest<StoredOfflineHit>(entityName: entityName)
             
-            let filter = NSPredicate(format: "hit == %@", hit);
-            request.predicate = filter
+            let oid = getStoredHit(hitId)
+            guard oid != nil else { return nil }
             
             var hit : Hit?
             moc.performAndWait({
-                if let objects = try? moc.fetch(request) {
-                    if(objects.count > 0) {
-                        hit = Hit()
-                        hit!.url = objects.first!.hit
-                        hit!.creationDate = objects.first!.date
-                        hit!.retryCount = objects.first!.retry
-                        hit!.isOffline = true
-                    }
+                
+                if let object = moc.object(with: oid!) as? StoredOfflineHit {
+                    hit = Hit()
+                    hit!.id = object.objectID.uriRepresentation().absoluteString
+                    hit!.url = object.hit.decrypt
+                    hit!.creationDate = object.date
+                    hit!.retryCount = object.retry
+                    hit!.isOffline = true
                 }
             })
             return hit
@@ -468,23 +467,12 @@ class Storage: StorageProtocol {
      
      - returns: an offline hit
      */
-    func getStoredHit(_ hit: String) -> NSManagedObjectID? {
+    func getStoredHit(_ hitId: String) -> NSManagedObjectID? {
         if let _ = self.managedObjectContext {
-            let privateContext = newPrivateContext()
-            let request = NSFetchRequest<StoredOfflineHit>(entityName: entityName)
-            let filter = NSPredicate(format: "hit == %@", hit);
-            request.predicate = filter
-            var object : StoredOfflineHit?
-            privateContext.performAndWait({
-                if let objects = try? privateContext.fetch(request) {
-                    if(objects.count > 0) {
-                        object = objects.first!
-                    }
-                }
-            })
-            return object?.objectID
+            if let url = URL(string: hitId) {
+                return newPrivateContext().persistentStoreCoordinator?.managedObjectID(forURIRepresentation: url)
+            }
         }
-        
         return nil
     }
     
@@ -528,22 +516,18 @@ class Storage: StorageProtocol {
      
      - returns: true or false if hit exists
      */
-    func exists(_ hit: String) -> Bool {
+    func exists(_ hitId: String) -> Bool {
         let privateContext = newPrivateContext()
         if let _ = self.managedObjectContext {
-            let request = NSFetchRequest<StoredOfflineHit>()
-            request.entity = NSEntityDescription.entity(forEntityName: entityName, in: privateContext)
-            request.includesSubentities = false
-            request.includesPropertyValues = false
             
-            let filter = NSPredicate(format: "hit == %@", hit);
-            request.predicate = filter
+            let oid = getStoredHit(hitId)
+            guard oid != nil else { return false }
             
             var exists = false
             privateContext.performAndWait({
                 do {
-                    let count = try privateContext.count(for: request);
-                    exists = (count > 0)
+                    _ = try privateContext.existingObject(with: oid!)
+                    exists = true
                 } catch {
                     exists = false
                 }
@@ -634,31 +618,22 @@ class Storage: StorageProtocol {
      
      - returns: true if deletion was successful
      */
-    func delete(_ hit: String) -> Bool {
+    func delete(_ hitId: String) -> Bool {
         let privateContext = newPrivateContext()
         if let _ = self.managedObjectContext {
-            let request = NSFetchRequest<StoredOfflineHit>()
-            request.entity = NSEntityDescription.entity(forEntityName: entityName, in: privateContext)
-            request.includesSubentities = false
-            request.includesPropertyValues = false
             
-            let filter = NSPredicate(format: "hit == %@", hit);
-            request.predicate = filter
+            let oid = getStoredHit(hitId)
+            guard oid != nil else { return false }
             
             var done = false
             privateContext.performAndWait({
-                if let objects = try? privateContext.fetch(request) {
-                    for object in objects {
-                        privateContext.delete(object)
-                    }
-                    do {
-                        try privateContext.save()
-                        self.saveToPersistentStore()
-                        done = true
-                    } catch {
-                        done = false
-                    }
-                } else {
+                privateContext.delete(privateContext.object(with: oid!))
+                
+                do {
+                    try privateContext.save()
+                    self.saveToPersistentStore()
+                    done = true
+                } catch {
                     done = false
                 }
             })
@@ -686,7 +661,7 @@ class Storage: StorageProtocol {
                 if let objects = try? privateContext.fetch(request) {
                     if(objects.count > 0) {
                         hit = Hit()
-                        hit!.url = objects.first!.hit
+                        hit!.url = objects.first!.hit.decrypt
                         hit!.creationDate = objects.first!.date
                         hit!.retryCount = objects.first!.retry
                         hit!.isOffline = true
@@ -718,7 +693,7 @@ class Storage: StorageProtocol {
                 if let objects = try? privateContext.fetch(request) {
                     if(objects.count > 0) {
                         hit = Hit()
-                        hit!.url = objects.first!.hit
+                        hit!.url = objects.first!.hit.decrypt
                         hit!.creationDate = objects.first!.date
                         hit!.retryCount = objects.first!.retry
                         hit!.isOffline = true
