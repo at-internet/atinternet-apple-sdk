@@ -541,7 +541,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4F3AF58B1D7D6E46001B86EE /* DispatchQueueExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DispatchQueueExtension.swift; sourceTree = "<group>"; };
 		4F47A3DE1D351E8100702747 /* Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F47A3E11D351E8100702747 /* Tracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tracker.h; sourceTree = "<group>"; };
 		4F47A3F91D351EA700702747 /* tvOSTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = tvOSTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -878,7 +877,6 @@
 			isa = PBXGroup;
 			children = (
 				4F47A6281D3624AF00702747 /* DictionaryExtension.swift */,
-				4F3AF58B1D7D6E46001B86EE /* DispatchQueueExtension.swift */,
 				4F47A6291D3624AF00702747 /* NSObjectExtension.swift */,
 				4F47A5C61D36223D00702747 /* StringExtension.swift */,
 			);
