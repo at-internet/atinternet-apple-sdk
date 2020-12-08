@@ -468,6 +468,9 @@ class Storage: StorageProtocol {
      - returns: an offline hit
      */
     func getStoredHit(_ hitId: String) -> NSManagedObjectID? {
+        guard hitId.starts(with: "x-coredata://") else {
+            return nil
+        }
         if let _ = self.managedObjectContext {
             if let url = URL(string: hitId) {
                 return newPrivateContext().persistentStoreCoordinator?.managedObjectID(forURIRepresentation: url)
