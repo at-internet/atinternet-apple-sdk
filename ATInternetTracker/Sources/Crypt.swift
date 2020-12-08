@@ -30,7 +30,9 @@ SOFTWARE.
 //  Tracker
 //
 import Foundation
+#if canImport(CryptoKit)
 import CryptoKit
+#endif
 
 class Crypt: NSObject {
     
