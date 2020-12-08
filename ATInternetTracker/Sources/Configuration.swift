@@ -73,6 +73,19 @@ public enum UUIDExpirationModeKey: String {
     case relative = "relative"
 }
 
+/// Proxy types
+///
+/// - none: No proxy
+/// - http
+/// - https
+/// - socks
+public enum ProxyTypeKey: String {
+    case none = "none"
+    case http = "http"
+    case https = "https"
+    case socks = "socks"
+}
+
 /// States
 ///
 /// - active: hits are send only when the application is active
@@ -138,6 +151,10 @@ public class TrackerConfigurationKeys: NSObject {
     public static let UUIDDuration = "UUIDDuration"
     /// UUID ExpirationMode
     public static let UUIDExpirationMode = "UUIDExpirationMode"
+    /// Proxy type
+    public static let ProxyType = "proxyType"
+    /// Proxy address
+    public static let ProxyAddress = "proxyAddress"
 }
 
 /// Tracker configuraiton
