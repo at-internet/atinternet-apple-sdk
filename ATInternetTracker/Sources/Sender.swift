@@ -145,6 +145,7 @@ class Sender: Operation {
                     let semaphore = DispatchSemaphore(value: 0)
                     
                     let sessionConfig = URLSessionConfiguration.default
+                    #if !os(watchOS)
                     switch tracker.configuration.parameters[TrackerConfigurationKeys.ProxyType]?.lowercased() {
                     case "http":
                         if let address = tracker.configuration.parameters[TrackerConfigurationKeys.ProxyAddress] {
@@ -179,6 +180,7 @@ class Sender: Operation {
                     default:
                         break
                     }
+                    #endif
                     sessionConfig.requestCachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
                     let session = URLSession(configuration: sessionConfig)
                     var request = URLRequest(url: optURL, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 30)
