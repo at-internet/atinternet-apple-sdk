@@ -53,9 +53,9 @@ class TechnicalContext: NSObject {
     class var sdkVersion: String {
         get {
             #if os(watchOS) || os(tvOS)
-            return "1.18.1"
+            return "1.18.2"
             #else
-            return "2.21.1"
+            return "2.21.2"
             #endif
         }
     }
@@ -557,7 +557,7 @@ class TechnicalContext: NSObject {
                     
                     if(radioType != nil) {
                         if #available(iOS 14, *) {
-                            if radioType == CTRadioAccessTechnologyNRNSA || radioType == CTRadioAccessTechnologyNR {
+                            if radioType! == CTRadioAccessTechnologyNRNSA || radioType! == CTRadioAccessTechnologyNR {
                                 return ConnexionType.fiveg
                             }
                         }
