@@ -53,9 +53,9 @@ class TechnicalContext: NSObject {
     class var sdkVersion: String {
         get {
             #if os(watchOS) || os(tvOS)
-            return "1.18.1"
+            return "1.18.2"
             #else
-            return "2.21.1"
+            return "2.21.2"
             #endif
         }
     }
@@ -555,13 +555,14 @@ class TechnicalContext: NSObject {
                         radioType = telephonyInfo.currentRadioAccessTechnology
                     }
                     
-                    if(radioType != nil) {
-                        if #available(iOS 14, *) {
-                            if radioType == CTRadioAccessTechnologyNRNSA || radioType == CTRadioAccessTechnologyNR {
+                    if let rt = radioType {
+                        if #available(iOS 14.1, *) {
+                            // These radio types are not available in iOS 14.0 and 14.0.1 (causes crashes) although it seems like they are
+                            if rt == CTRadioAccessTechnologyNRNSA || rt == CTRadioAccessTechnologyNR {
                                 return ConnexionType.fiveg
                             }
                         }
-                        switch(radioType!) {
+                        switch(rt) {
                         case CTRadioAccessTechnologyGPRS:
                             return ConnexionType.gprs
                         case CTRadioAccessTechnologyEdge:

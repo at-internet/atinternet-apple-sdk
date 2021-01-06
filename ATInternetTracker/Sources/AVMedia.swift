@@ -104,19 +104,13 @@ public class AVMedia: RequiredPropertiesDataObject {
     }
     
     convenience init(events: Events?, heartbeat: Int, bufferHeartbeat: Int, sessionId: String?) {
-        self.init(events: events, sessionId: sessionId)
-        _ = self.setHeartbeat(heartbeat: heartbeat)
-        _ = self.setBufferHeartbeat(bufferHeartbeat: bufferHeartbeat)
+        self.init(events: events, heartbeat: nil, bufferHeartbeat: nil, sessionId: sessionId)
     }
     
     convenience init(events: Events?, heartbeat: [Int:Int]?, bufferHeartbeat: [Int:Int]?, sessionId: String?) {
         self.init(events: events, sessionId: sessionId)
-        _ = self.setHeartbeat(heartbeat: heartbeat)
-        _ = self.setBufferHeartbeat(bufferHeartbeat: bufferHeartbeat)
-    }
-    
-    func setHeartbeat(heartbeat: Int) -> AVMedia {
-        return setHeartbeat(heartbeat: [0: max(heartbeat, MinHeartbeatDuration)])
+        _ = self.setHeartbeat(heartbeat: [0:MinHeartbeatDuration, 1:10, 5:20, 15: 30, 30: 60])
+        _ = self.setBufferHeartbeat(bufferHeartbeat: [0:MinBufferHeartbeatDuration, 1:10, 5:20, 15: 30, 30: 60])
     }
     
     func setHeartbeat(heartbeat: [Int: Int]?) -> AVMedia {
@@ -132,10 +126,6 @@ public class AVMedia: RequiredPropertiesDataObject {
             }
         }
         return self
-    }
-    
-    func setBufferHeartbeat(bufferHeartbeat: Int) -> AVMedia {
-        return setBufferHeartbeat(bufferHeartbeat: [0: max(bufferHeartbeat, MinBufferHeartbeatDuration)])
     }
     
     func setBufferHeartbeat(bufferHeartbeat: [Int: Int]?) -> AVMedia {
