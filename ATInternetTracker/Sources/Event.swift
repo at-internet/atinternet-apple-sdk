@@ -94,16 +94,16 @@ public class Events: BusinessObject {
         
         for e in self.eventLists {
             
-            var data = toFlatten(src: e.data, lowercase: true)
+            var data = Tool.toFlatten(src: e.data, lowercase: true)
             if e.data.count != 0 {
-                eventsArr.append(["name" : e.name.lowercased(), "data" : toObject(src: data)])
+                eventsArr.append(["name" : e.name.lowercased(), "data" : Tool.toObject(src: data)])
             }
             
             let additionalEvents = e.getAdditionalEvents()
             
             for ev in additionalEvents {
-                data = toFlatten(src: ev.data, lowercase: true)
-                eventsArr.append(["name" : ev.name.lowercased(), "data" : toObject(src: data)])
+                data = Tool.toFlatten(src: ev.data, lowercase: true)
+                eventsArr.append(["name" : ev.name.lowercased(), "data" : Tool.toObject(src: data)])
             }
 
         }
@@ -145,95 +145,4 @@ public class Events: BusinessObject {
         
         return pageContext
     }
-    
-    private func toFlatten(src: [String : Any], lowercase: Bool) -> [String: (Any, String)] {
-        var dst = [String : (Any, String)]()
-        doFlatten(src: src, prefix: "", dst: &dst, lowercase: lowercase)
-        return dst
-    }
-    
-    private func doFlatten(src: [String: Any], prefix: String, dst: inout [String : (Any, String)], lowercase: Bool) {
-        for (k,v) in src {
-            let key = prefix == "" ? k : prefix + "_" + k
-            if v is [String : Any] {
-                doFlatten(src: v as! [String : Any], prefix: key, dst: &dst, lowercase: lowercase)
-            } else {
-                let parts = key.components(separatedBy: "_")
-                var finalPrefix = ""
-                var s = ""
-                let last = parts.count - 1
-                
-                for (i, part) in parts.enumerated() {
-                    let t = splitPrefixKey(key: part)
-                    
-                    if t.0 != "" {
-                        finalPrefix = t.0
-                    }
-                    
-                    if i > 0 {
-                        s.append("_")
-                    }
-                    s.append(lowercase ? t.1.lowercased() : t.1)
-                    
-                    /// test -> test_$ on existing key if the current key is not complete
-                    if i != last && dst[s] != nil {
-                        dst[s + "_$"] = dst.removeValue(forKey: s)
-                        continue
-                    }
-                    ///
-                    
-                    /// test -> test_$ on current key if the current key is complete
-                    if i == last && dst[s] == nil && containsKeyPrefix(keys: dst.keys, prefix: s) {
-                        s.append("_$")
-                    }
-                    ///
-                }
-                
-                dst[s] = (v, lowercase ? finalPrefix.lowercased() : finalPrefix)
-            }
-        }
-    }
-    
-    private func toObject(src: [String : (Any, String)]) -> [String: Any] {
-        return src.reduce(into: [:]) { (acc, arg1) in
-           let (key, (value, prefix)) = arg1
-            let parts = key.components(separatedBy: "_")
-            
-            var path = ""
-            for (i, part) in parts.enumerated() {
-                if i != 0 {
-                    path += "_"
-                }
-                
-                if i == parts.count - 1 {
-                    acc.setValue(value: value, forKeyPath: path + prefix + part)
-                    return
-                }
-                
-                path += part
-            }
-        }
-    }
-    
-    private func splitPrefixKey(key: String) -> (String, String) {
-        if key.count < 2 || key[key.index(key.startIndex, offsetBy: 1)] != ":" {
-            return ("", key)
-        }
-        
-        if key.count < 4 || key[key.index(key.startIndex, offsetBy: 3)] != ":" {
-            return (key[0..<2], key[2...])
-        }
-        
-        return (key[0..<4], key[4...])
-    }
-    
-    private func containsKeyPrefix(keys: Dictionary<String, (Any, String)>.Keys, prefix: String) -> Bool {
-        for (_, key) in keys.enumerated() {
-            if key.hasPrefix(prefix) {
-                return true
-            }
-        }
-        return false
-    }
-    
 }
