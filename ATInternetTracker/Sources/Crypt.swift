@@ -99,9 +99,9 @@ class Crypt: NSObject {
         
         let encryptedData = try? AES.GCM.seal(data.data(using: .utf8)!, using: key!).combined
 
-        guard encryptedData != nil else { return nil }
+        guard let sealData = encryptedData else { return nil }
         
-        return encryptedData!.base64EncodedString()
+        return sealData?.base64EncodedString()
     }
     
     @available(iOS 13.0, *)
