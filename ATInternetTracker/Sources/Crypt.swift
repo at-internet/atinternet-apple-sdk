@@ -101,7 +101,7 @@ class Crypt: NSObject {
 
         guard let sealData = encryptedData else { return nil }
         
-        return sealData?.base64EncodedString()
+        return sealData.base64EncodedString()
     }
     
     @available(iOS 13.0, *)

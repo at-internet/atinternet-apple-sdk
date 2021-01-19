@@ -499,6 +499,12 @@
 		CCB990A425488A220059D252 /* Crypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB990A025488A220059D252 /* Crypt.swift */; };
 		CCB990A525488A220059D252 /* Crypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB990A025488A220059D252 /* Crypt.swift */; };
 		CCB990A625488A220059D252 /* Crypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB990A025488A220059D252 /* Crypt.swift */; };
+		CCC4374925AF223300D3815F /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4374825AF223300D3815F /* Privacy.swift */; };
+		CCC4374A25AF223300D3815F /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4374825AF223300D3815F /* Privacy.swift */; };
+		CCC4374B25AF223300D3815F /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4374825AF223300D3815F /* Privacy.swift */; };
+		CCC4374C25AF223300D3815F /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4374825AF223300D3815F /* Privacy.swift */; };
+		CCC4374D25AF223300D3815F /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4374825AF223300D3815F /* Privacy.swift */; };
+		CCC4374E25AF223300D3815F /* Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC4374825AF223300D3815F /* Privacy.swift */; };
 		CCC9F5FA23B63A580055516B /* AVInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F5F923B63A580055516B /* AVInsights.swift */; };
 		CCC9F5FB23B63A580055516B /* AVInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F5F923B63A580055516B /* AVInsights.swift */; };
 		CCC9F5FC23B63A580055516B /* AVInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC9F5F923B63A580055516B /* AVInsights.swift */; };
@@ -667,6 +673,7 @@
 		CC9A55A521CA23A900A78AB3 /* ECommerce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECommerce.swift; sourceTree = "<group>"; };
 		CCB990A025488A220059D252 /* Crypt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypt.swift; sourceTree = "<group>"; };
 		CCBE56C623151D2200FF043D /* referential.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = referential.json; sourceTree = "<group>"; };
+		CCC4374825AF223300D3815F /* Privacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Privacy.swift; sourceTree = "<group>"; };
 		CCC9F5F923B63A580055516B /* AVInsights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVInsights.swift; sourceTree = "<group>"; };
 		CCC9F60023B63C100055516B /* AVMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVMedia.swift; sourceTree = "<group>"; };
 		CCE8902D2182F7CF000BBC4F /* EventsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventsTests.swift; path = Tests/EventsTests.swift; sourceTree = "<group>"; };
@@ -789,6 +796,7 @@
 				4F47A4581D3542A400702747 /* Tool.swift */,
 				4F47A4591D3542A400702747 /* Tracker.swift */,
 				CCB990A025488A220059D252 /* Crypt.swift */,
+				CCC4374825AF223300D3815F /* Privacy.swift */,
 			);
 			name = Core;
 			sourceTree = "<group>";
@@ -1297,6 +1305,7 @@
 				CC704B9821B6D21000114A86 /* UpdateCart.swift in Sources */,
 				4F47A4D11D35446700702747 /* CustomTreeStructure.swift in Sources */,
 				4F47A5151D35446700702747 /* Screen.swift in Sources */,
+				CCC4374925AF223300D3815F /* Privacy.swift in Sources */,
 				CC1FE8B0215A0DFC006FE401 /* LiveMedium.swift in Sources */,
 				4F47A4721D3542A400702747 /* Hit.swift in Sources */,
 				4F47A50D1D35446700702747 /* Publisher.swift in Sources */,
@@ -1412,6 +1421,7 @@
 				4F47A4E31D35446700702747 /* IdentifiedVisitor.swift in Sources */,
 				CC704B4D21B672BA00114A86 /* AddProduct.swift in Sources */,
 				4F47A4EF1D35446700702747 /* LiveVideo.swift in Sources */,
+				CCC4374B25AF223300D3815F /* Privacy.swift in Sources */,
 				4F47A4FB1D35446700702747 /* NuggAd.swift in Sources */,
 				4F47A5481D35458E00702747 /* DefaultTrackerDelegate.swift in Sources */,
 				CC704B3F21B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */,
@@ -1461,6 +1471,7 @@
 				CC704B9421B6D16700114A86 /* RemoveProduct.swift in Sources */,
 				4F47A4DC1D35446700702747 /* Event.swift in Sources */,
 				4F47A4C81D35446700702747 /* Campaign.swift in Sources */,
+				CCC4374C25AF223300D3815F /* Privacy.swift in Sources */,
 				4F47A48D1D3542A400702747 /* TechnicalContext.swift in Sources */,
 				CC1FE8B3215A0DFC006FE401 /* LiveMedium.swift in Sources */,
 				4F47A53E1D35451A00702747 /* Hash.m in Sources */,
@@ -1568,6 +1579,7 @@
 				4F47A4D61D35446700702747 /* CustomVar.swift in Sources */,
 				CC704B4C21B672BA00114A86 /* AddProduct.swift in Sources */,
 				4F47A4F21D35446700702747 /* Location.swift in Sources */,
+				CCC4374A25AF223300D3815F /* Privacy.swift in Sources */,
 				4F47A5021D35446700702747 /* OnAppAd.swift in Sources */,
 				4F47A4871D3542A400702747 /* Storage.swift in Sources */,
 				CC704B3E21B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */,
@@ -1630,6 +1642,7 @@
 				4F47A8071D3D17BD00702747 /* BusinessObject.swift in Sources */,
 				4F47A8221D3D17FC00702747 /* Publisher.swift in Sources */,
 				CC704B7921B6C48200114A86 /* DisplayPageProduct.swift in Sources */,
+				CCC4374D25AF223300D3815F /* Privacy.swift in Sources */,
 				4F47A83F1D3D192C00702747 /* Context.swift in Sources */,
 				4F47A8421D3D192C00702747 /* Hit.swift in Sources */,
 				CCC9F5FE23B63A580055516B /* AVInsights.swift in Sources */,
@@ -1729,6 +1742,7 @@
 				CC704BA421B6D2AE00114A86 /* TransactionConfirmation.swift in Sources */,
 				4FF5944D1D3F66860004D336 /* Campaign.swift in Sources */,
 				4FF5943D1D3F66400004D336 /* DefaultTrackerDelegate.swift in Sources */,
+				CCC4374E25AF223300D3815F /* Privacy.swift in Sources */,
 				4FF594561D3F669B0004D336 /* LiveAudio.swift in Sources */,
 				4FF5941E1D3F61C50004D336 /* CartTests.swift in Sources */,
 				4FF5944B1D3F66810004D336 /* Audio.swift in Sources */,
