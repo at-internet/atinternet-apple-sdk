@@ -45,7 +45,7 @@ public class Privacy: NSObject {
         VisitorMode.optIn : ["*"],
         VisitorMode.optOut : ["idclient", "ts", "olt", "cn", "click", "type"],
         VisitorMode.noConsent : ["idclient", "ts", "olt", "cn", "click", "type"],
-        VisitorMode.exempt : ["idclient", "p", "olt", "vtag", "ptag", "ts", "click", "type", "cn", "apvr", "mfmd", "model", "manufacturer", "os", "stc_crash_*"]
+        VisitorMode.exempt : ["idclient", "p", "olt", "vtag", "ptag", "ts", "click", "type", "cn", "apvr", "dg", "mfmd", "model", "manufacturer", "os", "stc_crash_*"]
     ]
     
 
