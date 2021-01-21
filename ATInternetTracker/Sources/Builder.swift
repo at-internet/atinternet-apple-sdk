@@ -153,7 +153,7 @@ class Builder: Operation {
         
 
         // Get the parameters from the buffer (formatted as &p=v)
-        var formattedParams = prepareQuery()
+        var formattedParams = Privacy.apply(parameters: prepareQuery())
         
         // Hit slicing error
         var err = false
