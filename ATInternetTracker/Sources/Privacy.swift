@@ -60,15 +60,15 @@ public class Privacy: NSObject {
     /**
      Set user OptOut
     */
-    public class func setVisitorOptOut() {
-        setVisitorMode(VisitorMode.optOut);
+    @objc public class func setVisitorOptOut() {
+        setVisitorMode(VisitorMode.optOut)
     }
 
     /**
      Set user OptIn
      */
-    public class func setVisitorOptIn() {
-        setVisitorMode(VisitorMode.optIn);
+    @objc public class func setVisitorOptIn() {
+        setVisitorMode(VisitorMode.optIn)
     }
     
     /**
@@ -77,7 +77,7 @@ public class Privacy: NSObject {
      - parameter visitorMode: selected mode from user context
      */
     public class func setVisitorMode(_ visitorMode: VisitorMode) {
-        setVisitorMode(visitorMode, duration: 397);
+        setVisitorMode(visitorMode, duration: 397)
     }
     
     /**
@@ -118,11 +118,50 @@ public class Privacy: NSObject {
          Swift incompatibility to call similar method with variadic arguments (https://bugs.swift.org/browse/SR-128)
      */
     public class func extendIncludeBuffer(_ keys: String...) {
-        includeBufferByMode[getVisitorMode()]?.append(contentsOf: keys.map {$0.lowercased()});
+        includeBufferByMode[getVisitorMode()]?.append(contentsOf: keys.map {$0.lowercased()})
     }
     
     public class func extendIncludeBuffer(_ visitorMode: VisitorMode, keys: String...) {
-        includeBufferByMode[visitorMode]?.append(contentsOf: keys.map {$0.lowercased()});
+        includeBufferByMode[visitorMode]?.append(contentsOf: keys.map {$0.lowercased()})
+    }
+    
+    /**
+     Set User Privacy mode
+     
+     - parameter visitorMode: selected mode from user context
+     */
+    @objc public class func setVisitorMode(_ visitorMode: String) {
+        setVisitorMode(VisitorMode.init(rawValue: visitorMode) ?? VisitorMode.none)
+    }
+    
+    /**
+     Set User Privacy mode
+     
+     - parameter visitorMode: selected mode from user context
+     - parameter duration: storage validity for privacy information (in days)
+     */
+    @objc public class func setVisitorMode(_ visitorMode: String, duration: Int) {
+        setVisitorMode(VisitorMode.init(rawValue: visitorMode) ?? VisitorMode.none, duration: duration)
+    }
+    
+    /**
+     Get current User Privacy mode
+     
+     - returns: user privacy mode
+     */
+    @objc public class func getVisitorModeString() -> String {
+        return getVisitorMode().rawValue
+    }
+    
+    /**
+         Swift incompatibility to call similar method with variadic arguments (https://bugs.swift.org/browse/SR-128)
+     */
+    @objc public class func extendIncludeBuffer(_ keys: [String]) {
+        includeBufferByMode[getVisitorMode()]?.append(contentsOf: keys.map {$0.lowercased()})
+    }
+    
+    @objc public class func extendIncludeBuffer(_ visitorMode: String, keys: [String]) {
+        includeBufferByMode[VisitorMode.init(rawValue: visitorMode) ?? VisitorMode.none]?.append(contentsOf: keys.map {$0.lowercased()})
     }
     
     class func apply(parameters: [String : (String, String)]) -> [String : (String, String)] {
@@ -195,7 +234,7 @@ public class Privacy: NSObject {
             break
         }
 
-        return result;
+        return result
     }
     
     private class func applyToStc(_ stc: (String, String), includedStcKeys: [String]) -> (String, String) {
