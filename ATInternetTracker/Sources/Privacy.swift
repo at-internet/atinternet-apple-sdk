@@ -94,7 +94,7 @@ public class Privacy: NSObject {
             userDefaults.removeObject(forKey: IdentifiedVisitorHelperKey.category.rawValue)
         }
         userDefaults.setValue(visitorMode.rawValue, forKey: PrivacyModeKey)
-        userDefaults.setValue((Int(Date().timeIntervalSince1970) * 1000) + (duration * 86400000), forKey: PrivacyModeExpirationTimestampKey)
+        userDefaults.setValue(Int64(Date().timeIntervalSince1970 * 1000) + Int64(duration * 86400000), forKey: PrivacyModeExpirationTimestampKey)
         userDefaults.synchronize()
     }
     
@@ -105,11 +105,12 @@ public class Privacy: NSObject {
      */
     public class func getVisitorMode() -> VisitorMode {
         let userDefaults = UserDefaults.standard
-        let privacyModeExpirationTs = userDefaults.integer(forKey: PrivacyModeExpirationTimestampKey)
-        if ((Int(Date().timeIntervalSince1970) * 1000) >= privacyModeExpirationTs) {
-            userDefaults.setValue(VisitorMode.none.rawValue, forKey: PrivacyModeKey)
-            userDefaults.setValue(-1, forKey: PrivacyModeExpirationTimestampKey)
-            userDefaults.synchronize()
+        if let privacyModeExpirationTs = userDefaults.object(forKey: PrivacyModeExpirationTimestampKey) as? Int64 {
+            if (Int64(Date().timeIntervalSince1970 * 1000) >= privacyModeExpirationTs) {
+                userDefaults.setValue(VisitorMode.none.rawValue, forKey: PrivacyModeKey)
+                userDefaults.setValue(-1, forKey: PrivacyModeExpirationTimestampKey)
+                userDefaults.synchronize()
+            }
         }
         return VisitorMode.init(rawValue: userDefaults.string(forKey: PrivacyModeKey) ?? VisitorMode.none.rawValue) ?? VisitorMode.none
     }
