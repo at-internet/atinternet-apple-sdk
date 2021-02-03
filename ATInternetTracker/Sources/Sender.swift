@@ -252,7 +252,7 @@ class Sender: Operation {
                             // Si le hit provient du stockage et que l'envoi a réussi, on le supprime de la base
                             if(self.hit.isOffline) {
                                 OfflineHit.sentWithSuccess = true
-                                _ = db.delete(self.hit.url)
+                                _ = db.delete(self.hit.id)
                             }
                             
                             self.tracker.delegate?.sendDidEnd?(HitStatus.success, message: self.hit.url)
