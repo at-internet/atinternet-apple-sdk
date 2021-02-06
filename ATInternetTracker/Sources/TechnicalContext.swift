@@ -408,16 +408,19 @@ class TechnicalContext: NSObject {
         }
     }
     
+    #if os(iOS) && canImport(CoreTelephony) && !targetEnvironment(simulator)
+    private static let telephonyInfo = CTTelephonyNetworkInfo()
+    #endif
+    
     /// Carrier
     @objc class var carrier: String {
         get {
             #if os(iOS) && canImport(CoreTelephony) && !targetEnvironment(simulator)
-            let networkInfo = CTTelephonyNetworkInfo()
             var provider : CTCarrier? = nil
             if #available(iOS 12, *) {
-                provider = networkInfo.serviceSubscriberCellularProviders?.values.first
+                provider = telephonyInfo.serviceSubscriberCellularProviders?.values.first
             } else {
-                provider = networkInfo.subscriberCellularProvider
+                provider = telephonyInfo.subscriberCellularProvider
             }
             
             if let optProvider = provider {
@@ -546,8 +549,7 @@ class TechnicalContext: NSObject {
                 } else if(optReachability.currentReachabilityStatus == ATReachability.NetworkStatus.notReachable) {
                     return ConnexionType.offline
                 } else {
-                    #if os(iOS) && canImport(CoreTelephony)
-                    let telephonyInfo = CTTelephonyNetworkInfo()
+                    #if os(iOS) && canImport(CoreTelephony) && !targetEnvironment(simulator)
                     var radioType : String? = nil
                     if #available(iOS 12, *) {
                         radioType = telephonyInfo.serviceCurrentRadioAccessTechnology?.values.first
