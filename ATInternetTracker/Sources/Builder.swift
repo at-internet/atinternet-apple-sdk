@@ -324,7 +324,7 @@ class Builder: Operation {
                 mhOlt = nil
             }
             
-            if TechnicalContext.optOut || Privacy.getVisitorMode() == Privacy.VisitorMode.optOut {
+            if TechnicalContext.optOut || Privacy.getVisitorModeString() == Privacy.VisitorMode.optOut.rawValue {
                 if let sendHitWhenOptOut = self.tracker.configuration.parameters[TrackerConfigurationKeys.SendHitWhenOptOut]?.toBool() {
                     if !sendHitWhenOptOut {
                         tracker.delegate?.warningDidOccur?("'sendHitWhenOptOut' configuration disabled, hit(s) not sent")

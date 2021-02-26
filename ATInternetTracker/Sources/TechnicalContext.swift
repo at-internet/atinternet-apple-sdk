@@ -53,9 +53,9 @@ class TechnicalContext: NSObject {
     class var sdkVersion: String {
         get {
             #if os(watchOS) || os(tvOS)
-            return "1.19.3"
+            return "1.20.0"
             #else
-            return "2.22.3"
+            return "2.23.0"
             #endif
         }
     }
@@ -408,16 +408,19 @@ class TechnicalContext: NSObject {
         }
     }
     
+    #if os(iOS) && canImport(CoreTelephony)
+    private static let telephonyNetworkInfoInfo = CTTelephonyNetworkInfo()
+    #endif
+
     /// Carrier
     @objc class var carrier: String {
         get {
             #if os(iOS) && canImport(CoreTelephony) && !targetEnvironment(simulator)
-            let networkInfo = CTTelephonyNetworkInfo()
             var provider : CTCarrier? = nil
             if #available(iOS 12, *) {
-                provider = networkInfo.serviceSubscriberCellularProviders?.values.first
+                provider = telephonyNetworkInfoInfo.serviceSubscriberCellularProviders?.values.first
             } else {
-                provider = networkInfo.subscriberCellularProvider
+                provider = telephonyNetworkInfoInfo.subscriberCellularProvider
             }
             
             if let optProvider = provider {
@@ -547,12 +550,11 @@ class TechnicalContext: NSObject {
                     return ConnexionType.offline
                 } else {
                     #if os(iOS) && canImport(CoreTelephony)
-                    let telephonyInfo = CTTelephonyNetworkInfo()
                     var radioType : String? = nil
                     if #available(iOS 12, *) {
-                        radioType = telephonyInfo.serviceCurrentRadioAccessTechnology?.values.first
+                        radioType = telephonyNetworkInfoInfo.serviceCurrentRadioAccessTechnology?.values.first
                     } else {
-                        radioType = telephonyInfo.currentRadioAccessTechnology
+                        radioType = telephonyNetworkInfoInfo.currentRadioAccessTechnology
                     }
                     
                     if let rt = radioType {

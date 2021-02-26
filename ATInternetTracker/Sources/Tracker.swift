@@ -184,7 +184,7 @@ public enum HitParam: String {
 /// Wrapper class for tracking usage of your application
 public class Tracker: NSObject {
     
-    @objc internal weak var _delegate: TrackerDelegate? = nil
+    @objc internal var _delegate: TrackerDelegate? = nil
     
     /// Tracker current delegate
     @objc public var delegate: TrackerDelegate? {
