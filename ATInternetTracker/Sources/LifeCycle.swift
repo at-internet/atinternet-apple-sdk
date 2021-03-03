@@ -83,6 +83,7 @@ class LifeCycle: NSObject {
         weekFormatter.dateFormat = "yyyyww"
         
         let now = Date()
+        var initialized = false
         
         // Not first launch
         if let _ = userDefaults.object(forKey: LifeCycleKey.FirstSession.rawValue) as? Int {
@@ -98,39 +99,35 @@ class LifeCycle: NSObject {
             
             // session count
             if let sessionCount = userDefaults.object(forKey: LifeCycleKey.SessionCount.rawValue) as? Int {
-                userDefaults.set(sessionCount + 1, forKey: LifeCycleKey.SessionCount.rawValue)
+                _ = Privacy.storeData(Privacy.StorageFeature.lifecycle, pairs: (LifeCycleKey.SessionCount.rawValue, sessionCount + 1))
             }
             
             // Application version changed
             if let appVersion = userDefaults.object(forKey: LifeCycleKey.LastApplicationVersion.rawValue) as? String {
                 if(appVersion != TechnicalContext.applicationVersion) {
                     LifeCycle.appVersionChanged = true
-                    userDefaults.set(now, forKey: LifeCycleKey.ApplicationUpdate.rawValue)
-                    userDefaults.set(1, forKey: LifeCycleKey.SessionCountSinceUpdate.rawValue)
-                    userDefaults.set(TechnicalContext.applicationVersion, forKey: LifeCycleKey.LastApplicationVersion.rawValue)
+                    _ = Privacy.storeData(Privacy.StorageFeature.lifecycle, pairs: (LifeCycleKey.ApplicationUpdate.rawValue, now), (LifeCycleKey.SessionCountSinceUpdate.rawValue, 1), (LifeCycleKey.LastApplicationVersion.rawValue, TechnicalContext.applicationVersion))
                 } else {
                     LifeCycle.appVersionChanged = false
                     if let sessionCountSinceUpdate = userDefaults.object(forKey: LifeCycleKey.SessionCountSinceUpdate.rawValue) as? Int {
-                        userDefaults.set(sessionCountSinceUpdate + 1, forKey: LifeCycleKey.SessionCountSinceUpdate.rawValue)
+                        _ = Privacy.storeData(Privacy.StorageFeature.lifecycle, pairs: (LifeCycleKey.SessionCountSinceUpdate.rawValue, sessionCountSinceUpdate + 1))
                     }
                 }
             }
             
-            userDefaults.set(now, forKey: LifeCycleKey.LastSession.rawValue)
-            // Save user defaults
-            userDefaults.synchronize()
+            initialized = Privacy.storeData(Privacy.StorageFeature.lifecycle, pairs: (LifeCycleKey.LastSession.rawValue, now))
         } else {
-            LifeCycle.firstLaunchInit()
+            initialized = LifeCycle.firstLaunchInit()
         }
         
         LifeCycle.sessionId = UUID().uuidString
-        LifeCycle.isInitialized = true
+        LifeCycle.isInitialized = initialized
     }
     
     /**
     Init user defaults on first launch
     */
-    class func firstLaunchInit() {
+    class func firstLaunchInit() -> Bool {
         let userDefaults = UserDefaults.standard
         let now = Date()
         self.firstSession = true
@@ -142,37 +139,30 @@ class LifeCycle: NSObject {
             dateFormatter.dateFormat = "YYYYMMdd"
             let fld = dateFormatter.date(from: optFirstLaunchDate)
             
-            userDefaults.set(fld ?? now, forKey: LifeCycleKey.FirstSessionDate.rawValue)
-                    userDefaults.set(0, forKey: LifeCycleKey.FirstSession.rawValue)
+            _ = Privacy.storeData(Privacy.StorageFeature.lifecycle, pairs: (LifeCycleKey.FirstSessionDate.rawValue, fld ?? now), (LifeCycleKey.FirstSession.rawValue, 0))
+            userDefaults.removeObject(forKey: LifeCycleKey.FirstSessionDateV1.rawValue)
             
-            userDefaults.set(nil, forKey: LifeCycleKey.FirstSessionDateV1.rawValue)
             self.firstSession = false
             
         } else {
-            userDefaults.set(1, forKey: LifeCycleKey.FirstSession.rawValue)
-            
-            // First session date
-            userDefaults.set(now, forKey: LifeCycleKey.FirstSessionDate.rawValue)
+            _ = Privacy.storeData(Privacy.StorageFeature.lifecycle, pairs: (LifeCycleKey.FirstSessionDate.rawValue, now), (LifeCycleKey.FirstSession.rawValue, 1))
         }
         
         // Launch Count update from SDK V1
         if let optSessionCount = userDefaults.object(forKey: LifeCycleKey.SessionCount.rawValue) as? Int {
-            userDefaults.set(optSessionCount + 1, forKey: LifeCycleKey.SessionCount.rawValue)
+            _ = Privacy.storeData(Privacy.StorageFeature.lifecycle, pairs: (LifeCycleKey.SessionCount.rawValue, optSessionCount + 1))
         } else {
-            userDefaults.set(1, forKey: LifeCycleKey.SessionCount.rawValue)
+            _ = Privacy.storeData(Privacy.StorageFeature.lifecycle, pairs: (LifeCycleKey.SessionCount.rawValue, 1))
         }
-        
-        
-        // Application version changed
-        userDefaults.set(TechnicalContext.applicationVersion, forKey: LifeCycleKey.LastApplicationVersion.rawValue)
         
         // Last use update from SDK V1
         if let optLastSessionDate = userDefaults.object(forKey: LifeCycleKey.LastSessionV1.rawValue) as? Date  {
-            userDefaults.set(nil, forKey: LifeCycleKey.LastSessionV1.rawValue)
+            userDefaults.removeObject(forKey: LifeCycleKey.LastSessionV1.rawValue)
             LifeCycle.daysSinceLastSession = Tool.daysBetweenDates(optLastSessionDate, toDate: now)
         }
-        userDefaults.set(now, forKey: LifeCycleKey.LastSession.rawValue)
+        let initialized = Privacy.storeData(Privacy.StorageFeature.lifecycle, pairs: (LifeCycleKey.LastApplicationVersion.rawValue, TechnicalContext.applicationVersion), (LifeCycleKey.LastSession.rawValue, now))
         userDefaults.synchronize()
+        return initialized
     }
     
     //MARK: - Session
@@ -253,13 +243,12 @@ class LifeCycle: NSObject {
             let userDefaults = UserDefaults.standard
             
             if userDefaults.object(forKey: LifeCycleKey.FirstSession.rawValue) == nil {
-                LifeCycle.firstLaunchInit()
+                _ = LifeCycle.firstLaunchInit()
             }
             
             var fsd = userDefaults.object(forKey: LifeCycleKey.FirstSessionDate.rawValue) as? Date
             if fsd == nil {
                 fsd = Date()
-                userDefaults.set(fsd, forKey: LifeCycleKey.FirstSessionDate.rawValue)
             }
             
             let firstSessionDate = fsd!

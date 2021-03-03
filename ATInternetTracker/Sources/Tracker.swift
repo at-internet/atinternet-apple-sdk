@@ -394,6 +394,7 @@ public class Tracker: NSObject {
         self.init(configuration: configuration, registerNeeded: true)
     }
     
+    private static var observersAdded = false;
     /// Initialisation with a custom configuration
     ///
     /// - Parameter configuration: map that contains key/values. See TrackerConfigurationKeys
@@ -405,19 +406,21 @@ public class Tracker: NSObject {
         
         super.init()
         
-        if(!LifeCycle.isInitialized && !ATInternet.optOut) {
+        if (!Tracker.observersAdded) {
             let notificationCenter = NotificationCenter.default
             
             notificationCenter.addObserver(self, selector: #selector(Tracker.applicationDidEnterBackground), name:NSNotification.Name(rawValue: "UIApplicationDidEnterBackgroundNotification"), object: nil)
             notificationCenter.addObserver(self, selector: #selector(Tracker.applicationWillResignActive), name:NSNotification.Name(rawValue: "UIApplicationWillResignActiveNotification"), object: nil)
             notificationCenter.addObserver(self, selector: #selector(Tracker.applicationActive), name:NSNotification.Name(rawValue: "UIApplicationDidBecomeActiveNotification"), object: nil)
             
+            Tracker.observersAdded = true
+        }
+        
+        if(!LifeCycle.isInitialized && !ATInternet.optOut) {
             LifeCycle.applicationActive(self.configuration.parameters)
         }
         
-        let ud = UserDefaults.standard
-        ud.setValue(false, forKey: CampaignKeys.ATCampaignAdded.rawValue)
-        ud.synchronize()
+        _ = Privacy.storeData(Privacy.StorageFeature.campaign, pairs: (CampaignKeys.ATCampaignAdded.rawValue, false))
         
         self.registerIfNeeded(needed: registerNeeded)
     }
@@ -1383,7 +1386,7 @@ public class Tracker: NSObject {
         let uuidExpirationMode = self.configuration.parameters["UUIDExpirationMode"] ?? "fixed"
         
         if let hash = self.configuration.parameters["hashUserId"] {
-            if hash.toBool() {
+            if hash.toBool() && !(TechnicalContext.optOut || Privacy.getVisitorModeString() == Privacy.VisitorMode.optOut.rawValue || Privacy.getVisitorModeString() == Privacy.VisitorMode.noConsent.rawValue) {
                 return TechnicalContext.userId(self.configuration.parameters["identifier"], ignoreLimitedAdTracking: ignoreLimitedAdTracking, uuidDuration: uuidDuration, uuidExpirationMode: uuidExpirationMode).sha256Value
             }
         }

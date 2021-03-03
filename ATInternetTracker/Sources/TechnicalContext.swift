@@ -95,8 +95,6 @@ class TechnicalContext: NSObject {
     static var level2: String? = nil
     static var isLevel2Int: Bool = false
     
-    static var generatedUUID: String? = nil
-    
     /// Enable or disable user identification
     class var optOut: Bool {
         get {
@@ -139,61 +137,56 @@ class TechnicalContext: NSObject {
         if(!self.doNotTrack) {
             
             let uuid: () -> String = {
-                /// From context
-                if let id = TechnicalContext.generatedUUID {
-                    return id
-                }
                 
+                let userDefaults = UserDefaults.standard
                 let now = Int64(Date().timeIntervalSince1970) * 1000
                 
                 /// get uuid generation timestamp
                 var uuidGenerationTimestamp : Int64
-                if let optUUIDGenerationTimestamp = UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue) as? Int64 {
+                if let optUUIDGenerationTimestamp = userDefaults.object(forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue) as? Int64 {
                     uuidGenerationTimestamp = optUUIDGenerationTimestamp
                 } else {
-                    UserDefaults.standard.set(now, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
-                    UserDefaults.standard.synchronize()
+                    _ = Privacy.storeData(Privacy.StorageFeature.userId, pairs: (TechnicalContextKeys.UserIDGenerationTimestamp.rawValue, now))
                     uuidGenerationTimestamp = now
                 }
                 
                 /// uuid expired ?
                 let daysSinceGeneration = (now - uuidGenerationTimestamp) / (1000 * 60 * 60 * 24)
                 if daysSinceGeneration >= uuidDuration {
-                    UserDefaults.standard.set(nil, forKey: TechnicalContextKeys.UserIDV1.rawValue)
-                    UserDefaults.standard.set(nil, forKey: TechnicalContextKeys.UserIDV2.rawValue)
-                    UserDefaults.standard.set(nil, forKey: TechnicalContextKeys.UserID.rawValue)
-                    UserDefaults.standard.synchronize()
+                    userDefaults.removeObject(forKey: TechnicalContextKeys.UserIDV1.rawValue)
+                    userDefaults.removeObject(forKey: TechnicalContextKeys.UserIDV2.rawValue)
+                    userDefaults.removeObject(forKey: TechnicalContextKeys.UserID.rawValue)
+                    userDefaults.synchronize()
                 }
                 
                 
                 /// Legacy
-                if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV1.rawValue) != nil {
-                    return UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV1.rawValue) as! String
+                if userDefaults.object(forKey: TechnicalContextKeys.UserIDV1.rawValue) != nil {
+                    return userDefaults.object(forKey: TechnicalContextKeys.UserIDV1.rawValue) as! String
                 }
                 
                 /// Legacy
-                if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV2.rawValue) != nil {
-                    return UserDefaults.standard.object(forKey: TechnicalContextKeys.UserIDV2.rawValue) as! String
+                if userDefaults.object(forKey: TechnicalContextKeys.UserIDV2.rawValue) != nil {
+                    return userDefaults.object(forKey: TechnicalContextKeys.UserIDV2.rawValue) as! String
                 }
                 
                 /// No or expired id
-                if UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) == nil {
+                if userDefaults.object(forKey: TechnicalContextKeys.UserID.rawValue) == nil {
                     let UUID = Foundation.UUID().uuidString
-                    UserDefaults.standard.set(UUID, forKey: TechnicalContextKeys.UserID.rawValue)
-                    UserDefaults.standard.set(now, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
-                    UserDefaults.standard.synchronize()
-                    TechnicalContext.generatedUUID = UUID
+                    _ = Privacy.storeData(Privacy.StorageFeature.userId, pairs: (TechnicalContextKeys.UserID.rawValue, UUID), (TechnicalContextKeys.UserIDGenerationTimestamp.rawValue, now))
+                    
                     return UUID
                 }
                 
                 /// expiration relative
                 if uuidExpirationMode.lowercased() == "relative" {
-                    UserDefaults.standard.set(now, forKey: TechnicalContextKeys.UserIDGenerationTimestamp.rawValue)
-                    UserDefaults.standard.synchronize()
+                    _ = Privacy.storeData(Privacy.StorageFeature.userId, pairs: (TechnicalContextKeys.UserIDGenerationTimestamp.rawValue, now))
                 }
                 
-                let UUID = UserDefaults.standard.object(forKey: TechnicalContextKeys.UserID.rawValue) as! String
-                TechnicalContext.generatedUUID = UUID
+                guard let UUID = userDefaults.object(forKey: TechnicalContextKeys.UserID.rawValue) as? String else {
+                    return ""
+                }
+                
                 return UUID
             }
             

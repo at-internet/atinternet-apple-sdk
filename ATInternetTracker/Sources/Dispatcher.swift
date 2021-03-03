@@ -112,7 +112,9 @@ class Dispatcher: NSObject {
         // Add crash report if available in stc variable
         let report = (Crash.compute() as NSDictionary?) as! [String: Any]?
         if let optReport = report {
-            _ = self.tracker.setParam(HitParam.json.rawValue, value: optReport, options: appendOptionWithEncoding)
+            if Privacy.canGetStoredData(Privacy.StorageFeature.crash) {
+                _ = self.tracker.setParam(HitParam.json.rawValue, value: optReport, options: appendOptionWithEncoding)
+            }
         }
         
         let identification = self.tracker.configuration.parameters["identifier"] ?? ""
@@ -127,9 +129,7 @@ class Dispatcher: NSObject {
                         let encodingOption = ParamOption()
                         encodingOption.encode = true
                         _ = self.tracker.setParam("xtor", value: remanentCampaign, options:encodingOption)
-                        
-                        userDefaults.setValue(true, forKey: CampaignKeys.ATCampaignAdded.rawValue)
-                        userDefaults.synchronize()
+                        _ = Privacy.storeData(Privacy.StorageFeature.campaign, pairs: (CampaignKeys.ATCampaignAdded.rawValue, true))
                     }
                 }
             }
