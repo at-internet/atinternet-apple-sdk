@@ -43,10 +43,6 @@ import UIKit
 import WebKit
 #endif
 
-#if canImport(AppTrackingTransparency)
-import AppTrackingTransparency
-#endif
-
 /// Contextual information from user device
 class TechnicalContext: NSObject {
     /// SDK Version
@@ -196,21 +192,13 @@ class TechnicalContext: NSObject {
                 
                 #if os(tvOS)
                 if #available(tvOS 14, *) {
-                    #if canImport(AppTrackingTransparency)
-                    isTrackingEnabled = ATTrackingManager.trackingAuthorizationStatus == ATTrackingManager.AuthorizationStatus.authorized
-                    #else
-                    isTrackingEnabled = false
-                    #endif
+                    isTrackingEnabled = isTrackingAuthorizationStatusAuthorized()
                 } else {
                     isTrackingEnabled = idfaInfo.0
                 }
                 #else
                 if #available(iOS 14, *) {
-                    #if canImport(AppTrackingTransparency)
-                    isTrackingEnabled = ATTrackingManager.trackingAuthorizationStatus == ATTrackingManager.AuthorizationStatus.authorized
-                    #else
-                    isTrackingEnabled = false
-                    #endif
+                    isTrackingEnabled = isTrackingAuthorizationStatusAuthorized()
                 } else {
                     isTrackingEnabled = idfaInfo.0
                 }
@@ -247,6 +235,23 @@ class TechnicalContext: NSObject {
         } else {
             return "opt-out"
         }
+    }
+    
+    class func isTrackingAuthorizationStatusAuthorized() -> Bool {
+        guard let ATTrackingManagerClass = NSClassFromString("ATTrackingManager") else {
+            return false
+        }
+        
+        let trackingAuthorizationStatusSelector = NSSelectorFromString("trackingAuthorizationStatus")
+        guard let trackingAuthorizationStatusSelectorIMP = ATTrackingManagerClass.method(for: trackingAuthorizationStatusSelector) else {
+            return false
+        }
+        
+        typealias trackingAuthorizationStatusCType = @convention(c) (AnyObject, Selector) -> UInt
+        let getTrackingAuthorizationStatus = unsafeBitCast(trackingAuthorizationStatusSelectorIMP, to: trackingAuthorizationStatusCType.self)
+        let trackingAuthorizationStatus = getTrackingAuthorizationStatus(ATTrackingManagerClass.self, trackingAuthorizationStatusSelector)
+        
+        return trackingAuthorizationStatus == 3 /// authorized
     }
     
     class func getIdfaInfo() -> (Bool, String) {

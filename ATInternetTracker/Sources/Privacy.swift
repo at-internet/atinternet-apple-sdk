@@ -28,6 +28,8 @@ import Foundation
 /// Toolbox: utility methods
 public class Privacy: NSObject {
     
+    private static let stcSeparator = "/"
+    
     public enum VisitorMode: String {
         case optOut = "optOut"
         case optIn = "optIn"
@@ -476,12 +478,12 @@ public class Privacy: NSObject {
             
             let value = String(stc.0[stc.0.index(after: equalsCharIndex)...]).percentDecodedString
             if let objValue = value.toJSONObject() as? [String: Any] {
-                let stcFlattened = Tool.toFlatten(src: objValue, lowercase: true)
+                let stcFlattened = Tool.toFlatten(src: objValue, lowercase: true, separator: stcSeparator)
                 var stcResult = [String: (Any, String)]()
                 
                 for includeKey in includedStcKeys {
                     for stcKey in stcFlattened.keys {
-                        let completeKey = "stc_" + stcKey
+                        let completeKey = "stc" + stcSeparator + stcKey
                         if let wildcardIndex = includeKey.firstIndex(of: "*") {
                             if completeKey.starts(with: includeKey[..<wildcardIndex]) {
                                 stcResult[stcKey] = stcFlattened[stcKey]
@@ -491,7 +493,7 @@ public class Privacy: NSObject {
                         }
                     }
                 }
-                return ("&stc=" + Tool.toObject(src: stcResult).toJSON().percentEncodedString, stc.1)
+                return ("&stc=" + Tool.toObject(src: stcResult, separator: stcSeparator).toJSON().percentEncodedString, stc.1)
             }
         }
         return stc
@@ -503,7 +505,7 @@ public class Privacy: NSObject {
             if let arrValue = value.toJSONObject() as? [[String: Any]] {
                 var arrResult = [[String: Any]]()
                 for obj in arrValue {
-                    let objectFlattened = Tool.toFlatten(src: obj, lowercase: true)
+                    let objectFlattened = Tool.toFlatten(src: obj, lowercase: true, separator: Events.propertySeparator)
                     var objectResult = [String: (Any, String)]()
                     for includeKey in includedKeys {
                         for key in objectFlattened.keys {
@@ -517,7 +519,7 @@ public class Privacy: NSObject {
                             }
                         }
                     }
-                    arrResult.append(Tool.toObject(src: objectResult))
+                    arrResult.append(Tool.toObject(src: objectResult, separator: Events.propertySeparator))
                 }
                 return ("&" + paramKey + "=" + Tool.JSONStringify(arrResult).percentEncodedString, param.1)
             }

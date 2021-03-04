@@ -75,33 +75,33 @@ extension Dictionary {
         return ""
     }
     
-    mutating func setValue(value: Any, forKeyPath keyPath: String) {
-        var keys = keyPath.components(separatedBy: "_")
+    mutating func setValue(value: Any, forKeyPath keyPath: String, separator: String) {
+        var keys = keyPath.components(separatedBy: separator)
         guard let first = keys.first as? Key else { return }
         keys.remove(at: 0)
         if keys.isEmpty, let settable = value as? Value {
             self[first] = settable
             return
         }
-        let rejoined = keys.joined(separator: "_")
+        let rejoined = keys.joined(separator: separator)
         var subdict: [NSObject : AnyObject] = [:]
         if let sub = self[first] as? [NSObject : AnyObject] {
             subdict = sub
         }
-        subdict.setValue(value: value, forKeyPath: rejoined)
+        subdict.setValue(value: value, forKeyPath: rejoined, separator: separator)
         if let settable = subdict as? Value {
             self[first] = settable
         }
     }
     
-    func valueForKeyPath<T>(keyPath: String) -> T? {
-        var keys = keyPath.components(separatedBy: "_")
+    func valueForKeyPath<T>(keyPath: String, separator: String) -> T? {
+        var keys = keyPath.components(separatedBy: separator)
         guard let first = keys.first as? Key else { return nil }
         guard let value = self[first] else { return nil }
         keys.remove(at: 0)
         if !keys.isEmpty, let subDict = value as? [NSObject : AnyObject] {
-            let rejoined = keys.joined(separator: "_")
-            return subDict.valueForKeyPath(keyPath: rejoined)
+            let rejoined = keys.joined(separator: separator)
+            return subDict.valueForKeyPath(keyPath: rejoined, separator: separator)
         }
         return value as? T
     }
