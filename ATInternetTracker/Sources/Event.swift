@@ -57,6 +57,8 @@ public class Event: NSObject {
 
 public class Events: BusinessObject {
     
+    static let propertySeparator = "_"
+    
     var eventLists: [Event] = [Event]()
     
     /**
@@ -94,16 +96,16 @@ public class Events: BusinessObject {
         
         for e in self.eventLists {
             
-            var data = Tool.toFlatten(src: e.data, lowercase: true)
+            var data = Tool.toFlatten(src: e.data, lowercase: true, separator: Events.propertySeparator)
             if e.data.count != 0 {
-                eventsArr.append(["name" : e.name.lowercased(), "data" : Tool.toObject(src: data)])
+                eventsArr.append(["name" : e.name.lowercased(), "data" : Tool.toObject(src: data, separator: Events.propertySeparator)])
             }
             
             let additionalEvents = e.getAdditionalEvents()
             
             for ev in additionalEvents {
-                data = Tool.toFlatten(src: ev.data, lowercase: true)
-                eventsArr.append(["name" : ev.name.lowercased(), "data" : Tool.toObject(src: data)])
+                data = Tool.toFlatten(src: ev.data, lowercase: true, separator: Events.propertySeparator)
+                eventsArr.append(["name" : ev.name.lowercased(), "data" : Tool.toObject(src: data, separator: Events.propertySeparator)])
             }
 
         }

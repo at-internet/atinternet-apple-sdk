@@ -163,8 +163,7 @@ public class IdentifiedVisitor: NSObject {
     fileprivate func save(_ keyParameter: String, keyPersistent: String, value: String) {
         if let conf = tracker.configuration.parameters[IdentifiedVisitorHelperKey.configuration.rawValue] {
             if conf.lowercased() == "true" {
-                userDefaults.set(value.encrypt, forKey: keyPersistent)
-                userDefaults.synchronize()
+                _ = Privacy.storeData(Privacy.StorageFeature.identifiedVisitor, pairs: (keyPersistent, value.encrypt))
             } else {
                 _ = tracker.setParam(keyParameter, value: value, options: option)
             }
