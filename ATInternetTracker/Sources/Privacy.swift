@@ -67,7 +67,7 @@ public class Privacy: NSObject {
         VisitorMode.optIn.rawValue : [StorageFeature.campaign, StorageFeature.userId, StorageFeature.crash, StorageFeature.lifecycle, StorageFeature.identifiedVisitor, StorageFeature.privacy],
         VisitorMode.optOut.rawValue : [StorageFeature.privacy],
         VisitorMode.noConsent.rawValue : [],
-        VisitorMode.exempt.rawValue : [StorageFeature.privacy, StorageFeature.userId]
+        VisitorMode.exempt.rawValue : [StorageFeature.privacy, StorageFeature.userId, StorageFeature.crash]
     ]
     
     private static let storageKeysByFeature : [StorageFeature: Set<String>] = [
