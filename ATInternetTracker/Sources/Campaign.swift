@@ -73,18 +73,15 @@ public class Campaign: ScreenInfo {
                 _ = tracker.setParam("xtor", value: remanent, options: encodeOption)
             }
         } else {
-            userDefaults.set(Date(), forKey: CampaignKeys.ATCampaignDate.rawValue)
-            userDefaults.setValue(campaignId, forKey: CampaignKeys.ATCampaign.rawValue)
+            _ = Privacy.storeData(Privacy.StorageFeature.campaign, pairs: (CampaignKeys.ATCampaignDate.rawValue, Date()), (CampaignKeys.ATCampaign.rawValue, campaignId))
         }
         
         _ = tracker.setParam("xto", value: campaignId, options: encodeOption)
-        userDefaults.setValue(true, forKey: CampaignKeys.ATCampaignAdded.rawValue)
+        _ = Privacy.storeData(Privacy.StorageFeature.campaign, pairs: (CampaignKeys.ATCampaignAdded.rawValue, true))
         
         if(tracker.configuration.parameters["campaignLastPersistence"]?.lowercased() == "true") {
-            userDefaults.set(Date(), forKey: CampaignKeys.ATCampaignDate.rawValue)
-            userDefaults.setValue(campaignId, forKey: CampaignKeys.ATCampaign.rawValue)
+            _ = Privacy.storeData(Privacy.StorageFeature.campaign, pairs: (CampaignKeys.ATCampaignDate.rawValue, Date()), (CampaignKeys.ATCampaign.rawValue, campaignId))
         }
-        userDefaults.synchronize()
     }
 }
 

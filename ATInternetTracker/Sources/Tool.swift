@@ -188,19 +188,19 @@ class Tool: NSObject {
         return value
     }
     
-    class func toFlatten(src: [String : Any], lowercase: Bool) -> [String: (Any, String)] {
+    class func toFlatten(src: [String : Any], lowercase: Bool, separator: String) -> [String: (Any, String)] {
         var dst = [String : (Any, String)]()
-        doFlatten(src: src, prefix: "", dst: &dst, lowercase: lowercase)
+        doFlatten(src: src, prefix: "", dst: &dst, lowercase: lowercase, separator: separator)
         return dst
     }
     
-    private class func doFlatten(src: [String: Any], prefix: String, dst: inout [String : (Any, String)], lowercase: Bool) {
+    private class func doFlatten(src: [String: Any], prefix: String, dst: inout [String : (Any, String)], lowercase: Bool, separator: String) {
         for (k,v) in src {
-            let key = prefix == "" ? k : prefix + "_" + k
+            let key = prefix == "" ? k : prefix + separator + k
             if v is [String : Any] {
-                doFlatten(src: v as! [String : Any], prefix: key, dst: &dst, lowercase: lowercase)
+                doFlatten(src: v as! [String : Any], prefix: key, dst: &dst, lowercase: lowercase, separator: separator)
             } else {
-                let parts = key.components(separatedBy: "_")
+                let parts = key.components(separatedBy: separator)
                 var finalPrefix = ""
                 var s = ""
                 let last = parts.count - 1
@@ -213,20 +213,21 @@ class Tool: NSObject {
                     }
                     
                     if i > 0 {
-                        s.append("_")
+                        s.append(separator)
                     }
                     s.append(lowercase ? t.1.lowercased() : t.1)
                     
                     /// test -> test_$ on existing key if the current key is not complete
                     if i != last && dst[s] != nil {
-                        dst[s + "_$"] = dst.removeValue(forKey: s)
+                        dst[s + separator + "$"] = dst.removeValue(forKey: s)
                         continue
                     }
                     ///
                     
                     /// test -> test_$ on current key if the current key is complete
-                    if i == last && dst[s] == nil && containsKeyPrefix(keys: dst.keys, prefix: s + "_") {
-                        s.append("_$")
+                    if i == last && dst[s] == nil && containsKeyPrefix(keys: dst.keys, prefix: s + separator) {
+                        s.append(separator)
+                        s.append("$")
                     }
                     ///
                 }
@@ -236,19 +237,19 @@ class Tool: NSObject {
         }
     }
     
-    class func toObject(src: [String : (Any, String)]) -> [String: Any] {
+    class func toObject(src: [String : (Any, String)], separator: String) -> [String: Any] {
         return src.reduce(into: [:]) { (acc, arg1) in
            let (key, (value, prefix)) = arg1
-            let parts = key.components(separatedBy: "_")
+            let parts = key.components(separatedBy: separator)
             
             var path = ""
             for (i, part) in parts.enumerated() {
                 if i != 0 {
-                    path += "_"
+                    path += separator
                 }
                 
                 if i == parts.count - 1 {
-                    acc.setValue(value: value, forKeyPath: path + prefix + part)
+                    acc.setValue(value: value, forKeyPath: path + prefix + part, separator: separator)
                     return
                 }
                 
