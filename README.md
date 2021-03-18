@@ -79,6 +79,14 @@ Carthage is an alternative to **Cocoapods**. It’s a simple dependency manager 
 
 https://developers.atinternet-solutions.com/apple-universal-fr/bien-commencer-apple-universal-fr/integration-de-la-bibliotheque-swift-apple-universal-fr/#utilisation-de-carthage_7
 
+### Installation with Swift Package Manager
+
+  - In your Xcode project, select *File* > *Swift Packages* > *Add Package Dependency...*
+  - In the URL field, paste *https://github.com/at-internet/atinternet-apple-sdk.git* and select *Next*
+  - Select the update rule: "Up to next major" from the current version
+  - Add the product *Tracker* to your app targets (iOS, watchOS, tvOS)
+  - Add the product *TrackerExtension* to your app extension targets
+
 ## Integration samples
 ### Tracker
 ```swift
