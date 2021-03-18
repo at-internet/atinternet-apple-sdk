@@ -52,7 +52,7 @@ class TechnicalContextTests: XCTestCase {
     }
     
     func testVersion() {
-        let testBundle = Bundle(for: Tracker.self)
+        let testBundle = Bundle.tracker
         if let url = testBundle.url(forResource: "Info", withExtension: "plist"),
             let myDict = NSDictionary(contentsOf: url) as? [String : Any] {
             let v = TechnicalContext.sdkVersion

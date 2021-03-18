@@ -31,7 +31,7 @@
 import UIKit
 #endif
 
-#if os(iOS) && !AT_EXTENSION
+#if os(iOS) && !AT_EXTENSION && !os(watchOS)
 class DebuggerButton: UIButton {}
 class DebuggerView: UIView {}
 
@@ -648,7 +648,7 @@ internal class Debugger: NSObject {
         rowView.addSubview(hitTypeView)
         
         /******* ICON ********/
-        iconView.image = UIImage(named: event.type, in: Bundle(for: Tracker.self), compatibleWith: nil)
+        iconView.image = UIImage(named: event.type, in: Bundle.tracker, compatibleWith: nil)
         
         rowView.addConstraint(NSLayoutConstraint(item: iconView,
             attribute: .left,

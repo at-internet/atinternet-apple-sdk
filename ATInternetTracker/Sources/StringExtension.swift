@@ -32,6 +32,10 @@ SOFTWARE.
 
 import Foundation
 
+#if canImport(TrackerObjc)
+import TrackerObjc
+#endif
+
 /// Properties for extending String object
 extension String {    
     /// Returns a percent encoded string

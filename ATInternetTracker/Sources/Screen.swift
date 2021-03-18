@@ -32,6 +32,9 @@ SOFTWARE.
 
 import Foundation
 
+#if canImport(TrackerObjc)
+import TrackerObjc
+#endif
 
 /// Business object type for screen tracking. Used only for specific case.
 public class ScreenInfo: BusinessObject {

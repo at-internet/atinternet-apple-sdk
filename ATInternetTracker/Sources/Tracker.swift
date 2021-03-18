@@ -32,6 +32,10 @@
 
 import Foundation
 
+#if canImport(TrackerObjc)
+import TrackerObjc
+#endif
+
 #if canImport(UIKit)
 import UIKit
 #endif
