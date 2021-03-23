@@ -558,9 +558,11 @@ class TechnicalContext: NSObject {
                     if let rt = radioType {
                         if #available(iOS 14.1, *) {
                             // These radio types are not available in iOS 14.0 and 14.0.1 (causes crashes) although it seems like they are
+                            #if swift(>=5.3)
                             if rt == CTRadioAccessTechnologyNRNSA || rt == CTRadioAccessTechnologyNR {
                                 return ConnexionType.fiveg
                             }
+                            #endif
                         }
                         switch(rt) {
                         case CTRadioAccessTechnologyGPRS:
@@ -585,6 +587,10 @@ class TechnicalContext: NSObject {
                             return ConnexionType.threegplus
                         case CTRadioAccessTechnologyLTE:
                             return ConnexionType.fourg
+                        case "CTRadioAccessTechnologyNRNSA":
+                            return ConnexionType.fiveg
+                        case "CTRadioAccessTechnologyNR":
+                            return ConnexionType.fiveg
                         default:
                             return ConnexionType.unknown
                         }
