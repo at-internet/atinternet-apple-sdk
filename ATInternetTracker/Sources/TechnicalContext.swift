@@ -316,6 +316,9 @@ class TechnicalContext: NSObject {
     
     class var model: String {
         if let simulatorModelIdentifier = ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] { return simulatorModelIdentifier }
+        if #available(iOS 14.0, *), ProcessInfo().isiOSAppOnMac {
+            return "iOSAppOnMac"
+        }
         var sysinfo = utsname()
         uname(&sysinfo)
         return String(bytes: Data(bytes: &sysinfo.machine, count: Int(_SYS_NAMELEN)), encoding: .ascii)?.trimmingCharacters(in: .controlCharacters) ?? ""
