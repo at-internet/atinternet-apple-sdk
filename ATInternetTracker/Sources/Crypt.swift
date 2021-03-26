@@ -53,6 +53,7 @@ class Crypt: NSObject {
             return data
         }
         
+        #if canImport(CryptoKit)
         #if os(iOS) && !AT_EXTENSION
         if #available(iOS 13.0, *) {
             return encryption(data: data)
@@ -65,6 +66,7 @@ class Crypt: NSObject {
         if #available(tvOS 13.0, *) {
             return encryption(data: data)
         }
+        #endif
         #endif
         
         /// if force, we don't use original data
@@ -72,6 +74,7 @@ class Crypt: NSObject {
     }
     
     func decrypt(data: String) -> String? {
+        #if canImport(CryptoKit)
         #if os(iOS) && !AT_EXTENSION
         if #available(iOS 13.0, *) {
             return decryption(data: data)
@@ -85,10 +88,12 @@ class Crypt: NSObject {
             return decryption(data: data)
         }
         #endif
+        #endif
         
         return data
     }
     
+    #if canImport(CryptoKit)
     @available(iOS 13.0, *)
     @available(tvOS 13.0, *)
     @available(watchOS 6, *)
@@ -103,7 +108,9 @@ class Crypt: NSObject {
         
         return sealData.base64EncodedString()
     }
+    #endif
     
+    #if canImport(CryptoKit)
     @available(iOS 13.0, *)
     @available(tvOS 13.0, *)
     @available(watchOS 6, *)
@@ -123,7 +130,9 @@ class Crypt: NSObject {
         }
         catch { return data }
     }
+    #endif
     
+    #if canImport(CryptoKit)
     @available(iOS 13.0, *)
     @available(tvOS 13.0, *)
     @available(watchOS 6, *)
@@ -152,8 +161,10 @@ class Crypt: NSObject {
         _ = SecItemAdd(query as CFDictionary, nil)
         return key
     }
+    #endif
 }
 
+#if canImport(CryptoKit)
 @available(iOS 13.0, *)
 @available(tvOS 13.0, *)
 @available(watchOS 6, *)
@@ -172,7 +183,9 @@ extension SymmetricKey: CustomStringConvertible {
         }
     }
 }
+#endif
 
+#if canImport(CryptoKit)
 @available(iOS 13.0, *)
 @available(tvOS 13.0, *)
 @available(watchOS 6, *)
@@ -213,3 +226,4 @@ struct SymmetricKeyStore {
         return nil
     }
 }
+#endif
