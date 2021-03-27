@@ -444,88 +444,60 @@ class TechnicalContext: NSObject {
         }
     }
     
-    #if os(iOS) && canImport(WebKit)
-    static var webView : WKWebView?
-    #endif
-    
     @objc static var _defaultUserAgent: String?
     @objc class var defaultUserAgent: String? {
         get {
             if _defaultUserAgent == nil {
                 #if os(iOS) && canImport(WebKit)
-                if self.webView == nil {
-                    if Thread.isMainThread {
-                       self.webView = WKWebView(frame: .zero)
-                    } else {
-                        DispatchQueue.main.sync {
-                            self.webView = WKWebView(frame: .zero)
-                        }
-                    }
-                }
-                if self.webView != nil && !Thread.isMainThread {
+                if !Thread.isMainThread {
                     let semaphore = DispatchSemaphore(value: 0)
-                    DispatchQueue.main.sync {
-                        self.webView!.evaluateJavaScript("navigator.userAgent") { (data, error) in
-                            if let dataStr = data as? String {
-                                _defaultUserAgent = dataStr
-                            }
-                            semaphore.signal()
-                        }
+                    self.getUserAgentAsync { _ in
+                        semaphore.signal()
                     }
-                    _ = semaphore.wait(timeout: .distantFuture)
+                    let maxWaitTime = DispatchTime(uptimeNanoseconds: 5 * NSEC_PER_SEC) //  5s
+                    _ = semaphore.wait(timeout: maxWaitTime)
                 }
                 #endif
             }
-            if _defaultUserAgent != nil {
-                return String(format: "%@ %@/%@", _defaultUserAgent!, applicationName, applicationVersion)
+            if let defaultUserAgent = _defaultUserAgent {
+                return String(format: "%@ %@/%@", defaultUserAgent, applicationName, applicationVersion)
             }
-            return _defaultUserAgent
+            return nil
         }
     }
-    
+
     /// Get user agent async
-    static func getUserAgentAsync(completionHandler: @escaping ((String) -> Void)) {
-        if _defaultUserAgent == nil {
-            #if os(iOS) && canImport(WebKit)
-            if self.webView == nil {
-                if Thread.isMainThread {
-                   self.webView = WKWebView(frame: .zero)
-                } else {
-                    DispatchQueue.main.sync {
-                        self.webView = WKWebView(frame: .zero)
-                    }
-                }
-            }
-            if self.webView != nil {
-                if Thread.isMainThread {
-                    self.webView!.evaluateJavaScript("navigator.userAgent") { (data, error) in
-                        if let dataStr = data as? String {
-                            _defaultUserAgent = dataStr
-                            completionHandler(String(format: "%@ %@/%@", _defaultUserAgent!, applicationName, applicationVersion))
-                        } else {
-                            completionHandler("")
-                        }
-                    }
-                } else {
-                    DispatchQueue.main.sync {
-                        self.webView!.evaluateJavaScript("navigator.userAgent") { (data, error) in
-                            if let dataStr = data as? String {
-                                _defaultUserAgent = dataStr
-                                completionHandler(String(format: "%@ %@/%@", _defaultUserAgent!, applicationName, applicationVersion))
-                            } else {
-                                completionHandler("")
-                            }
-                        }
-                    }
-                }
-            }
-            #endif
-            return
+    static func getUserAgentAsync(completionHandler: @escaping (String) -> Void) {
+        if let defaultUserAgent = _defaultUserAgent {
+            completionHandler(String(format: "%@ %@/%@", defaultUserAgent, applicationName, applicationVersion))
         }
-        if _defaultUserAgent != nil {
-            completionHandler(String(format: "%@ %@/%@", _defaultUserAgent!, applicationName, applicationVersion))
-        } else {
+        else {
+            #if os(iOS) && canImport(WebKit)
+            let getUserAgent = {
+                let webView = WKWebView(frame: CGRect(x: -1.0, y: -1.0, width: 1.0, height: 1.0))
+                webView.isHidden = true
+                // On older OSes and/or devices, javascript is paused if the webview is not in a window, so
+                // the `evaluateJavaScript` completion handler may never be called. This may happen in app
+                // extensions as well since we can't use the main window there.
+                #if !AT_EXTENSION
+                UIApplication.shared.delegate?.window??.insertSubview(webView, at: 0)
+                #endif
+                webView.evaluateJavaScript("navigator.userAgent") { (data, error) in
+                    if let dataStr = data as? String {
+                        _defaultUserAgent = dataStr
+                        completionHandler(String(format: "%@ %@/%@", dataStr, applicationName, applicationVersion))
+                    } else {
+                        completionHandler("")
+                    }
+                    DispatchQueue.main.async {
+                        webView.removeFromSuperview()
+                    }
+                }
+            }
+            Thread.isMainThread ? getUserAgent() : DispatchQueue.main.async(execute: getUserAgent)
+            #else
             completionHandler("")
+            #endif
         }
     }
 
