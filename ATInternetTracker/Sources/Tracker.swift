@@ -1501,7 +1501,6 @@ class TrackerQueue: NSObject {
         var queue = OperationQueue()
         queue.name = "TrackerQueue"
         queue.maxConcurrentOperationCount = 1
-        queue.qualityOfService = QualityOfService.background
         return queue
     }()
 }
