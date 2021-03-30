@@ -230,7 +230,7 @@ public class Privacy: NSObject {
         }
         clearStorageFromVisitorMode(visitorMode)
         _ = storeData(StorageFeature.privacy, pairs:(PrivacyKeys.PrivacyMode.rawValue, visitorMode),
-                  (PrivacyKeys.PrivacyModeExpirationTimestamp.rawValue, Int64(Date().timeIntervalSince1970 * 1000) + Int64(duration * 86400000)),
+                  (PrivacyKeys.PrivacyModeExpirationTimestamp.rawValue, Int64(Date().timeIntervalSince1970 * 1000) + Int64(duration) * 86400000),
                   (PrivacyKeys.PrivacyVisitorConsent.rawValue, visitorConsent),
                   (PrivacyKeys.PrivacyUserId.rawValue, customUserId))
         
