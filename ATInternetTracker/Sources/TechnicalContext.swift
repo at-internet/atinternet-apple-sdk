@@ -316,9 +316,19 @@ class TechnicalContext: NSObject {
     
     class var model: String {
         if let simulatorModelIdentifier = ProcessInfo().environment["SIMULATOR_MODEL_IDENTIFIER"] { return simulatorModelIdentifier }
+        #if os(tvOS)
+        if #available(tvOS 14.0, *), ProcessInfo().isiOSAppOnMac {
+            return "tvOSAppOnMac"
+        }
+        #elseif os(watchOS)
+        if #available(watchOS 7.0, *), ProcessInfo().isiOSAppOnMac {
+            return "watchOSAppOnMac"
+        }
+        #else
         if #available(iOS 14.0, *), ProcessInfo().isiOSAppOnMac {
             return "iOSAppOnMac"
         }
+        #endif
         var sysinfo = utsname()
         uname(&sysinfo)
         return String(bytes: Data(bytes: &sysinfo.machine, count: Int(_SYS_NAMELEN)), encoding: .ascii)?.trimmingCharacters(in: .controlCharacters) ?? ""
@@ -457,8 +467,7 @@ class TechnicalContext: NSObject {
                     self.getUserAgentAsync { _ in
                         semaphore.signal()
                     }
-                    let maxWaitTime = DispatchTime(uptimeNanoseconds: 5 * NSEC_PER_SEC) //  5s
-                    _ = semaphore.wait(timeout: maxWaitTime)
+                    _ = semaphore.wait(timeout: .now() + TimeInterval(5 * NSEC_PER_SEC)) // wait 5s max
                 }
                 #endif
             }
