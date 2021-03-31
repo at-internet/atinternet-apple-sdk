@@ -184,7 +184,6 @@ class Sender: Operation {
                     sessionConfig.requestCachePolicy = NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData
                     let session = URLSession(configuration: sessionConfig)
                     var request = URLRequest(url: optURL, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 30)
-                    request.networkServiceType = NSURLRequest.NetworkServiceType.background
                     
                     if self.tracker.userAgent != "" {
                         request.setValue(self.tracker.userAgent, forHTTPHeaderField: "User-Agent")

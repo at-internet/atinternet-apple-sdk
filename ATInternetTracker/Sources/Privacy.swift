@@ -230,11 +230,11 @@ public class Privacy: NSObject {
         }
         clearStorageFromVisitorMode(visitorMode)
         _ = storeData(StorageFeature.privacy, pairs:(PrivacyKeys.PrivacyMode.rawValue, visitorMode),
-                  (PrivacyKeys.PrivacyModeExpirationTimestamp.rawValue, Int64(Date().timeIntervalSince1970 * 1000) + Int64(duration * 86400000)),
+                  (PrivacyKeys.PrivacyModeExpirationTimestamp.rawValue, Int64(Date().timeIntervalSince1970 * 1000) + Int64(duration) * 86400000),
                   (PrivacyKeys.PrivacyVisitorConsent.rawValue, visitorConsent),
                   (PrivacyKeys.PrivacyUserId.rawValue, customUserId))
         
-        if let optIncludeStorageFeature = includeStorageFeatureByMode[visitorMode], optIncludeStorageFeature.contains(StorageFeature.lifecycle) {
+        if getVisitorModeIncludeStorageFeature(visitorMode).contains(StorageFeature.lifecycle) {
             if (!LifeCycle.isInitialized) {
                 LifeCycle.initLifeCycle()
             }
@@ -336,15 +336,12 @@ public class Privacy: NSObject {
     
     class func canGetStoredData(_ storageFeature: StorageFeature) -> Bool {
         let visitorMode = getVisitorModeString()
-        guard let optIncludeStorageFeature = includeStorageFeatureByMode[visitorMode] else {
-            return false
-        }
-        return optIncludeStorageFeature.contains(storageFeature)
+        return getVisitorModeIncludeStorageFeature(visitorMode).contains(storageFeature)
     }
     
     class func storeData(_ storageFeature: StorageFeature, pairs: (String, Any?)...) -> Bool {
         let visitorMode = getVisitorModeString()
-        if let optIncludeStorage = includeStorageFeatureByMode[visitorMode], optIncludeStorage.contains(storageFeature) {
+        if getVisitorModeIncludeStorageFeature(visitorMode).contains(storageFeature) {
             let userDefaults = UserDefaults.standard
             
             pairs.forEach { (p) in
@@ -361,10 +358,19 @@ public class Privacy: NSObject {
         return false
     }
     
+    private class func getVisitorModeIncludeBuffer(_ visitorMode: String) -> Set<String> {
+        return includeBufferByMode[visitorMode] ?? includeBufferByMode[VisitorMode.optOut.rawValue] ?? Set<String>()
+    }
+    
+    private class func getVisitorModeIncludeStorageFeature(_ visitorMode: String) -> Set<StorageFeature> {
+        return includeStorageFeatureByMode[visitorMode] ?? includeStorageFeatureByMode[Privacy.VisitorMode.exempt.rawValue] ?? Set<StorageFeature>()
+    }
+    
     private class func clearStorageFromVisitorMode(_ visitorMode: String) {
         let userDefaults = UserDefaults.standard
         storageKeysByFeature.forEach { (entry) in
-            if let optIncludeStorage = includeStorageFeatureByMode[visitorMode], optIncludeStorage.contains(entry.key) {
+            let includeStorage = getVisitorModeIncludeStorageFeature(visitorMode)
+            if includeStorage.contains(entry.key) {
                 return
             }
             entry.value.forEach { (key) in
@@ -376,7 +382,7 @@ public class Privacy: NSObject {
     
     class func apply(parameters: [String : (String, String)]) -> [String : (String, String)] {
         let currentPrivacyMode = getVisitorModeString()
-        let includeBufferKeys = includeBufferByMode[currentPrivacyMode] ?? includeBufferByMode[VisitorMode.optOut.rawValue] ?? Set<String>()
+        let includeBufferKeys = getVisitorModeIncludeBuffer(currentPrivacyMode)
         
         var result = [String : (String, String)]()
         var specificIncludedKeys = [String: [String]]()
