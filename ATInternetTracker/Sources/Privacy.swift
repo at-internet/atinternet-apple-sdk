@@ -59,7 +59,7 @@ public class Privacy: NSObject {
         VisitorMode.optIn.rawValue : ["*"],
         VisitorMode.optOut.rawValue : ["idclient", "ts", "olt", "cn", "click", "type"],
         VisitorMode.noConsent.rawValue : ["idclient", "ts", "olt", "cn", "click", "type"],
-        VisitorMode.exempt.rawValue : ["idclient", "p", "olt", "vtag", "ptag", "ts", "click", "type", "cn", "apvr", "dg", "mfmd", "model", "manufacturer", "os", "ref", "stc/crash/*"]
+        VisitorMode.exempt.rawValue : ["idclient", "p", "olt", "vtag", "ptag", "ts", "click", "type", "cn", "apvr", "dg", "mfmd", "model", "manufacturer", "os", "ref", "stc/crash/*", "pclick", "s2click"]
     ]
     
     private static var includeStorageFeatureByMode : [String: Set<StorageFeature>] = [
