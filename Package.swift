@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "atinternet-apple-sdk",
+    name: "ATInternet",
     platforms: [.iOS(.v10), .tvOS(.v10), .watchOS(.v3)],
     products: [
         .library(name: "Tracker", targets: ["Tracker"]),
