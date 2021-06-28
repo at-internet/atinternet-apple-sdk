@@ -97,9 +97,7 @@ public class Events: BusinessObject {
         for e in self.eventLists {
             
             var data = Tool.toFlatten(src: e.data, lowercase: true, separator: Events.propertySeparator)
-            if e.data.count != 0 {
-                eventsArr.append(["name" : e.name.lowercased(), "data" : Tool.toObject(src: data, separator: Events.propertySeparator)])
-            }
+            eventsArr.append(["name" : e.name.lowercased(), "data" : Tool.toObject(src: data, separator: Events.propertySeparator)])
             
             let additionalEvents = e.getAdditionalEvents()
             
