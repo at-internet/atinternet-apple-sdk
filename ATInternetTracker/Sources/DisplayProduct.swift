@@ -32,7 +32,13 @@ public class DisplayProduct: Event {
     
     override var data: [String : Any] {
         get {
-            return _data
+            if !products.isEmpty {
+                let firstProductProps = products.remove(at: 0).getProps()
+                if !firstProductProps.isEmpty {
+                    _data["product"] = firstProductProps
+                }
+            }
+            return super.data
         }
         set {
             _data = newValue
