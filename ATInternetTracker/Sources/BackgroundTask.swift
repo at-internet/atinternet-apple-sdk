@@ -26,6 +26,9 @@
 //  BackgroundTaskManager.swift
 //  Tracker
 //
+
+#if !os(watchOS)
+
 import Foundation
 #if canImport(UIKit)
 import UIKit
@@ -138,3 +141,5 @@ public class BackgroundTask: NSObject {
         }
     }
 }
+
+#endif

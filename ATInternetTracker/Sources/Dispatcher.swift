@@ -32,6 +32,10 @@ SOFTWARE.
 
 import Foundation
 
+#if canImport(TrackerObjc)
+import TrackerObjc
+#endif
+
 class Dispatcher: NSObject {
     
     /// Tracker instance

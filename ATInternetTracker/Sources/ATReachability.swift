@@ -24,6 +24,9 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
+
+#if !os(watchOS)
+
 #if canImport(SystemConfiguration)
 import SystemConfiguration
 #endif
@@ -372,3 +375,4 @@ public class ATReachability: NSObject {
         whenUnreachable = nil
     }
 }
+#endif
