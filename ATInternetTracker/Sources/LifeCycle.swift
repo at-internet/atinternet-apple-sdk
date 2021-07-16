@@ -52,6 +52,9 @@ class LifeCycle: NSObject {
     /// Time during the app is in background
     static var timeInBackground: Date? = nil
     
+    /// Check whether lifecycle applicationActive has been already called
+    static var applicationActiveCalled: Bool = false
+    
     /// Lifecycle keys
     enum LifeCycleKey: String, EnumCollection {
         case FirstSession = "ATFirstLaunch"
