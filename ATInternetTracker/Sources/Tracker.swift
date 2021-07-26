@@ -447,6 +447,15 @@ public class Tracker: NSObject {
      */
     @objc func applicationActive() {
         TechnicalContext.applicationState = TechnicalContext.ApplicationState.active
+        if LifeCycle.applicationActiveCalled {
+            LifeCycle.applicationActiveCalled = false
+        } else {
+            LifeCycle.applicationActive(self.configuration.parameters)
+        }
+    }
+    
+    @objc public func applicationDidEnterForeground() {
+        LifeCycle.applicationActiveCalled = true
         LifeCycle.applicationActive(self.configuration.parameters)
     }
     
