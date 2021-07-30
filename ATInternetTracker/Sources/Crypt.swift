@@ -168,7 +168,7 @@ class Crypt: NSObject {
 @available(iOS 13.0, *)
 @available(tvOS 13.0, *)
 @available(watchOS 6, *)
-extension SymmetricKey: CustomStringConvertible {
+extension SymmetricKey {
     
     public var description: String {
         return self.rawRepresentation.withUnsafeBytes { bytes in
