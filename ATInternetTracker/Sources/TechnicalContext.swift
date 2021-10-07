@@ -51,7 +51,7 @@ class TechnicalContext: NSObject {
             #if os(watchOS) || os(tvOS)
             return "1.20.5"
             #else
-            return "2.23.5"
+            return "2.23.6"
             #endif
         }
     }
