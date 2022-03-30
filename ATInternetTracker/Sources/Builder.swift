@@ -429,7 +429,23 @@ class Builder: Operation {
                     }
                     strValue = createJSON(object: result);
                 }
-                if json is Array<Any> {
+                if json is Array<String> {
+                    var result = Array<String>()
+                    for p in json as! Array<String> {
+                        result.append(p)
+                    }
+                    for closureValue in paramValues {
+                        let appendValue = closureValue()
+                        let appendValueJSON = parseJSON(str: appendValue)
+                        if appendValueJSON != nil && appendValueJSON is Array<String> {
+                            for val in appendValueJSON as! Array<String> {
+                                result.append(val)
+                            }
+                        }
+                    }
+                    strValue = result.description
+                }
+                else if json is Array<Any> {
                     var result = Array<Any>()
                     for p in json as! Array<Any> {
                         result.append(p)

@@ -1029,9 +1029,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4F47A3E41D351E8100702747 /* Build configuration list for PBXNativeTarget "Tracker iOS" */;
 			buildPhases = (
+				4F47A3DB1D351E8100702747 /* Headers */,
 				4F47A3D91D351E8100702747 /* Sources */,
 				4F47A3DA1D351E8100702747 /* Frameworks */,
-				4F47A3DB1D351E8100702747 /* Headers */,
 				4F47A3DC1D351E8100702747 /* Resources */,
 			);
 			buildRules = (
@@ -1047,9 +1047,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4F47A3FE1D351EA700702747 /* Build configuration list for PBXNativeTarget "Tracker tvOS" */;
 			buildPhases = (
+				4F47A3F61D351EA700702747 /* Headers */,
 				4F47A3F41D351EA700702747 /* Sources */,
 				4F47A3F51D351EA700702747 /* Frameworks */,
-				4F47A3F61D351EA700702747 /* Headers */,
 				4F47A3F71D351EA700702747 /* Resources */,
 			);
 			buildRules = (
@@ -1065,9 +1065,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4F47A40D1D351F9C00702747 /* Build configuration list for PBXNativeTarget "Tracker watchOS" */;
 			buildPhases = (
+				4F47A4051D351F9C00702747 /* Headers */,
 				4F47A4031D351F9C00702747 /* Sources */,
 				4F47A4041D351F9C00702747 /* Frameworks */,
-				4F47A4051D351F9C00702747 /* Headers */,
 				4F47A4061D351F9C00702747 /* Resources */,
 			);
 			buildRules = (
@@ -1083,9 +1083,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4F47A4371D3532A900702747 /* Build configuration list for PBXNativeTarget "Tracker iOS Extension" */;
 			buildPhases = (
+				4F47A42F1D3532A900702747 /* Headers */,
 				4F47A42D1D3532A900702747 /* Sources */,
 				4F47A42E1D3532A900702747 /* Frameworks */,
-				4F47A42F1D3532A900702747 /* Headers */,
 				4F47A4301D3532A900702747 /* Resources */,
 			);
 			buildRules = (
@@ -1815,6 +1815,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1866,6 +1867,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1918,7 +1920,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				BITCODE_GENERATION_MODE = bitcode;
-				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1987,7 +1989,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				BITCODE_GENERATION_MODE = bitcode;
-				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2443,6 +2445,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2496,6 +2499,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2542,6 +2546,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2595,6 +2600,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
