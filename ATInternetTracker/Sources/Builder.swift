@@ -429,7 +429,7 @@ class Builder: Operation {
                     }
                     strValue = createJSON(object: result);
                 }
-                if json is Array<String> {
+                if json is Array<String> && p.key != "apvr" {
                     var result = Array<String>()
                     for p in json as! Array<String> {
                         result.append(p)
