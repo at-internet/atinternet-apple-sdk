@@ -846,7 +846,7 @@ public class Tracker: NSObject {
             
             newValues.append(value)
             param.values = newValues
-            buffer.persistentParameters[key] = param
+            buffer.persistentParameters.setValue(value: param, forKeyPath: key)
         } else {
             if options.append {
                 if let existingParam = buffer.volatileParameters[key] {
@@ -858,7 +858,7 @@ public class Tracker: NSObject {
             }
             newValues.append(value)
             param.values = newValues
-            buffer.volatileParameters[key] = param
+            buffer.volatileParameters.setValue(value: param, forKeyPath: key)
         }
     }
     
