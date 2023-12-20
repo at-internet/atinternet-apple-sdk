@@ -137,7 +137,7 @@ class Sender: Operation {
                     }
                 }
         } else {
-            let URL = Foundation.URL(string: hit.url)
+            let URL = Foundation.URL(percentEncodedString: hit.url)
             
             if let optURL = URL {
                 // Si l'opération n'a pas été annulée on envoi sinon on sauvegarde le hit

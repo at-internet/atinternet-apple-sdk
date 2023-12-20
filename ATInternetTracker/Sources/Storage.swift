@@ -472,7 +472,7 @@ class Storage: StorageProtocol {
             return nil
         }
         if let _ = self.managedObjectContext {
-            if let url = URL(string: hitId) {
+            if let url = URL(percentEncodedString: hitId) {
                 return newPrivateContext().persistentStoreCoordinator?.managedObjectID(forURIRepresentation: url)
             }
         }
@@ -718,7 +718,7 @@ class Storage: StorageProtocol {
      :params: olt value to add to querystring
      */
     func buildHitToStore(_ hit: String, olt: String) -> String {
-        let url = URL(string: hit)
+        let url = URL(percentEncodedString: hit)
         
         if let optURL = url {
             let urlComponents = optURL.query!.components(separatedBy: "&")

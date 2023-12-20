@@ -161,7 +161,7 @@ class ProcessedHitType: NSObject {
         var hitType = HitType.screen
         
         if(url != "") {
-            let hitUrl = URL(string: self.url)
+            let hitUrl = URL(percentEncodedString: self.url)
             if let optURL = hitUrl {
                 
                 guard let query = optURL.query else {
