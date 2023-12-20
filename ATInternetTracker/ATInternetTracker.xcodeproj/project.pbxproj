@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1311F4E52B31C45300162280 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1311F4E42B31C45300162280 /* URLExtension.swift */; };
+		1311F4E62B31C45300162280 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1311F4E42B31C45300162280 /* URLExtension.swift */; };
+		1311F4E72B31C45300162280 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1311F4E42B31C45300162280 /* URLExtension.swift */; };
+		1311F4E82B31C45300162280 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1311F4E42B31C45300162280 /* URLExtension.swift */; };
+		1311F4E92B31C45300162280 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1311F4E42B31C45300162280 /* URLExtension.swift */; };
+		1311F4EA2B31C45300162280 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1311F4E42B31C45300162280 /* URLExtension.swift */; };
 		4F47A3E21D351E8100702747 /* Tracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F47A3E11D351E8100702747 /* Tracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F47A4471D3541C500702747 /* ATInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4461D3541C500702747 /* ATInternet.swift */; };
 		4F47A4481D3541C500702747 /* ATInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F47A4461D3541C500702747 /* ATInternet.swift */; };
@@ -547,6 +553,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1311F4E42B31C45300162280 /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtension.swift; sourceTree = "<group>"; };
 		4F47A3DE1D351E8100702747 /* Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F47A3E11D351E8100702747 /* Tracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tracker.h; sourceTree = "<group>"; };
 		4F47A3F91D351EA700702747 /* tvOSTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = tvOSTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -887,6 +894,7 @@
 				4F47A6281D3624AF00702747 /* DictionaryExtension.swift */,
 				4F47A6291D3624AF00702747 /* NSObjectExtension.swift */,
 				4F47A5C61D36223D00702747 /* StringExtension.swift */,
+				1311F4E42B31C45300162280 /* URLExtension.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -1338,6 +1346,7 @@
 				CC1FE8A72159FE4D006FE401 /* Medium.swift in Sources */,
 				4F47A4621D3542A400702747 /* Builder.swift in Sources */,
 				4F47A6631D36425A00702747 /* DictionaryExtension.swift in Sources */,
+				1311F4E52B31C45300162280 /* URLExtension.swift in Sources */,
 				4F47A5211D35446700702747 /* Video.swift in Sources */,
 				4F47A5051D35446700702747 /* Order.swift in Sources */,
 				4F47A4D51D35446700702747 /* CustomVar.swift in Sources */,
@@ -1379,6 +1388,7 @@
 				4F47A4E71D35446700702747 /* InternalSearch.swift in Sources */,
 				4F47A4CB1D35446700702747 /* Cart.swift in Sources */,
 				4F47A50F1D35446700702747 /* Publisher.swift in Sources */,
+				1311F4E72B31C45300162280 /* URLExtension.swift in Sources */,
 				4F47A4841D3542A400702747 /* Sender.swift in Sources */,
 				CC2DC3D7227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */,
 				4F47A4741D3542A400702747 /* Hit.swift in Sources */,
@@ -1439,6 +1449,7 @@
 				4F47A4D01D35446700702747 /* CustomObject.swift in Sources */,
 				CC704B6A21B6BE3A00114A86 /* DisplayCart.swift in Sources */,
 				4F47A6661D36425C00702747 /* DictionaryExtension.swift in Sources */,
+				1311F4E82B31C45300162280 /* URLExtension.swift in Sources */,
 				4F47A5001D35446700702747 /* Offline.swift in Sources */,
 				CC704B4021B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */,
 				4F47A4811D3542A400702747 /* Plugin.swift in Sources */,
@@ -1537,6 +1548,7 @@
 				4F47A51A1D35446700702747 /* SelfPromotion.swift in Sources */,
 				4F47A4EE1D35446700702747 /* LiveVideo.swift in Sources */,
 				4F47A4C21D35446700702747 /* Audio.swift in Sources */,
+				1311F4E62B31C45300162280 /* URLExtension.swift in Sources */,
 				4F47A4831D3542A400702747 /* Sender.swift in Sources */,
 				CC2DC3D6227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */,
 				CC704B7D21B6C8AA00114A86 /* DisplayProduct.swift in Sources */,
@@ -1677,6 +1689,7 @@
 				4F47A7EB1D3D134F00702747 /* CartTests.swift in Sources */,
 				4F47A80D1D3D17C800702747 /* CustomObject.swift in Sources */,
 				4F47A80B1D3D17C500702747 /* Cart.swift in Sources */,
+				1311F4E92B31C45300162280 /* URLExtension.swift in Sources */,
 				CC704B5621B6AFF500114A86 /* GeneratedEvents.swift in Sources */,
 				4F47A7F01D3D135C00702747 /* CustomTreeStructureTests.swift in Sources */,
 				4F47A81F1D3D17FC00702747 /* OnAppAd.swift in Sources */,
@@ -1725,6 +1738,7 @@
 				CC2DC3DA227826B2008A2B96 /* CartAwaitingPayment.swift in Sources */,
 				CC704B4221B65B5E00114A86 /* EcommerceObjectProperties.swift in Sources */,
 				4FF5941C1D3F61A60004D336 /* BuilderTests.swift in Sources */,
+				1311F4EA2B31C45300162280 /* URLExtension.swift in Sources */,
 				4FF594371D3F66250004D336 /* TechnicalContext.swift in Sources */,
 				4FF5941B1D3F61A60004D336 /* BufferTests.swift in Sources */,
 				4FF5942D1D3F63800004D336 /* ParameterTests.swift in Sources */,
@@ -1967,7 +1981,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 2.23.9;
+				MARKETING_VERSION = 2.23.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atinternet.Tracker;
@@ -2029,7 +2043,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 2.23.9;
+				MARKETING_VERSION = 2.23.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atinternet.Tracker;
 				PRODUCT_NAME = Tracker;
@@ -2095,7 +2109,7 @@
 				INFOPLIST_FILE = "Sources/Info-tvOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 1.20.9;
+				MARKETING_VERSION = 1.20.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atinternet.Tracker;
@@ -2158,7 +2172,7 @@
 				INFOPLIST_FILE = "Sources/Info-tvOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 1.20.9;
+				MARKETING_VERSION = 1.20.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atinternet.Tracker;
 				PRODUCT_NAME = tvOSTracker;
@@ -2226,7 +2240,7 @@
 				INFOPLIST_FILE = "Sources/Info-watchOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 1.20.9;
+				MARKETING_VERSION = 1.20.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atinternet.Tracker;
@@ -2289,7 +2303,7 @@
 				INFOPLIST_FILE = "Sources/Info-watchOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 1.20.9;
+				MARKETING_VERSION = 1.20.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.atinternet.Tracker;
 				PRODUCT_NAME = watchOSTracker;
@@ -2358,7 +2372,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 2.23.9;
+				MARKETING_VERSION = 2.23.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -2426,7 +2440,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MARKETING_VERSION = 2.23.9;
+				MARKETING_VERSION = 2.23.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode",
